@@ -1,17 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    
-    // Welcome screen -----------------------------------------------------------
-
-    // Start over with new data (to be replaced with Excel upload)
-    document.getElementById('start-over-btn').addEventListener('click', function(event){
-        showTable('position-page', 'welcome-page');
-    })
-    // Load last saved session
-    document.getElementById('load-saved-data-btn').addEventListener('click', function(event){
-        loadTableData();
-        showTable('position-page', 'welcome-page');
-    });
+    // Load from last local storage
+    loadTableData();
 
     // Add new row to the position table
     document.querySelector('.btn-add').addEventListener('click', addRow);
