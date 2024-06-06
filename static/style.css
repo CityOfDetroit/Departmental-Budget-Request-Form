@@ -106,3 +106,7 @@ tr td {
 #position-page {
     display: none;
 }
+
+#welcome-page {
+    display: block;
+}
