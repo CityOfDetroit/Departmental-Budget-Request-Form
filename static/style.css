@@ -1,0 +1,108 @@
+:root {
+    --orange: #FB6523;
+    --yellow: #D99733;
+    --blue: #43748E;
+    --lightBlue: #b7c9e2;
+    --darkGray: #373A37;
+    --lightGray: #D7DAD7;
+    --white: #FBFDFB;
+    --black: #212121;
+    --green: #71BC78;
+    font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+}
+
+h1 {
+    text-align: center;
+}
+
+body {
+    margin: 20px;
+}
+
+.sidebar {
+    min-height: 100vh; /* Full height of viewport */
+}
+
+.delete {
+    background-color: #ee9286;
+}
+.delete .btn-delete, .keep .btn-carryover, .supp .btn-supplemental {
+    background-color: #373A37;
+}
+.keep {
+    background-color: #90ee90;
+}
+.supp {
+    background-color: #e0b472;
+}
+
+.btn {
+    cursor:pointer;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: gray;
+    color: white; 
+}
+.btn-delete {
+    background-color: var(--orange);
+    color: white;
+}
+.btn-supplemental {
+    background-color: var(--yellow);
+    color: white;
+}
+.btn-carryover {
+    background-color: var(--green);
+    color: white;
+}
+.btn-add {
+    background-color: var(--blue);
+    color: white;
+}
+
+.new-row{
+    margin: 20px;
+    text-align: center;
+}
+.next-button-row {
+    text-align: right;
+}
+
+/* Some additional styling to the table for aesthetics */
+.table-container {
+    margin-top: 20px;
+}
+
+
+thead > tr > th {
+    text-align: left;
+}
+
+th {
+    background-color: var(--lightGray);
+}
+
+tr {
+    border-width: 2px;
+}
+
+tr td {
+    border-bottom: 1px solid black;
+}
+
+.col-employee { min-width: 8em; }
+.col-job { min-width: 8em; }
+.col-salary { min-width: 5em; }
+.col-fund { min-width: 6em; }
+.col-appropriation { min-width: 8em; }
+.col-cost-center { min-width: 5em; }
+.col-actions { min-width: 27em; }
+
+#sidebar {
+  background-color: lightgrey;  
+}
+
+#position-page {
+    display: none;
+}
