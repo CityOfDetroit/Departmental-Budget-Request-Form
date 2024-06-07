@@ -14,17 +14,17 @@ function updateDisplay() {
     // document.getElementById('target').textContent = formatCurrency(target);
     // update current and supp 
     // TODO rename these
-    document.getElementById('current').textContent = formatCurrency(current);
-    document.getElementById('supps').textContent = formatCurrency(supp);
+    document.getElementById('personnel-baseline').textContent = formatCurrency(personnel_baseline);
+    document.getElementById('personnel-supp').textContent = formatCurrency(personnel_supp);
     // update bottom lines
-    supp_total = supp_revenue + supp;
-    baseline_total = baseline_revenue + current;
-    document.getElementById('baseline_total').textContent = formatCurrency(baseline_total);
-    document.getElementById('supp_total').textContent = formatCurrency(supp_total);
-    if(baseline_total >= target){
-        document.getElementById('baseline_total').style.color = "green";
+    supp_total = -supp_revenue + personnel_supp;
+    baseline_total = -baseline_revenue + personnel_baseline;
+    document.getElementById('baseline-total').textContent = formatCurrency(baseline_total);
+    document.getElementById('supp-total').textContent = formatCurrency(supp_total);
+    if(baseline_total <= target){
+        document.getElementById('baseline-total').style.color = "green";
     }
-    if(baseline_total < target){
-        document.getElementById('baseline_total').style.color = "red";
+    if(baseline_total > target){
+        document.getElementById('baseline-total').style.color = "red";
     }
 }

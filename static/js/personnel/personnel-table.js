@@ -14,9 +14,9 @@ function handleActionClick(event) {
         // update variable counters
         const salary = parseInt(event.target.closest('tr').querySelector('.salary').getAttribute('data-salary'));
         if (rowClass == "keep"){
-            current += salary;
+            personnel_baseline -= salary;
         } else if (rowClass == "supp"){
-            supp += salary;
+            personnel_supp -= salary;
         };
         updateDisplay();
     }
@@ -32,10 +32,10 @@ function handleActionClick(event) {
         // change counters
         const salary = parseInt(event.target.closest('tr').querySelector('.salary').getAttribute('data-salary'));
         if (rowClass == "keep"){
-            current += salary
+            personnel_baseline -= salary
         };
         if (rowClass != "supp"){
-            supp -= salary;
+            personnel_supp += salary;
         };
         updateDisplay();
     }
@@ -51,10 +51,10 @@ function handleActionClick(event) {
         // update counter
         const salary = parseInt(event.target.closest('tr').querySelector('.salary').getAttribute('data-salary'));
         if (rowClass == "supp"){
-            supp += salary;
+            personnel_supp -= salary;
         } ;
         if (rowClass != "keep"){
-            current -= salary;
+            personnel_baseline += salary;
         } ;           
         updateDisplay();
     }

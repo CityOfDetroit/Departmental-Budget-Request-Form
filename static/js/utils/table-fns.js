@@ -70,8 +70,10 @@ function addRow() {
     }
     var lastCell = newRow.insertCell(cols-1);
     lastCell.innerHTML = `
-        <button class="btn btn-delete">DELETE</button>
-        <button class="btn btn-supplemental">MAKE SUPPLEMENTAL</button>
-        <button class="btn btn-carryover">KEEP IN FY26</button>
-    `;
+        <div class="action-btns">
+            <button class="btn btn-delete">DELETE</button>
+            <button class="btn btn-supplemental">SUPPLEMENTAL</button>
+            <button class="btn btn-carryover">KEEP IN FY26</button>
+        </div>
+            `;
 }

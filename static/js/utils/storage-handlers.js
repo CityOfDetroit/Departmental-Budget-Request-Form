@@ -1,8 +1,5 @@
 /**
  * Saves employee table data and budget counters in local storage.
- * 
- * @param {number} current The current value for the budget spend
- * @param {number} supp The current value for the supplemental request
  */
 function saveTableData() {
     var table = document.getElementById("employee-table");
@@ -26,8 +23,8 @@ function saveTableData() {
     // Save JSON string to localStorage
     localStorage.setItem("employeeTableData", JSON.stringify(tableData));
     // also save counters in sidebar
-    localStorage.setItem('current', current.toString());
-    localStorage.setItem('supp', supp.toString());
+    localStorage.setItem('personnel_baseline', personnel_baseline.toString());
+    localStorage.setItem('personnel_supp', personnel_supp.toString());
 }
 
 /**
@@ -57,16 +54,18 @@ function loadTableData() {
                 
                 var lastCell = newRow.insertCell(ncols-1);
                 lastCell.innerHTML = `
+                <div class="action-btns">
                     <button class="btn btn-delete">DELETE</button>
-                    <button class="btn btn-supplemental">MAKE SUPPLEMENTAL</button>
+                    <button class="btn btn-supplemental">SUPPLEMENTAL</button>
                     <button class="btn btn-carryover">KEEP IN FY26</button>
+                </div>
                 `;
                 newRow.classList.add(tableData[i][ncols-1]);
             }
 
             //retrieve counter values
-            current = parseInt(localStorage.getItem('current'), 10);
-            supp = parseInt(localStorage.getItem('supp'), 10);
+            personnel_baseline = parseInt(localStorage.getItem('personnel_baseline'), 10);
+            personnel_supp = parseInt(localStorage.getItem('personnel_supp'), 10);
             updateDisplay();
         }
 }

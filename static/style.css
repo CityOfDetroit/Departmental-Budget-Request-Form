@@ -40,6 +40,7 @@ body {
 .btn {
     cursor:pointer;
     padding: 10px;
+    margin-top: 5px;
     border-radius: 10px;
     background-color: gray;
     color: white; 
@@ -91,14 +92,14 @@ tr td {
     border-bottom: 1px solid black;
 }
 
-.col-employee { min-width: 8em; }
-.col-job { min-width: 8em; }
-.col-salary { min-width: 5em; }
-.col-fund { min-width: 6em; }
-.col-appropriation { min-width: 8em; }
-.col-cost-center { min-width: 5em; }
-.col-actions { min-width: 27em; }
-
 #sidebar {
   background-color: lightgrey;  
+}
+
+.action-btns {
+    text-align: center;
+}
+
+#supp-total {
+    color: var(--yellow);
 }
