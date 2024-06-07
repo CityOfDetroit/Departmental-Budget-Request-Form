@@ -49,9 +49,13 @@ function loadTableData() {
                 for (var j = 0; j < ncols-1; j++) {
                     var newCell = newRow.insertCell(j);
                     newCell.innerText = tableData[i][j];
+                    // Add the cost column  
+                    if (j == ncols-2){
+                        newCell.classList.add('cost');
+                        newCell.setAttribute('cost', unformatCurrency(tableData[i][j]));
+                    }
                 }
                 // Add the action buttons and load saved class
-                
                 var lastCell = newRow.insertCell(ncols-1);
                 lastCell.innerHTML = `
                 <div class="action-btns">

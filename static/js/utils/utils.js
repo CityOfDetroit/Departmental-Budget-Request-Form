@@ -9,6 +9,14 @@ const formatCurrency = (amount) => {
     return '$' + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 } ;
 
+// function to convert formatted number to a float
+const unformatCurrency = (formattedAmount) => {
+    // Remove any currency symbols and commas
+    let numericalPart = formattedAmount.replace(/[^0-9.-]+/g, "");
+    return parseFloat(numericalPart);
+};
+
+
 // Function to update the display of the current and supp variables
 function updateDisplay() {
     // document.getElementById('target').textContent = formatCurrency(target);

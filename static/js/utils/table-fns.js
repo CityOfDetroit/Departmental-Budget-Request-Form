@@ -35,41 +35,45 @@ function enableEditingForSalaryCell(cell) {
 }
 
 // The modified addTextboxCell function
-function addTextboxCell(cell, isSalaryCell = false) {
+function addTextboxCell(cell) {
     var textbox = document.createElement('input');
     textbox.type = 'text';
     textbox.placeholder = isSalaryCell ? 'Enter salary' : 'Type value';
     textbox.style.width = "100%"; // Modified the width to fit the cell
     cell.appendChild(textbox); // Add the textbox to the cell
+}
 
-    if (isSalaryCell) {
-        cell.classList.add('salary'); // Ensure the cell has a 'salary' class
-        enableEditingForSalaryCell(cell); // Make the cell editable on click
-        textbox.onblur = function() {
-            var enteredValue = textbox.value;
-            cell.setAttribute('data-salary', enteredValue);
-            updateDisplay();
-        }
+// Add editable cell for cost data
+function addCostCell(cell){
+    cell.classList.add('cost'); // Ensure the cell has a 'salary' class
+    enableEditingForSalaryCell(cell); // Make the cell editable on click
+    textbox.onblur = function() {
+        var enteredValue = textbox.value;
+        cell.setAttribute('cost', enteredValue);
+        updateDisplay();
     }
 }
 
 function addRow() {
-    var table = document.getElementById("employee-table");
+    let table_id = "employee-table"
+    var table = document.getElementById(table_id);
     var newRow = table.insertRow(-1);
     // var newNameCell = newRow.insertCell(0);
     // count number of table columns using jQuery
-    let cols = $("#employee-table tr th").length; 
-    for (let i = 0; i < cols-1; i++) {
+    let key = "#" + table_id + " tr th";
+    let cols = $(key).length; 
+    for (let i = 0; i < cols-2; i++) {
         var nextCell = newRow.insertCell(i);
-        if (i === 2) { // Check if it's the third cell
-            // Pass true so that the function knows this is a salary cell
-            addTextboxCell(nextCell, true);
-        } else {
-            addTextboxCell(nextCell);
-        };
+        addTextboxCell(nextCell);
     }
-    var lastCell = newRow.insertCell(cols-1);
-    lastCell.innerHTML = `
+
+    // Cost cell will always be second to last
+    var costCell = newRow.insertCell(cols-2);
+    addCostCell(costCell);
+
+    // Last cell is the action cell with 3 buttons
+    var actionCell = newRow.insertCell(cols-1);
+    actionCell.innerHTML = `
         <div class="action-btns">
             <button class="btn btn-delete">DELETE</button>
             <button class="btn btn-supplemental">SUPPLEMENTAL</button>
