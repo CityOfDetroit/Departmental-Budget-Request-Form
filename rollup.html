@@ -23,7 +23,6 @@
 <script src="static/js/init.js"></script>
 <script src="static/js/utils/utils.js"></script>
 <script src="static/js/utils/storage-handlers.js"></script>
-<script src="static/js/utils/table-fns.js"></script>
 <script src="static/js/utils/excel-export.js"></script>
 <script src="static/js/rollup/rollup-helpers.js"></script>
 <script src="static/js/rollup/main.js"></script>
@@ -58,7 +57,7 @@
                             <th class="col-avg-salary">Average Salary</th>
                             <th class="col-total">Total Cost (Baseline)</th>
                             <th class="col-total">Total Cost (Supplementary)</th>
-                            <th class="col-action">Action</th>
+                            <!-- <th class="col-action">Action</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -83,16 +82,16 @@
                                 </button>
                                   
                             </td> 
-                            <td>1</td>
-                            <td>0</td>
-                            <td class="cost salary" cost="150000">$150,000</td>
-                            <td class="total-baseline-rollup" cost=""></td>
-                            <td class="total-supp-rollup" cost=""></td>
-                            <td>
+                            <td value="1">1</td>
+                            <td value="0">0</td>
+                            <td class="cost salary" value="150000">$150,000</td>
+                            <td class="cost keep total-baseline" value=""></td>
+                            <td class="cost supp total-supp" value=""></td>
+                            <!-- <td>
                                 <div class="action">
                                     <button class="btn confirm-btn">Confirm</button>
                                 </div>
-                            </td>
+                            </td> -->
                         </tr>
 
                     </tbody>
@@ -166,7 +165,8 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="infoModalLabel">Account</h5>
+          <h5 class="modal-title" id="infoModalLabel">Edit account string for
+          <span id="job-name"></span></h5>
           <button type="button" id="modal-close-x" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -179,6 +179,7 @@
                 <option value="2490">2490 - Construction Code Fund</option>
             </select>
           <br>
+          <br>
 
           <strong>Appropriation:  </strong><span id="modal-fund">
             <select name="dropdown-approp" id="dropdown-approp">
@@ -186,6 +187,7 @@
                 <option value="21206">21206 - 2023 Michigan Indigent Defense Commission</option>
                 <option value="25130">25130 - BSEED Safe Buildings</option>
             </select>
+          <br>
           <br>
 
           <strong>Cost Center:  </strong><span id="modal-fund">

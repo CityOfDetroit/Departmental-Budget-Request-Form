@@ -12,6 +12,8 @@ function handleAccountEdit(event) {
     var rowToEdit = event.target.closest('tr');
     // mark row as being edited
     rowToEdit.id = 'editing';
+    var job_name = rowToEdit.cells[0].textContent;
+    document.getElementById('job-name').textContent = job_name;
 }
 
 function exitAccountEditModal() {

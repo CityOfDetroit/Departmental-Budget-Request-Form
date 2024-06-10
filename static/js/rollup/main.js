@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var editButtons = document.getElementsByClassName('btn-edit');
     for (var i = 0; i < editButtons.length; i++) {
         editButtons[i].addEventListener('click', handleAccountEdit);
-    }    
+    };    
     // Remove edit marker when finished
     document.getElementById('modal-close-x').addEventListener('click', exitAccountEditModal);
     document.getElementById('modal-done-btn').addEventListener('click', exitAccountEditModal);

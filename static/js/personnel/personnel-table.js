@@ -14,7 +14,7 @@ function handleActionClick(event) {
         }
         currentRow.classList.add("delete");
         // update variable counters
-        const salary = parseInt(event.target.closest('tr').querySelector('.cost').getAttribute('cost'));
+        const salary = parseInt(event.target.closest('tr').querySelector('.cost').getAttribute('value'));
         if (rowClass == "keep"){
             personnel_baseline -= salary;
         } else if (rowClass == "supp"){
@@ -32,7 +32,7 @@ function handleActionClick(event) {
         }
         currentRow.classList.add("supp");
         // change counters
-        const salary = parseInt(event.target.closest('tr').querySelector('.cost').getAttribute('cost'));
+        const salary = parseInt(event.target.closest('tr').querySelector('.cost').getAttribute('value'));
         if (rowClass == "keep"){
             personnel_baseline -= salary
         };
@@ -51,7 +51,7 @@ function handleActionClick(event) {
         }
         currentRow.classList.add("keep");
         // update counter
-        const salary = parseInt(event.target.closest('tr').querySelector('.cost').getAttribute('cost'));
+        const salary = parseInt(event.target.closest('tr').querySelector('.cost').getAttribute('value'));
         if (rowClass == "supp"){
             personnel_supp -= salary;
         } ;
@@ -61,7 +61,6 @@ function handleActionClick(event) {
         updateDisplay();
     }
 }
-
 
 // Add row for personnel table
 function addRow() {
@@ -74,12 +73,13 @@ function addRow() {
     let cols = $(key).length; 
     for (let i = 0; i < cols-2; i++) {
         var nextCell = newRow.insertCell(i);
-        addTextboxCell(nextCell);
+        createEditableCell(nextCell, 'value');
     }
 
     // Cost cell will always be second to last
     var costCell = newRow.insertCell(cols-2);
-    addCostCell(costCell);
+    createEditableCell(costCell, 'value', formatCurrency, updateDisplay, validateNumber);
+    costCell.classList.add('cost')
 
     // Last cell is the action cell with 3 buttons
     var actionCell = newRow.insertCell(cols-1);

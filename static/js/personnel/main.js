@@ -11,12 +11,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Add an event listener for the save button
     document.getElementById('save').addEventListener('click', function() {
-        saveTableData("employeeTableData");
+        saveTableData("employee-table", 'employeeTableData');
     });
 
     // Add an event listener for the download button
     document.getElementById('XLSX-download').addEventListener('click', function() {
-        saveTableData("employee-table");
+        saveTableData('employee-table', 'employeeTableData');
         downloadTableAsExcel('employeeTableData', 'Personnel', 'table-export');
     });
 

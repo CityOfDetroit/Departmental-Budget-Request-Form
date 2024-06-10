@@ -1,7 +1,7 @@
 /**
  * Saves employee table data and budget counters in local storage.
  */
-function saveTableData(table_id = "employee-table") {
+function saveTableData(table_id = "employee-table", save_as = 'employeeTableData') {
     var table = document.getElementById(table_id);
     var rows = table.rows;
     var tableData = [];
@@ -21,10 +21,8 @@ function saveTableData(table_id = "employee-table") {
     }
 
     // Save JSON string to localStorage
-    localStorage.setItem("employeeTableData", JSON.stringify(tableData));
-    // also save counters in sidebar
-    localStorage.setItem('personnel_baseline', personnel_baseline.toString());
-    localStorage.setItem('personnel_supp', personnel_supp.toString());
+    localStorage.setItem(save_as, JSON.stringify(tableData));
+    saveCounters();
 }
 
 /**
@@ -68,8 +66,20 @@ function loadTableData(table_name_in_storage = "employeeTableData") {
             }
 
             //retrieve counter values
-            personnel_baseline = parseInt(localStorage.getItem('personnel_baseline'), 10);
-            personnel_supp = parseInt(localStorage.getItem('personnel_supp'), 10);
-            updateDisplay();
+            loadCounters();
         }
+}
+
+// also save counters in sidebar
+function saveCounters(){
+    localStorage.setItem('personnel_baseline', personnel_baseline.toString());
+    localStorage.setItem('personnel_supp', personnel_supp.toString());
+    // Add more here
+}    
+    
+// load counters in sidebar
+function loadCounters(){
+    personnel_baseline = parseInt(localStorage.getItem('personnel_baseline'), 10);
+    personnel_supp = parseInt(localStorage.getItem('personnel_supp'), 10);
+    updateDisplay();
 }
