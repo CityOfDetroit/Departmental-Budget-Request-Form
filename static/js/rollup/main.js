@@ -34,6 +34,9 @@ document.addEventListener('DOMContentLoaded', function () {
         updateAccountString('dropdown-cc', 'cc-string');
     });
 
+    // Make FTEs editable
+    applyEditableCells('.ftes', 'value', null, updateDisplayandTotals, validateNumber)
+
 });
 
 

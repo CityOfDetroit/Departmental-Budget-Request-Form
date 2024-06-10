@@ -138,3 +138,7 @@ tr td {
     background-color: var(--blue);
     margin-left: 10px;
 }
+
+input {
+    width: 100%;
+}

@@ -23,8 +23,7 @@ const unformatCurrency = (formattedAmount) => {
 // Function to update the display of the current and supp variables
 function updateDisplay() {
     // document.getElementById('target').textContent = formatCurrency(target);
-    // update current and supp 
-    // TODO rename these
+    // update and format sidebar values from variables
     document.getElementById('personnel-baseline').textContent = formatCurrency(personnel_baseline);
     document.getElementById('personnel-supp').textContent = formatCurrency(personnel_supp);
     // update bottom lines
@@ -81,7 +80,6 @@ function createEditableCell(cell, attribute = 'value', formatValueCallback, upda
             let feedback_text = '';
             if (validate){
                 feedback_text = validate(enteredValue);
-                console.log(feedback_text);
             }
 
             // if there's an error, show it
@@ -91,7 +89,6 @@ function createEditableCell(cell, attribute = 'value', formatValueCallback, upda
             } else {
                 // Format and set the cell's text content
                 cell.textContent = formatValueCallback ? formatValueCallback(enteredValue) : enteredValue;
-
                 // If there is an update callback provided, call it
                 if (updateCallback) {
                     updateCallback();
@@ -127,12 +124,12 @@ function createEditableCell(cell, attribute = 'value', formatValueCallback, upda
 }
 
 // Function to apply createEditableCell to all cells matching a given selector
-function applyEditableCells(selector, attribute = 'value', formatValueCallback, updateCallback) {
+function applyEditableCells(selector, attribute = 'value', formatValueCallback, updateCallback, validate) {
     // Select all elements that match the provided selector
     var cells = document.querySelectorAll(selector);
     // Iterate over each cell and make it editable
     cells.forEach(function(cell) {
-        createEditableCell(cell, attribute, formatValueCallback, updateCallback);
+        createEditableCell(cell, attribute, formatValueCallback, updateCallback, validate);
     });
 }
 
