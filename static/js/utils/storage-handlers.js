@@ -1,8 +1,8 @@
 /**
  * Saves employee table data and budget counters in local storage.
  */
-function saveTableData() {
-    var table = document.getElementById("employee-table");
+function saveTableData(table_id = "employee-table") {
+    var table = document.getElementById(table_id);
     var rows = table.rows;
     var tableData = [];
 
@@ -31,8 +31,8 @@ function saveTableData() {
  * Loads employee table data and budget counters from local storage.
  * 
  */
-function loadTableData() {
-        var data = localStorage.getItem("employeeTableData");
+function loadTableData(table_name_in_storage = "employeeTableData") {
+        var data = localStorage.getItem(table_name_in_storage);
         if (data) {
             var tableData = JSON.parse(data);
             var table = document.getElementById("employee-table");

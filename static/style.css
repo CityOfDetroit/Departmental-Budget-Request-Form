@@ -120,3 +120,21 @@ tr td {
 .next-button-row {
     text-align: right;
 }
+
+/* Rollup table */
+
+.btn-info {
+    border-radius: 0%;
+    background-color: var(--lightBlue);
+    margin-left: 10px;
+    color: black;
+}
+
+.confirm-btn:hover {
+    background-color: var(--green);
+}
+
+.btn-edit {
+    background-color: var(--blue);
+    margin-left: 10px;
+}

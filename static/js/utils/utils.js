@@ -1,6 +1,9 @@
 // Function to format number as currency
 const formatCurrency = (amount) => {
     var amount = parseFloat(amount);
+    if (amount == NaN){
+        return "$ -"
+    }
     if (amount < 0){
         return '($' + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + ')';
     } else if (amount == 0) {

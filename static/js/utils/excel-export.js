@@ -1,11 +1,12 @@
 // Download data button
-function downloadTableAsExcel(filename) {
-    // var table = document.getElementById(tableId);
-    // var workbook = XLSX.utils.table_to_book(table);
-    var data = localStorage.getItem("employeeTableData");
+function downloadTableAsExcel(table_name_in_storage, sheet_name, filename = "Detail_sheet") {
+
+    var data = localStorage.getItem(table_name_in_storage);
     if (data) {
+        const workbook = XLSX.utils.book_new();
         var tableData = JSON.parse(data);
-        var workbook = XLSX.utils.json_to_book(tableData);
+        var worksheet = XLSX.utils.json_to_sheet(tableData);
+        XLSX.utils.book_append_sheet(workbook, worksheet, sheet_name);
         XLSX.writeFile(workbook, filename + '.xlsx');
     }
 }

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo Budget Form</title>
+
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" crossorigin="anonymous">
+<!-- CSS -->
+<link rel="stylesheet" href="static/style.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+
+<!-- Bootstrap JS and its dependencies (jQuery & Popper.js) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.4/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+<!-- XLSX JS library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<!-- My scripts -->
+<script src="static/js/init.js"></script>
+<script src="static/js/utils/utils.js"></script>
+<script src="static/js/utils/storage-handlers.js"></script>
+<script src="static/js/utils/table-fns.js"></script>
+<script src="static/js/utils/excel-export.js"></script>
+<script src="static/js/rollup/rollup-helpers.js"></script>
+<script src="static/js/rollup/main.js"></script>
+
+</head>
+<body>
+
+<h1>FY2026 Budget Form</h1>
+
+<div id="position-page">
+<div class="container-fluid">
+
+    <div class="row">
+        
+        <!-- Main content -->
+        <div class="col-md-10">
+ 
+            <h3>Select an action item for each current position in your department.</h3>
+            
+            <!-- Table content inside nested row -->
+            <div class="row">
+                <div class="col-md-12">
+            <div class="table-container">
+                <table class="table table-bordered mt-3" id="employee-table">
+                    <thead class="thead-dark">
+                        <tr class="no-choice-yet">
+                            <th class="col-job">Job Name</th>
+                            <th class="col-service">Service</th>
+                            <th class="col-account">Acount String</th>
+                            <th class="col-baseline-ftes">Baseline FTEs</th>
+                            <th class="col-supp-ftes">Supplemental FTEs</th>
+                            <th class="col-avg-salary">Average Salary</th>
+                            <th class="col-total">Total Cost (Baseline)</th>
+                            <th class="col-total">Total Cost (Supplementary)</th>
+                            <th class="col-action">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Example row with sample data -->
+                        <tr class="no-choice-yet">
+                            <td>Deputy Counsel</td>
+                            <td>
+                                <select name="service" id="service">
+                                    <option value="default"></option>
+                                    <option value="Appeals">Appeals</option>
+                                    <option value="FOIA">FOIA</option>
+                                    <option value="Lobbying">Lobbying</option>
+                                </select>
+                            </td>
+                            <td>
+                                <span class="fund-string">1000</span> -
+                                <span class="approp-string">12345</span> -
+                                <span class="cc-string">654321</span> 
+                                <button type="button" class="btn btn-edit" data-toggle="modal" data-target="#account-string-modal">
+                                    <!-- <i class="fas fa-info-circle"></i> -->
+                                    Edit
+                                </button>
+                                  
+                            </td> 
+                            <td>1</td>
+                            <td>0</td>
+                            <td class="cost salary" cost="150000">$150,000</td>
+                            <td class="total-baseline-rollup" cost=""></td>
+                            <td class="total-supp-rollup" cost=""></td>
+                            <td>
+                                <div class="action">
+                                    <button class="btn confirm-btn">Confirm</button>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Buttons inside nested row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="new-row">
+                <button class="btn btn-add">+ ADD NEW POSITION</button>
+            </div>
+            <div class="next-button-row">
+                <button class="btn btn-save" id="save">
+                    <strong>Save progress</strong>
+                </button>
+                <button class="btn btn-download" id="XLSX-download">
+                    <strong>Download Excel</strong>
+                </button>
+                <button class="btn btn-next">
+                    <strong>>> Continue to overtime estimates</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Sidebar Content -->
+<div class="col-md-2" id="sidebar">
+    <div class="sidebar-content">
+        <br>
+        <h4>
+            Projected FY26 Budget
+        </h4>
+
+    <br>
+    <strong>Baseline</strong>
+    <br>
+    FY25 baseline: <strong><span id="baseline">$250,000</span></strong>
+    <br>
+    FY26 target: <strong><span id="target">$240,000</span></strong>
+    <br>
+    Projected revenue: <strong><span id="baseline-revenue">$ -</span></strong>
+    <br>
+    Personnel cost: <strong><span id="personnel-baseline">$ - </span></strong>
+    <br>
+    <strong>Total baseline: <span id="baseline-total">$ - </span></strong>
+    <br>
+    <br>
+    <strong>Supplemental</strong>
+    <br>
+    Revenue:  <strong><span id="supp-revenue">$ -</span></strong>
+    <br>
+    Personnel cost: <strong><span id="personnel-supp">$ - </span></strong>
+    <br>
+    <strong>Total supplemental: <span id="supp-total">$ - </span></strong>
+
+    </div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+<!-- Modal for account string info -->
+<div class="modal fade" id="account-string-modal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="infoModalLabel">Account</h5>
+          <button type="button" id="modal-close-x" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <strong>Fund:  </strong><span id="modal-fund">
+            <select name="dropdown-fund" id="dropdown-fund">
+                <option value="1000">1000 - General Fund</option>
+                <option value="2119">2119 - FY2020 MIDC GRANT</option>
+                <option value="2490">2490 - Construction Code Fund</option>
+            </select>
+          <br>
+
+          <strong>Appropriation:  </strong><span id="modal-fund">
+            <select name="dropdown-approp" id="dropdown-approp">
+                <option value="29320">29320 - Efficient and Innovative Operations Support</option>
+                <option value="21206">21206 - 2023 Michigan Indigent Defense Commission</option>
+                <option value="25130">25130 - BSEED Safe Buildings</option>
+            </select>
+          <br>
+
+          <strong>Cost Center:  </strong><span id="modal-fund">
+            <select name="dropdown-cc" id="dropdown-cc">
+                <option value="320010">320010 - Law Administration</option>
+                <option value="321111">321111 - Law Department Grants</option>on>
+            </select>
+          <br>
+          </div>
+        <div class="modal-footer">
+          <button type="button" id="modal-done-btn" class="btn btn-secondary" data-dismiss="modal">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</body>
+</html>

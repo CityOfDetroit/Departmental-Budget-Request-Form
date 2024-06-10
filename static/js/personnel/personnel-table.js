@@ -1,3 +1,5 @@
+
+// Manage clicks in the action area of the personnel table
 function handleActionClick(event) {
     // Determine what was clicked on within the table
     var clickedElement = event.target;
@@ -58,4 +60,34 @@ function handleActionClick(event) {
         } ;           
         updateDisplay();
     }
+}
+
+
+// Add row for personnel table
+function addRow() {
+    let table_id = "employee-table"
+    var table = document.getElementById(table_id);
+    var newRow = table.insertRow(-1);
+    // var newNameCell = newRow.insertCell(0);
+    // count number of table columns using jQuery
+    let key = "#" + table_id + " tr th";
+    let cols = $(key).length; 
+    for (let i = 0; i < cols-2; i++) {
+        var nextCell = newRow.insertCell(i);
+        addTextboxCell(nextCell);
+    }
+
+    // Cost cell will always be second to last
+    var costCell = newRow.insertCell(cols-2);
+    addCostCell(costCell);
+
+    // Last cell is the action cell with 3 buttons
+    var actionCell = newRow.insertCell(cols-1);
+    actionCell.innerHTML = `
+        <div class="action-btns">
+            <button class="btn btn-delete">DELETE</button>
+            <button class="btn btn-supplemental">SUPPLEMENTAL</button>
+            <button class="btn btn-carryover">KEEP IN FY26</button>
+        </div>
+            `;
 }
