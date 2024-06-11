@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Load from last local storage
     loadTableData("employeeTableData");
+    loadCounters();
 
     // Add new row to the position table
     document.querySelector('.btn-add').addEventListener('click', addRow);

@@ -23,7 +23,7 @@
 <script src="static/js/utils/utils.js"></script>
 <script src="static/js/utils/storage-handlers.js"></script>
 <script src="static/js/utils/excel-export.js"></script>
-<script src="static/js/personnel/personnel-table.js"></script>
+<script src="static/js/personnel/nonpersonnel-table.js"></script>
 <script src="static/js/personnel/main.js"></script>
 
 </head>
@@ -50,9 +50,8 @@
                         <tr class="no-choice-yet">
                             <th class="col-employee">Vendor</th>
                             <th class="col-fund">Account String</th>
-                            <th class="col-appropriation">Appropriation</th>
-                            <th class="col-cost-center">Cost Center</th>
-                            <th class="col-salary">FY25 Salary</th>
+                            <th class="col-appropriation">Object</th>
+                            <th class="col-salary">Request Total</th>
                             <th class="col-actions">Action</th>
                         </tr>
                     </thead>
@@ -60,11 +59,9 @@
                         <!-- Example row with sample data -->
                         <!-- Repeat similar rows for more data -->
                         <tr class="no-choice-yet">
-                            <td>Jane Doe</td>
-                            <td>Assistant Director</td>
-                            <td>1000</td>
-                            <td>12345</td>
-                            <td>654321</td>
+                            <td>Law Firm LLC</td>
+                            <td>1000-00527-320010</td>
+                            <td>613100</td>
                             <td class="cost salary" value="100000">$100,000</td>
                             <td>
                                 <div class="action-btns">
@@ -76,12 +73,10 @@
                         </tr>
 
                         <tr class="no-choice-yet">
-                            <td>John Doe</td>
-                            <td>TASS III</td>
-                            <td>1000</td>
-                            <td>12345</td>
-                            <td>654321</td>
-                            <td class="cost salary" value="80000">$80,000</td>
+                            <td>Office Supplier</td>
+                            <td>1000-00527-320010</td>
+                            <td>613100</td>
+                            <td class="cost salary" value="10000">$10,000</td>
                             <td>
                                 <div class="action-btns">
                                     <button class="btn btn-delete">DELETE</button>
@@ -92,12 +87,10 @@
                         </tr>
 
                         <tr class="no-choice-yet">
-                            <td>Jane Doe</td>
-                            <td>Analyst</td>
-                            <td>1000</td>
-                            <td>12345</td>
-                            <td>654321</td>
-                            <td class="cost salary" value="60000">$60,000</td>
+                            <td>Software Co.</td>
+                            <td>1000-00527-320010</td>
+                            <td>613100</td>
+                            <td class="cost salary" value="30000">$30,000</td>
                             <td>
                                 <div class="action-btns">
                                     <button class="btn btn-delete">DELETE</button>
@@ -106,39 +99,7 @@
                                 </div>
                             </td>
                         </tr>
-
-
-                        <tr class="no-choice-yet">
-                            <td>Vacant</td>
-                            <td>Administrative Assistant</td>
-                            <td>1000</td>
-                            <td>12345</td>
-                            <td>654321</td>
-                            <td class="cost salary" value="50000">$50,000</td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="btn btn-delete">DELETE</button>
-                                    <button class="btn btn-supplemental">SUPPLEMENTAL</button>
-                                    <button class="btn btn-carryover">KEEP IN FY26</button>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr class="no-choice-yet">
-                            <td>Vacant</td>
-                            <td>Analyst II</td>
-                            <td>1000</td>
-                            <td>12345</td>
-                            <td>654321</td>
-                            <td class="cost salary" value="80000">$80,000</td>
-                            <td>
-                                <div class="action-btns">
-                                    <button class="btn btn-delete">DELETE</button>
-                                    <button class="btn btn-supplemental">SUPPLEMENTAL</button>
-                                    <button class="btn btn-carryover">KEEP IN FY26</button>
-                                </div>
-                            </td>
-                        </tr>
+                        
                     </tbody>
                 </table>
             </div>
@@ -152,19 +113,23 @@
                 <button class="btn btn-add">+ ADD NEW POSITION</button>
             </div>
             <div class="next-button-row">
-                <button class="btn btn-save" id="save">
+                <!-- <button class="btn btn-save" id="save">
                     <strong>Save progress</strong>
-                </button>
+                </button> -->
                 <button class="btn btn-download" id="XLSX-download">
                     <strong>Download Excel</strong>
                 </button>
+                <a href="rollup.html">
+                    <button class="btn btn-last">
+                        <strong><< Previous</strong>
+                    </button>
+                </a>
                 <button class="btn btn-next">
-                    <strong>>> Continue to overtime estimates</strong>
+                    <strong>Continue >></strong>
                 </button>
             </div>
         </div>
     </div>
-
 </div>
 
 <!-- Sidebar Content -->
@@ -178,13 +143,15 @@
     <br>
     <strong>Baseline</strong>
     <br>
-    FY25 baseline: <strong><span id="baseline">$250,000</span></strong>
+    FY25 baseline: <strong><span id="baseline">$2,200,000</span></strong>
     <br>
-    FY26 target: <strong><span id="target">$240,000</span></strong>
+    FY26 target: <strong><span id="target">$2,000,000</span></strong>
     <br>
     Projected revenue: <strong><span id="baseline-revenue">$ -</span></strong>
     <br>
     Personnel cost: <strong><span id="personnel-baseline">$ - </span></strong>
+    <br>
+    Non-personnel cost: <strong><span id="nonpersonnel-baseline">$ - </span></strong>
     <br>
     <strong>Total baseline: <span id="baseline-total">$ - </span></strong>
     <br>
@@ -194,6 +161,8 @@
     Revenue:  <strong><span id="supp-revenue">$ -</span></strong>
     <br>
     Personnel cost: <strong><span id="personnel-supp">$ - </span></strong>
+    <br>
+    Non-personnel cost: <strong><span id="nonpersonnel-supp">$ - </span></strong>
     <br>
     <strong>Total supplemental: <span id="supp-total">$ - </span></strong>
 

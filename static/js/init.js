@@ -1,6 +1,8 @@
 // running tallies of total spend
 let personnel_supp = 0;
 let personnel_baseline = 0;
+let nonpersonnel_supp = 0;
+let nonpersonnel_baseline = 0;
 let target = 2000000;
 let baseline_revenue = 0;
 let supp_revenue = 0;

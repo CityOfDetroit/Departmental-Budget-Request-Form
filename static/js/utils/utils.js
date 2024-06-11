@@ -26,9 +26,11 @@ function updateDisplay() {
     // update and format sidebar values from variables
     document.getElementById('personnel-baseline').textContent = formatCurrency(personnel_baseline);
     document.getElementById('personnel-supp').textContent = formatCurrency(personnel_supp);
+    document.getElementById('nonpersonnel-baseline').textContent = formatCurrency(nonpersonnel_baseline);
+    document.getElementById('nonpersonnel-supp').textContent = formatCurrency(nonpersonnel_supp);
     // update bottom lines
-    supp_total = -supp_revenue + personnel_supp;
-    baseline_total = -baseline_revenue + personnel_baseline;
+    supp_total = -supp_revenue + personnel_supp + nonpersonnel_supp;
+    baseline_total = -baseline_revenue + personnel_baseline +  nonpersonnel_baseline;
     document.getElementById('baseline-total').textContent = formatCurrency(baseline_total);
     document.getElementById('supp-total').textContent = formatCurrency(supp_total);
     if(baseline_total <= target){
