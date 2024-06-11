@@ -120,6 +120,12 @@ tr td {
 .next-button-row {
     text-align: right;
 }
+.btn-next, .btn-last {
+    background-color: var(--blue);
+}
+.btn-next:hover, .btn-last:hover {
+    background-color: var(--yellow);
+}
 
 /* Rollup table */
 
@@ -139,6 +145,30 @@ tr td {
     margin-left: 10px;
 }
 
+/* textbox width in table */
 input {
     width: 100%;
+}
+
+/* Rolled up personnel */
+
+.btn-see-calcs {
+    display: none;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-size: 1.5em;
+    color: var(--blue);
+}
+
+.icon-button:hover {
+    color: var(--orange);
+}
+
+.error-message {
+    color: red;
 }

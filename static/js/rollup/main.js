@@ -37,6 +37,11 @@ document.addEventListener('DOMContentLoaded', function () {
     // Make FTEs editable
     applyEditableCells('.ftes', 'value', null, updateDisplayandTotals, validateNumber)
 
+    // Initialize continue button
+    document.getElementById('continue-btn').addEventListener('click', continueToNonPersonnel);
+
 });
+
+
 
 

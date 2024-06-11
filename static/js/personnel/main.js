@@ -10,9 +10,9 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('employee-table').addEventListener('click', handleActionClick);
 
     // Add an event listener for the save button
-    document.getElementById('save').addEventListener('click', function() {
-        saveTableData("employee-table", 'employeeTableData');
-    });
+    // document.getElementById('save').addEventListener('click', function() {
+    //     saveTableData("employee-table", 'employeeTableData');
+    // });
 
     // Add an event listener for the download button
     document.getElementById('XLSX-download').addEventListener('click', function() {
