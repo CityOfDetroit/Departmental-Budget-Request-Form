@@ -4,10 +4,15 @@
     --blue: #43748E;
     --lightBlue: #b7c9e2;
     --darkGray: #373A37;
-    --lightGray: #D7DAD7;
+    --lightGray: #F2F2F2;
     --white: #FBFDFB;
     --black: #212121;
     --green: #71BC78;
+    --citygreen: #004445;
+    --spiritgreen: #279989;
+    --palegreen: #9FD5B3;
+    --accentyellow: #feb70d;
+    --nearblack: #18252a;
     font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
     font-size: 14px;
 }
@@ -18,28 +23,13 @@ h1 {
     text-align: center;
 }
 
+h2 {
+    color: var(--citygreen);
+    text-align: center;
+}
+
 body {
     margin: 20px;
-}
-
-.sidebar {
-    min-height: 100vh; /* Full height of viewport */
-}
-
-/* Welcome page (index.html) */
-
-#load-saved-data-btn {
-    display: none;
-}
-
-/* Sidebar */
-
-#sidebar {
-    background-color: lightgrey;  
-  }
-
-#supp-total {
-    color: var(--yellow);
 }
 
 /* Button styling */
@@ -51,6 +41,60 @@ body {
     border-radius: 10px;
     background-color: gray;
     color: white; 
+}
+
+/* Welcome page (index.html) */
+
+#load-saved-data-btn {
+    display: none;
+}
+
+.step {
+    width: 15%;
+    height: 55%;
+    font-size: 1.75em;
+}
+
+#step-upload { background-color: var(--blue);}
+#step-initiatives { background-color: var(--orange); }
+#step-revenue {background-color: var(--green);}
+#step-personnel {background-color: var(--citygreen);}
+#step-nonpersonnel {background-color: var(--yellow);}
+#step-finish {background-color: var(--spiritgreen);}
+
+#welcome-page {
+    text-align: center;
+}
+
+/* New initiative page */
+
+.btn-yes { background-color: var(--green);}
+.btn-no {background-color: var(--orange);}
+
+#col-init-explanation{ width: 70%; }
+
+#init-explanation {height: 100px; width: 100%;}
+#submit-btn-container {text-align: center;}
+.btn-submit {background-color: var(--spiritgreen); width: 50%}
+
+#initiative-table-div {
+    display: none;
+    /* text-align: center; */
+}
+
+/* #initiative-table {
+    max-width: 300px;
+} */
+
+/* Sidebar */
+
+#sidebar {
+    background-color: lightgrey;  
+    min-height: 100vh; /* Full height of viewport */
+  }
+
+#supp-total {
+    color: var(--yellow);
 }
 
 /* Table generics */
@@ -107,7 +151,7 @@ tr td {
     color: white;
 }
 .btn-add {
-    background-color: var(--blue);
+    background-color: var(--spiritgreen);
     color: white;
 }
 
@@ -172,3 +216,5 @@ input {
 .error-message {
     color: red;
 }
+
+

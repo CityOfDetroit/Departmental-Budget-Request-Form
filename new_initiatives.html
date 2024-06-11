@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo Budget Form</title>
+
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" crossorigin="anonymous">
+<!-- CSS -->
+<link rel="stylesheet" href="static/style.css">
+
+<!-- Bootstrap JS and its dependencies (jQuery & Popper.js) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.4/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+<!-- My scripts -->
+<script src="static/js/utils/utils.js"></script>
+<script src="static/js/initiatives/main.js"></script>
+
+</head>
+<body>
+
+<h1>FY2026 Budget Form</h1>
+<h2>New Initiatives</h2>
+
+<br>
+<br>
+<br>
+
+<div id="welcome-page">
+    
+    <!-- initial questions to hide once selected -->
+    <div id="initial-questions">
+        <h3>Do you have any new initiatives for FY26?</h3>
+        <br>
+            <button class="btn btn-yes" id="new-inits" data-toggle="modal" data-target="#new-init-modal">
+                Yes
+            </button>
+        <a href="revenue.html">
+            <button class="btn btn-no" id="no-new-inits">
+                No
+            </button>
+        </a>
+    </div>
+
+    <!-- Table to summarize imput initiatives -->
+    <div id="initiative-table-div">
+        <div class="table-container">
+            <table class="table table-bordered mt-3" id="initiative-table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th id="col-init-name">
+                            Initiative name
+                        </th>
+                        <th id="col-init-explanation">
+                            Explanation
+                        </th>
+                        <th id="col-request">
+                            Request estimate ($)
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    
+        <button class="btn btn-add" data-toggle="modal" data-target="#new-init-modal">
+            Add new initiative
+        </button>
+    
+        <div class="next-button-row">
+    
+            <a href="rollup.html">
+                <button class="btn btn-last">
+                    <strong><< Previous</strong>
+                </button>
+            </a>
+            <button class="btn btn-next">
+                <strong>Confirm and continue >></strong>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for new initiatives -->
+<div class="modal fade" id="new-init-modal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="infoModalLabel">Add new initiative</h5>
+          <button type="button" id="modal-close-x" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form id="new-init-form">
+                <div id="name-textbox">
+                    <label for="init-name">Initiative Name:</label>
+                  <input type="text" id="init-name" required>
+                </div>
+                <br>
+                <div id="explanation">
+                    <label for="init-explanation">Explanation:</label>
+                    <br>
+                    <textarea name="init-explanation" rows="5" cols="50" id="init-explanation" required></textarea>
+                  </div>
+                  <br>
+                  <div id="request">
+                    <label for="init-request">Requested amount (numbers only):</label>
+                    <br>
+                    <input type="number" name="init-request" id="init-request" min="0" required>
+                  </div> 
+                  <br>
+                <div id="submit-btn-container">
+                    <input class="btn btn-submit" type="submit" value="Submit">
+                </div>
+            </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
