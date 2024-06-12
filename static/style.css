@@ -90,7 +90,7 @@ body {
 
 #sidebar {
     background-color: lightgrey;  
-    min-height: 100vh; /* Full height of viewport */
+    /* min-height: 100vh; Full height of viewport */
   }
 
 #supp-total {
@@ -138,22 +138,10 @@ tr td {
     background-color: #e0b472;
 }
 
-.btn-delete {
-    background-color: var(--orange);
-    color: white;
-}
-.btn-supplemental {
-    background-color: var(--yellow);
-    color: white;
-}
-.btn-carryover {
-    background-color: var(--green);
-    color: white;
-}
-.btn-add {
-    background-color: var(--spiritgreen);
-    color: white;
-}
+.btn-delete {background-color: var(--orange);}
+.btn-supplemental { background-color: var(--yellow);}
+.btn-carryover {background-color: var(--green);}
+.btn-add { background-color: var(--spiritgreen);}
 
 /* Go to next page */
 
