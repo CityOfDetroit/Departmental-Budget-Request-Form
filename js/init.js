@@ -16,7 +16,6 @@ let baseline_total = personnel_baseline - baseline_revenue;
 
 // page state
 var page_state = 'welcome';
-// updatePageState(page_state);
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -26,8 +25,10 @@ document.addEventListener('DOMContentLoaded', function () {
     switch (page_state){
         case 'welcome':
             initializeWelcomePage();
+            break;
         case 'new-inits':
             loadNewInitiatives();
+            break;
     }
     
 
