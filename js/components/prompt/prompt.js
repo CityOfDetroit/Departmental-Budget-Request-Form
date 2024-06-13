@@ -2,6 +2,11 @@ export function showPrompt(){
     document.getElementById("prompt-div").style.display = "block";
 }
 
+export function hidePrompt(){
+    document.getElementById('prompt-div').style.display = 'none';
+}
+
+
 export function updatePrompt(prompt){
     document.getElementById('prompt').textContent = prompt;
 }

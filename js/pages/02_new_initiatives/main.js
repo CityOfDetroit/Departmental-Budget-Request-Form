@@ -3,6 +3,7 @@ import { showPrompt, updatePrompt, updatePromptButtons } from '../../components/
 import { handleFormSubmissions } from './helpers.js'
 import { updatePageState, loadPageState } from '../../utils/storage-handlers.js'
 import { initializeWelcomePage } from '../00_welcome/main.js'
+import { showNavButtons } from '../../components/nav_buttons/nav_buttons.js'
 
 // Set up links to different pages
 export function loadNewInitiatives() {
@@ -17,6 +18,7 @@ export function loadNewInitiatives() {
     // prepare page view
     hideWelcomeButtons();
     showPrompt();
+    showNavButtons();
 
     // initialize form
 
@@ -26,5 +28,5 @@ export function loadNewInitiatives() {
     });
 
     // initialize buttons
-    docuement.getElementById('btn-last').addEventListener('click', initializeWelcomePage);
+    document.getElementById('btn-last').addEventListener('click', initializeWelcomePage);
 }
