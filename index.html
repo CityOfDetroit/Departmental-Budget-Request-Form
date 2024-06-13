@@ -8,29 +8,61 @@
 <!-- Bootstrap -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" crossorigin="anonymous">
 <!-- CSS -->
-<link rel="stylesheet" href="static/style.css">
+<link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/00_welcome.css">
 
 <!-- Bootstrap JS and its dependencies (jQuery & Popper.js) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.4/dist/umd/popper.min.js" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
-<!-- My scripts -->
-<script src="static/js/init.js"></script>
-<script src="static/js/utils/utils.js"></script>
-<script src="static/js/utils/storage-handlers.js"></script>
-<script src="static/js/welcome/main.js"></script>
-
 </head>
 <body>
 
 <h1>FY2026 Budget Form</h1>
 
+<br>
+<br>
+<br>
+
 <div id="welcome-page">
     
-    <br>
-    <a href="personnel.html"><button class="btn" id="load-saved-data-btn">Load from last saved version</button></a>
-    <a href="personnel.html"><button class="btn" id="start-over-btn">Start over</button></a>
+    <a href="">
+        <button class="btn step" id="step-upload">
+            1. Upload your Excel data
+        </button>
+    </a>
+    
+    <a href="pages/02_new_initiatives.html">
+        <button class="btn step" id="step-initiatives">
+            2. Name any new initiatives
+        </button>
+    </a>
+
+    <a href="">
+        <button class="btn step" id="step-revenue">
+            3. Confirm revenue
+        </button>
+    </a>
+
+    <a href="">
+        <button class="btn step" id="step-personnel">
+            4. Personnel costs
+        </button>
+    </a>
+
+    <a href="">
+        <button class="btn step" id="step-nonpersonnel">
+            5. Non-personnel costs
+        </button>
+    </a>
+
+    <a href="">
+        <button class="btn step" id="step-finish">
+            6. Confirm and finish
+        </button>
+    </a>
+    
 </div>
 
 </body>

@@ -115,7 +115,7 @@ function continueToNonPersonnel(){
     if (validateServiceSelections()){
         saveCounters();
         saveTableData(table_id = "rollup-table", save_as = "rollup_table");
-        window.location.href = "nonpersonnel.html";
+        window.location.href = "05_nonpersonnel.html";
     } else {
         showServiceErrors();
     }

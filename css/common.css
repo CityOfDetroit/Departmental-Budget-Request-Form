@@ -29,7 +29,7 @@ h2 {
 }
 
 body {
-    margin: 20px;
+    margin-top: 20px;
 }
 
 /* Button styling */
@@ -42,49 +42,6 @@ body {
     background-color: gray;
     color: white; 
 }
-
-/* Welcome page (index.html) */
-
-#load-saved-data-btn {
-    display: none;
-}
-
-.step {
-    width: 15%;
-    height: 55%;
-    font-size: 1.75em;
-}
-
-#step-upload { background-color: var(--blue);}
-#step-initiatives { background-color: var(--orange); }
-#step-revenue {background-color: var(--green);}
-#step-personnel {background-color: var(--citygreen);}
-#step-nonpersonnel {background-color: var(--yellow);}
-#step-finish {background-color: var(--spiritgreen);}
-
-#welcome-page {
-    text-align: center;
-}
-
-/* New initiative page */
-
-.btn-yes { background-color: var(--green);}
-.btn-no {background-color: var(--orange);}
-
-#col-init-explanation{ width: 70%; }
-
-#init-explanation {height: 100px; width: 100%;}
-#submit-btn-container {text-align: center;}
-.btn-submit {background-color: var(--spiritgreen); width: 50%}
-
-#initiative-table-div {
-    display: none;
-    /* text-align: center; */
-}
-
-/* #initiative-table {
-    max-width: 300px;
-} */
 
 /* Sidebar */
 
@@ -159,50 +116,17 @@ tr td {
     background-color: var(--yellow);
 }
 
-/* Rollup table */
-
-.btn-info {
-    border-radius: 0%;
-    background-color: var(--lightBlue);
-    margin-left: 10px;
-    color: black;
-}
-
-.confirm-btn:hover {
-    background-color: var(--green);
-}
-
-.btn-edit {
-    background-color: var(--blue);
-    margin-left: 10px;
-}
-
 /* textbox width in table */
 input {
     width: 100%;
-}
-
-/* Rolled up personnel */
-
-.btn-see-calcs {
-    display: none;
-}
-
-.icon-button {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    font-size: 1.5em;
-    color: var(--blue);
-}
-
-.icon-button:hover {
-    color: var(--orange);
 }
 
 .error-message {
     color: red;
 }
 
+/* confirm button */
+.confirm-btn:hover {
+    background-color: var(--green);
+}
 

@@ -1,0 +1,29 @@
+/* Welcome page (index.html) */
+
+.step {
+    width: 90%;
+    height: 100px;
+    font-size: 1.75em;
+    /* margin-top: 10px; */
+    margin-bottom: 10px;
+}
+
+#step-upload { background-color: var(--blue);}
+#step-initiatives { background-color: var(--orange); }
+#step-revenue {background-color: var(--green);}
+#step-personnel {background-color: var(--citygreen);}
+#step-nonpersonnel {background-color: var(--yellow);}
+#step-finish {background-color: var(--spiritgreen);}
+
+.step:hover {
+    color: white;
+    opacity: 50%;;
+}
+
+#welcome-page {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    /* height: 100vh; Take up full viewport height */
+    flex-wrap: wrap; 
+}

@@ -8,7 +8,8 @@
 <!-- Bootstrap -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" crossorigin="anonymous">
 <!-- CSS -->
-<link rel="stylesheet" href="static/style.css">
+<link rel="stylesheet" href="../css/common.css">
+<link rel="stylesheet" href="../css/03_revenue.css">
 
 <!-- Bootstrap JS and its dependencies (jQuery & Popper.js) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
@@ -34,13 +35,13 @@
     <!-- initial questions to hide once selected -->
     <div id="initial-questions">
         <h3>Your revenue projection for FY26 is
-            $<span class="cost" value="0">0</span>
+            $<span id="revenue" class="cost" value="0">0</span>
         </h3>
         <br>
             <button class="btn btn-no" id="edit-revenues" data-toggle="modal" data-target="#new-init-modal">
                 This doesn't look right.
             </button>
-        <a href="rollup.html">
+        <a href="../pages/04_personnel.html">
             <button class="btn btn-yes" id="confirm-revenue">
                 Confirm and continue.
             </button>
