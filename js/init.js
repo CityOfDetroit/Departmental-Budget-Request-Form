@@ -14,13 +14,9 @@ let supp_revenue = 0;
 let supp_total = personnel_supp - supp_revenue;
 let baseline_total = personnel_baseline - baseline_revenue;
 
-// page state
-var page_state = 'welcome';
-
 document.addEventListener('DOMContentLoaded', function () {
 
-    page_state = loadPageState();
-    console.log(page_state);
+    var page_state = loadPageState();
 
     switch (page_state){
         case 'welcome':

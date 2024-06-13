@@ -91,5 +91,6 @@ export function updatePageState(page){
 
 // load page state
 export function loadPageState(page){
-    return localStorage.getItem('page_state');
+    const pageState = localStorage.getItem('page_state');
+    return pageState !== null ? pageState : 'welcome';
 }
