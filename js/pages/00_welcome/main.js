@@ -13,7 +13,6 @@ export function initializeWelcomePage(){
     // page set up
     updateSubtitle("Welcome");
     unhideWelcomeButtons();
-    // todo
     hidePrompt();
     hideNavButtons();
 
