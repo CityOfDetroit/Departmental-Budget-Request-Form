@@ -7,6 +7,6 @@
     text-align: center;
 }
 
-.btn.btn-yes { background-color: var(--green);}
-.btn.btn-no {background-color: var(--orange);}
-.btn.btn-yes, .btn.btn-no{ font-size: 1.5em;}
+#option1 { background-color: var(--green);}
+#option2 {background-color: var(--orange);}
+#option1, #option2 { font-size: 1.5em; }

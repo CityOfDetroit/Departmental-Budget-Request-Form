@@ -1,14 +1,8 @@
-
-document.addEventListener('DOMContentLoaded', function () {
-
-    document.getElementById('new-init-form').addEventListener('submit', function(event) {
-        handleFormSubmissions(event);
-    });
-
-});
-
 // process new initiative submission
-function handleFormSubmissions(event){
+
+// todo: parameterize so that it loads a table based on just the entries from the form
+
+export function handleFormSubmissions(event){
     event.preventDefault(); // Prevent the default form submission
 
     // get values from form

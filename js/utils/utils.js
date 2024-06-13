@@ -47,17 +47,6 @@ function updateDisplay() {
  * of the element and passed through an optional formatting function before being
  * displayed in the cell. An optional callback can be triggered after the update
  * to perform additional actions.
- *
- * @param {HTMLElement} cell - The DOM element representing the cell to be made editable.
- * @param {string} attribute - The attribute name of the cell where the value will be stored.
- * @param {function} [formatValueCallback] - Optional. A function to format the value
- *        before displaying it in the cell. The function must accept a string and return
- *        a formatted string.
- * @param {function} [updateCallback] - Optional. A function to be called after the cell
- *        value has been updated. Use this to trigger any additional side effects or updates
- *        to related data or UI elements.
- * @param {function} [validate] - Optional. A function to validate input and return an error 
- *        message if relevant.
  */
 function createEditableCell(cell, attribute = 'value', formatValueCallback, updateCallback, validate) {
     // Add a click event to the cell to make it editable
@@ -142,3 +131,4 @@ function validateNumber(input){
     };
     return "";
 }
+
