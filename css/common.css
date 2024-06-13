@@ -96,22 +96,6 @@ tr td {
 .btn-carryover {background-color: var(--green);}
 .btn-add { background-color: var(--spiritgreen);}
 
-/* Go to next page */
-
-.new-row{
-    margin: 20px;
-    text-align: center;
-}
-.next-button-row {
-    text-align: right;
-}
-.btn-next, .btn-last {
-    background-color: var(--blue);
-}
-.btn-next:hover, .btn-last:hover {
-    background-color: var(--yellow);
-}
-
 /* textbox width in table */
 input {
     width: 100%;

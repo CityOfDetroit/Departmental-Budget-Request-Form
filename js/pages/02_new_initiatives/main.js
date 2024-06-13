@@ -1,7 +1,8 @@
 import { hideWelcomeButtons } from '../../components/welcome/welcome.js'
 import { showPrompt, updatePrompt, updatePromptButtons } from '../../components/prompt/prompt.js'
 import { handleFormSubmissions } from './helpers.js'
-import { updatePageState } from '../../utils/storage-handlers.js'
+import { updatePageState, loadPageState } from '../../utils/storage-handlers.js'
+import { initializeWelcomePage } from '../00_welcome/main.js'
 
 // Set up links to different pages
 export function loadNewInitiatives() {
@@ -23,4 +24,7 @@ export function loadNewInitiatives() {
     document.getElementById('form-modal').addEventListener('submit', function(event) {
         handleFormSubmissions(event);
     });
+
+    // initialize buttons
+    docuement.getElementById('btn-last').addEventListener('click', initializeWelcomePage);
 }

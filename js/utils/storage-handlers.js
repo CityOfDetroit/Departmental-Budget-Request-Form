@@ -91,5 +91,5 @@ export function updatePageState(page){
 
 // load page state
 export function loadPageState(page){
-    var page_state = localStorage.getItem('page_state');
+    return localStorage.getItem('page_state');
 }
