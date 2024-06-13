@@ -13,12 +13,3 @@
 .btn.btn-submit:hover {
     color: black;
 }
-
-#initiative-table-div {
-    display: none;
-    /* text-align: center; */
-}
-
-#initial-questions {
-    text-align: center;
-}

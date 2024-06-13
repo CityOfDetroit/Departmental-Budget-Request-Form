@@ -1,0 +1,12 @@
+#prompt-div {
+    display: none;
+    text-align: center;
+}
+
+#prompt {
+    text-align: center;
+}
+
+.btn.btn-yes { background-color: var(--green);}
+.btn.btn-no {background-color: var(--orange);}
+.btn.btn-yes, .btn.btn-no{ font-size: 1.5em;}

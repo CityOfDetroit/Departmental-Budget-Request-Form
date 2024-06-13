@@ -24,6 +24,5 @@
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
-    /* height: 100vh; Take up full viewport height */
     flex-wrap: wrap; 
 }

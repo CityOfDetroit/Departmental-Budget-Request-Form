@@ -1,13 +1,10 @@
-document.addEventListener('DOMContentLoaded', function () {
+import { updateSubtitle } from '../../components/header/header.js'
+import { unhideWelcomeButtons } from '../../components/welcome/welcome.js'
 
-    // If starting over, reset storage
-    document.getElementById('start-over-btn').addEventListener('click', function(event){
-        localStorage.setItem("employeeTableData", "");
-    });
+export function initializeWelcomePage(){
 
-    // Show start from saved data button only if there is saved data
-    if (localStorage.getItem("employeeTableData")) {
-        document.getElementById('load-saved-data-btn').style.display = "block"
-    }
+    updateSubtitle("Welcome");
+    unhideWelcomeButtons();
 
-});
+
+}
