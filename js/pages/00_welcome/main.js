@@ -9,7 +9,7 @@ export function initializeWelcomePage(){
 
     // record page state
     updatePageState('welcome');
-
+ 
     // page set up
     updateSubtitle("Welcome");
     unhideWelcomeButtons();

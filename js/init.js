@@ -1,6 +1,7 @@
 // import functions
 import { initializeWelcomePage } from './pages/00_welcome/main.js';
 import { loadNewInitiatives } from './pages/02_new_initiatives/main.js'
+import { loadRevenuePage } from './pages/03_revenue/main.js'
 import { loadPageState, updatePageState } from './utils/storage-handlers.js'
 
 // running tallies of total spend
@@ -25,6 +26,8 @@ document.addEventListener('DOMContentLoaded', function () {
         case 'new-inits':
             loadNewInitiatives();
             break;
+        case 'revenue':
+            loadRevenuePage();
     }
     
 

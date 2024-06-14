@@ -1,17 +1,21 @@
 import { hideWelcomeButtons } from '../../components/welcome/welcome.js'
-import { showPrompt, updatePrompt, updatePromptButtons } from '../../components/prompt/prompt.js'
+import { updateSubtitle } from '../../components/header/header.js'
+import { showPrompt, updatePrompt, updatePromptButtons, addPromptButtonAction } from '../../components/prompt/prompt.js'
 import { handleFormSubmissions } from './helpers.js'
-import { updatePageState, loadPageState } from '../../utils/storage-handlers.js'
+import { updatePageState } from '../../utils/storage-handlers.js'
 import { initializeWelcomePage } from '../00_welcome/main.js'
-import { showNavButtons } from '../../components/nav_buttons/nav_buttons.js'
+import { showNavButtons, updateNavButtonLinks } from '../../components/nav_buttons/nav_buttons.js'
+import { loadRevenuePage } from '../03_revenue/main.js'
+import { addModalLink } from '../../components/modal_form/modal_form.js'
 
-// Set up links to different pages
+// set up page and initialize all buttons
 export function loadNewInitiatives() {
 
     //update page state
     updatePageState('new-inits');
 
     // load text
+    updateSubtitle('New Initiatives');
     updatePrompt('Do you have any new initiatives for FY26?');
     updatePromptButtons('Yes', 'No');
 
@@ -20,13 +24,17 @@ export function loadNewInitiatives() {
     showPrompt();
     showNavButtons();
 
-    // initialize form
+    // initialize modal
+    addModalLink('option1', 'form-modal');
 
     // initialize form submission
     document.getElementById('form-modal').addEventListener('submit', function(event) {
         handleFormSubmissions(event);
     });
+    
+    // initialize nav buttons fn(last, next)
+    updateNavButtonLinks(initializeWelcomePage, loadRevenuePage);
 
-    // initialize buttons
-    document.getElementById('btn-last').addEventListener('click', initializeWelcomePage);
+    // clicking 'No' will also take us to the next page
+    addPromptButtonAction('option2', loadRevenuePage);
 }

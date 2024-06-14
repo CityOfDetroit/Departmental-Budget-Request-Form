@@ -15,3 +15,7 @@ export function updatePromptButtons(option1, option2){
     document.getElementById('option1').textContent = option1;
     document.getElementById('option2').textContent = option2;
 }
+
+export function addPromptButtonAction(button_id, action_fn){
+    document.getElementById(button_id).addEventListener('click', action_fn);
+}
