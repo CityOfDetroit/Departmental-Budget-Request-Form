@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="js/components/header/header.css">
 <link rel="stylesheet" href="js/components/prompt/prompt.css">
 <link rel="stylesheet" href="js/components/nav_buttons/nav_buttons.css">
+<link rel="stylesheet" href="js/components/modal/modal.css">
 
 <!-- Bootstrap JS and its dependencies (jQuery & Popper.js) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
@@ -82,45 +83,18 @@
 
 
 <!-- Modal for new initiatives -->
-<div class="modal fade" id="form-modal" tabindex="-1">
+<div class="modal fade" id="main-modal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="infoModalLabel">Add new initiative</h5>
+            <h5 class="modal-title" id="modal-title"></h5>
           <button type="button" id="modal-close-x" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-            <form id="new-init-form">
-                <div id="name-textbox">
-                    <label for="init-name">Initiative Name:</label>
-                  <input type="text" id="init-name" required>
-                </div>
-                <br>
-                <div id="explanation">
-                    <label for="init-explanation">What is this initiative?</label>
-                    <br>
-                    <textarea name="init-explanation" rows="5" cols="50" id="init-explanation" required></textarea>
-                  </div>
-                  <br>
-                  <div id="impact">
-                    <label for="init-explanation">Explain the initiative's potential impact.</label>
-                    <br>
-                    <textarea name="init-explanation" rows="5" cols="50" id="init-explanation" required></textarea>
-                  </div>
-                  <br>
-                  <div id="request">
-                    <label for="init-request">Requested amount (numbers only):</label>
-                    <br>
-                    <input type="number" name="init-request" id="init-request" min="0" required>
-                  </div> 
-                  <br>
-                <div id="submit-btn-container">
-                    <input class="btn btn-submit" type="submit" value="Submit">
-                </div>
+            <form id="form-in-modal">
             </form>
-
         </div>
       </div>
     </div>

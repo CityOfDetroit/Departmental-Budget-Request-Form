@@ -6,7 +6,8 @@ import { updatePageState } from '../../utils/storage-handlers.js'
 import { initializeWelcomePage } from '../00_welcome/main.js'
 import { showNavButtons, updateNavButtonLinks } from '../../components/nav_buttons/nav_buttons.js'
 import { loadRevenuePage } from '../03_revenue/main.js'
-import { addModalLink } from '../../components/modal_form/modal_form.js'
+import { addModalLink, updateModalTitle } from '../../components/modal/modal.js'
+import { addTextarea, addTextInput, addNumericInput, addSubmitButtonToForm } from '../../components/form/form.js'
 
 // set up page and initialize all buttons
 export function loadNewInitiatives() {
@@ -25,10 +26,14 @@ export function loadNewInitiatives() {
     showNavButtons();
 
     // initialize modal
-    addModalLink('option1', 'form-modal');
+    addModalLink('option1', 'main-modal');
+    updateModalTitle('New initiative');
+    addTextInput('Initiative Name:', 'Initiative Name', true); //add required field
+    addSubmitButtonToForm();
+
 
     // initialize form submission
-    document.getElementById('form-modal').addEventListener('submit', function(event) {
+    document.getElementById('main-modal').addEventListener('submit', function(event) {
         handleFormSubmissions(event);
     });
     

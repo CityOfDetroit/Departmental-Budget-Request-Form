@@ -11,3 +11,7 @@ export function addModalLink(button_id, modal_id){
         showModal(modal_id);
     });
 }
+
+export function updateModalTitle(title){
+    document.getElementById('modal-title').textContent = title;
+}

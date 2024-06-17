@@ -21,7 +21,6 @@
 
 /* start by hiding everything */
 #welcome-page{display: none;}
-
 #prompt-div{display: none;}
 
 body {
@@ -72,6 +71,12 @@ tr td {
     border-bottom: 1px solid black;
 }
 
+/* textbox width in table */
+input {
+    width: 100%;
+}
+
+
 /* Action buttons */
 
 .action-btns {
@@ -95,11 +100,6 @@ tr td {
 .btn-supplemental { background-color: var(--yellow);}
 .btn-carryover {background-color: var(--green);}
 .btn-add { background-color: var(--spiritgreen);}
-
-/* textbox width in table */
-input {
-    width: 100%;
-}
 
 .error-message {
     color: red;
