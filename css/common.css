@@ -30,7 +30,7 @@ body {
 /* Button styling */
 
 .btn {
-    cursor:pointer;
+    cursor: pointer;
     padding: 10px;
     margin-top: 5px;
     border-radius: 10px;
@@ -48,34 +48,6 @@ body {
 #supp-total {
     color: var(--yellow);
 }
-
-/* Table generics */
-
-.table-container {
-    margin-top: 20px;
-}
-
-thead > tr > th {
-    text-align: left;
-}
-
-th {
-    background-color: var(--lightGray);
-}
-
-tr {
-    border-width: 2px;
-}
-
-tr td {
-    border-bottom: 1px solid black;
-}
-
-/* textbox width in table */
-input {
-    width: 100%;
-}
-
 
 /* Action buttons */
 

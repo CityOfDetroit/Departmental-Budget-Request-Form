@@ -4,6 +4,7 @@ import { loadNewInitiatives } from '../02_new_initiatives/main.js'
 import { updatePageState } from '../../utils/storage-handlers.js'
 import { hidePrompt } from '../../components/prompt/prompt.js'
 import { hideNavButtons } from '../../components/nav_buttons/nav_buttons.js'
+import { hideSideBar } from '../../components/sidebar/sidebar.js'
 
 export function initializeWelcomePage(){
 
@@ -11,6 +12,7 @@ export function initializeWelcomePage(){
     updatePageState('welcome');
  
     // page set up
+    hideSideBar();
     updateSubtitle("Welcome");
     unhideWelcomeButtons();
     hidePrompt();

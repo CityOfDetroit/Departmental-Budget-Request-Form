@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="js/components/welcome/welcome.css">
 <link rel="stylesheet" href="js/components/header/header.css">
 <link rel="stylesheet" href="js/components/prompt/prompt.css">
+<link rel="stylesheet" href="js/components/table/table.css">
 <link rel="stylesheet" href="js/components/nav_buttons/nav_buttons.css">
 <link rel="stylesheet" href="js/components/modal/modal.css">
 <link rel="stylesheet" href="js/components/form/form.css">
@@ -35,55 +36,99 @@
 <br>
 <br>
 
-<!-- Welcome page buttons -->
-<div id="welcome-page">
-    <a>
-        <button class="btn step" id="step-upload">
-            1. Upload your Excel data
-        </button>
-    </a>
-    
-    <a>
-        <button class="btn step" id="step-initiatives">
-            2. Name any new initiatives
-        </button>
-    </a>
+<div class="container-fluid">
+    <div class="row">
+        
+        <!-- Main content -->
+        <div class="col-md-10" id="main-panel">
 
-    <a>
-        <button class="btn step" id="step-revenue">
-            3. Confirm revenue
-        </button>
-    </a>
+            <!-- Welcome page buttons -->
+            <div id="welcome-page">
+                <a>
+                    <button class="btn step" id="step-upload">
+                        1. Upload your Excel data
+                    </button>
+                </a>
+                
+                <a>
+                    <button class="btn step" id="step-initiatives">
+                        2. Name any new initiatives
+                    </button>
+                </a>
 
-    <a>
-        <button class="btn step" id="step-personnel">
-            4. Personnel costs
-        </button>
-    </a>
+                <a>
+                    <button class="btn step" id="step-revenue">
+                        3. Confirm revenue
+                    </button>
+                </a>
 
-    <a>
-        <button class="btn step" id="step-nonpersonnel">
-            5. Non-personnel costs
-        </button>
-    </a>
+                <a>
+                    <button class="btn step" id="step-personnel">
+                        4. Personnel costs
+                    </button>
+                </a>
 
-    <a>
-        <button class="btn step" id="step-finish">
-            6. Confirm and finish
-        </button>
-    </a>
+                <a>
+                    <button class="btn step" id="step-nonpersonnel">
+                        5. Non-personnel costs
+                    </button>
+                </a>
+
+                <a>
+                    <button class="btn step" id="step-finish">
+                        6. Confirm and finish
+                    </button>
+                </a>
+            </div>
+
+            <!-- Space for an initial prompt and response buttons -->
+            <div id="prompt-div">
+                <h3 id="prompt"></h3>
+                <br>
+                    <button class="btn" id="option1" data-toggle="modal" data-target="#new-init-modal"></button>
+                    <button class="btn" id="option2"></button>
+            </div>
+
+            <!-- Table -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-container">
+                        <table class="table table-bordered mt-3" id="main-table">
+                            <thead class="thead-dark"></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation buttons -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="nav-btns">
+                        <br>
+                        <br>
+                        <button class="btn" id="btn-last">
+                            <strong><< Previous</strong>
+                        </button>
+                        <button class="btn" id="btn-next">
+                            <strong>Continue >></strong>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
 </div>
 
-<!-- Space for an initial prompt and response buttons -->
-<div id="prompt-div">
-    <h3 id="prompt"></h3>
-    <br>
-        <button class="btn" id="option1" data-toggle="modal" data-target="#new-init-modal"></button>
-        <button class="btn" id="option2"></button>
+<!-- Sidebar -->
+<div class="col-md-2" id="sidebar-panel">
+    <div class="sidebar">
+    </div>
 </div>
 
-
-<!-- Modal for new initiatives -->
+<!-- Modal for form or info -->
 <div class="modal fade" id="main-modal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -97,21 +142,6 @@
         </div>
       </div>
     </div>
-</div>
-
-<!-- Navigation buttons -->
-<div id="nav-btns">
-    <br>
-    <br>
-    <!-- <button class="btn btn-download" id="XLSX-download">
-        <strong>Download Excel</strong>
-    </button> -->
-    <button class="btn" id="btn-last">
-        <strong><< Previous</strong>
-    </button>
-    <button class="btn" id="btn-next">
-        <strong>Continue >></strong>
-    </button>
 </div>
 
 </body>

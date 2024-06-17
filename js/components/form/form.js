@@ -74,18 +74,14 @@ export function addSubmitButtonToForm(form_id = 'new-form') {
     form.appendChild(buttonContainer);
 }
 
-function getAllInputIds() {
-    pass;
-}
-
-function fetchAllReponsesOnSubmission(event) {
+export function fetchAllResponses(event) {
     event.preventDefault();  // Prevent the default form submission
 
     // Assuming `event.target` is the form itself
     const form = event.target;
     
     // Initialize an empty array to hold the input values
-    let formDataArray = [];
+    let formData = {};
     
     // Loop through each form element
     for (let i = 0; i < form.elements.length; i++) {
@@ -97,13 +93,13 @@ function fetchAllReponsesOnSubmission(event) {
           element.tagName === 'SELECT') {
         // Exclude input types that are not considered for submission (such as `submit`)
         if (element.type !== 'submit' && element.type !== 'button') {
-          formDataArray.push(element.value);
+          formData[element.id] = element.value;
         }
       }
     }
     
     form.reset();
-    return formDataArray;
+    return formData;
 }
 
 export function addForm(element_id = 'modal-body', form_id = 'new-form') {
