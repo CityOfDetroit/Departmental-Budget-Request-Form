@@ -57,12 +57,29 @@ export function adjustTableWidth(table_id, width_pct){
 export function clearTable(table_id){
     const table = document.getElementById(table_id);
     table.querySelector('thead').innerHTML = '';
-    table.querySelector('tbody').innerHTML = '';
+    table.querySelector('tbody').
+    innerHTML = '';
 }
+
+// Add button functions
+export function hideAddButton(){
+    document.getElementById('add-btn').style.display = 'none';
+}
+
+export function showAddButton(){
+    document.getElementById('add-btn').style.display = 'block';
+}
+
+export function updateAddButtonText(text){
+    document.getElementById('add-btn').textContent = text;
+}
+
+// Show and hide table
 
 export function hideTable(table_id){
     const table = document.getElementById(table_id);
     table.style.display = 'none';
+    hideAddButton();
 }
 
 export function showTable(table_id){

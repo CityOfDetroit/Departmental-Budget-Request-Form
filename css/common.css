@@ -24,7 +24,7 @@
 #prompt-div{display: none;}
 
 body {
-    margin-top: 20px;
+    margin: 10px;
 }
 
 /* Button styling */
@@ -71,7 +71,7 @@ body {
 .btn-delete {background-color: var(--orange);}
 .btn-supplemental { background-color: var(--yellow);}
 .btn-carryover {background-color: var(--green);}
-.btn-add { background-color: var(--spiritgreen);}
+
 
 .error-message {
     color: red;

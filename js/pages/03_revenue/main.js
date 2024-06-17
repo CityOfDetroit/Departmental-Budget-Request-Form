@@ -22,9 +22,6 @@ export function loadRevenuePage() {
     updatePrompt('Your revenue projection for FY26 is $0');
     updatePromptButtons('Confirm and continue.', "This doesn't look right");
 
-    // initialize nav buttons fn(last, next)
-    updateNavButtonLinks(loadNewInitiatives, loadNewInitiatives);
-
     // clicking 'confirm and continue' will also take us to the next page
     addPromptButtonAction('option1', loadNewInitiatives);
 

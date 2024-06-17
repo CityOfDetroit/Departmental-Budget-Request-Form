@@ -29,4 +29,15 @@ input {
     margin: auto; 
 }
 
+/* Add new row button */
+.btn-add { 
+    background-color: var(--spiritgreen);
+    margin-top: 20px;
+}
 
+#add-btn-div {
+    display: flex;
+    justify-content: center; /* Aligns horizontally */
+    align-items: center; /* Aligns vertically */
+    width: 100%;
+}

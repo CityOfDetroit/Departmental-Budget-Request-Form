@@ -2,7 +2,8 @@
 import { initializeWelcomePage } from './pages/00_welcome/main.js';
 import { loadNewInitiatives } from './pages/02_new_initiatives/main.js'
 import { loadRevenuePage } from './pages/03_revenue/main.js'
-import { loadPageState, updatePageState } from './utils/storage-handlers.js'
+import { loadPageState } from './utils/storage-handlers.js'
+import { updateNavButtonLinks } from './components/nav_buttons/nav_buttons.js';
 
 // running tallies of total spend
 let personnel_supp = 0;
@@ -18,6 +19,7 @@ let baseline_total = personnel_baseline - baseline_revenue;
 document.addEventListener('DOMContentLoaded', function () {
 
     var page_state = loadPageState();
+    updateNavButtonLinks();
 
     switch (page_state){
         case 'welcome':
