@@ -53,3 +53,19 @@ export function adjustTableWidth(table_id, width_pct){
     const table = document.getElementById(table_id);
     table.style.width = width_pct;
 }
+
+export function clearTable(table_id){
+    const table = document.getElementById(table_id);
+    table.querySelector('thead').innerHTML = '';
+    table.querySelector('tbody').innerHTML = '';
+}
+
+export function hideTable(table_id){
+    const table = document.getElementById(table_id);
+    table.style.display = 'none';
+}
+
+export function showTable(table_id){
+    const table = document.getElementById(table_id);
+    table.style.display = 'table';
+}

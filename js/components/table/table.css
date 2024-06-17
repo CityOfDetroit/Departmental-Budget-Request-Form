@@ -19,8 +19,14 @@ input {
     width: 100%;
 }
 
-/* .table-container {
-    text-align : center;
-} */
+.table-container {
+    display: table; 
+    margin: auto; 
+}
+  
+#main-table {
+    width: auto; 
+    margin: auto; 
+}
 
 
