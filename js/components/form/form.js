@@ -1,8 +1,10 @@
 // function to add questions to forms
-function appendFormElement(type, label, inputType, inputId, required, cost = false) {
+// type is 'input' or 'textarea'
+// inputType is for validation ('number' or 'text', etc)
+function appendFormElement(type, label, inputId, required, inputType, form_id = 'new-form', cost = false) {
 
     // change if we want forms elsewhere
-    const form = document.getElementById('form-in-modal');
+    const form = document.getElementById(form_id);
 
     // create outer wrapper for element
     const wrapper = document.createElement('div');  
@@ -39,21 +41,21 @@ function appendFormElement(type, label, inputType, inputId, required, cost = fal
 
 
 // Individual functions for each type of input.
-export function addTextInput(label, inputId, required = false, cost = false) {
-    appendFormElement('input', label, inputId, required, 'text');
+export function addTextInput(label, inputId, required = false, form_id = 'new-form', cost = false) {
+    appendFormElement('input', label, inputId, required, 'text', form_id);
 }
   
-export function addNumericInput(label, inputId, required = false, cost = true) {
-    appendFormElement('input', label, inputId, required, 'number');
+export function addNumericInput(label, inputId, required = false, form_id = 'new-form', cost = true) {
+    appendFormElement('input', label, inputId, required, 'number', form_id);
 }
   
-export function addTextarea(label, inputId, required = false, cost = false) {
-    appendFormElement('textarea', label, inputId, required);
+export function addTextarea(label, inputId, required = false, form_id = 'new-form', cost = false) {
+    appendFormElement('textarea', label, inputId, required, form_id);
 }
 
-export function addSubmitButtonToForm() {
+export function addSubmitButtonToForm(form_id = 'new-form') {
     // Find the form by its ID
-    const form = document.getElementById('form-in-modal');
+    const form = document.getElementById(form_id);
   
     // Create the container `div` for the button
     const buttonContainer = document.createElement('div');
@@ -64,7 +66,7 @@ export function addSubmitButtonToForm() {
     submitInput.className = 'btn btn-submit'; // Use appropriate class for your design
     submitInput.type = 'submit';
     submitInput.value = 'Submit';
-    
+
     // Append the submit input to the container
     buttonContainer.appendChild(submitInput);
     
@@ -102,4 +104,17 @@ function fetchAllReponsesOnSubmission(event) {
     
     form.reset();
     return formDataArray;
+}
+
+export function addForm(element_id = 'modal-body', form_id = 'new-form') {
+  
+  const target_elem = document.getElementById(element_id);
+
+  // create form
+  const form = document.createElement('form');
+  form.setAttribute('id', form_id);
+
+  // Append the form to the modal body
+  target_elem.appendChild(form);
+
 }
