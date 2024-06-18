@@ -2,12 +2,14 @@
 import { initializeWelcomePage } from '../../pages/00_welcome/main.js';
 import { loadNewInitiatives } from '../../pages/02_new_initiatives/main.js'
 import { loadRevenuePage } from '../../pages/03_revenue/main.js'
+import { loadPersonnelPage } from '../../pages/04_personnel/main.js';
 import { loadPageState } from '../../utils/storage-handlers.js'
 
 
 let pages = {'welcome' : initializeWelcomePage,
             'new-inits' : loadNewInitiatives,
-            'revenue' : loadRevenuePage }
+            'revenue' : loadRevenuePage,
+            'personnel' : loadPersonnelPage }
 
 export function hideNavButtons() {
     document.getElementById('nav-btns').style.display = 'none';
@@ -18,13 +20,13 @@ export function showNavButtons() {
 }
 
 // imputs next and last should be functions to render the appropriate pages
-export function updateNavButtonLinks(page_state){
+export function initializeNavButtons(){
     // initialize last button
     const last_btn = document.getElementById('btn-last');
     last_btn.addEventListener('click', lastPage); 
     // initialize next button
     const next_btn = document.getElementById('btn-next');
-    last_btn.addEventListener('click', nextPage); 
+    next_btn.addEventListener('click', nextPage); 
 }
 
 function nextPage(page_state){

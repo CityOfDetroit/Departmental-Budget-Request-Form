@@ -33,6 +33,7 @@ input {
 .btn-add { 
     background-color: var(--spiritgreen);
     margin-top: 20px;
+    display: none;
 }
 
 #add-btn-div {

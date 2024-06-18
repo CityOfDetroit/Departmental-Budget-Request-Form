@@ -1,47 +1,34 @@
-document.addEventListener('DOMContentLoaded', function () {
 
-    // // Load from last local storage
-    // loadTableData("employeeTableData");
+import { updatePageState } from "../../utils/storage-handlers.js";
 
-    // // Add an event listener for the save button
-    // document.getElementById('save').addEventListener('click', function() {
-    //     saveTableData("employeeTableData");
-    // });
+//helpers
+import { hideWelcomeButtons } from "../../components/welcome/welcome.js";
+import { hidePromptButtons, showPrompt, updatePrompt } from "../../components/prompt/prompt.js";
+import { showNavButtons } from "../../components/nav_buttons/nav_buttons.js";
+import { updateSubtitle } from "../../components/header/header.js";
+import { loadJSONIntoTable } from "../../utils/data-handlers.js";
+import { showTable } from "../../components/table/table.js";
+import { showSideBar } from "../../components/sidebar/sidebar.js";
 
-    // // Add an event listener for the download button
-    // document.getElementById('XLSX-download').addEventListener('click', function() {
-    //     saveTableData("employee-table");
-    //     downloadTableAsExcel('employeeTableData', 'Personnel', 'table-export');
-    // });
+export function loadPersonnelPage(){
 
-    // Mark row to be edited on edit button click
-    var editButtons = document.getElementsByClassName('btn-edit');
-    for (var i = 0; i < editButtons.length; i++) {
-        editButtons[i].addEventListener('click', handleAccountEdit);
-    };    
-    // Remove edit marker when finished
-    document.getElementById('modal-close-x').addEventListener('click', exitAccountEditModal);
-    document.getElementById('modal-done-btn').addEventListener('click', exitAccountEditModal);
+    //update page state
+    updatePageState('personnel');
 
-    // Update account string based on info in modal dropdowns
-    document.getElementById('dropdown-fund').addEventListener("change", function(event){
-        updateAccountString('dropdown-fund', 'fund-string');
-    });
-    document.getElementById('dropdown-approp').addEventListener("change", function(event){
-        updateAccountString('dropdown-approp', 'approp-string');
-    });
-    document.getElementById('dropdown-cc').addEventListener("change", function(event){
-        updateAccountString('dropdown-cc', 'cc-string');
-    });
+    // prepare page view
+    hideWelcomeButtons();
+    showPrompt();
+    showNavButtons();
 
-    // Make FTEs editable
-    applyEditableCells('.ftes', 'value', null, updateDisplayandTotals, validateNumber)
+    // update page text
+    updateSubtitle('Personnel');
+    // TODO: update to make dynamic
+    updatePrompt('For each job in your department, select the service and request the number of baseline and supplemental FTEs.');
+    hidePromptButtons();
 
-    // Initialize continue button
-    document.getElementById('continue-btn').addEventListener('click', continueToNonPersonnel);
+    // initialize table
+    loadJSONIntoTable('../../../data/law_dept_sample/personnel_data.json', 'main-table');
+    showTable('main-table');
+    showSideBar();
 
-});
-
-
-
-
+}

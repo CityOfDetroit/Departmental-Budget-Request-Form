@@ -40,10 +40,7 @@ body {
 
 /* Sidebar */
 
-#sidebar {
-    background-color: lightgrey;  
-    /* min-height: 100vh; Full height of viewport */
-  }
+
 
 #supp-total {
     color: var(--yellow);

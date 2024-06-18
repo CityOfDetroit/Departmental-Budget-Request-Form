@@ -2,8 +2,10 @@ import { updatePageState } from '../../utils/storage-handlers.js'
 import { hideWelcomeButtons } from '../../components/welcome/welcome.js'
 import { updateSubtitle } from '../../components/header/header.js'
 import { showPrompt, updatePrompt, updatePromptButtons, addPromptButtonAction } from '../../components/prompt/prompt.js'
-import { showNavButtons, updateNavButtonLinks } from '../../components/nav_buttons/nav_buttons.js'
+import { showNavButtons } from '../../components/nav_buttons/nav_buttons.js'
 import { loadNewInitiatives } from '../02_new_initiatives/main.js'
+import { hideTable } from '../../components/table/table.js'
+import { hideSideBar } from '../../components/sidebar/sidebar.js'
 
 
 export function loadRevenuePage() {
@@ -15,6 +17,8 @@ export function loadRevenuePage() {
     hideWelcomeButtons();
     showPrompt();
     showNavButtons();
+    hideTable('main-table');
+    hideSideBar();
 
     // update page text
     updateSubtitle('Revenue Projections');

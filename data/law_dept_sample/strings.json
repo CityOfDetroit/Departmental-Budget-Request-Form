@@ -1,0 +1,39 @@
+{
+    "1000" : {
+        "label" : "General Fund",
+        "appropriations" : {
+            "29320" : {
+                "label" : "Efficient and Innovative Operations Support",
+                "cost centers" : {
+                    "320010" : { "label" : "Law Administration" },
+                    "321111" : { "label" : "Law Department Grants" }
+                }
+            }
+        }
+    },
+
+    "2119" : {
+        "label" : "FY2020 MIDC Grant",
+        "appropriations" : {
+            "21206" : {
+                "label" : "2023 Michigan Indigent Defense Commission",
+                "cost centers" : {
+                        "320010" : { "label" : "Law Administration" },
+                        "321111" : { "label" : "Law Department Grants" }
+                }
+            }
+        }
+    },
+
+    "2490" : {
+        "label" : "Construction Code Fund",
+        "appropriations" : {
+            "25130" : {
+                "label" : "BSEED Safe Buildings",
+                "cost centers" : {
+                    "320010" : { "label" : "Law Administration" }
+                }
+            }
+        }
+    }
+}
