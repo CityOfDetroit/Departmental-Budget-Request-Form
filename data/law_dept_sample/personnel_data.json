@@ -5,7 +5,7 @@
         "Current FTEs (FY25)": 1,
         "Baseline FTEs": 0,
         "Supplemental FTEs": 0,
-        "Average FY25 Salary": "$150,000"
+        "Current Average Salary": "150000"
     },
     {
         "Job Name": "Legal Secretary",
@@ -13,7 +13,7 @@
         "Current FTEs (FY25)": 5,
         "Baseline FTEs": 0,
         "Supplemental FTEs": 0,
-        "Average FY25 Salary": "$55,000"
+        "Current Average Salary": "55000"
     },
     {
         "Job Name": "Assistant Counsel",
@@ -21,6 +21,6 @@
         "Current FTEs (FY25)": 10,
         "Baseline FTEs": 0,
         "Supplemental FTEs": 0,
-        "Average FY25 Salary": "$80,000"
+        "Current Average Salary": "80000"
     }
 ]

@@ -1,3 +1,4 @@
+import { formatCurrency } from "../../utils/utils.js";
 
 export function addTableHeaders(table_id, header_array){
 
@@ -134,4 +135,75 @@ export function addColToEnd(tableId, htmlContents = [], headerTitle = ''){
     // count columns and add new column to the end
     const position = ncols(tableId);
     addCol(tableId, position, htmlContents, headerTitle);
+}
+
+// functions for editing rows
+function editButton() {
+    return '<button class="btn btn-edit">Edit</button>'
+};
+
+export function addEditCol(tableId){
+    addColToEnd(tableId, editButton(), ' ');
+}
+
+export function assignClassToColumn(tableId, headerName, className) {
+    // Get the table element by its ID
+    let table = document.getElementById(tableId);
+
+    // Find the index of the column by its header name
+    const thead = table.tHead;
+    if (!thead || thead.rows.length === 0) {
+        console.error('The table header is not found or has no rows.');
+        return;
+    }
+    
+    let headerCellIndex = -1;
+    const headerCells = thead.rows[0].cells; // Assuming the first row contains header cells (<th>)
+    for (let i = 0; i < headerCells.length; i++) {
+        if (headerCells[i].textContent.trim() === headerName) {
+            headerCellIndex = i;
+            break;
+        }
+    }
+
+    if (headerCellIndex === -1) {
+        console.error(`No header found with name "${headerName}"`);
+        return;
+    }
+  
+    // Assign the class to each cell in the specified column index within the tbody
+    let tbody = table.tBodies[0];
+    if (tbody) {
+      let bodyRows = tbody.rows;
+      for (let row of bodyRows) {
+        if (row.cells[headerCellIndex]) {
+          row.cells[headerCellIndex].classList.add(className);
+        }
+      }
+    }
+  }
+
+export function AddCostClass(tableId, headerName){
+    assignClassToColumn(tableId, headerName, 'cost');
+
+    // Get all the cells with the specified class name
+    const cells = document.querySelectorAll(`.cost`);
+      
+    cells.forEach(cell => {
+        // Get the current text content of the cell and assign it to 'value' attribute
+        if (!cell.getAttribute('value')){
+            const cellValue = cell.textContent.trim();
+            cell.setAttribute('value', cellValue);
+
+            // Now format the text content like currency and replace it in the cell
+            const formattedCurrency = formatCurrency(parseFloat(cellValue));
+            cell.textContent = formattedCurrency;
+        }
+      
+    });
+
+}
+  
+export function updateCellValue(cell, newValue){
+    pass;
 }

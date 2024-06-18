@@ -1,5 +1,5 @@
 // Function to format number as currency
-const formatCurrency = (amount) => {
+export const formatCurrency = (amount) => {
     var amount = parseFloat(amount);
     if (amount == NaN){
         return "$ -"

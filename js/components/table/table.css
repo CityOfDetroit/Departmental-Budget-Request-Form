@@ -42,3 +42,11 @@ input {
     align-items: center; /* Aligns vertically */
     width: 100%;
 }
+
+.btn-edit {
+    background-color: var(--spiritgreen);
+}
+
+.active-editing {
+    background-color: var(--palegreen);
+}
