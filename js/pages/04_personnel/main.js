@@ -78,8 +78,14 @@ export function handleRowEdit(){
             // make acount string and service editable
 
             // hide edit buttons
-
+            var editButtons = document.getElementsByClassName('btn-edit');
+            for (var i = 0; i < editButtons.length; i++) {
+                editButtons[i].style.display = 'none';
+            }
+            
             // create confirm button
+            const confirmCell = rowToEdit.querySelector('.active-editing td:last-child');
+            confirmCell.innerHTML = '<button class="btn btn-confirm">Confirm</button>'
             // (elsewhere, attach confirmation listener to turn off edit class and show edits)
         });
     };
