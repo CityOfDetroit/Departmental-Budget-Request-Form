@@ -1,6 +1,11 @@
 export function loadJSONIntoTable(jsonFilePath, tableId) {
-    fetch(jsonFilePath)
-      .then(response => response.json())
+  return fetch(jsonFilePath)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
       .then(data => {
         if(Array.isArray(data)) {
           const table = document.getElementById(tableId);

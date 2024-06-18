@@ -86,3 +86,52 @@ export function showTable(table_id){
     const table = document.getElementById(table_id);
     table.style.display = 'table';
 }
+
+// position is index at which new column will be inserted
+export function addCol(tableId, position, htmlContent = '', headerTitle = '') {
+    // Get the table element by its ID
+    let table = document.getElementById(tableId);
+    
+    if (!table) {
+      console.error(`Table with ID ${tableId} not found.`);
+      return;
+    }
+  
+    // Validate position
+    let maxPosition = table.rows[0].cells.length;
+    if (position < 0 || position > maxPosition) {
+      console.error(`Position ${position} is out of bounds.`);
+      return;
+    }
+  
+    // Insert the header if provided
+    let thead = table.tHead;
+    if (headerTitle && thead) {
+      let th = document.createElement('th');
+      th.innerHTML = headerTitle; // Use innerHTML to insert HTML content
+      thead.rows[0].insertBefore(th, thead.rows[0].cells[position]);
+    }
+  
+    // Insert new cells into each row of the table body
+    let tbody = table.tBodies[0];
+    if (tbody) {
+      for (let i = 0; i < tbody.rows.length; i++) {
+        let row = tbody.rows[i];
+        let td = document.createElement('td');
+        td.innerHTML = htmlContent; // Use innerHTML to insert HTML content
+        row.insertBefore(td, row.cells[position]);
+      }
+    }
+}
+
+function ncols(tableId){
+    const table = document.getElementById(tableId);
+    // Ensure that the row exists before counting the columns
+    return table.rows[0].cells.length;
+}
+  
+export function addColToEnd(tableId, htmlContents = [], headerTitle = ''){
+    // count columns and add new column to the end
+    const position = ncols(tableId);
+    addCol(tableId, position, htmlContents, headerTitle);
+}

@@ -6,6 +6,8 @@ import { hideTable } from '../../components/table/table.js'
 import { updateSubtitle } from '../../components/header/header.js'
 import { unhideWelcomeButtons } from '../../components/welcome/welcome.js'
 import { loadNewInitiatives } from '../02_new_initiatives/main.js'
+import { loadRevenuePage } from '../03_revenue/main.js'
+import { loadPersonnelPage } from '../04_personnel/main.js'
  
 export function initializePageView(){
     // page set up
@@ -20,4 +22,7 @@ export function initializePageView(){
 export function addLinks(){
     // initialize links in buttons
     document.getElementById('step-initiatives').addEventListener('click', loadNewInitiatives)
+    document.getElementById('step-revenue').addEventListener('click', loadRevenuePage)
+    document.getElementById('step-personnel').addEventListener('click', loadPersonnelPage)
+
 }
