@@ -36,7 +36,7 @@ export function loadPersonnelPage(){
 
 export function initializePersonnelTable(){
     // Initialize table
-    loadJSONIntoTable('../../../data/law_dept_sample/personnel_data.json', 'main-table')
+    loadJSONIntoTable('../../../../budget-request-demo/data/law_dept_sample/personnel_data.json', 'main-table')
         .then(() => {
             showTable('main-table');
             addCol('main-table', 3, '', 'Service');
@@ -105,30 +105,4 @@ function createEditableCell(cellClass, attribute = 'value'){
     cell.innerHTML = '';
     cell.appendChild(textbox);
     //cell.appendChild(feedback);
-}
-
-function commitAndRestoreText() {
-    // Retrieve the entered value
-    var enteredValue = textbox.value;
-    // Set the attribute to the entered value
-    cell.setAttribute(attribute, enteredValue);
-    
-    // validate text against validation criteria
-    let feedback_text = '';
-    if (validate){
-        feedback_text = validate(enteredValue);
-    }
-
-    // if there's an error, show it
-    if (feedback_text){
-        feedback.textContent = feedback_text;
-    // otherwise, proceed
-    } else {
-        // Format and set the cell's text content
-        cell.textContent = formatValueCallback ? formatValueCallback(enteredValue) : enteredValue;
-        // If there is an update callback provided, call it
-        if (updateCallback) {
-            updateCallback();
-        }
-    };
 }
