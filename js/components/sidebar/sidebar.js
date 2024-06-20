@@ -43,10 +43,17 @@ export function updateTotals() {
                         fetchStat('baseline-nonpersonnel');
     replaceSidebarStat('supp-total', supp_total);
     replaceSidebarStat('baseline-total', baseline_total);
+
+    // color code based on target
+    var target = fetchStat('target');
     if(baseline_total <= target){
         document.querySelector('#baseline-total .stat').style.color = "green";
     }
     if(baseline_total > target){
         document.getElementById('#baseline-total .stat').style.color = "red";
     }
+}
+
+export function addTarget(target){
+    replaceSidebarStat('target', target);
 }
