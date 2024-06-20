@@ -28,10 +28,15 @@ function exitAccountEditModal() {
 }
 
 // update sidebar and also cost totals when the FTEs are edited
-function updateDisplayandTotals(){
-    // reset to sum all
-    personnel_baseline = 0;
-    personnel_supp = 0;
+function updateDisplayandTotals(rowToEdit){
+
+    let avg_salary = rows[i].querySelector('.salary').getAttribute('value');
+    let baseline_ftes_cell = rows[i].querySelector('.ftes-baseline');
+    let baseline_ftes = baseline_ftes_cell.getAttribute('value');
+    let supp_ftes_cell = rows[i].querySelector('.ftes-supp');
+    let supp_ftes = supp_ftes_cell.getAttribute('value');
+
+
     // calculate for each row
     let rows = document.getElementsByTagName('tr');
     for (let i = 1; i < rows.length; i++){

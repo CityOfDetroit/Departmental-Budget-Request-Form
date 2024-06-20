@@ -139,7 +139,9 @@ export function addColToEnd(tableId, htmlContents = [], headerTitle = ''){
 
 // functions for editing rows
 function editButton() {
-    return '<button class="btn btn-edit">Edit</button>'
+    var edit_btn = '<button class="btn btn-edit">Edit</button>';
+    var confirm_btn = '<button class="btn btn-confirm">Confirm</button>';
+    return edit_btn + confirm_btn;
 };
 
 export function addEditCol(tableId){

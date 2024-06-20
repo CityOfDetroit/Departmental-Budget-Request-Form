@@ -50,3 +50,7 @@ input {
 .active-editing {
     background-color: var(--palegreen);
 }
+
+.btn-confirm {
+    display: none;
+}

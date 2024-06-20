@@ -8,7 +8,13 @@ import { showNavButtons } from "../../components/nav_buttons/nav_buttons.js";
 import { updateSubtitle } from "../../components/header/header.js";
 import { loadJSONIntoTable } from "../../utils/data-handlers.js";
 import { AddCostClass, addCol, addColToEnd, addEditCol, adjustTableWidth, assignClassToColumn, showTable } from "../../components/table/table.js";
-import { showSideBar } from "../../components/sidebar/sidebar.js";
+import { incrementSidebarStat, showSideBar } from "../../components/sidebar/sidebar.js";
+import { formatCurrency } from "../../utils/utils.js";
+
+// variables on the salary 
+var fringe = 0.36
+var cola = 0.02
+var merit = 0.02
 
 export function loadPersonnelPage(){
 
@@ -29,14 +35,12 @@ export function loadPersonnelPage(){
     
     initializePersonnelTable();
 
-   
- 
-
 }
 
 export function initializePersonnelTable(){
     // Initialize table
-    loadJSONIntoTable('../../../../budget-request-demo/data/law_dept_sample/personnel_data.json', 'main-table')
+    //loadJSONIntoTable('../../../../budget-request-demo/data/law_dept_sample/personnel_data.json', 'main-table')
+    loadJSONIntoTable('../../../data/law_dept_sample/personnel_data.json', 'main-table')
         .then(() => {
             showTable('main-table');
             addCol('main-table', 3, '', 'Service');
@@ -83,10 +87,7 @@ export function handleRowEdit(){
                 editButtons[i].style.display = 'none';
             }
             
-            // create confirm button
-            const confirmCell = rowToEdit.querySelector('.active-editing td:last-child');
-            confirmCell.innerHTML = '<button class="btn btn-confirm">Confirm</button>'
-            // (elsewhere, attach confirmation listener to turn off edit class and show edits)
+            initializeConfirmButton(rowToEdit);
         });
     };
 }
@@ -95,14 +96,82 @@ export function handleRowEdit(){
 function createEditableCell(cellClass, attribute = 'value'){
     // get cell
     const cell = document.querySelector(`.active-editing td.${cellClass}`);
-    // Fetch the current attribute value of the cell or fall back to an empty string
-    var currentValue = cell.getAttribute(attribute) || '';
     // Create an input element to edit the value
     var textbox = document.createElement('input');
     textbox.type = 'text';
-    textbox.value = currentValue;
+    textbox.value = cell.textContent;
     // Clear the current content and append the textbox to the cell
     cell.innerHTML = '';
     cell.appendChild(textbox);
     //cell.appendChild(feedback);
+}
+
+
+function initializeConfirmButton(rowToEdit){
+    // get element and add listener for click
+    const confirm_btn = rowToEdit.querySelector(".btn-confirm");
+    // show confirm button
+    confirm_btn.style.display = 'block';
+    confirm_btn.addEventListener('click', function(event){
+        // get current row
+        const rowToEdit = event.target.closest('tr');
+        var textboxes = rowToEdit.querySelectorAll('input')
+        // save all text in textboxes
+        textboxes.forEach( textbox => {
+            var enteredValue = textbox.value;
+            var cell = textbox.parentElement;
+            cell.textContent = enteredValue;
+        })
+
+        // update values in sidebar
+        updateDisplayandTotals();
+
+        // make row no longer green
+        rowToEdit.classList.remove('active-editing');
+
+        // show edit buttons
+        var editButtons = document.getElementsByClassName('btn-edit');
+        for (var i = 0; i < editButtons.length; i++) {
+            editButtons[i].style.display = 'block';
+        }
+         
+        // hide confirm button
+        confirm_btn.style.display = 'none';
+    });
+}
+
+function getCellValue(row, className){
+    return row.querySelector(`.${className}`).getAttribute('value');
+}
+
+function calculateTotalCost(ftes, avg_salary, fringe, cola, merit){
+    return ftes * avg_salary * (1 + fringe) * (1 + cola) * (1 + merit);
+}
+
+export function updateTableCell(row, col_class, new_value){
+    const cell = row.querySelector(`.${col_class}`);
+    cell.setAttribute(new_value, 'value');
+    cell.textContent(formatCurrency(value));
+}
+
+// update sidebar and also cost totals when the FTEs are edited
+function updateDisplayandTotals(){
+    // get row
+    const row = document.querySelector('.active-editing');
+    // fetch values for calculations
+    let avg_salary = getCellValue(row, 'avg-salary');
+    let baseline_ftes = getCellValue(row, 'baseline-ftes')
+    let supp_ftes = getCellValue(row, 'supp-ftes');
+
+    // calcuate #FTEs x average salary + COLA adjustments + merit adjustments + fringe
+    let total_baseline_cost = calculateTotalCost(baseline_ftes, avg_salary, fringe, cola, merit);
+    let total_supp_cost = calculateTotalCost(supp_ftes, avg_salary, fringe, cola, merit);
+       
+    // update counters
+    incrementSidebarStat('baseline-personnel', total_baseline_cost);
+    incrementSidebarStat('supp-personnel', total_supp_cost);
+
+    // update totals in table
+    updateTableCell(row, 'total-baseline', total_baseline_cost);
+    updateTableCell(row, 'total-supp', total_supp_cost);
 }
