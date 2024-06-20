@@ -29,7 +29,6 @@ export function incrementSidebarStat(stat_id, new_figure){
 
 export function fetchStat(stat_id){
     const stat = document.querySelector(`#${stat_id} .stat`);
-    console.log(stat_id + stat);
     return parseFloat(stat.getAttribute('value')) || 0;
 }
 

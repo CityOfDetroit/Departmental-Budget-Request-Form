@@ -121,6 +121,7 @@ function initializeConfirmButton(rowToEdit){
             var enteredValue = textbox.value;
             var cell = textbox.parentElement;
             cell.textContent = enteredValue;
+            cell.setAttribute('value', enteredValue);
         })
 
         // update values in sidebar
@@ -141,7 +142,9 @@ function initializeConfirmButton(rowToEdit){
 }
 
 function getCellValue(row, className){
-    return row.querySelector(`.${className}`).getAttribute('value');
+    var cellValue = row.querySelector(`.${className}`).getAttribute('value');
+    // console.log(row.querySelector(`.${className}`));
+    return parseFloat(cellValue);
 }
 
 function calculateTotalCost(ftes, avg_salary, fringe, cola, merit){
@@ -150,8 +153,8 @@ function calculateTotalCost(ftes, avg_salary, fringe, cola, merit){
 
 export function updateTableCell(row, col_class, new_value){
     const cell = row.querySelector(`.${col_class}`);
-    cell.setAttribute(new_value, 'value');
-    cell.textContent(formatCurrency(value));
+    cell.setAttribute('value', new_value);
+    cell.textContent = formatCurrency(new_value);
 }
 
 // update sidebar and also cost totals when the FTEs are edited
@@ -160,7 +163,7 @@ function updateDisplayandTotals(){
     const row = document.querySelector('.active-editing');
     // fetch values for calculations
     let avg_salary = getCellValue(row, 'avg-salary');
-    let baseline_ftes = getCellValue(row, 'baseline-ftes')
+    let baseline_ftes = getCellValue(row, 'baseline-ftes');
     let supp_ftes = getCellValue(row, 'supp-ftes');
 
     // calcuate #FTEs x average salary + COLA adjustments + merit adjustments + fringe
