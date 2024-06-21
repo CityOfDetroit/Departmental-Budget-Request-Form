@@ -1,3 +1,5 @@
-# budget-request-demo
+# Budget Request Demo Site
 
-https://kwheelan.github.io/budget-request-demo/
+Still in development.
+
+See deployed site here: https://kwheelan.github.io/budget-request-demo/
