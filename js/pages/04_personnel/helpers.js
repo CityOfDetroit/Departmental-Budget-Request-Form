@@ -104,7 +104,7 @@ function initializeConfirmButton(rowToEdit){
     confirm_btn.addEventListener('click', function(event){
         // get current row
         const rowToEdit = event.target.closest('tr');
-        var textboxes = rowToEdit.querySelectorAll('input')
+        var textboxes = rowToEdit.querySelectorAll('input');
         // save all text in textboxes
         textboxes.forEach( textbox => {
             var enteredValue = textbox.value;
@@ -112,9 +112,12 @@ function initializeConfirmButton(rowToEdit){
             cell.textContent = enteredValue;
             cell.setAttribute('value', enteredValue);
         })
-
+        // set service selection
+        const serviceSelector =  rowToEdit.querySelector('select');
+        var cell = serviceSelector.parentElement;
+        cell.textContent = serviceSelector.value;
         //set service value
-        
+
 
         // update values in sidebar
         updateDisplayandTotals();

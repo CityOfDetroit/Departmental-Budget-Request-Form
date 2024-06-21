@@ -1,4 +1,6 @@
 [
+    { "id" : "",
+      "name" : "Select"},
     { "id" : "Appeals",
       "name" : "Appeals"},
     { "id" : "FOIA",

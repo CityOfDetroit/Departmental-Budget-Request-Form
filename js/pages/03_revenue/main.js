@@ -6,7 +6,9 @@ import { showNavButtons } from '../../components/nav_buttons/nav_buttons.js'
 import { loadNewInitiatives } from '../02_new_initiatives/main.js'
 import { hideTable } from '../../components/table/table.js'
 import { hideSideBar } from '../../components/sidebar/sidebar.js'
+import { formatCurrency } from '../../utils/utils.js'
 
+import { REVENUE } from '../../init.js'
 
 export function loadRevenuePage() {
 
@@ -23,7 +25,7 @@ export function loadRevenuePage() {
     // update page text
     updateSubtitle('Revenue Projections');
     // TODO: update to make dynamic
-    updatePrompt('Your revenue projection for FY26 is $0');
+    updatePrompt(`Your revenue projection for FY26 is ${formatCurrency(REVENUE, true)}`);
     updatePromptButtons('Confirm and continue.', "This doesn't look right");
 
     // clicking 'confirm and continue' will also take us to the next page

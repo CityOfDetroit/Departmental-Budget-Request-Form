@@ -8,6 +8,7 @@ import { loadPersonnelPage } from './pages/04_personnel/main.js';
 import { addTarget } from './components/sidebar/sidebar.js';
 
 export let DATA_ROOT = '../../../data/law_dept_sample/'
+export let REVENUE = 0;
 
 document.addEventListener('DOMContentLoaded', function () {
 

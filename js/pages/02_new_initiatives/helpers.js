@@ -60,16 +60,19 @@ export function handleFormSubmissions(event){
         modal.addEventListener('submit', function(event) {
             // get answers from form, hide form, show answers in table
             const responses = fetchAllResponses(event);
-    
-            // change page view
-            hideModal('main-modal');
-            hidePrompt();
-    
-            // add data to table
-            addNewRow('main-table', responses);
-            showTable('main-table');
-            showAddButton();
-            // TODO: save table data
-            // TODO: edit cost to show currency correctly
-        });
+            // make sure it's not an empty response
+            if (Object.values(responses)[0] != ''){
+                // change page view
+                hideModal('main-modal');
+                hidePrompt();
+        
+                // add data to table
+                addNewRow('main-table', responses);
+                showTable('main-table');
+                showAddButton();
+                // TODO: save table data
+                // TODO: edit cost to show currency correctly
+                }
+
+        })
 }
