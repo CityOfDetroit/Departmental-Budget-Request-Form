@@ -1,0 +1,56 @@
+thead > tr > th {
+    text-align: left;
+}
+
+th {
+    background-color: var(--lightGray);
+}
+
+tr {
+    border-width: 2px;
+}
+
+tr td {
+    border-bottom: 1px solid black;
+}
+
+/* textbox width in table */
+input {
+    width: 100%;
+}
+
+.table-container {
+    display: table; 
+    margin: auto; 
+}
+  
+#main-table {
+    width: auto; 
+    margin: auto; 
+}
+
+/* Add new row button */
+.btn-add { 
+    background-color: var(--spiritgreen);
+    margin-top: 20px;
+    display: none;
+}
+
+#add-btn-div {
+    display: flex;
+    justify-content: center; /* Aligns horizontally */
+    align-items: center; /* Aligns vertically */
+    width: 100%;
+}
+
+.btn-edit {
+    background-color: var(--spiritgreen);
+}
+
+.active-editing {
+    background-color: var(--palegreen);
+}
+
+.btn-confirm {
+    display: none;
+}

@@ -1,5 +1,5 @@
 // Function to format number as currency
-const formatCurrency = (amount) => {
+export const formatCurrency = (amount, return_zero = false) => {
     var amount = parseFloat(amount);
     if (amount == NaN){
         return "$ -"
@@ -7,6 +7,9 @@ const formatCurrency = (amount) => {
     if (amount < 0){
         return '($' + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + ')';
     } else if (amount == 0) {
+        if (return_zero){
+            return '$0';    
+        }
         return "$ -"
     }
     return '$' + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
@@ -19,45 +22,12 @@ const unformatCurrency = (formattedAmount) => {
     return parseFloat(numericalPart);
 };
 
-
-// Function to update the display of the current and supp variables
-function updateDisplay() {
-    // document.getElementById('target').textContent = formatCurrency(target);
-    // update and format sidebar values from variables
-    document.getElementById('personnel-baseline').textContent = formatCurrency(personnel_baseline);
-    document.getElementById('personnel-supp').textContent = formatCurrency(personnel_supp);
-    document.getElementById('nonpersonnel-baseline').textContent = formatCurrency(nonpersonnel_baseline);
-    document.getElementById('nonpersonnel-supp').textContent = formatCurrency(nonpersonnel_supp);
-    // update bottom lines
-    supp_total = -supp_revenue + personnel_supp + nonpersonnel_supp;
-    baseline_total = -baseline_revenue + personnel_baseline +  nonpersonnel_baseline;
-    document.getElementById('baseline-total').textContent = formatCurrency(baseline_total);
-    document.getElementById('supp-total').textContent = formatCurrency(supp_total);
-    if(baseline_total <= target){
-        document.getElementById('baseline-total').style.color = "green";
-    }
-    if(baseline_total > target){
-        document.getElementById('baseline-total').style.color = "red";
-    }
-}
-
 /**
  * Transforms a specified cell into an editable element by attaching an input field.
  * Once the editing is committed, the new value is saved in the specified attribute
  * of the element and passed through an optional formatting function before being
  * displayed in the cell. An optional callback can be triggered after the update
  * to perform additional actions.
- *
- * @param {HTMLElement} cell - The DOM element representing the cell to be made editable.
- * @param {string} attribute - The attribute name of the cell where the value will be stored.
- * @param {function} [formatValueCallback] - Optional. A function to format the value
- *        before displaying it in the cell. The function must accept a string and return
- *        a formatted string.
- * @param {function} [updateCallback] - Optional. A function to be called after the cell
- *        value has been updated. Use this to trigger any additional side effects or updates
- *        to related data or UI elements.
- * @param {function} [validate] - Optional. A function to validate input and return an error 
- *        message if relevant.
  */
 function createEditableCell(cell, attribute = 'value', formatValueCallback, updateCallback, validate) {
     // Add a click event to the cell to make it editable
@@ -142,3 +112,4 @@ function validateNumber(input){
     };
     return "";
 }
+

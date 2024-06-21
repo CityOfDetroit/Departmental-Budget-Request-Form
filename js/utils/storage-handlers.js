@@ -83,3 +83,14 @@ function loadCounters(){
     personnel_supp = parseInt(localStorage.getItem('personnel_supp'), 10);
     updateDisplay();
 }
+
+// save page state
+export function updatePageState(page){
+    localStorage.setItem('page_state', page);
+}
+
+// load page state
+export function loadPageState(page){
+    const pageState = localStorage.getItem('page_state');
+    return pageState !== null ? pageState : 'welcome';
+}

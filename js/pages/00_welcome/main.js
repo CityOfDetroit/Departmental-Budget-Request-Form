@@ -1,13 +1,11 @@
-document.addEventListener('DOMContentLoaded', function () {
 
-    // If starting over, reset storage
-    document.getElementById('start-over-btn').addEventListener('click', function(event){
-        localStorage.setItem("employeeTableData", "");
-    });
+import { updatePageState } from '../../utils/storage-handlers.js'
+import { initializePageView, addLinks } from './helpers.js'
 
-    // Show start from saved data button only if there is saved data
-    if (localStorage.getItem("employeeTableData")) {
-        document.getElementById('load-saved-data-btn').style.display = "block"
-    }
+export function initializeWelcomePage(){
 
-});
+    updatePageState('welcome');
+    initializePageView();
+    addLinks();
+
+}

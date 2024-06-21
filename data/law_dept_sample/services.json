@@ -1,0 +1,10 @@
+[
+    { "id" : "",
+      "name" : "Select"},
+    { "id" : "Appeals",
+      "name" : "Appeals"},
+    { "id" : "FOIA",
+      "name" : "FOIA" },
+    { "id" : "Lobbying",
+      "name" : "Lobbying"}
+]

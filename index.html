@@ -7,62 +7,196 @@
 
 <!-- Bootstrap -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" crossorigin="anonymous">
-<!-- CSS -->
+<!-- common CSS -->
 <link rel="stylesheet" href="css/common.css">
-<link rel="stylesheet" href="css/00_welcome.css">
+<!-- Component CSS -->
+<link rel="stylesheet" href="js/components/welcome/welcome.css">
+<link rel="stylesheet" href="js/components/header/header.css">
+<link rel="stylesheet" href="js/components/prompt/prompt.css">
+<link rel="stylesheet" href="js/components/table/table.css">
+<link rel="stylesheet" href="js/components/nav_buttons/nav_buttons.css">
+<link rel="stylesheet" href="js/components/modal/modal.css">
+<link rel="stylesheet" href="js/components/form/form.css">
+<link rel="stylesheet" href="js/components/sidebar/sidebar.css">
 
 <!-- Bootstrap JS and its dependencies (jQuery & Popper.js) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.4/dist/umd/popper.min.js" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
+<!-- My javascript -->
+<script src="js/init.js" type="module"></script>
+
 </head>
 <body>
 
 <h1>FY2026 Budget Form</h1>
+<h2 id="subtitle"></h2>
 
 <br>
 <br>
 <br>
 
-<div id="welcome-page">
-    
-    <a href="">
-        <button class="btn step" id="step-upload">
-            1. Upload your Excel data
-        </button>
-    </a>
-    
-    <a href="pages/02_new_initiatives.html">
-        <button class="btn step" id="step-initiatives">
-            2. Name any new initiatives
-        </button>
-    </a>
+<div class="container-fluid">
+    <div class="row">
+        
+        <!-- Main content -->
+        <div class="col-md-10" id="main-panel">
 
-    <a href="">
-        <button class="btn step" id="step-revenue">
-            3. Confirm revenue
-        </button>
-    </a>
+            <!-- Welcome page buttons -->
+            <div id="welcome-page">
+                <a>
+                    <button class="btn step" id="step-upload">
+                        1. Upload your Excel data
+                    </button>
+                </a>
+                
+                <a>
+                    <button class="btn step" id="step-initiatives">
+                        2. Name any new initiatives
+                    </button>
+                </a>
 
-    <a href="">
-        <button class="btn step" id="step-personnel">
-            4. Personnel costs
-        </button>
-    </a>
+                <a>
+                    <button class="btn step" id="step-revenue">
+                        3. Confirm revenue
+                    </button>
+                </a>
 
-    <a href="">
-        <button class="btn step" id="step-nonpersonnel">
-            5. Non-personnel costs
-        </button>
-    </a>
+                <a>
+                    <button class="btn step" id="step-personnel">
+                        4. Personnel costs
+                    </button>
+                </a>
 
-    <a href="">
-        <button class="btn step" id="step-finish">
-            6. Confirm and finish
-        </button>
-    </a>
-    
+                <a>
+                    <button class="btn step" id="step-nonpersonnel">
+                        5. Non-personnel costs
+                    </button>
+                </a>
+
+                <a>
+                    <button class="btn step" id="step-finish">
+                        6. Confirm and finish
+                    </button>
+                </a>
+            </div>
+
+            <!-- Space for an initial prompt and response buttons -->
+            <div id="prompt-div">
+                <h3 id="prompt"></h3>
+                <br>
+                    <button class="btn" id="option1" data-toggle="modal" data-target="#new-init-modal"></button>
+                    <button class="btn" id="option2"></button>
+            </div>
+
+            <!-- Table -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-container">
+                        <!-- <form id="table-form"> -->
+                            <table class="table table-bordered mt-3" id="main-table">
+                                <thead class="thead-dark"></thead>
+                                <tbody></tbody>
+                            </table>
+                        <!-- </form> -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add new row button -->
+            <div class="row">
+                <div id='add-btn-div'>
+                    <button class="btn btn-add" id="add-btn"></button>
+                </div>
+            </div>
+
+            <!-- Navigation buttons -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="nav-btns">
+                        <br>
+                        <br>
+                        <button class="btn" id="btn-last">
+                            <strong><< Previous</strong>
+                        </button>
+                        <button class="btn" id="btn-next">
+                            <strong>Continue >></strong>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-md-2" id="sidebar-panel">
+            <div class="sidebar-content">
+                <br>
+                <h4 id="sidebar-title"></h4>
+                <br>
+                <h6 id="section-header"><strong>Baseline</strong></h6>
+                <div id="baseline-stats">
+                    <div class='sidebar-stat-line' id="target">
+                        <span class="stat-label">FY26 target:</span> 
+                        <span class="stat"></span>
+                    </div>
+                    <div class='sidebar-stat-line' id="baseline-revenue">
+                        <span class="stat-label">Projected revenue:</span> 
+                        <span class="stat"></span>
+                    </div>
+                    <div class='sidebar-stat-line' id="baseline-personnel">
+                        <span class="stat-label">Personnel cost:</span> 
+                        <span class="stat"></span>
+                    </div>
+                    <div class='sidebar-stat-line' id="baseline-nonpersonnel">
+                        <span class="stat-label">Non-personnel cost:</span> 
+                        <span class="stat"></span>
+                    </div>
+                    <div class='sidebar-stat-line' id="baseline-total">
+                        <span class="stat-label">Total baseline:</span> 
+                        <span class="stat"></span>
+                    </div>
+                </div>
+                <br>
+                <h6 id="section-header"><strong>Supplemental</strong></h6>
+                <div id="supp-stats">
+                    <div class='sidebar-stat-line' id="supp-revenue">
+                        <span class="stat-label">Revenue:</span> 
+                        <span class="stat"></span>
+                    </div>
+                    <div class='sidebar-stat-line' id="supp-personnel">
+                        <span class="stat-label">Personnel cost:</span> 
+                        <span class="stat"></span>
+                    </div>
+                    <div class='sidebar-stat-line' id="supp-nonpersonnel">
+                        <span class="stat-label">Non-personnel cost:</span> 
+                        <span class="stat"></span>
+                    </div>
+                    <div class='sidebar-stat-line' id="supp-total">
+                        <span class="stat-label">Total supplemental:</span> 
+                        <span class="stat"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for form or info -->
+<div class="modal fade" id="main-modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modal-title"></h5>
+          <button type="button" id="modal-close-x" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="modal-body">
+        </div>
+      </div>
+    </div>
 </div>
 
 </body>

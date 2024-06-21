@@ -19,61 +19,23 @@
 
 /* Every page */
 
-h1 {
-    text-align: center;
-}
-
-h2 {
-    color: var(--citygreen);
-    text-align: center;
-}
+/* start by hiding everything */
+#welcome-page{display: none;}
+#prompt-div{display: none;}
 
 body {
-    margin-top: 20px;
+    margin: 10px;
 }
 
 /* Button styling */
 
 .btn {
-    cursor:pointer;
+    cursor: pointer;
     padding: 10px;
     margin-top: 5px;
     border-radius: 10px;
     background-color: gray;
     color: white; 
-}
-
-/* Sidebar */
-
-#sidebar {
-    background-color: lightgrey;  
-    /* min-height: 100vh; Full height of viewport */
-  }
-
-#supp-total {
-    color: var(--yellow);
-}
-
-/* Table generics */
-
-.table-container {
-    margin-top: 20px;
-}
-
-thead > tr > th {
-    text-align: left;
-}
-
-th {
-    background-color: var(--lightGray);
-}
-
-tr {
-    border-width: 2px;
-}
-
-tr td {
-    border-bottom: 1px solid black;
 }
 
 /* Action buttons */
@@ -98,28 +60,7 @@ tr td {
 .btn-delete {background-color: var(--orange);}
 .btn-supplemental { background-color: var(--yellow);}
 .btn-carryover {background-color: var(--green);}
-.btn-add { background-color: var(--spiritgreen);}
 
-/* Go to next page */
-
-.new-row{
-    margin: 20px;
-    text-align: center;
-}
-.next-button-row {
-    text-align: right;
-}
-.btn-next, .btn-last {
-    background-color: var(--blue);
-}
-.btn-next:hover, .btn-last:hover {
-    background-color: var(--yellow);
-}
-
-/* textbox width in table */
-input {
-    width: 100%;
-}
 
 .error-message {
     color: red;

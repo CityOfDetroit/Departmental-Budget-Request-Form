@@ -1,0 +1,12 @@
+#sidebar-panel {
+    background-color: lightgrey;  
+    /* min-height: 100vh; Full height of viewport */
+  }
+
+#supp-total .stat {
+    color: var(--yellow);
+}
+
+.stat {
+    font-weight: bold;
+}

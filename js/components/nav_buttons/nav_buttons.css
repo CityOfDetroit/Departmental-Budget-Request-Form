@@ -1,0 +1,12 @@
+#nav-btns {
+    margin: 20px;
+    text-align: center;
+}
+
+#btn-next, #btn-last {
+    background-color: var(--blue);
+}
+
+#btn-next:hover, #btn-last:hover {
+    background-color: var(--yellow);
+}

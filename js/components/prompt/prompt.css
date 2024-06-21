@@ -1,0 +1,14 @@
+#prompt-div {
+    display: none;
+    text-align: center;
+    width: 60%;
+    margin-left: 20%;
+}
+
+#prompt {
+    text-align: center;
+}
+
+#option1 { background-color: var(--green);}
+#option2 {background-color: var(--orange);}
+#option1, #option2 { font-size: 1.5em; }
