@@ -7,7 +7,11 @@ import { initializeNavButtons } from './components/nav_buttons/nav_buttons.js';
 import { loadPersonnelPage } from './pages/04_personnel/main.js';
 import { addTarget } from './components/sidebar/sidebar.js';
 
-export let DATA_ROOT = '../../../data/law_dept_sample/'
+// path for my laptop
+//export let DATA_ROOT = '../../../data/law_dept_sample/'
+// github path
+export let DATA_ROOT = '../../budget-request-demo/data/law_dept_sample/'
+
 export let REVENUE = 0;
 
 document.addEventListener('DOMContentLoaded', function () {
