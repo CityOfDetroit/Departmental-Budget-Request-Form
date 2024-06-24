@@ -12,6 +12,12 @@ export function addModalLink(button_id, modal_id){
     });
 }
 
+export function removeModalLink(button_id, modal_id){
+    document.getElementById(button_id).removeEventListener('click', function() {
+        showModal(modal_id);
+    });
+}
+
 export function updateModalTitle(title){
     document.getElementById('modal-title').textContent = title;
 }

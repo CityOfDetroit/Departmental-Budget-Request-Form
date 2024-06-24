@@ -2,11 +2,11 @@ import { updatePageState } from '../../utils/storage-handlers.js'
 import { hideWelcomeButtons } from '../../components/welcome/welcome.js'
 import { updateSubtitle } from '../../components/header/header.js'
 import { showPrompt, updatePrompt, updatePromptButtons, addPromptButtonAction } from '../../components/prompt/prompt.js'
-import { showNavButtons } from '../../components/nav_buttons/nav_buttons.js'
-import { loadNewInitiatives } from '../02_new_initiatives/main.js'
+import { nextPage, showNavButtons } from '../../components/nav_buttons/nav_buttons.js'
 import { hideTable } from '../../components/table/table.js'
 import { hideSideBar } from '../../components/sidebar/sidebar.js'
 import { formatCurrency } from '../../utils/utils.js'
+import { removeModalLink } from '../../components/modal/modal.js'
 
 import { REVENUE } from '../../init.js'
 
@@ -21,6 +21,7 @@ export function loadRevenuePage() {
     showNavButtons();
     hideTable('main-table');
     hideSideBar();
+    removeModalLink('option1', 'main-modal');
 
     // update page text
     updateSubtitle('Revenue Projections');
@@ -29,6 +30,8 @@ export function loadRevenuePage() {
     updatePromptButtons('Confirm and continue.', "This doesn't look right");
 
     // clicking 'confirm and continue' will also take us to the next page
-    addPromptButtonAction('option1', loadNewInitiatives);
+    addPromptButtonAction('option1', nextPage);
+    // TODO: allow user to edit revenue here
+    addPromptButtonAction('option2', nextPage);
 
 }

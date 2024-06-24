@@ -6,13 +6,8 @@ import { loadJSONIntoTable } from "../../utils/data-handlers.js";
 import { AddCostClass, addCol, addColToEnd, addEditCol, adjustTableWidth, assignClassToColumn, showTable } from "../../components/table/table.js";
 import { incrementSidebarStat, showSideBar } from "../../components/sidebar/sidebar.js";
 import { formatCurrency } from "../../utils/utils.js";
-import { DATA_ROOT } from "../../init.js"
+import { DATA_ROOT, fringe, cola, merit } from "../../init.js"
 import { createDropdownFromJSON } from "../../components/form/form.js";
-
-// variables on the salary 
-var fringe = 0.36
-var cola = 0.02
-var merit = 0.02
 
 export function preparePageView(){
     // prepare page view

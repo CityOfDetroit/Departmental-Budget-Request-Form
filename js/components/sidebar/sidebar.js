@@ -1,4 +1,5 @@
 import { formatCurrency } from "../../utils/utils.js";
+import { TARGET } from "../../init.js";
 
 export function hideSideBar(){
     document.getElementById('sidebar-panel').style.display = 'none';
@@ -9,6 +10,7 @@ export function showSideBar(){
     document.getElementById('sidebar-panel').className = 'col-md-2';
     document.getElementById('sidebar-panel').style.display = 'block';
     document.getElementById('main-panel').className = 'col-md-10';
+    addTarget(TARGET);
 }
 
 function updateSidebarStat(stat_id, new_figure){

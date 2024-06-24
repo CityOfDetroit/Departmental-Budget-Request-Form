@@ -29,7 +29,7 @@ export function initializeNavButtons(){
     next_btn.addEventListener('click', nextPage); 
 }
 
-function nextPage(page_state){
+export function nextPage(){
 
     var page_state = loadPageState();
     const keys = Object.keys(pages);
@@ -46,7 +46,7 @@ function nextPage(page_state){
     } 
 }
 
-function lastPage(){
+export function lastPage(){
 
     var page_state = loadPageState();
     const keys = Object.keys(pages);

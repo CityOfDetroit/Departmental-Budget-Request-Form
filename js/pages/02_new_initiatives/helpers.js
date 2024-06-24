@@ -2,8 +2,7 @@
 import { hideWelcomeButtons } from '../../components/welcome/welcome.js'
 import { updateSubtitle } from '../../components/header/header.js'
 import { hidePrompt, showPrompt, updatePrompt, updatePromptButtons, addPromptButtonAction } from '../../components/prompt/prompt.js'
-import { showNavButtons } from '../../components/nav_buttons/nav_buttons.js'
-import { loadRevenuePage } from '../03_revenue/main.js'
+import { showNavButtons, nextPage } from '../../components/nav_buttons/nav_buttons.js'
 import { addModalLink, updateModalTitle, clearModal, hideModal } from '../../components/modal/modal.js'
 import { fetchAllResponses, addTextarea, addTextInput, addNumericInput, addSubmitButtonToForm, addForm } from '../../components/form/form.js'
 import { adjustTableWidth, hideTable, clearTable, updateAddButtonText, addNewRow, showTable, showAddButton } from '../../components/table/table.js'
@@ -51,7 +50,7 @@ export function setUpTable() {
 
 export function handleNavigation() {
     // clicking 'No' (no new initiatives) will also take us to the next page
-    addPromptButtonAction('option2', loadRevenuePage);
+    addPromptButtonAction('option2', nextPage);
 }
 
 export function handleFormSubmissions(event){
