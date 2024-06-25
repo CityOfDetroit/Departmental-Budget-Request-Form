@@ -52,7 +52,7 @@ export function updateTotals() {
         document.querySelector('#baseline-total .stat').style.color = "green";
     }
     if(baseline_total > target){
-        document.getElementById('#baseline-total .stat').style.color = "red";
+        document.querySelector('#baseline-total .stat').style.color = "red";
     }
 }
 

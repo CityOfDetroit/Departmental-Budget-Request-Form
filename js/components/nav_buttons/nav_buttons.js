@@ -1,15 +1,6 @@
 
-import { initializeWelcomePage } from '../../pages/00_welcome/main.js';
-import { loadNewInitiatives } from '../../pages/02_new_initiatives/main.js'
-import { loadRevenuePage } from '../../pages/03_revenue/main.js'
-import { loadPersonnelPage } from '../../pages/04_personnel/main.js';
 import { loadPageState } from '../../utils/storage-handlers.js'
-
-
-let pages = {'welcome' : initializeWelcomePage,
-            'new-inits' : loadNewInitiatives,
-            'revenue' : loadRevenuePage,
-            'personnel' : loadPersonnelPage }
+import { PAGES } from '../../init.js'
 
 export function hideNavButtons() {
     document.getElementById('nav-btns').style.display = 'none';
@@ -32,7 +23,7 @@ export function initializeNavButtons(){
 export function nextPage(){
 
     var page_state = loadPageState();
-    const keys = Object.keys(pages);
+    const keys = Object.keys(PAGES);
   
     // Find the index of the current key
     const currentIndex = keys.indexOf(page_state);
@@ -41,7 +32,7 @@ export function nextPage(){
     if (currentIndex >= 0 && currentIndex < keys.length - 1) {
         // Get the next key
         const nextKey = keys[currentIndex + 1];
-        const nextFn = pages[nextKey];
+        const nextFn = PAGES[nextKey];
         nextFn();
     } 
 }
@@ -49,7 +40,7 @@ export function nextPage(){
 export function lastPage(){
 
     var page_state = loadPageState();
-    const keys = Object.keys(pages);
+    const keys = Object.keys(PAGES);
   
     // Find the index of the current key
     const currentIndex = keys.indexOf(page_state);
@@ -58,7 +49,7 @@ export function lastPage(){
     if (currentIndex >= 1) {
         // Get the next key
         const lastKey = keys[currentIndex - 1];
-        const lastFn = pages[lastKey];
+        const lastFn = PAGES[lastKey];
         lastFn();
     } 
 }

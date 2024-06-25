@@ -3,9 +3,8 @@ import { hidePromptButtons, showPrompt, updatePrompt } from "../../components/pr
 import { showNavButtons } from "../../components/nav_buttons/nav_buttons.js";
 import { updateSubtitle } from "../../components/header/header.js";
 import { loadJSONIntoTable } from "../../utils/data-handlers.js";
-import { AddCostClass, addCol, addColToEnd, addEditCol, adjustTableWidth, assignClassToColumn, showTable } from "../../components/table/table.js";
+import { AddCostClass, addCol, addColToEnd, addEditCol, adjustTableWidth, assignClassToColumn, showTable, updateTableCell, getCellValue } from "../../components/table/table.js";
 import { incrementSidebarStat, showSideBar } from "../../components/sidebar/sidebar.js";
-import { formatCurrency } from "../../utils/utils.js";
 import { DATA_ROOT, fringe, cola, merit } from "../../init.js"
 import { createDropdownFromJSON } from "../../components/form/form.js";
 
@@ -131,19 +130,9 @@ function initializeConfirmButton(rowToEdit){
     });
 }
 
-function getCellValue(row, className){
-    var cellValue = row.querySelector(`.${className}`).getAttribute('value');
-    return parseFloat(cellValue);
-}
 
 function calculateTotalCost(ftes, avg_salary, fringe, cola, merit){
     return ftes * avg_salary * (1 + fringe) * (1 + cola) * (1 + merit);
-}
-
-export function updateTableCell(row, col_class, new_value){
-    const cell = row.querySelector(`.${col_class}`);
-    cell.setAttribute('value', new_value);
-    cell.textContent = formatCurrency(new_value);
 }
 
 // update sidebar and also cost totals when the FTEs are edited

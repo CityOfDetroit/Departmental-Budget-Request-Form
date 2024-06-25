@@ -137,10 +137,11 @@ export function addColToEnd(tableId, htmlContents = [], headerTitle = ''){
     addCol(tableId, position, htmlContents, headerTitle);
 }
 
+export let confirm_btn = '<button class="btn btn-confirm">Confirm</button>';
+export let  edit_btn = '<button class="btn btn-edit">Edit</button>';
+
 // functions for editing rows
 function editButton() {
-    var edit_btn = '<button class="btn btn-edit">Edit</button>';
-    var confirm_btn = '<button class="btn btn-confirm">Confirm</button>';
     return edit_btn + confirm_btn;
 };
 
@@ -205,7 +206,14 @@ export function AddCostClass(tableId, headerName){
     });
 
 }
-  
-export function updateCellValue(cell, newValue){
-    pass;
+
+export function getCellValue(row, className){
+    var cellValue = row.querySelector(`.${className}`).getAttribute('value');
+    return parseFloat(cellValue);
+}
+
+export function updateTableCell(row, col_class, new_value){
+    const cell = row.querySelector(`.${col_class}`);
+    cell.setAttribute('value', new_value);
+    cell.textContent = formatCurrency(new_value);
 }

@@ -5,6 +5,7 @@ import { loadRevenuePage } from './pages/03_revenue/main.js'
 import { loadPageState } from './utils/storage-handlers.js'
 import { initializeNavButtons } from './components/nav_buttons/nav_buttons.js';
 import { loadPersonnelPage } from './pages/04_personnel/main.js';
+import { loadNonpersonnelPage } from './pages/05_nonpersonnel/main.js';
 
 // path for my laptop
 export let DATA_ROOT = '../../../data/law_dept_sample/'
@@ -18,6 +19,12 @@ export let TARGET = 2000000;
 export var fringe = 0.36
 export var cola = 0.02
 export var merit = 0.02
+
+export let PAGES = {'welcome' : initializeWelcomePage,
+    'new-inits' : loadNewInitiatives,
+    'revenue' : loadRevenuePage,
+    'personnel' : loadPersonnelPage,
+    'nonpersonnel' : loadNonpersonnelPage }
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -36,6 +43,9 @@ document.addEventListener('DOMContentLoaded', function () {
             break;
         case 'personnel':
             loadPersonnelPage();
+            break;
+        case 'nonpersonnel':
+            loadNonpersonnelPage();
             break;
     };
     
