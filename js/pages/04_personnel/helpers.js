@@ -4,9 +4,10 @@ import { showNavButtons } from "../../components/nav_buttons/nav_buttons.js";
 import { updateSubtitle } from "../../components/header/header.js";
 import { loadJSONIntoTable } from "../../utils/data-handlers.js";
 import { AddCostClass, addCol, addColToEnd, addEditCol, adjustTableWidth, assignClassToColumn, showTable, updateTableCell, getCellValue } from "../../components/table/table.js";
-import { incrementSidebarStat, showSideBar } from "../../components/sidebar/sidebar.js";
+import { incrementSidebarStat, showSideBar, updateSidebarStat } from "../../components/sidebar/sidebar.js";
 import { DATA_ROOT, fringe, cola, merit } from "../../init.js"
 import { createDropdownFromJSON } from "../../components/form/form.js";
+
 
 export function preparePageView(){
     // prepare page view
@@ -60,9 +61,7 @@ export function handleRowEdit(){
             // turn relevant entries into textboxes
             createEditableCell('baseline-ftes');
             createEditableCell('supp-ftes');
-            // add service dropdown
-            const serviceDropdown = await createDropdownFromJSON(DATA_ROOT + 'services.json');
-            rowToEdit.querySelector('.service').innerHTML = serviceDropdown;
+            createSelectCell('service');
 
             // hide edit buttons
             var editButtons = document.getElementsByClassName('btn-edit');
@@ -89,6 +88,16 @@ function createEditableCell(cellClass, attribute = 'value'){
     //cell.appendChild(feedback);
 }
 
+async function createSelectCell(cellClass){
+    // get cell
+    const cell = document.querySelector(`.active-editing td.${cellClass}`);
+    // add service dropdown
+    const serviceDropdown = await createDropdownFromJSON(DATA_ROOT + 'services.json');
+    serviceDropdown.value = cell.textContent;
+    // Clear the current content and append the textbox to the cell
+    cell.innerHTML = '';
+    cell.appendChild(serviceDropdown);
+}            
 
 function initializeConfirmButton(rowToEdit){
     // get element and add listener for click
@@ -98,6 +107,14 @@ function initializeConfirmButton(rowToEdit){
     confirm_btn.addEventListener('click', function(event){
         // get current row
         const rowToEdit = event.target.closest('tr');
+
+        // set service selection
+        const serviceSelector = rowToEdit.querySelector('select');
+        if (serviceSelector){
+            var cell = serviceSelector.closest('td');
+            cell.textContent = serviceSelector.value;
+        }
+
         var textboxes = rowToEdit.querySelectorAll('input');
         // save all text in textboxes
         textboxes.forEach( textbox => {
@@ -106,12 +123,6 @@ function initializeConfirmButton(rowToEdit){
             cell.textContent = enteredValue;
             cell.setAttribute('value', enteredValue);
         })
-        // set service selection
-        const serviceSelector =  rowToEdit.querySelector('select');
-        var cell = serviceSelector.parentElement;
-        cell.textContent = serviceSelector.value;
-        //set service value
-
 
         // update values in sidebar
         updateDisplayandTotals();
@@ -137,22 +148,27 @@ function calculateTotalCost(ftes, avg_salary, fringe, cola, merit){
 
 // update sidebar and also cost totals when the FTEs are edited
 function updateDisplayandTotals(){
-    // get row
-    const row = document.querySelector('.active-editing');
-    // fetch values for calculations
-    let avg_salary = getCellValue(row, 'avg-salary');
-    let baseline_ftes = getCellValue(row, 'baseline-ftes');
-    let supp_ftes = getCellValue(row, 'supp-ftes');
+    // initialize
+    updateSidebarStat('baseline-personnel', 0);
+    updateSidebarStat('supp-personnel', 0);
+    // calculate for each row
+    let rows = document.getElementsByTagName('tr');
+    for (let i = 1; i < rows.length; i++){
+        // fetch values for calculations
+        let avg_salary = getCellValue(rows[i], 'avg-salary');
+        let baseline_ftes = getCellValue(rows[i], 'baseline-ftes');
+        let supp_ftes = getCellValue(rows[i], 'supp-ftes');
 
-    // calcuate #FTEs x average salary + COLA adjustments + merit adjustments + fringe
-    let total_baseline_cost = calculateTotalCost(baseline_ftes, avg_salary, fringe, cola, merit);
-    let total_supp_cost = calculateTotalCost(supp_ftes, avg_salary, fringe, cola, merit);
-       
-    // update counters
-    incrementSidebarStat('baseline-personnel', total_baseline_cost);
-    incrementSidebarStat('supp-personnel', total_supp_cost);
+        // calcuate #FTEs x average salary + COLA adjustments + merit adjustments + fringe
+        let total_baseline_cost = calculateTotalCost(baseline_ftes, avg_salary, fringe, cola, merit);
+        let total_supp_cost = calculateTotalCost(supp_ftes, avg_salary, fringe, cola, merit);
+        
+        // update counters
+        incrementSidebarStat('baseline-personnel', total_baseline_cost);
+        incrementSidebarStat('supp-personnel', total_supp_cost);
 
-    // update totals in table
-    updateTableCell(row, 'total-baseline', total_baseline_cost);
-    updateTableCell(row, 'total-supp', total_supp_cost);
+        // update totals in table
+        updateTableCell(rows[i], 'total-baseline', total_baseline_cost);
+        updateTableCell(rows[i], 'total-supp', total_supp_cost);
+    }
 }

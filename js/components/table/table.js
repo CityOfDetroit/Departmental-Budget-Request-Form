@@ -138,7 +138,8 @@ export function addColToEnd(tableId, htmlContents = [], headerTitle = ''){
 }
 
 export let confirm_btn = '<button class="btn btn-confirm">Confirm</button>';
-export let  edit_btn = '<button class="btn btn-edit">Edit</button>';
+export let edit_btn = '<button class="btn btn-edit">Edit</button>';
+export let delete_btn = '<button class="btn btn-delete">Delete</button>';
 
 // functions for editing rows
 function editButton() {
@@ -207,9 +208,11 @@ export function AddCostClass(tableId, headerName){
 
 }
 
-export function getCellValue(row, className){
-    var cellValue = row.querySelector(`.${className}`).getAttribute('value');
-    return parseFloat(cellValue);
+// return cell value attribute or 0 if it does not exist
+export function getCellValue(row, className) {
+    var cell = row.querySelector(`.${className}`);
+    var cellValue = cell ? cell.getAttribute('value') : null;
+    return cellValue ? parseFloat(cellValue) : 0;
 }
 
 export function updateTableCell(row, col_class, new_value){

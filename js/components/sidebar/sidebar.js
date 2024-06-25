@@ -13,7 +13,7 @@ export function showSideBar(){
     addTarget(TARGET);
 }
 
-function updateSidebarStat(stat_id, new_figure){
+export function updateSidebarStat(stat_id, new_figure){
     replaceSidebarStat(stat_id, new_figure);
     // TODO: save in memory
     updateTotals();

@@ -132,5 +132,5 @@ export async function createDropdownFromJSON(json_path) {
   });
 
   // Return the select element so it can be appended to the document
-  return selectElement.outerHTML;
+  return selectElement;
 }

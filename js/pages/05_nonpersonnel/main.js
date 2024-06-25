@@ -4,8 +4,8 @@ import { updatePageState } from "../../utils/storage-handlers.js";
 import { hideWelcomeButtons } from "../../components/welcome/welcome.js";
 import { showPrompt, hidePromptButtons, updatePrompt } from "../../components/prompt/prompt.js";
 import { showNavButtons } from "../../components/nav_buttons/nav_buttons.js";
-import { showSideBar, incrementSidebarStat } from "../../components/sidebar/sidebar.js";
-import { AddCostClass, addColToEnd, confirm_btn, edit_btn, adjustTableWidth, assignClassToColumn, showTable, getCellValue } from "../../components/table/table.js";
+import { showSideBar, incrementSidebarStat, updateSidebarStat } from "../../components/sidebar/sidebar.js";
+import { AddCostClass, addColToEnd, confirm_btn, edit_btn, delete_btn, adjustTableWidth, assignClassToColumn, showTable, getCellValue } from "../../components/table/table.js";
 import { updateSubtitle } from "../../components/header/header.js";
 import { loadJSONIntoTable } from "../../utils/data-handlers.js";
 import { DATA_ROOT } from "../../init.js";
@@ -29,22 +29,12 @@ export function loadNonpersonnelPage(){
     initializeNonpersonnelTable()
 }
 
-var action_btn_html = `
-        <span class="action-btns">
-            <button class="btn btn-delete">DELETE</button>
-            <button class="btn btn-supplemental">SUPPLEMENTAL</button>
-            <button class="btn btn-carryover">RETAIN</button>
-        </span>
-        ${edit_btn}
-        ${confirm_btn}
-            `;
-
 export async function initializeNonpersonnelTable(){
     // load table data from json
     await loadJSONIntoTable(DATA_ROOT + 'nonpersonnel_data.json', 'main-table');
     //after table is loaded, fill it
     showTable('main-table');
-    addColToEnd('main-table', action_btn_html, "Select Action");
+    addColToEnd('main-table', `${delete_btn} ${edit_btn} ${confirm_btn}`, "Select Action");
     // assign cost classes
     assignClassToColumn('main-table', 'Request Total', 'request');
     AddCostClass('main-table', 'Request Total');
@@ -87,6 +77,8 @@ export function handleRowEdit(editable_col_classes){
     };
 }
 
+// on edit, hide delete button. On 
+
 function createEditableCell(cellClass, attribute = 'value'){
     // get cell
     const cell = document.querySelector(`.active-editing td.${cellClass}`);
@@ -105,10 +97,10 @@ function createEditableCell(cellClass, attribute = 'value'){
 }
 
 function initializeConfirmButton(rowToEdit){
-    // get element and add listener for click
-    const confirm_btn = rowToEdit.querySelector(".btn-confirm");
     // show confirm button
-    confirm_btn.style.display = 'block';
+    const confirm_btn = rowToEdit.querySelector(".btn-confirm");
+    confirm_btn.style.display = 'inline';
+    // add event listener for confirm
     confirm_btn.addEventListener('click', function(event){
         // get current row
         const rowToEdit = event.target.closest('tr');
@@ -134,7 +126,7 @@ function initializeConfirmButton(rowToEdit){
         // show edit buttons
         var editButtons = document.getElementsByClassName('btn-edit');
         for (var i = 0; i < editButtons.length; i++) {
-            editButtons[i].style.display = 'block';
+            editButtons[i].style.display = 'inline';
         }
          
         // hide confirm button
@@ -144,14 +136,15 @@ function initializeConfirmButton(rowToEdit){
 
 // update sidebar and also cost totals when the FTEs are edited
 function updateDisplayandTotals(){
-    // get row
-    const row = document.querySelector('.active-editing');
-    console.log(row);
-    // fetch values for calculations
-    let request = getCellValue(row, 'request');
-    
-    // update counters
-    incrementSidebarStat('baseline-nonpersonnel', request);
-    // incrementSidebarStat('supp-personnel', total_supp_cost);
-
+    // initialize
+    updateSidebarStat('baseline-nonpersonnel', 0);
+    // calculate for each row
+    let rows = document.getElementsByTagName('tr');
+    for (let i = 1; i < rows.length; i++){
+        // fetch values for calculations
+        let request = getCellValue(rows[i], 'request');
+        
+        // update counters
+        incrementSidebarStat('baseline-nonpersonnel', request);
+    }
 }
