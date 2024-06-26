@@ -32,6 +32,6 @@ export function loadRevenuePage() {
     // clicking 'confirm and continue' will also take us to the next page
     addPromptButtonAction('option1', nextPage);
     // TODO: allow user to edit revenue here
-    addPromptButtonAction('option2', nextPage);
+    // addPromptButtonAction('option2', nextPage);
 
 }

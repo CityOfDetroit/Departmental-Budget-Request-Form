@@ -35,7 +35,9 @@ export function setUpForm() {
     addForm();
     addTextInput('Initiative Name:', 'Initiative Name', true); // Add required field
     addTextarea('Explain why this initiative is necessary and describe its potential impact.', 'Explanation', true);
-    addNumericInput('Roughly how additional money would this initiative require?', 'Cost', true);
+    addNumericInput('Estimate of ADDITONAL personnel cost?', 'Personnel Cost', true);
+    addNumericInput('Estimate of ADDITONAL nonpersonnel cost?', 'Non-personnel Cost', true);
+    addNumericInput('Estimate of total ADDITIONAL cost?', 'Total Cost', true);
     addSubmitButtonToForm();
     // Initialize form submission to table data
     handleFormSubmissions();

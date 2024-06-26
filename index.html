@@ -38,55 +38,33 @@
 <br>
 
 <div class="container-fluid">
+
+    <!-- Welcome page buttons -->
+    <div id="welcome-page">
+        <button class="btn step" id="step-upload">
+            1. Upload your Excel data
+        </button>
+        <button class="btn step" id="step-revenue">
+            2. Baseline request
+        </button>
+        <button class="btn step" id="step-initiatives">
+            3. Name any new initiatives
+        </button>
+        <button class="btn step" id="step-finish">
+            4. Confirm and finish
+        </button>
+    </div>
+
     <div class="row">
         
         <!-- Main content -->
         <div class="col-md-10" id="main-panel">
 
-            <!-- Welcome page buttons -->
-            <div id="welcome-page">
-                <a>
-                    <button class="btn step" id="step-upload">
-                        1. Upload your Excel data
-                    </button>
-                </a>
-                
-                <a>
-                    <button class="btn step" id="step-initiatives">
-                        2. Name any new initiatives
-                    </button>
-                </a>
-
-                <a>
-                    <button class="btn step" id="step-revenue">
-                        3. Confirm revenue
-                    </button>
-                </a>
-
-                <a>
-                    <button class="btn step" id="step-personnel">
-                        4. Personnel costs
-                    </button>
-                </a>
-
-                <a>
-                    <button class="btn step" id="step-nonpersonnel">
-                        5. Non-personnel costs
-                    </button>
-                </a>
-
-                <a>
-                    <button class="btn step" id="step-finish">
-                        6. Confirm and finish
-                    </button>
-                </a>
-            </div>
-
             <!-- Space for an initial prompt and response buttons -->
             <div id="prompt-div">
                 <h3 id="prompt"></h3>
                 <br>
-                    <button class="btn" id="option1" data-toggle="modal" data-target="#new-init-modal"></button>
+                    <button class="btn" id="option1"></button>
                     <button class="btn" id="option2"></button>
             </div>
 
