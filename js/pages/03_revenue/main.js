@@ -4,7 +4,7 @@ import { updateSubtitle } from '../../components/header/header.js'
 import { showPrompt, updatePrompt, updatePromptButtons, addPromptButtonAction } from '../../components/prompt/prompt.js'
 import { nextPage, showNavButtons } from '../../components/nav_buttons/nav_buttons.js'
 import { hideTable } from '../../components/table/table.js'
-import { hideSideBar } from '../../components/sidebar/sidebar.js'
+import { hideSidebar } from '../../components/sidebar/sidebar.js'
 import { formatCurrency } from '../../utils/utils.js'
 import { removeModalLink } from '../../components/modal/modal.js'
 
@@ -20,7 +20,7 @@ export function loadRevenuePage() {
     showPrompt();
     showNavButtons();
     hideTable('main-table');
-    hideSideBar();
+    hideSidebar();
     removeModalLink('option1', 'main-modal');
 
     // update page text

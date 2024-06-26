@@ -1,16 +1,20 @@
 import { formatCurrency } from "../../utils/utils.js";
 import { TARGET } from "../../init.js";
 
-export function hideSideBar(){
+export function hideSidebar(){
     document.getElementById('sidebar-panel').style.display = 'none';
     document.getElementById('main-panel').className = 'col-md-12';
 }
 
-export function showSideBar(){
+export function showSidebar(){
     document.getElementById('sidebar-panel').className = 'col-md-2';
     document.getElementById('sidebar-panel').style.display = 'block';
     document.getElementById('main-panel').className = 'col-md-10';
     addTarget(TARGET);
+}
+
+export function updateSidebarTitle(new_title){
+    document.getElementById('sidebar-title').textContent = new_title;
 }
 
 export function updateSidebarStat(stat_id, new_figure){

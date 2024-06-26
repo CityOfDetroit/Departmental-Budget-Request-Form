@@ -4,7 +4,7 @@ import { updateSubtitle } from '../../components/header/header.js'
 import { showPrompt, updatePrompt, addPromptButtonAction, updatePromptButtons } from '../../components/prompt/prompt.js'
 import { hideNavButtons, lastPage, showNavButtons } from '../../components/nav_buttons/nav_buttons.js'
 import { hideTable } from '../../components/table/table.js'
-import { hideSideBar } from '../../components/sidebar/sidebar.js'
+import { hideSidebar } from '../../components/sidebar/sidebar.js'
 import { removeModalLink } from '../../components/modal/modal.js'
 import { initializeWelcomePage } from "../00_welcome/main.js";
 
@@ -17,7 +17,7 @@ export function loadSummaryPage(){
     showPrompt();
     showNavButtons();
     hideTable('main-table');
-    hideSideBar();
+    hideSidebar();
     removeModalLink('option1', 'main-modal');
     updatePromptButtons('Submit', 'Go back and edit');
     hideNavButtons();

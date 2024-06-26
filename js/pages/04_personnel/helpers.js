@@ -4,7 +4,7 @@ import { showNavButtons } from "../../components/nav_buttons/nav_buttons.js";
 import { updateSubtitle } from "../../components/header/header.js";
 import { loadJSONIntoTable } from "../../utils/data-handlers.js";
 import { AddCostClass, addCol, addColToEnd, addEditCol, adjustTableWidth, assignClassToColumn, showTable, updateTableCell, getCellValue } from "../../components/table/table.js";
-import { incrementSidebarStat, showSideBar, updateSidebarStat } from "../../components/sidebar/sidebar.js";
+import { incrementSidebarStat, showSidebar, updateSidebarStat } from "../../components/sidebar/sidebar.js";
 import { DATA_ROOT, fringe, cola, merit } from "../../init.js"
 import { createDropdownFromJSON } from "../../components/form/form.js";
 
@@ -14,7 +14,7 @@ export function preparePageView(){
     hideWelcomeButtons();
     showPrompt();
     showNavButtons();
-    showSideBar();
+    showSidebar();
     hidePromptButtons();
     adjustTableWidth('main-table', '90%');
 

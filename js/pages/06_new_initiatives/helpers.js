@@ -6,7 +6,7 @@ import { showNavButtons, nextPage } from '../../components/nav_buttons/nav_butto
 import { addModalLink, updateModalTitle, clearModal, hideModal } from '../../components/modal/modal.js'
 import { fetchAllResponses, addTextarea, addTextInput, addNumericInput, addSubmitButtonToForm, addForm } from '../../components/form/form.js'
 import { adjustTableWidth, hideTable, clearTable, updateAddButtonText, addNewRow, showTable, showAddButton } from '../../components/table/table.js'
-import { hideSideBar } from '../../components/sidebar/sidebar.js'
+import { hideSidebar } from '../../components/sidebar/sidebar.js'
 
 export function initializePageView() {
     // Load text
@@ -17,7 +17,7 @@ export function initializePageView() {
     // Prepare page view
     hideWelcomeButtons();
     showNavButtons();
-    hideSideBar();
+    hideSidebar();
     showPrompt();
     hideTable('main-table');
 }

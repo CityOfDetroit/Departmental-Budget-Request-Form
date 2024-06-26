@@ -4,7 +4,7 @@ import { updateSubtitle } from '../../components/header/header.js'
 import { showPrompt, updatePrompt, hidePromptButtons } from '../../components/prompt/prompt.js'
 import { showNavButtons } from '../../components/nav_buttons/nav_buttons.js'
 import { hideTable, showTable } from '../../components/table/table.js'
-import { hideSideBar } from '../../components/sidebar/sidebar.js'
+import { hideSidebar } from '../../components/sidebar/sidebar.js'
 import { removeModalLink } from '../../components/modal/modal.js'
 import { loadJSONIntoTable } from "../../utils/data-handlers.js";
 import { DATA_ROOT } from "../../init.js";
@@ -18,7 +18,7 @@ export function loadBaselineLandingPage(){
     showPrompt();
     showNavButtons();
     hideTable('main-table');
-    hideSideBar();
+    hideSidebar();
     removeModalLink('option1', 'main-modal');
     hidePromptButtons();
 

@@ -3,7 +3,7 @@ import { updateSubtitle } from '../../components/header/header.js'
 import { showPrompt, updatePrompt, updatePromptButtons, addPromptButtonAction, hidePrompt, hidePromptButtons } from '../../components/prompt/prompt.js'
 import { showNavButtons } from '../../components/nav_buttons/nav_buttons.js'
 import { hideTable } from '../../components/table/table.js'
-import { hideSideBar } from '../../components/sidebar/sidebar.js'
+import { hideSidebar } from '../../components/sidebar/sidebar.js'
 
 import { updatePageState } from "../../utils/storage-handlers.js";
 
@@ -16,7 +16,7 @@ export function loadOTPage(){
     showPrompt();
     showNavButtons();
     hideTable('main-table');
-    hideSideBar();
+    hideSidebar();
     hidePromptButtons();
 
     // update page text

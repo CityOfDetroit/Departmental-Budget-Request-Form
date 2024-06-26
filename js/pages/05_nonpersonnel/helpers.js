@@ -1,7 +1,7 @@
 import { hideWelcomeButtons } from "../../components/welcome/welcome.js";
 import { showPrompt, hidePromptButtons, updatePrompt } from "../../components/prompt/prompt.js";
 import { showNavButtons } from "../../components/nav_buttons/nav_buttons.js";
-import { showSideBar, incrementSidebarStat, updateSidebarStat } from "../../components/sidebar/sidebar.js";
+import { showSidebar, incrementSidebarStat, updateSidebarStat } from "../../components/sidebar/sidebar.js";
 import { AddCostClass, addColToEnd, confirm_btn, edit_btn, delete_btn, adjustTableWidth, assignClassToColumn, showTable, getCellValue } from "../../components/table/table.js";
 import { updateSubtitle } from "../../components/header/header.js";
 import { loadJSONIntoTable } from "../../utils/data-handlers.js";
@@ -13,7 +13,7 @@ export function preparePageView(){
     hideWelcomeButtons();
     showPrompt();
     showNavButtons();
-    showSideBar();
+    showSidebar();
     hidePromptButtons();
     adjustTableWidth('main-table', '100%');
     // update page text
