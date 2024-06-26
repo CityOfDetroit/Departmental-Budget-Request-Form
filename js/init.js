@@ -9,6 +9,7 @@ import { loadOTPage } from './pages/04.5_OT/main.js';
 import { loadNonpersonnelPage } from './pages/05_nonpersonnel/main.js';
 import { loadBaselineLandingPage } from './pages/02_baseline_landing_page/main.js';
 import { loadSummaryPage } from './pages/07_summary/main.js';
+import { loadUploadPage } from './pages/01_upload/main.js';
 
 // path for my laptop
 export let DATA_ROOT = '../../../data/law_dept_sample/'
@@ -23,14 +24,17 @@ export var fringe = 0.36
 export var cola = 0.02
 export var merit = 0.02
 
-export let PAGES = {'welcome' : initializeWelcomePage,
-    'baseline-landing' : loadBaselineLandingPage,
+export let PAGES = {
+    'welcome' : initializeWelcomePage,
+    'upload' : loadUploadPage,
+    // 'baseline-landing' : loadBaselineLandingPage,
     'revenue' : loadRevenuePage,
     'personnel' : loadPersonnelPage,
-    'overtime' : loadOTPage,
-    'nonpersonnel' : loadNonpersonnelPage,
-    'new-inits' : loadNewInitiatives,
-    'summary' : loadSummaryPage }
+    // 'overtime' : loadOTPage,
+    // 'nonpersonnel' : loadNonpersonnelPage,
+    // 'new-inits' : loadNewInitiatives,
+    // 'summary' : loadSummaryPage 
+}
 
 document.addEventListener('DOMContentLoaded', function () {
     var page_state = loadPageState();

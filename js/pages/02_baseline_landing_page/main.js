@@ -3,8 +3,8 @@ import { hideWelcomeButtons } from '../../components/welcome/welcome.js'
 import { updateSubtitle } from '../../components/header/header.js'
 import { showPrompt, updatePrompt, hidePromptButtons } from '../../components/prompt/prompt.js'
 import { showNavButtons } from '../../components/nav_buttons/nav_buttons.js'
-import { hideTable, showTable } from '../../components/table/table.js'
-import { hideSidebar } from '../../components/sidebar/sidebar.js'
+import Table from "../../components/table/table.js";
+import Sidebar from '../../components/sidebar/sidebar.js'
 import { removeModalLink } from '../../components/modal/modal.js'
 import { loadJSONIntoTable } from "../../utils/data-handlers.js";
 import { DATA_ROOT } from "../../init.js";
@@ -17,8 +17,7 @@ export function loadBaselineLandingPage(){
     hideWelcomeButtons();
     showPrompt();
     showNavButtons();
-    hideTable('main-table');
-    hideSidebar();
+    Sidebar.hide();
     removeModalLink('option1', 'main-modal');
     hidePromptButtons();
 
@@ -30,5 +29,5 @@ export function loadBaselineLandingPage(){
         Select one of your funds to begin.`);
 
     loadJSONIntoTable(DATA_ROOT + 'funds.json', 'main-table')
-    showTable('main-table');
+    Table.Display.show();
 }

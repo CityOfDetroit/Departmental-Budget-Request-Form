@@ -1,8 +1,8 @@
 import { hideWelcomeButtons } from "../../components/welcome/welcome.js";
 import { showPrompt, hidePromptButtons, updatePrompt } from "../../components/prompt/prompt.js";
 import { showNavButtons } from "../../components/nav_buttons/nav_buttons.js";
-import { showSidebar, incrementSidebarStat, updateSidebarStat } from "../../components/sidebar/sidebar.js";
-import { AddCostClass, addColToEnd, confirm_btn, edit_btn, delete_btn, adjustTableWidth, assignClassToColumn, showTable, getCellValue } from "../../components/table/table.js";
+import Sidebar from "../../components/sidebar/sidebar.js";
+import Table from "../../components/table/table.js";
 import { updateSubtitle } from "../../components/header/header.js";
 import { loadJSONIntoTable } from "../../utils/data-handlers.js";
 import { DATA_ROOT } from "../../init.js";
@@ -13,9 +13,9 @@ export function preparePageView(){
     hideWelcomeButtons();
     showPrompt();
     showNavButtons();
-    showSidebar();
+    Sidebar.show();
     hidePromptButtons();
-    adjustTableWidth('main-table', '100%');
+    Table.Display.adjustWidth('100%');
     // update page text
     updateSubtitle('Non-Personnel');
     updatePrompt('Select an action item for each non-personnel line item from last year.');
@@ -26,21 +26,11 @@ export async function initializeNonpersonnelTable(){
     // load table data from json
     await loadJSONIntoTable(DATA_ROOT + 'nonpersonnel_data.json', 'main-table');
     //after table is loaded, fill it
-    showTable('main-table');
-    addColToEnd('main-table', `${delete_btn} ${edit_btn} ${confirm_btn}`, "Select Action");
+    Table.Display.show();
+    Table.Columns.addAtEnd(Table.Buttons.all(), "Select Action");
     // assign cost classes
-    assignClassToColumn('main-table', 'Request Total', 'request');
-    AddCostClass('main-table', 'Request Total');
-    // assignClassToColumn('main-table', 'Total Cost (Baseline)', 'total-baseline');
-    // AddCostClass('main-table', 'Total Cost (Baseline)');
-    // assignClassToColumn('main-table', 'Total Cost (Supplementary)', 'total-supp');
-    // AddCostClass('main-table', 'Total Cost (Supplementary)');
-    // // assign other classes
-    // assignClassToColumn('main-table', 'Job Name', 'job-name');
-    // assignClassToColumn('main-table', 'Baseline FTEs', 'baseline-ftes');
-    // assignClassToColumn('main-table', 'Supplemental FTEs', 'supp-ftes');
-    // assignClassToColumn('main-table', 'Service', 'service');
-    // manage edit buttons
+    Table.Columns.assignClass('Request Total', 'request');
+    Table.Columns.addCostClass('Request Total');
     handleRowEdit(['request']);
 }
 

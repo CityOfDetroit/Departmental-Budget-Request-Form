@@ -3,8 +3,8 @@ import { hidePromptButtons, showPrompt, updatePrompt } from "../../components/pr
 import { showNavButtons } from "../../components/nav_buttons/nav_buttons.js";
 import { updateSubtitle } from "../../components/header/header.js";
 import { loadJSONIntoTable } from "../../utils/data-handlers.js";
-import { AddCostClass, addCol, addColToEnd, addEditCol, adjustTableWidth, assignClassToColumn, showTable, updateTableCell, getCellValue } from "../../components/table/table.js";
-import { incrementSidebarStat, showSidebar, updateSidebarStat } from "../../components/sidebar/sidebar.js";
+import Table from '../../components/table/table.js'
+import Sidebar from "../../components/sidebar/sidebar.js";
 import { DATA_ROOT, fringe, cola, merit } from "../../init.js"
 import { createDropdownFromJSON } from "../../components/form/form.js";
 
@@ -27,11 +27,11 @@ export async function initializePersonnelTable(){
     // load table data from json
     await loadJSONIntoTable(DATA_ROOT + 'personnel_data.json', 'main-table');
     //after table is loaded, fill it
-    showTable('main-table');
-    addCol('main-table', 3, '', 'Service');
-    addColToEnd('main-table', '0', 'Total Cost (Baseline)');
-    addColToEnd('main-table', '0', 'Total Cost (Supplementary)');
-    addEditCol('main-table');
+    Table.Display.show();
+    Table.Columns.add(3, '', 'Service');
+    Table.Columns.addAtEnd('0', 'Total Cost (Baseline)');
+    Table.Columns.addAtEnd( '0', 'Total Cost (Supplementary)');
+    Table.Columns.addAtEnd(Table.Buttons.Edit.html + Table.Buttons.Confirm.html, ' ');
     // assign cost classes
     assignClassToColumn('main-table', 'Current Average Salary', 'avg-salary');
     AddCostClass('main-table', 'Current Average Salary');
@@ -149,26 +149,26 @@ function calculateTotalCost(ftes, avg_salary, fringe, cola, merit){
 // update sidebar and also cost totals when the FTEs are edited
 function updateDisplayandTotals(){
     // initialize
-    updateSidebarStat('baseline-personnel', 0);
-    updateSidebarStat('supp-personnel', 0);
+    Sidebar.updateStat('baseline-personnel', 0);
+    Sidebar.updateStat('supp-personnel', 0);
     // calculate for each row
     let rows = document.getElementsByTagName('tr');
     for (let i = 1; i < rows.length; i++){
         // fetch values for calculations
-        let avg_salary = getCellValue(rows[i], 'avg-salary');
-        let baseline_ftes = getCellValue(rows[i], 'baseline-ftes');
-        let supp_ftes = getCellValue(rows[i], 'supp-ftes');
+        let avg_salary = Table.Cell.getValue(rows[i], 'avg-salary');
+        let baseline_ftes = Table.Cell.getValue(rows[i], 'baseline-ftes');
+        let supp_ftes = Table.Cell.getValue(rows[i], 'supp-ftes');
 
         // calcuate #FTEs x average salary + COLA adjustments + merit adjustments + fringe
         let total_baseline_cost = calculateTotalCost(baseline_ftes, avg_salary, fringe, cola, merit);
         let total_supp_cost = calculateTotalCost(supp_ftes, avg_salary, fringe, cola, merit);
         
         // update counters
-        incrementSidebarStat('baseline-personnel', total_baseline_cost);
-        incrementSidebarStat('supp-personnel', total_supp_cost);
+        Sidebar.incrementStat('baseline-personnel', total_baseline_cost);
+        Sidebar.incrementStat('supp-personnel', total_supp_cost);
 
         // update totals in table
-        updateTableCell(rows[i], 'total-baseline', total_baseline_cost);
-        updateTableCell(rows[i], 'total-supp', total_supp_cost);
+        Table.Cell.updateValue(rows[i], 'total-baseline', total_baseline_cost);
+        Table.Cell.updateValue(rows[i], 'total-supp', total_supp_cost);
     }
 }

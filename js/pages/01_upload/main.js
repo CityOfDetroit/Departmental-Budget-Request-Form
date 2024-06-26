@@ -1,26 +1,27 @@
+import { updatePageState } from "../../utils/storage-handlers.js";
 import { hideWelcomeButtons } from '../../components/welcome/welcome.js'
 import { updateSubtitle } from '../../components/header/header.js'
-import { showPrompt, updatePrompt, updatePromptButtons, addPromptButtonAction, hidePrompt, hidePromptButtons } from '../../components/prompt/prompt.js'
+import { showPrompt, updatePrompt, addPromptButtonAction, updatePromptButtons, hidePromptButtons } from '../../components/prompt/prompt.js'
 import { showNavButtons } from '../../components/nav_buttons/nav_buttons.js'
 import Table from '../../components/table/table.js'
 import Sidebar from '../../components/sidebar/sidebar.js'
+import { initializeWelcomePage } from "../00_welcome/main.js";
 
-import { updatePageState } from "../../utils/storage-handlers.js";
-
-export function loadOTPage(){
+export function loadUploadPage(){
     //update page state
-    updatePageState('overtime');
+    updatePageState('upload');
 
     // prepare page view
     hideWelcomeButtons();
     showPrompt();
-    showNavButtons();
-    Sidebar.hide();
-    Table.Display.hide();
     hidePromptButtons();
+    showNavButtons();
+    Table.hide();
+    Sidebar.hide();
 
     // update page text
-    updateSubtitle('Overtime Estimates');
+    updateSubtitle('Excel Upload');
     // TODO: update to make dynamic
-    updatePrompt(`This is a placeholder for the OT estimates.`);
+    updatePrompt(`Placeholder for Excel Upload`);
+    addPromptButtonAction('option2', initializeWelcomePage);
 }
