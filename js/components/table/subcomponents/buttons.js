@@ -13,7 +13,7 @@ function showButton(className){
     return function() {
         var buttons = document.getElementsByClassName(className);
         for (var i = 0; i < buttons.length; i++) {
-            buttons[i].style.display = '';
+            buttons[i].style.display = 'inline';
         }
     }
 }
@@ -21,16 +21,6 @@ function showButton(className){
 function updateButtonText(className, text){
     document.querySelector(`.${className}`).textContent = text;
 }
-
-// button for adding a row
-
-const AddRow = {
-    hide: hideButton('btn-add'),
-    show: showButton('btn-add'),
-    updateText: function(text){
-        updateButtonText('btn-add', text);
-    }
-};
 
 // EDIT button
 
@@ -97,10 +87,19 @@ const Confirm = {
     show: showButton('btn-confirm')
 };
 
+const AddRow = {
+    hide: hideButton('btn-add'),
+    show: showButton('btn-add'),
+    updateText: function(text){
+        updateButtonText('btn-add', text);
+    }
+};
+
 export const Buttons = {
     Delete: Delete,
     Edit : Edit,
     Confirm : Confirm,
+    AddRow : AddRow,
     edit_confirm_btns : Edit.html + Confirm.html ,
     all_btns : Delete.html + Edit.html + Confirm.html
 }

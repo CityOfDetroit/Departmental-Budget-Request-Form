@@ -17,9 +17,9 @@ export function initializePageView() {
     // Prepare page view
     hideWelcomeButtons();
     showNavButtons();
-    hideSidebar();
+    Sidebar.hide();
     showPrompt();
-    hideTable('main-table');
+    Table.hide();
 }
 
 export function setUpModal() {
@@ -37,7 +37,7 @@ export function setUpForm() {
     addTextarea('Explain why this initiative is necessary and describe its potential impact.', 'Explanation', true);
     addNumericInput('Estimate of ADDITONAL personnel cost?', 'Personnel Cost', true);
     addNumericInput('Estimate of ADDITONAL nonpersonnel cost?', 'Non-personnel Cost', true);
-    addNumericInput('Estimate of total ADDITIONAL cost?', 'Total Cost', true);
+    addNumericInput('Estimate of TOTAL ADDITIONAL cost?', 'Total Cost', true);
     addSubmitButtonToForm();
     // Initialize form submission to table data
     handleFormSubmissions();
@@ -45,9 +45,9 @@ export function setUpForm() {
 
 export function setUpTable() {
     // Set up table
-    clearTable('main-table');
-    adjustTableWidth('main-table', '70%');
-    updateAddButtonText('Add another new initiative');
+    Table.clear();
+    Table.adjustWidth('70%');
+    Table.Buttons.AddRow.updateText('Add another new initiative');
 }
 
 export function handleNavigation() {
@@ -68,9 +68,9 @@ export function handleFormSubmissions(event){
                 hidePrompt();
         
                 // add data to table
-                addNewRow('main-table', responses);
-                showTable('main-table');
-                showAddButton();
+                Table.Rows.add(responses);
+                Table.show();
+                Table.Buttons.AddRow.show();
                 // TODO: save table data
                 // TODO: edit cost to show currency correctly
                 }

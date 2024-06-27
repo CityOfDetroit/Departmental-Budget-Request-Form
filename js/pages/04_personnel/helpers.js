@@ -22,7 +22,6 @@ export function preparePageView(){
     hideWelcomeButtons();
     showPrompt();
     showNavButtons();
-    updateDisplayandTotals();
     Sidebar.show();
     hidePromptButtons();
     Table.adjustWidth('90%');

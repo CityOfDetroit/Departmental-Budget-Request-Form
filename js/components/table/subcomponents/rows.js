@@ -1,3 +1,5 @@
+import Header from "./headers.js";
+
 function addNewRow(data_dictionary){
     // Get the table element by its ID
     const table = document.getElementById('main-table');
@@ -5,7 +7,7 @@ function addNewRow(data_dictionary){
     // check if header has already been added
     let header_row = table.querySelector('thead tr');
     if (!header_row) {
-        addTableHeaders(table_id, Object.keys(data_dictionary));
+        Header.add(Object.keys(data_dictionary));
     }
 
     // add row of data

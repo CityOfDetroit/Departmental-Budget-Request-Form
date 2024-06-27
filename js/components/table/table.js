@@ -1,7 +1,7 @@
 import Buttons from './subcomponents/buttons.js'
 import Cell from './subcomponents/cells.js'
 import Columns from './subcomponents/columns.js'
-import Headers from './subcomponents/headers.js'
+import Header from './subcomponents/headers.js'
 import Rows from './subcomponents/rows.js'
 
 function adjustTableWidth(width_pct){
@@ -24,14 +24,14 @@ function showTable(){
 function hideTable(){
     const table = document.getElementById('main-table');
     table.style.display = 'none';
-    Table.Buttons.AddRow.hide();
+    Buttons.AddRow.hide();
 }
 
 const Table = {
     Buttons : Buttons,
     Cell : Cell,
     Columns : Columns,
-    Headers : Headers,
+    Header : Header,
     Rows : Rows,
     // functions
     adjustWidth : function(width_pct){

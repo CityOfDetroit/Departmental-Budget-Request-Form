@@ -21,10 +21,10 @@ function addTableHeaders(header_array){
     thead.appendChild(headerRow);
 }
 
-const Headers = {
+const Header = {
     add: function(header_array){
         addTableHeaders(header_array)
     }
 };
 
-export default Headers;
+export default Header;

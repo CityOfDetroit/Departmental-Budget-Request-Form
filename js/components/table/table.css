@@ -47,7 +47,7 @@ input {
     background-color: var(--spiritgreen);
 }
 
-.active-editing {
+.active-editing, .selected {
     background-color: var(--palegreen);
 }
 
