@@ -1,4 +1,4 @@
-export function loadJSONIntoTable(jsonFilePath, tableId) {
+export function loadJSONIntoTable(jsonFilePath) {
   return fetch(jsonFilePath)
       .then(response => {
         if (!response.ok) {
@@ -8,7 +8,7 @@ export function loadJSONIntoTable(jsonFilePath, tableId) {
       })
       .then(data => {
         if(Array.isArray(data)) {
-          const table = document.getElementById(tableId);
+          const table = document.getElementById('main-table');
           const thead = table.querySelector('thead');
           const tbody = table.querySelector('tbody');
   

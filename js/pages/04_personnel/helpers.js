@@ -9,69 +9,48 @@ import { DATA_ROOT, fringe, cola, merit } from "../../init.js"
 import { createDropdownFromJSON } from "../../components/form/form.js";
 
 
+const personnelColumns = [
+    { title: 'Job Name', className: 'job-name' },
+    { title: 'Baseline FTEs', className: 'baseline-ftes' },
+    { title: 'Supplemental FTEs', className: 'supp-ftes' },
+    { title: 'Service', className: 'service' },
+    { title: 'Total Cost (Baseline)', className: 'total-baseline', isCost: true },
+    { title: 'Total Cost (Supplementary)', className: 'total-supp', isCost: true },
+];
+
 export function preparePageView(){
     // prepare page view
     hideWelcomeButtons();
     showPrompt();
     showNavButtons();
-    showSidebar();
+    Sidebar.show();
     hidePromptButtons();
-    adjustTableWidth('main-table', '90%');
+    Table.adjustWidth('90%');
 
     // update page text
     updateSubtitle('Personnel');
     updatePrompt('For each job in your department, select the service and request the number of baseline and supplemental FTEs.');
 }
 
+function personnelRowOnEdit(){
+    createEditableCell('baseline-ftes');
+    createEditableCell('supp-ftes');
+    createSelectCell('service');
+}
+
 export async function initializePersonnelTable(){
     // load table data from json
-    await loadJSONIntoTable(DATA_ROOT + 'personnel_data.json', 'main-table');
+    await loadJSONIntoTable(DATA_ROOT + 'personnel_data.json');
     //after table is loaded, fill it
-    Table.Display.show();
+    Table.show();
     Table.Columns.add(3, '', 'Service');
     Table.Columns.addAtEnd('0', 'Total Cost (Baseline)');
     Table.Columns.addAtEnd( '0', 'Total Cost (Supplementary)');
-    Table.Columns.addAtEnd(Table.Buttons.Edit.html + Table.Buttons.Confirm.html, ' ');
+    Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, ' ');
     // assign cost classes
-    assignClassToColumn('main-table', 'Current Average Salary', 'avg-salary');
-    AddCostClass('main-table', 'Current Average Salary');
-    assignClassToColumn('main-table', 'Total Cost (Baseline)', 'total-baseline');
-    AddCostClass('main-table', 'Total Cost (Baseline)');
-    assignClassToColumn('main-table', 'Total Cost (Supplementary)', 'total-supp');
-    AddCostClass('main-table', 'Total Cost (Supplementary)');
-    // assign other classes
-    assignClassToColumn('main-table', 'Job Name', 'job-name');
-    assignClassToColumn('main-table', 'Baseline FTEs', 'baseline-ftes');
-    assignClassToColumn('main-table', 'Supplemental FTEs', 'supp-ftes');
-    assignClassToColumn('main-table', 'Service', 'service');
-    // manage edit buttons
-    handleRowEdit();
-}
-
-export function handleRowEdit(){
-    // attach an event listener to each edit button in every row
-    var editButtons = document.getElementsByClassName('btn-edit');
-    for (var i = 0; i < editButtons.length; i++) {
-        editButtons[i].addEventListener('click', async function(event) {
-            // Determine what was clicked on within the table
-            var rowToEdit = event.target.closest('tr');
-            // mark row as being edited
-            rowToEdit.classList.add('active-editing');
-            
-            // turn relevant entries into textboxes
-            createEditableCell('baseline-ftes');
-            createEditableCell('supp-ftes');
-            createSelectCell('service');
-
-            // hide edit buttons
-            var editButtons = document.getElementsByClassName('btn-edit');
-            for (var i = 0; i < editButtons.length; i++) {
-                editButtons[i].style.display = 'none';
-            }
-            
-            initializeConfirmButton(rowToEdit);
-        });
-    };
+    Table.Columns.assignClasses(personnelColumns)
+    // activate edit buttons
+    Table.Buttons.Edit.init(personnelRowOnEdit);
 }
 
 
@@ -97,48 +76,6 @@ async function createSelectCell(cellClass){
     // Clear the current content and append the textbox to the cell
     cell.innerHTML = '';
     cell.appendChild(serviceDropdown);
-}            
-
-function initializeConfirmButton(rowToEdit){
-    // get element and add listener for click
-    const confirm_btn = rowToEdit.querySelector(".btn-confirm");
-    // show confirm button
-    confirm_btn.style.display = 'block';
-    confirm_btn.addEventListener('click', function(event){
-        // get current row
-        const rowToEdit = event.target.closest('tr');
-
-        // set service selection
-        const serviceSelector = rowToEdit.querySelector('select');
-        if (serviceSelector){
-            var cell = serviceSelector.closest('td');
-            cell.textContent = serviceSelector.value;
-        }
-
-        var textboxes = rowToEdit.querySelectorAll('input');
-        // save all text in textboxes
-        textboxes.forEach( textbox => {
-            var enteredValue = textbox.value;
-            var cell = textbox.parentElement;
-            cell.textContent = enteredValue;
-            cell.setAttribute('value', enteredValue);
-        })
-
-        // update values in sidebar
-        updateDisplayandTotals();
-
-        // make row no longer green
-        rowToEdit.classList.remove('active-editing');
-
-        // show edit buttons
-        var editButtons = document.getElementsByClassName('btn-edit');
-        for (var i = 0; i < editButtons.length; i++) {
-            editButtons[i].style.display = 'block';
-        }
-         
-        // hide confirm button
-        confirm_btn.style.display = 'none';
-    });
 }
 
 

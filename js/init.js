@@ -27,13 +27,13 @@ export var merit = 0.02
 export let PAGES = {
     'welcome' : initializeWelcomePage,
     'upload' : loadUploadPage,
-    // 'baseline-landing' : loadBaselineLandingPage,
+    'baseline-landing' : loadBaselineLandingPage,
     'revenue' : loadRevenuePage,
     'personnel' : loadPersonnelPage,
-    // 'overtime' : loadOTPage,
-    // 'nonpersonnel' : loadNonpersonnelPage,
-    // 'new-inits' : loadNewInitiatives,
-    // 'summary' : loadSummaryPage 
+    'overtime' : loadOTPage,
+    'nonpersonnel' : loadNonpersonnelPage,
+    'new-inits' : loadNewInitiatives,
+    'summary' : loadSummaryPage 
 }
 
 document.addEventListener('DOMContentLoaded', function () {

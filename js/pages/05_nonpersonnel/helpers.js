@@ -15,7 +15,7 @@ export function preparePageView(){
     showNavButtons();
     Sidebar.show();
     hidePromptButtons();
-    Table.Display.adjustWidth('100%');
+    Table.adjustWidth('100%');
     // update page text
     updateSubtitle('Non-Personnel');
     updatePrompt('Select an action item for each non-personnel line item from last year.');
@@ -26,7 +26,7 @@ export async function initializeNonpersonnelTable(){
     // load table data from json
     await loadJSONIntoTable(DATA_ROOT + 'nonpersonnel_data.json', 'main-table');
     //after table is loaded, fill it
-    Table.Display.show();
+    Table.show();
     Table.Columns.addAtEnd(Table.Buttons.all(), "Select Action");
     // assign cost classes
     Table.Columns.assignClass('Request Total', 'request');
@@ -59,8 +59,6 @@ export function handleRowEdit(editable_col_classes){
         });
     };
 }
-
-// on edit, hide delete button. On 
 
 function createEditableCell(cellClass, attribute = 'value'){
     // get cell

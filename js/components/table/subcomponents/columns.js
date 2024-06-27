@@ -41,7 +41,7 @@ function ncols(){
 function addColToEnd(htmlContents = [], headerTitle = ''){
     // count columns and add new column to the end
     const position = ncols('main-table');
-    addCol(tableId, position, htmlContents, headerTitle);
+    addCol(position, htmlContents, headerTitle);
 }
 
 function assignClassToColumn(headerName, className) {
@@ -82,7 +82,7 @@ function assignClassToColumn(headerName, className) {
   }
 
 function addCostClass(headerName){
-    assignClassToColumn('main-table', headerName, 'cost');
+    assignClassToColumn( headerName, 'cost');
 
     // Get all the cells with the specified class name
     const cells = document.querySelectorAll(`.cost`);
@@ -102,12 +102,29 @@ function addCostClass(headerName){
 
 }
 
+function assignColumnClasses(columnDefinitions) {
+  columnDefinitions.forEach(column => {
+      // Assign class to column
+      assignClassToColumn(column.title, column.className);
+
+      // If the column is a cost column, add the specific cost class
+      if (column.isCost) {
+          addCostClass(column.title);
+      }
+  });
+}
+
 
 const Column = {
-    add: addCol(position, htmlContent, headerTitle),
-    addAtEnd : addColToEnd(htmlContent, headerTitle),
-    assignClass : assignClassToColumn(headerName, className),
-    addCostClass : addCostClass(headerName),
+  add: function(position, htmlContent, headerTitle) {
+      return addCol(position, htmlContent, headerTitle);
+  },
+  addAtEnd: function(htmlContent, headerTitle) {
+      return addColToEnd(htmlContent, headerTitle);
+  },
+  assignClasses: function(column_definitions) {
+      return assignColumnClasses(column_definitions);
+  }
 };
 
 export default Column;

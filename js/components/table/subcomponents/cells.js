@@ -1,3 +1,5 @@
+import { formatCurrency } from "../../../utils/utils.js";
+
 // return cell value attribute or 0 if it does not exist
 function getCellValue(row, className) {
     var cell = row.querySelector(`.${className}`);
@@ -12,10 +14,10 @@ function updateTableCell(row, col_class, new_value){
 }
 
 const Cell = {
-    getValue(row, className) {
+    getValue: function(row, className) {
         return getCellValue(row, className); 
     },
-    updateValue(row, col_class, new_value) {
+    updateValue: function(row, col_class, new_value) {
         updateTableCell(row, col_class, new_value); 
     }
 };

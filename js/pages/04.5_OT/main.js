@@ -16,7 +16,7 @@ export function loadOTPage(){
     showPrompt();
     showNavButtons();
     Sidebar.hide();
-    Table.Display.hide();
+    Table.hide();
     hidePromptButtons();
 
     // update page text

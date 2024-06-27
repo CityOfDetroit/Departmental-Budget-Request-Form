@@ -22,7 +22,9 @@ function addTableHeaders(header_array){
 }
 
 const Headers = {
-    add: add(header_array)
+    add: function(header_array){
+        addTableHeaders(header_array)
+    }
 };
 
 export default Headers;

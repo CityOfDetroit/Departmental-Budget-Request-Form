@@ -14,7 +14,7 @@ import { loadUploadPage } from '../01_upload/main.js'
  
 export function initializePageView(){
     // page set up
-    Table.Display.hide();
+    Table.hide();
     Sidebar.hide();
     updateSubtitle("Welcome");
     unhideWelcomeButtons();

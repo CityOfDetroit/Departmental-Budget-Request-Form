@@ -14,7 +14,7 @@ export function loadSummaryPage(){
     // prepare page view
     hideWelcomeButtons();
     showPrompt();
-    Table.Display.hide();
+    Table.hide();
     Sidebar.hide();
     updatePromptButtons('Submit', 'Go back and edit');
     hideNavButtons();

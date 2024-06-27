@@ -22,11 +22,29 @@ function addNewRow(data_dictionary){
     // Append the new row to the table body
     let tbody = table.querySelector('tbody');
     tbody.appendChild(new_row);
+}
 
+function saveRowEdits(row){
+    var cells = rowToEdit.querySelectorAll('td')
+    cells.forEach( cell => {
+        // save dropdown values
+        if (cell.querySelector('select')){
+            cell.textContent = serviceSelector.value;
+        } else if (cell.querySelector('input')) {
+            var enteredValue = textbox.value;
+            cell.textContent = enteredValue;
+            cell.setAttribute('value', enteredValue);
+        }
+    })
 }
 
 const Rows = {
-    add : addNewRow(data_dictionary)
+    add : function(data_dictionary){
+        addNewRow(data_dictionary)
+    },
+    saveEdits : function(row){
+        saveRowEdits(row)
+    }
 }
 
 export default Rows;

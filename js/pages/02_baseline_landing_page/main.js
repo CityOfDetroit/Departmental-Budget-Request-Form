@@ -29,5 +29,5 @@ export function loadBaselineLandingPage(){
         Select one of your funds to begin.`);
 
     loadJSONIntoTable(DATA_ROOT + 'funds.json', 'main-table')
-    Table.Display.show();
+    Table.show();
 }
