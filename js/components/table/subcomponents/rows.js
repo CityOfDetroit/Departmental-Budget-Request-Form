@@ -25,12 +25,14 @@ function addNewRow(data_dictionary){
 }
 
 function saveRowEdits(row){
-    var cells = rowToEdit.querySelectorAll('td')
+    var cells = row.querySelectorAll('td')
     cells.forEach( cell => {
         // save dropdown values
         if (cell.querySelector('select')){
+            var serviceSelector = cell.querySelector('select');
             cell.textContent = serviceSelector.value;
         } else if (cell.querySelector('input')) {
+            var textbox = cell.querySelector('input');
             var enteredValue = textbox.value;
             cell.textContent = enteredValue;
             cell.setAttribute('value', enteredValue);

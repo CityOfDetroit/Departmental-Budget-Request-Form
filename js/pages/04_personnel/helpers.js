@@ -6,8 +6,6 @@ import { loadJSONIntoTable } from "../../utils/data-handlers.js";
 import Table from '../../components/table/table.js'
 import Sidebar from "../../components/sidebar/sidebar.js";
 import { DATA_ROOT, fringe, cola, merit } from "../../init.js"
-import { createDropdownFromJSON } from "../../components/form/form.js";
-
 
 const personnelColumns = [
     { title: 'Job Name', className: 'job-name' },
@@ -16,6 +14,7 @@ const personnelColumns = [
     { title: 'Service', className: 'service' },
     { title: 'Total Cost (Baseline)', className: 'total-baseline', isCost: true },
     { title: 'Total Cost (Supplementary)', className: 'total-supp', isCost: true },
+    { title: 'Current Average Salary', className: 'avg-salary', isCost: true }
 ];
 
 export function preparePageView(){
@@ -23,6 +22,7 @@ export function preparePageView(){
     hideWelcomeButtons();
     showPrompt();
     showNavButtons();
+    updateDisplayandTotals();
     Sidebar.show();
     hidePromptButtons();
     Table.adjustWidth('90%');
@@ -33,9 +33,9 @@ export function preparePageView(){
 }
 
 function personnelRowOnEdit(){
-    createEditableCell('baseline-ftes');
-    createEditableCell('supp-ftes');
-    createSelectCell('service');
+    Table.Cell.createTextbox('baseline-ftes');
+    Table.Cell.createTextbox('supp-ftes');
+    Table.Cell.createDropdown('service', DATA_ROOT + 'services.json');
 }
 
 export async function initializePersonnelTable(){
@@ -48,36 +48,10 @@ export async function initializePersonnelTable(){
     Table.Columns.addAtEnd( '0', 'Total Cost (Supplementary)');
     Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, ' ');
     // assign cost classes
-    Table.Columns.assignClasses(personnelColumns)
+    Table.Columns.assignClasses(personnelColumns);
     // activate edit buttons
-    Table.Buttons.Edit.init(personnelRowOnEdit);
+    Table.Buttons.Edit.init(personnelRowOnEdit, updateDisplayandTotals);
 }
-
-
-function createEditableCell(cellClass, attribute = 'value'){
-    // get cell
-    const cell = document.querySelector(`.active-editing td.${cellClass}`);
-    // Create an input element to edit the value
-    var textbox = document.createElement('input');
-    textbox.type = 'text';
-    textbox.value = cell.textContent;
-    // Clear the current content and append the textbox to the cell
-    cell.innerHTML = '';
-    cell.appendChild(textbox);
-    //cell.appendChild(feedback);
-}
-
-async function createSelectCell(cellClass){
-    // get cell
-    const cell = document.querySelector(`.active-editing td.${cellClass}`);
-    // add service dropdown
-    const serviceDropdown = await createDropdownFromJSON(DATA_ROOT + 'services.json');
-    serviceDropdown.value = cell.textContent;
-    // Clear the current content and append the textbox to the cell
-    cell.innerHTML = '';
-    cell.appendChild(serviceDropdown);
-}
-
 
 function calculateTotalCost(ftes, avg_salary, fringe, cola, merit){
     return ftes * avg_salary * (1 + fringe) * (1 + cola) * (1 + merit);
@@ -99,7 +73,7 @@ function updateDisplayandTotals(){
         // calcuate #FTEs x average salary + COLA adjustments + merit adjustments + fringe
         let total_baseline_cost = calculateTotalCost(baseline_ftes, avg_salary, fringe, cola, merit);
         let total_supp_cost = calculateTotalCost(supp_ftes, avg_salary, fringe, cola, merit);
-        
+
         // update counters
         Sidebar.incrementStat('baseline-personnel', total_baseline_cost);
         Sidebar.incrementStat('supp-personnel', total_supp_cost);

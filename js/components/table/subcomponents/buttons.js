@@ -1,17 +1,25 @@
-function hideButton(id){
+import Rows from './rows.js'
+
+function hideButton(className){
     return function() {
-        document.getElementById(id).style.display = 'none';
+        var buttons = document.getElementsByClassName(className);
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].style.display = 'none';
+        }
     }
 }
 
-function showButton(id){
-    return function(){
-        document.getElementById(id).style.display = '';
+function showButton(className){
+    return function() {
+        var buttons = document.getElementsByClassName(className);
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].style.display = '';
+        }
     }
 }
 
-function updateButtonText(id, text){
-    document.getElementById(id).textContent = text;
+function updateButtonText(className, text){
+    document.querySelector(`.${className}`).textContent = text;
 }
 
 // button for adding a row
@@ -26,7 +34,7 @@ const AddRow = {
 
 // EDIT button
 
-function handleRowEdit(makeRowEditable){
+function handleRowEdit(makeRowEditable, updateCallback){
     // attach an event listener to each edit button in every row
     var editButtons = document.getElementsByClassName('btn-edit');
     for (var i = 0; i < editButtons.length; i++) {
@@ -40,11 +48,8 @@ function handleRowEdit(makeRowEditable){
             makeRowEditable();
 
             // hide edit buttons
-            var editButtons = document.getElementsByClassName('btn-edit');
-            for (var i = 0; i < editButtons.length; i++) {
-                editButtons[i].style.display = 'none';
-            }
-            initializeConfirmButton(rowToEdit);
+            Edit.hide();
+            initializeConfirmButton(updateCallback);
     
         });
     };
@@ -53,14 +58,14 @@ function handleRowEdit(makeRowEditable){
 // Confirm button
 
 function initializeConfirmButton(updateCallback){
-    // show confirm button
-    showButton('btn-confirm');
     // get element and add listener for click
-    var rowToEdit = document.querySelector('.active-editing')
-    const confirm_btn = rowToEdit.querySelector(".btn-confirm");;
+    var rowToEdit = document.querySelector('.active-editing');
+    const confirm_btn = rowToEdit.querySelector(".btn-confirm");
+    // show the row's confirm button
+    confirm_btn.style.display = 'block';
     confirm_btn.addEventListener('click', function(event){;
         // save row edits
-        Table.Rows.saveEdits(rowToEdit);
+        Rows.saveEdits(rowToEdit);
         // update values in sidebar
         updateCallback();
         // make row no longer green
@@ -75,8 +80,8 @@ const Edit = {
     html: '<button class="btn btn-edit">Edit</button>',
     hide: hideButton('btn-edit'),
     show: showButton('btn-edit'),
-    init : function(makeRowEditable){
-        handleRowEdit(makeRowEditable)
+    init : function(makeRowEditable, updateCallback){
+        handleRowEdit(makeRowEditable, updateCallback)
     }
 };
 
@@ -89,8 +94,7 @@ const Delete = {
 const Confirm = {
     html: '<button class="btn btn-confirm">Confirm</button>',
     hide: hideButton('btn-confirm'),
-    show: showButton('btn-confirm'),
-    init : function(callback){ initializeConfirmButton(callback) }
+    show: showButton('btn-confirm')
 };
 
 export const Buttons = {
