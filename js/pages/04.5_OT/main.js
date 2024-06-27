@@ -1,23 +1,17 @@
-import { hideWelcomeButtons } from '../../components/welcome/welcome.js'
 import { updateSubtitle } from '../../components/header/header.js'
-import { showPrompt, updatePrompt, updatePromptButtons, addPromptButtonAction, hidePrompt, hidePromptButtons } from '../../components/prompt/prompt.js'
+import { showPrompt, updatePrompt } from '../../components/prompt/prompt.js'
 import { showNavButtons } from '../../components/nav_buttons/nav_buttons.js'
-import Table from '../../components/table/table.js'
-import Sidebar from '../../components/sidebar/sidebar.js'
-
 import { updatePageState } from "../../utils/storage-handlers.js";
+import Body from '../../components/body/body.js';
 
 export function loadOTPage(){
     //update page state
     updatePageState('overtime');
 
     // prepare page view
-    hideWelcomeButtons();
+    Body.clearAll();
     showPrompt();
     showNavButtons();
-    Sidebar.hide();
-    Table.hide();
-    hidePromptButtons();
 
     // update page text
     updateSubtitle('Overtime Estimates');

@@ -1,25 +1,16 @@
- 
-import { hidePrompt } from '../../components/prompt/prompt.js'
-import { hideNavButtons } from '../../components/nav_buttons/nav_buttons.js'
-import Sidebar from '../../components/sidebar/sidebar.js'
-import Table from '../../components/table/table.js'
-import { updateSubtitle } from '../../components/header/header.js'
+ import { updateSubtitle } from '../../components/header/header.js'
 import { unhideWelcomeButtons } from '../../components/welcome/welcome.js'
 import { loadNewInitiatives } from '../06_new_initiatives/main.js'
-import { loadRevenuePage } from '../03_revenue/main.js'
-import { loadPersonnelPage } from '../04_personnel/main.js'
 import { loadSummaryPage } from '../07_summary/main.js'
 import { loadBaselineLandingPage } from '../02_baseline_landing_page/main.js'
 import { loadUploadPage } from '../01_upload/main.js'
+import Body from '../../components/body/body.js'
  
 export function initializePageView(){
     // page set up
-    Table.hide();
-    Sidebar.hide();
+    Body.clearAll();
     updateSubtitle("Welcome");
     unhideWelcomeButtons();
-    hidePrompt();
-    hideNavButtons();
 }
 
 export function addLinks(){

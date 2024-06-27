@@ -1,25 +1,20 @@
 import { updatePageState } from "../../utils/storage-handlers.js";
-import { hideWelcomeButtons } from '../../components/welcome/welcome.js'
 import { updateSubtitle } from '../../components/header/header.js'
 import { showPrompt, updatePrompt, hidePromptButtons } from '../../components/prompt/prompt.js'
 import { showNavButtons } from '../../components/nav_buttons/nav_buttons.js'
 import Table from "../../components/table/table.js";
-import Sidebar from '../../components/sidebar/sidebar.js'
-import { removeModalLink } from '../../components/modal/modal.js'
 import { loadJSONIntoTable } from "../../utils/data-handlers.js";
 import { DATA_ROOT } from "../../init.js";
+import Body from "../../components/body/body.js";
 
 export function loadBaselineLandingPage(){
     //update page state
     updatePageState('baseline-landing');
 
     // prepare page view
-    hideWelcomeButtons();
+    Body.clearAll();
     showPrompt();
     showNavButtons();
-    Sidebar.hide();
-    removeModalLink('option1', 'main-modal');
-    hidePromptButtons();
 
     // update page text
     updateSubtitle('Baseline Budget Request');

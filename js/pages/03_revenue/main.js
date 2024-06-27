@@ -1,14 +1,11 @@
 import { updatePageState } from '../../utils/storage-handlers.js'
-import { hideWelcomeButtons } from '../../components/welcome/welcome.js'
 import { updateSubtitle } from '../../components/header/header.js'
 import { showPrompt, updatePrompt, updatePromptButtons, addPromptButtonAction } from '../../components/prompt/prompt.js'
 import { nextPage, showNavButtons } from '../../components/nav_buttons/nav_buttons.js'
-import Table from '../../components/table/table.js'
-import Sidebar from '../../components/sidebar/sidebar.js'
 import { formatCurrency } from '../../utils/utils.js'
-import { removeModalLink } from '../../components/modal/modal.js'
 
 import { REVENUE } from '../../init.js'
+import Body from '../../components/body/body.js'
 
 export function loadRevenuePage() {
 
@@ -16,12 +13,9 @@ export function loadRevenuePage() {
     updatePageState('revenue');
 
     // prepare page view
-    hideWelcomeButtons();
+    Body.clearAll();
     showPrompt();
     showNavButtons();
-    Table.hide();
-    Sidebar.hide();
-    removeModalLink('option1', 'main-modal');
 
     // update page text
     updateSubtitle('Revenue Projections');

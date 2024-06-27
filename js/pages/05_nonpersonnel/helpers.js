@@ -1,12 +1,11 @@
-import { hideWelcomeButtons } from "../../components/welcome/welcome.js";
-import { showPrompt, hidePromptButtons, updatePrompt } from "../../components/prompt/prompt.js";
+import { showPrompt, updatePrompt } from "../../components/prompt/prompt.js";
 import { showNavButtons } from "../../components/nav_buttons/nav_buttons.js";
 import Sidebar from "../../components/sidebar/sidebar.js";
 import Table from "../../components/table/table.js";
 import { updateSubtitle } from "../../components/header/header.js";
 import { loadJSONIntoTable } from "../../utils/data-handlers.js";
 import { DATA_ROOT } from "../../init.js";
-import { formatCurrency } from "../../utils/utils.js";
+import Body from "../../components/body/body.js";
 
 const nonPersonnelColumns = [
     { title: 'Request Total', className: 'request', isCost: true },
@@ -14,11 +13,10 @@ const nonPersonnelColumns = [
 
 export function preparePageView(){
     // prepare page view
-    hideWelcomeButtons();
+    Body.clearAll();
     showPrompt();
     showNavButtons();
     Sidebar.show();
-    hidePromptButtons();
     Table.adjustWidth('100%');
     // update page text
     updateSubtitle('Non-Personnel');

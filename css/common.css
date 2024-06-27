@@ -17,16 +17,6 @@
     font-size: 14px;
 }
 
-/* Every page */
-
-/* start by hiding everything */
-#welcome-page{display: none;}
-#prompt-div{display: none;}
-
-body {
-    margin: 10px;
-}
-
 /* Button styling */
 
 .btn {
@@ -38,38 +28,5 @@ body {
     border-radius: 10px;
     background-color: gray;
     color: white; 
-}
-
-/* Action buttons */
-
-.action-btns {
-    text-align: center;
-}
-
-.delete {
-    background-color: #ee9286;
-}
-.delete .btn-delete, .keep .btn-carryover, .supp .btn-supplemental {
-    background-color: #373A37;
-}
-.keep {
-    background-color: #90ee90;
-}
-.supp {
-    background-color: #e0b472;
-}
-
-.btn-delete {background-color: var(--orange);}
-.btn-supplemental { background-color: var(--yellow);}
-.btn-carryover {background-color: var(--green);}
-
-
-.error-message {
-    color: red;
-}
-
-/* confirm button */
-.confirm-btn:hover {
-    background-color: var(--green);
 }
 

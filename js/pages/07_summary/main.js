@@ -6,18 +6,16 @@ import { hideNavButtons, lastPage, showNavButtons } from '../../components/nav_b
 import Sidebar from '../../components/sidebar/sidebar.js'
 import Table from "../../components/table/table.js";
 import { initializeWelcomePage } from "../00_welcome/main.js";
+import Body from "../../components/body/body.js";
 
 export function loadSummaryPage(){
     //update page state
     updatePageState('summary');
 
     // prepare page view
-    hideWelcomeButtons();
+    Body.clearAll();
     showPrompt();
-    Table.hide();
-    Sidebar.hide();
     updatePromptButtons('Submit', 'Go back and edit');
-    hideNavButtons();
 
     // update page text
     updateSubtitle('Summary');

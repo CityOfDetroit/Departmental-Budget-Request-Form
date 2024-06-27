@@ -1,11 +1,11 @@
-import { hideWelcomeButtons } from "../../components/welcome/welcome.js";
-import { hidePromptButtons, showPrompt, updatePrompt } from "../../components/prompt/prompt.js";
+import { showPrompt, updatePrompt } from "../../components/prompt/prompt.js";
 import { showNavButtons } from "../../components/nav_buttons/nav_buttons.js";
 import { updateSubtitle } from "../../components/header/header.js";
 import { loadJSONIntoTable } from "../../utils/data-handlers.js";
 import Table from '../../components/table/table.js'
 import Sidebar from "../../components/sidebar/sidebar.js";
 import { DATA_ROOT, fringe, cola, merit } from "../../init.js"
+import Body from "../../components/body/body.js";
 
 const personnelColumns = [
     { title: 'Job Name', className: 'job-name' },
@@ -19,11 +19,10 @@ const personnelColumns = [
 
 export function preparePageView(){
     // prepare page view
-    hideWelcomeButtons();
+    Body.clearAll();
     showPrompt();
     showNavButtons();
     Sidebar.show();
-    hidePromptButtons();
     Table.adjustWidth('90%');
 
     // update page text
