@@ -1,9 +1,8 @@
-import { updatePageState } from "../../utils/storage-handlers.js";
+import { updatePageState } from "../../utils/data_utils/local_storage_handlers.js";
 import Subtitle from '../../components/header/header.js'
 import Prompt from '../../components/prompt/prompt.js'
 import NavButtons from '../../components/nav_buttons/nav_buttons.js'
 import Table from "../../components/table/table.js";
-import { loadJSONIntoTable } from "../../utils/data-handlers.js";
 import { DATA_ROOT } from "../../init.js";
 import Body from "../../components/body/body.js";
 
@@ -22,7 +21,7 @@ export function loadBaselineLandingPage(){
         At the end, we will ask you about any new initiatives (ie. supplemental requests).
         Select one of your funds to begin.`);
 
-    loadJSONIntoTable(DATA_ROOT + 'funds.json', 'main-table')
+    Table.Data.loadFromJSON(DATA_ROOT + 'funds.json')
     Table.adjustWidth('100%');
     Table.show();
 }

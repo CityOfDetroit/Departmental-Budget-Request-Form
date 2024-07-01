@@ -1,10 +1,10 @@
-import { updatePageState } from '../../utils/storage-handlers.js'
+import { updatePageState } from '../../utils/data_utils/local_storage_handlers.js'
 import Prompt from '../../components/prompt/prompt.js'
-import { formatCurrency } from '../../utils/utils.js'
+import { formatCurrency } from '../../utils/common_utils.js'
 import { REVENUE } from '../../init.js'
 import Body from '../../components/body/body.js'
 import NavButtons from '../../components/nav_buttons/nav_buttons.js'
-import { nextPage } from '../../utils/navigation-logic.js'
+import { nextPage } from '../view_logic.js'
 import Subtitle from '../../components/header/header.js'
 
 export function loadRevenuePage() {

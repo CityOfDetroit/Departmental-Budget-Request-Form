@@ -1,6 +1,6 @@
 
 import { initializePageView, setUpModal, setUpForm, setUpTable, removeModalLinks } from './helpers.js'
-import { updatePageState } from '../../utils/storage-handlers.js'
+import { updatePageState } from '../../utils/data_utils/local_storage_handlers.js'
 
 
 // set up page and initialize all buttons

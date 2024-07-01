@@ -1,5 +1,4 @@
 import Prompt from "../../components/prompt/prompt.js";
-import { loadJSONIntoTable } from "../../utils/data-handlers.js";
 import Table from '../../components/table/table.js'
 import Sidebar from "../../components/sidebar/sidebar.js";
 import { DATA_ROOT, fringe, cola, merit } from "../../init.js"
@@ -37,7 +36,7 @@ function personnelRowOnEdit(){
 
 export async function initializePersonnelTable(){
     // load table data from json
-    await loadJSONIntoTable(DATA_ROOT + 'personnel_data.json');
+    await Table.Data.loadFromJSON(DATA_ROOT + 'personnel_data.json');
     //after table is loaded, fill it
     Table.show();
     Table.Columns.add(3, '', 'Service');

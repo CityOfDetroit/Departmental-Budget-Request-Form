@@ -1,4 +1,4 @@
-import { formatCurrency } from "../../utils/utils.js";
+import { formatCurrency } from "../../utils/common_utils.js";
 import { TARGET } from "../../init.js";
 
 function hideSidebar(){

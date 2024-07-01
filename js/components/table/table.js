@@ -3,6 +3,7 @@ import Cell from './subcomponents/cells.js'
 import Columns from './subcomponents/columns.js'
 import Header from './subcomponents/headers.js'
 import Rows from './subcomponents/rows.js'
+import Data from './subcomponents/data.js'
 
 function adjustTableWidth(width_pct){
     const table = document.getElementById('main-table');
@@ -12,8 +13,7 @@ function adjustTableWidth(width_pct){
 function clearTable(){
     const table = document.getElementById('main-table');
     table.querySelector('thead').innerHTML = '';
-    table.querySelector('tbody').
-    innerHTML = '';
+    table.querySelector('tbody').innerHTML = '';
 }
 
 function showTable(){
@@ -33,6 +33,7 @@ const Table = {
     Columns : Columns,
     Header : Header,
     Rows : Rows,
+    Data : Data,
     // functions
     adjustWidth : function(width_pct){
         adjustTableWidth(width_pct)

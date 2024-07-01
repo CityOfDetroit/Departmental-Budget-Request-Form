@@ -5,7 +5,7 @@ import Form from '../../components/form/form.js'
 import Table from '../../components/table/table.js'
 import Body from '../../components/body/body.js'
 import NavButtons from '../../components/nav_buttons/nav_buttons.js'
-import { nextPage } from '../../utils/navigation-logic.js'
+import { nextPage } from '../view_logic.js'
 import Subtitle from '../../components/header/header.js'
 
 export function initializePageView() {

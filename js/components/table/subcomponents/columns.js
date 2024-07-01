@@ -1,4 +1,4 @@
-import { formatCurrency } from "../../../utils/utils.js";
+import { formatCurrency } from "../../../utils/common_utils.js";
 
 // position is index at which new column will be inserted
 function addCol(position, htmlContent = '', headerTitle = '') {

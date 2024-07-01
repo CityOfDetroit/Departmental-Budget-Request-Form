@@ -1,4 +1,4 @@
-import { formatCurrency } from "../../../utils/utils.js";
+import { formatCurrency } from "../../../utils/common_utils.js";
 import Dropdown from "../../form/subcomponents/dropdown.js";
 
 // return cell value attribute or 0 if it does not exist

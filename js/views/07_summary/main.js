@@ -1,4 +1,4 @@
-import { updatePageState } from "../../utils/storage-handlers.js";
+import { updatePageState } from "../../utils/data_utils/local_storage_handlers.js";
 import Prompt from '../../components/prompt/prompt.js'
 import { initializeWelcomePage } from "../00_welcome/main.js";
 import Body from "../../components/body/body.js";

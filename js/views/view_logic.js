@@ -1,14 +1,14 @@
-import { initializeWelcomePage } from '../views/00_welcome/main.js';
-import { cleanUpInitiativesPage, loadNewInitiatives } from '../views/06_new_initiatives/main.js'
-import { loadRevenuePage } from '../views/03_revenue/main.js'
-import { loadPersonnelPage } from '../views/04_personnel/main.js';
-import { loadOTPage } from '../views/04.5_OT/main.js';
-import { loadNonpersonnelPage } from '../views/05_nonpersonnel/main.js';
-import { loadBaselineLandingPage } from '../views/02_baseline_landing_page/main.js';
-import { loadSummaryPage } from '../views/07_summary/main.js';
-import { loadUploadPage } from '../views/01_upload/main.js';
+import { initializeWelcomePage } from './00_welcome/main.js';
+import { cleanUpInitiativesPage, loadNewInitiatives } from './06_new_initiatives/main.js'
+import { loadRevenuePage } from './03_revenue/main.js'
+import { loadPersonnelPage } from './04_personnel/main.js';
+import { loadOTPage } from './04.5_OT/main.js';
+import { loadNonpersonnelPage } from './05_nonpersonnel/main.js';
+import { loadBaselineLandingPage } from './02_baseline_landing_page/main.js';
+import { loadSummaryPage } from './07_summary/main.js';
+import { loadUploadPage } from './01_upload/main.js';
 
-import { loadPageState } from './storage-handlers.js';
+import { loadPageState } from '../utils/data_utils/local_storage_handlers.js';
 
 export let PAGES = {
     'welcome' : initializeWelcomePage,

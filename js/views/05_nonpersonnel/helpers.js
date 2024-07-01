@@ -1,7 +1,6 @@
 import Prompt from "../../components/prompt/prompt.js";
 import Sidebar from "../../components/sidebar/sidebar.js";
 import Table from "../../components/table/table.js";
-import { loadJSONIntoTable } from "../../utils/data-handlers.js";
 import { DATA_ROOT } from "../../init.js";
 import Body from "../../components/body/body.js";
 import NavButtons from "../../components/nav_buttons/nav_buttons.js";
@@ -25,7 +24,7 @@ export function preparePageView(){
 
 export async function initializeNonpersonnelTable(){
     // load table data from json
-    await loadJSONIntoTable(DATA_ROOT + 'nonpersonnel_data.json', 'main-table');
+    await Table.Data.loadFromJSON(DATA_ROOT + 'nonpersonnel_data.json', 'main-table');
     //after table is loaded, fill it
     Table.show();
     Table.Columns.addAtEnd(Table.Buttons.all_btns, "Select Action");

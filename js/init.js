@@ -1,6 +1,6 @@
 // import functions
-import { loadPageState } from './utils/storage-handlers.js'
-import { PAGES } from './utils/navigation-logic.js'
+import { loadPageState } from './utils/data_utils/local_storage_handlers.js'
+import { PAGES } from './views/view_logic.js'
 
 // path for my laptop
 export let DATA_ROOT = '../../../data/law_dept_sample/'

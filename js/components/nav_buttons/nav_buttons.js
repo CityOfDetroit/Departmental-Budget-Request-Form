@@ -1,4 +1,4 @@
-import { nextPage, lastPage } from '../../utils/navigation-logic.js'
+import { nextPage, lastPage } from '../../views/view_logic.js'
 
 function initializeNavButtons(){
     // initialize last button
