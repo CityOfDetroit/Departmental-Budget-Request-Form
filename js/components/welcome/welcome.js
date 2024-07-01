@@ -1,7 +1,14 @@
 // Hide and unhide welcome buttons
-export function unhideWelcomeButtons(){
+function unhideWelcomeButtons(){
     document.getElementById("welcome-page").style.display = "block";
 }
-export function hideWelcomeButtons(){
+function hideWelcomeButtons(){
     document.getElementById("welcome-page").style.display = "none";
 }
+
+export const Welcome = {
+    show: unhideWelcomeButtons,
+    hide : hideWelcomeButtons
+}
+
+export default Welcome;

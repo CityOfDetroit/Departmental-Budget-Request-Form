@@ -1,11 +1,11 @@
 import Prompt from "../../components/prompt/prompt.js";
-import { updateSubtitle } from "../../components/header/header.js";
 import { loadJSONIntoTable } from "../../utils/data-handlers.js";
 import Table from '../../components/table/table.js'
 import Sidebar from "../../components/sidebar/sidebar.js";
 import { DATA_ROOT, fringe, cola, merit } from "../../init.js"
 import Body from "../../components/body/body.js";
 import NavButtons from "../../components/nav_buttons/nav_buttons.js";
+import Subtitle from "../../components/header/header.js";
 
 const personnelColumns = [
     { title: 'Job Name', className: 'job-name' },
@@ -25,7 +25,7 @@ export function preparePageView(){
     Table.adjustWidth('90%');
 
     // update page text
-    updateSubtitle('Personnel');
+    Subtitle.update('Personnel');
     Prompt.Text.update('For each job in your department, select the service and request the number of baseline and supplemental FTEs.');
 }
 

@@ -1,11 +1,11 @@
 import { updatePageState } from '../../utils/storage-handlers.js'
-import { updateSubtitle } from '../../components/header/header.js'
 import Prompt from '../../components/prompt/prompt.js'
 import { formatCurrency } from '../../utils/utils.js'
 import { REVENUE } from '../../init.js'
 import Body from '../../components/body/body.js'
 import NavButtons from '../../components/nav_buttons/nav_buttons.js'
 import { nextPage } from '../../utils/navigation-logic.js'
+import Subtitle from '../../components/header/header.js'
 
 export function loadRevenuePage() {
 
@@ -17,7 +17,7 @@ export function loadRevenuePage() {
     NavButtons.show();
 
     // update page text
-    updateSubtitle('Revenue Projections');
+    Subtitle.update('Revenue Projections');
     // TODO: update to make dynamic
     Prompt.Text.update(`Your revenue projection for FY26 is ${formatCurrency(REVENUE, true)}`);
     Prompt.Buttons.Left.updateText('Confirm and continue.');

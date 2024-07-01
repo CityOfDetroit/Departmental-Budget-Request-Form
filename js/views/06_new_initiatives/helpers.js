@@ -1,12 +1,12 @@
 
-import { updateSubtitle } from '../../components/header/header.js'
 import Prompt from '../../components/prompt/prompt.js'
-import { addModalLink, updateModalTitle, clearModal, hideModal } from '../../components/modal/modal.js'
+import Modal from '../../components/modal/modal.js'
 import Form from '../../components/form/form.js'
 import Table from '../../components/table/table.js'
 import Body from '../../components/body/body.js'
 import NavButtons from '../../components/nav_buttons/nav_buttons.js'
 import { nextPage } from '../../utils/navigation-logic.js'
+import Subtitle from '../../components/header/header.js'
 
 export function initializePageView() {
     // Prepare page view
@@ -15,7 +15,7 @@ export function initializePageView() {
     Prompt.Buttons.Right.addAction(nextPage);
 
     // Load text
-    updateSubtitle('New Initiatives');
+    Subtitle.update('New Initiatives');
     Prompt.Text.update('Do you have any new initiatives for FY26?');
     Prompt.Buttons.Left.updateText('Yes');
     Prompt.Buttons.Right.updateText('No');
@@ -23,10 +23,10 @@ export function initializePageView() {
 
 export function setUpModal() {
     // Initialize modal
-    clearModal();
-    addModalLink('option1', 'main-modal');
-    updateModalTitle('New initiative');
-    addModalLink('add-btn', 'main-modal');
+    Modal.clear();
+    Modal.Link.add('option1');
+    Modal.Title.update('New initiative');
+    Modal.Link.add('add-btn');
 }
 
 export function setUpForm() {
@@ -58,7 +58,7 @@ export function handleFormSubmissions(event){
             // make sure it's not an empty response
             if (Object.values(responses)[0] != ''){
                 // change page view
-                hideModal('main-modal');
+                Modal.hide();
                 Prompt.hide();
         
                 // add data to table
@@ -70,4 +70,9 @@ export function handleFormSubmissions(event){
                 }
 
         })
+}
+
+export function removeModalLinks(){
+    Modal.Link.remove('option1');
+    Modal.Link.remove('add-btn');
 }

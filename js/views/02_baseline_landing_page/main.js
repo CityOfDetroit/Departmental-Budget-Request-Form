@@ -1,5 +1,5 @@
 import { updatePageState } from "../../utils/storage-handlers.js";
-import { updateSubtitle } from '../../components/header/header.js'
+import Subtitle from '../../components/header/header.js'
 import Prompt from '../../components/prompt/prompt.js'
 import NavButtons from '../../components/nav_buttons/nav_buttons.js'
 import Table from "../../components/table/table.js";
@@ -16,7 +16,7 @@ export function loadBaselineLandingPage(){
     NavButtons.show();
 
     // update page text
-    updateSubtitle('Baseline Budget Request');
+    Subtitle.update('Baseline Budget Request');
     // TODO: update to make dynamic
     Prompt.Text.update(`We will now ask you a series of questions about your BASELINE budget request.
         At the end, we will ask you about any new initiatives (ie. supplemental requests).

@@ -1,5 +1,5 @@
 import { initializeWelcomePage } from '../views/00_welcome/main.js';
-import { loadNewInitiatives } from '../views/06_new_initiatives/main.js'
+import { cleanUpInitiativesPage, loadNewInitiatives } from '../views/06_new_initiatives/main.js'
 import { loadRevenuePage } from '../views/03_revenue/main.js'
 import { loadPersonnelPage } from '../views/04_personnel/main.js';
 import { loadOTPage } from '../views/04.5_OT/main.js';
@@ -22,6 +22,10 @@ export let PAGES = {
     'summary' : loadSummaryPage 
 }
 
+export let CLEANUP = {
+    'new-inits' : cleanUpInitiativesPage,
+}
+
 export function nextPage(){
 
     var page_state = loadPageState();
@@ -29,6 +33,9 @@ export function nextPage(){
   
     // Find the index of the current key
     const currentIndex = keys.indexOf(page_state);
+
+    // clean up current page
+    if (CLEANUP[page_state]) { CLEANUP[page_state]() };
     
     // Check if there is a next key
     if (currentIndex >= 0 && currentIndex < keys.length - 1) {
@@ -46,6 +53,9 @@ export function lastPage(){
   
     // Find the index of the current key
     const currentIndex = keys.indexOf(page_state);
+
+    // clean up current page
+    if (CLEANUP[page_state]) { CLEANUP[page_state]() };
     
     // Check if there is a next key
     if (currentIndex >= 1) {

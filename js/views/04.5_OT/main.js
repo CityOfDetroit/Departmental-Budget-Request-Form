@@ -1,4 +1,3 @@
-import { updateSubtitle } from '../../components/header/header.js'
 import Prompt from '../../components/prompt/prompt.js'
 import { updatePageState } from "../../utils/storage-handlers.js";
 import Body from '../../components/body/body.js';
@@ -13,7 +12,7 @@ export function loadOTPage(){
     NavButtons.show();
 
     // update page text
-    updateSubtitle('Overtime Estimates');
+    Subtitle.update('Overtime Estimates');
     // TODO: update to make dynamic
     Prompt.Text.update(`This is a placeholder for the OT estimates.`);
 }

@@ -1,11 +1,11 @@
 import Prompt from "../../components/prompt/prompt.js";
 import Sidebar from "../../components/sidebar/sidebar.js";
 import Table from "../../components/table/table.js";
-import { updateSubtitle } from "../../components/header/header.js";
 import { loadJSONIntoTable } from "../../utils/data-handlers.js";
 import { DATA_ROOT } from "../../init.js";
 import Body from "../../components/body/body.js";
 import NavButtons from "../../components/nav_buttons/nav_buttons.js";
+import Subtitle from "../../components/header/header.js";
 
 const nonPersonnelColumns = [
     { title: 'Request Total', className: 'request', isCost: true },
@@ -18,7 +18,7 @@ export function preparePageView(){
     Sidebar.show();
     Table.adjustWidth('100%');
     // update page text
-    updateSubtitle('Non-Personnel');
+    Subtitle.update('Non-Personnel');
     Prompt.Text.update('Select an action item for each non-personnel line item from last year.');
     updateDisplayandTotals();
 }
