@@ -1,16 +1,17 @@
 
 import { updateSubtitle } from '../../components/header/header.js'
 import Prompt from '../../components/prompt/prompt.js'
-import { showNavButtons, nextPage } from '../../components/nav_buttons/nav_buttons.js'
 import { addModalLink, updateModalTitle, clearModal, hideModal } from '../../components/modal/modal.js'
 import { fetchAllResponses, addTextarea, addTextInput, addNumericInput, addSubmitButtonToForm, addForm } from '../../components/form/form.js'
 import Table from '../../components/table/table.js'
 import Body from '../../components/body/body.js'
+import NavButtons from '../../components/nav_buttons/nav_buttons.js'
+import { nextPage } from '../../utils/navigation-logic.js'
 
 export function initializePageView() {
     // Prepare page view
     Body.clearAll();
-    showNavButtons();
+    NavButtons.show();
     Prompt.Buttons.Right.addAction(nextPage);
 
     // Load text

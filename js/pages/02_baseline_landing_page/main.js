@@ -1,7 +1,7 @@
 import { updatePageState } from "../../utils/storage-handlers.js";
 import { updateSubtitle } from '../../components/header/header.js'
 import Prompt from '../../components/prompt/prompt.js'
-import { showNavButtons } from '../../components/nav_buttons/nav_buttons.js'
+import NavButtons from '../../components/nav_buttons/nav_buttons.js'
 import Table from "../../components/table/table.js";
 import { loadJSONIntoTable } from "../../utils/data-handlers.js";
 import { DATA_ROOT } from "../../init.js";
@@ -13,7 +13,7 @@ export function loadBaselineLandingPage(){
 
     // prepare page view
     Body.clearAll();
-    showNavButtons();
+    NavButtons.show();
 
     // update page text
     updateSubtitle('Baseline Budget Request');

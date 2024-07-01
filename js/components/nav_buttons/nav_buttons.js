@@ -1,14 +1,4 @@
-
-import { loadPageState } from '../../utils/storage-handlers.js'
-import { PAGES } from '../../init.js'
-
-function hideNavButtons() {
-    document.getElementById('nav-btns').style.display = 'none';
-}
-
-function showNavButtons() {
-    document.getElementById('nav-btns').style.display = 'block';
-}
+import { nextPage, lastPage } from '../../utils/navigation-logic.js'
 
 function initializeNavButtons(){
     // initialize last button
@@ -19,36 +9,18 @@ function initializeNavButtons(){
     next_btn.addEventListener('click', nextPage); 
 }
 
-export function nextPage(){
-
-    var page_state = loadPageState();
-    const keys = Object.keys(PAGES);
-  
-    // Find the index of the current key
-    const currentIndex = keys.indexOf(page_state);
-    
-    // Check if there is a next key
-    if (currentIndex >= 0 && currentIndex < keys.length - 1) {
-        // Get the next key
-        const nextKey = keys[currentIndex + 1];
-        const nextFn = PAGES[nextKey];
-        nextFn();
-    } 
+function hideNavButtons() {
+    document.getElementById('nav-btns').style.display = 'none';
 }
 
-export function lastPage(){
-
-    var page_state = loadPageState();
-    const keys = Object.keys(PAGES);
-  
-    // Find the index of the current key
-    const currentIndex = keys.indexOf(page_state);
-    
-    // Check if there is a next key
-    if (currentIndex >= 1) {
-        // Get the next key
-        const lastKey = keys[currentIndex - 1];
-        const lastFn = PAGES[lastKey];
-        lastFn();
-    } 
+function showNavButtons() {
+    document.getElementById('nav-btns').style.display = 'block';
+    initializeNavButtons();
 }
+
+export const NavButtons = {
+    hide : hideNavButtons,
+    show : showNavButtons,
+}
+
+export default NavButtons;

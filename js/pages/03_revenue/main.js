@@ -1,11 +1,11 @@
 import { updatePageState } from '../../utils/storage-handlers.js'
 import { updateSubtitle } from '../../components/header/header.js'
 import Prompt from '../../components/prompt/prompt.js'
-import { nextPage, showNavButtons } from '../../components/nav_buttons/nav_buttons.js'
 import { formatCurrency } from '../../utils/utils.js'
-
 import { REVENUE } from '../../init.js'
 import Body from '../../components/body/body.js'
+import NavButtons from '../../components/nav_buttons/nav_buttons.js'
+import { nextPage } from '../../utils/navigation-logic.js'
 
 export function loadRevenuePage() {
 
@@ -14,7 +14,7 @@ export function loadRevenuePage() {
 
     // prepare page view
     Body.clearAll();
-    showNavButtons();
+    NavButtons.show();
 
     // update page text
     updateSubtitle('Revenue Projections');
