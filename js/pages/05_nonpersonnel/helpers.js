@@ -1,4 +1,4 @@
-import { showPrompt, updatePrompt } from "../../components/prompt/prompt.js";
+import Prompt from "../../components/prompt/prompt.js";
 import { showNavButtons } from "../../components/nav_buttons/nav_buttons.js";
 import Sidebar from "../../components/sidebar/sidebar.js";
 import Table from "../../components/table/table.js";
@@ -14,13 +14,12 @@ const nonPersonnelColumns = [
 export function preparePageView(){
     // prepare page view
     Body.clearAll();
-    showPrompt();
     showNavButtons();
     Sidebar.show();
     Table.adjustWidth('100%');
     // update page text
     updateSubtitle('Non-Personnel');
-    updatePrompt('Select an action item for each non-personnel line item from last year.');
+    Prompt.Text.update('Select an action item for each non-personnel line item from last year.');
     updateDisplayandTotals();
 }
 

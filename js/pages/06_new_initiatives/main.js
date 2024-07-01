@@ -1,5 +1,5 @@
 
-import { initializePageView, setUpModal, setUpForm, setUpTable, handleNavigation } from './helpers.js'
+import { initializePageView, setUpModal, setUpForm, setUpTable } from './helpers.js'
 import { updatePageState } from '../../utils/storage-handlers.js'
 
 
@@ -10,5 +10,4 @@ export function loadNewInitiatives() {
     setUpModal();
     setUpForm();
     setUpTable();
-    handleNavigation();
 }

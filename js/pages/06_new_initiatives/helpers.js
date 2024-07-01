@@ -1,6 +1,6 @@
 
 import { updateSubtitle } from '../../components/header/header.js'
-import { hidePrompt, showPrompt, updatePrompt, updatePromptButtons, addPromptButtonAction } from '../../components/prompt/prompt.js'
+import Prompt from '../../components/prompt/prompt.js'
 import { showNavButtons, nextPage } from '../../components/nav_buttons/nav_buttons.js'
 import { addModalLink, updateModalTitle, clearModal, hideModal } from '../../components/modal/modal.js'
 import { fetchAllResponses, addTextarea, addTextInput, addNumericInput, addSubmitButtonToForm, addForm } from '../../components/form/form.js'
@@ -8,15 +8,16 @@ import Table from '../../components/table/table.js'
 import Body from '../../components/body/body.js'
 
 export function initializePageView() {
-    // Load text
-    updateSubtitle('New Initiatives');
-    updatePrompt('Do you have any new initiatives for FY26?');
-    updatePromptButtons('Yes', 'No');
-
     // Prepare page view
     Body.clearAll();
     showNavButtons();
-    showPrompt();
+    Prompt.Buttons.Right.addAction(nextPage);
+
+    // Load text
+    updateSubtitle('New Initiatives');
+    Prompt.Text.update('Do you have any new initiatives for FY26?');
+    Prompt.Buttons.Left.updateText('Yes');
+    Prompt.Buttons.Right.updateText('No');
 }
 
 export function setUpModal() {
@@ -45,11 +46,6 @@ export function setUpTable() {
     Table.clear();
     Table.adjustWidth('70%');
     Table.Buttons.AddRow.updateText('Add another new initiative');
-}
-
-export function handleNavigation() {
-    // clicking 'No' (no new initiatives) will also take us to the next page
-    addPromptButtonAction('option2', nextPage);
 }
 
 export function handleFormSubmissions(event){

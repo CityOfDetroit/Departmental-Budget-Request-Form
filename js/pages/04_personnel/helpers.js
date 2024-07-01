@@ -1,4 +1,4 @@
-import { showPrompt, updatePrompt } from "../../components/prompt/prompt.js";
+import Prompt from "../../components/prompt/prompt.js";
 import { showNavButtons } from "../../components/nav_buttons/nav_buttons.js";
 import { updateSubtitle } from "../../components/header/header.js";
 import { loadJSONIntoTable } from "../../utils/data-handlers.js";
@@ -20,14 +20,13 @@ const personnelColumns = [
 export function preparePageView(){
     // prepare page view
     Body.clearAll();
-    showPrompt();
     showNavButtons();
     Sidebar.show();
     Table.adjustWidth('90%');
 
     // update page text
     updateSubtitle('Personnel');
-    updatePrompt('For each job in your department, select the service and request the number of baseline and supplemental FTEs.');
+    Prompt.Text.update('For each job in your department, select the service and request the number of baseline and supplemental FTEs.');
 }
 
 function personnelRowOnEdit(){

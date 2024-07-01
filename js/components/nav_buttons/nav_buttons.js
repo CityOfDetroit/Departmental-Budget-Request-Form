@@ -2,16 +2,15 @@
 import { loadPageState } from '../../utils/storage-handlers.js'
 import { PAGES } from '../../init.js'
 
-export function hideNavButtons() {
+function hideNavButtons() {
     document.getElementById('nav-btns').style.display = 'none';
 }
 
-export function showNavButtons() {
+function showNavButtons() {
     document.getElementById('nav-btns').style.display = 'block';
 }
 
-// imputs next and last should be functions to render the appropriate pages
-export function initializeNavButtons(){
+function initializeNavButtons(){
     // initialize last button
     const last_btn = document.getElementById('btn-last');
     last_btn.addEventListener('click', lastPage); 
