@@ -1,12 +1,16 @@
 import { fetchJSON } from "../../../utils/data_utils/JSON_data_handlers.js";
 
-function loadJSONIntoTable(jsonFilePath) {
-    fetchJSON(jsonFilePath)
-      .then(data => {
-          if(Array.isArray(data)) {
+async function loadJSONIntoTable(jsonFilePath) {
+    const data = await fetchJSON(jsonFilePath);
+    try {
+        if(Array.isArray(data)) {
             const table = document.getElementById('main-table');
             const thead = table.querySelector('thead');
             const tbody = table.querySelector('tbody');
+
+            // clear existing data
+            thead.innerHTML = '';
+            tbody.innerHTML = '';
     
             // Create table header row
             const headerRow = document.createElement('tr');
@@ -28,17 +32,16 @@ function loadJSONIntoTable(jsonFilePath) {
               tbody.appendChild(row);
             });
     
-          } else {
+        } else {
             console.error('The provided JSON file does not contain an array of objects.');
-          }
-        })
-        .catch(error => {
-          console.error('Failed to load and parse the JSON file:', error);
-        });
+        }
+    } catch(error) {
+        console.error('Failed to load and parse the JSON file:', error);
     }
+}
 
 export const Data = {
-    loadFromJSON : function(jsonFilePath) { loadJSONIntoTable(jsonFilePath) }
+    loadFromJSON : loadJSONIntoTable
 }
 
 export default Data;

@@ -1,4 +1,4 @@
-export function fetchJSON(jsonFilePath) {
+export async function fetchJSON(jsonFilePath) {
   return fetch(jsonFilePath)
     .then(response => {
       if (!response.ok) {
