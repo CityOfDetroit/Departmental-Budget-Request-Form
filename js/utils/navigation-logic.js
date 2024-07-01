@@ -1,12 +1,12 @@
-import { initializeWelcomePage } from '../pages/00_welcome/main.js';
-import { loadNewInitiatives } from '../pages/06_new_initiatives/main.js'
-import { loadRevenuePage } from '../pages/03_revenue/main.js'
-import { loadPersonnelPage } from '../pages/04_personnel/main.js';
-import { loadOTPage } from '../pages/04.5_OT/main.js';
-import { loadNonpersonnelPage } from '../pages/05_nonpersonnel/main.js';
-import { loadBaselineLandingPage } from '../pages/02_baseline_landing_page/main.js';
-import { loadSummaryPage } from '../pages/07_summary/main.js';
-import { loadUploadPage } from '../pages/01_upload/main.js';
+import { initializeWelcomePage } from '../views/00_welcome/main.js';
+import { loadNewInitiatives } from '../views/06_new_initiatives/main.js'
+import { loadRevenuePage } from '../views/03_revenue/main.js'
+import { loadPersonnelPage } from '../views/04_personnel/main.js';
+import { loadOTPage } from '../views/04.5_OT/main.js';
+import { loadNonpersonnelPage } from '../views/05_nonpersonnel/main.js';
+import { loadBaselineLandingPage } from '../views/02_baseline_landing_page/main.js';
+import { loadSummaryPage } from '../views/07_summary/main.js';
+import { loadUploadPage } from '../views/01_upload/main.js';
 
 import { loadPageState } from './storage-handlers.js';
 

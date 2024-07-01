@@ -2,7 +2,7 @@
 import { updateSubtitle } from '../../components/header/header.js'
 import Prompt from '../../components/prompt/prompt.js'
 import { addModalLink, updateModalTitle, clearModal, hideModal } from '../../components/modal/modal.js'
-import { fetchAllResponses, addTextarea, addTextInput, addNumericInput, addSubmitButtonToForm, addForm } from '../../components/form/form.js'
+import Form from '../../components/form/form.js'
 import Table from '../../components/table/table.js'
 import Body from '../../components/body/body.js'
 import NavButtons from '../../components/nav_buttons/nav_buttons.js'
@@ -31,13 +31,13 @@ export function setUpModal() {
 
 export function setUpForm() {
     // Set up form
-    addForm();
-    addTextInput('Initiative Name:', 'Initiative Name', true); // Add required field
-    addTextarea('Explain why this initiative is necessary and describe its potential impact.', 'Explanation', true);
-    addNumericInput('Estimate of ADDITONAL personnel cost?', 'Personnel Cost', true);
-    addNumericInput('Estimate of ADDITONAL nonpersonnel cost?', 'Non-personnel Cost', true);
-    addNumericInput('Estimate of TOTAL ADDITIONAL cost?', 'Total Cost', true);
-    addSubmitButtonToForm();
+    Form.new('modal-body');
+    Form.NewField.shortText('Initiative Name:', 'Initiative Name', true); 
+    Form.NewField.longText('Explain why this initiative is necessary and describe its potential impact.', 'Explanation', true);
+    Form.NewField.numericInput('Estimate of ADDITONAL personnel cost?', 'Personnel Cost', true);
+    Form.NewField.numericInput('Estimate of ADDITONAL nonpersonnel cost?', 'Non-personnel Cost', true);
+    Form.NewField.numericInput('Estimate of TOTAL ADDITIONAL cost?', 'Total Cost', true);
+    Form.SubmitButton.add();
     // Initialize form submission to table data
     handleFormSubmissions();
 }
@@ -59,7 +59,7 @@ export function handleFormSubmissions(event){
             if (Object.values(responses)[0] != ''){
                 // change page view
                 hideModal('main-modal');
-                hidePrompt();
+                Prompt.hide();
         
                 // add data to table
                 Table.Rows.add(responses);
