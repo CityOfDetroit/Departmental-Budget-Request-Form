@@ -9,6 +9,20 @@
     text-align: center;
 }
 
-#option1 { background-color: var(--green);}
-#option2 {background-color: var(--orange);}
-#option1, #option2 { font-size: 1.5em; }
+#option1, #option2 { 
+    font-size: 1.5em;
+    border-color: var(--citygreen); 
+    border-width: 2px;
+    background-color: var(--white);
+    color: var(--citygreen);
+}
+
+#option1:hover, #option2:hover { 
+    background-color: var(--palegreen);
+    color: var(--citygreen);
+}
+
+#option2.clicked, #option1.clicked {
+    font-weight: bold;
+    background-color: var(--palegreen);
+}

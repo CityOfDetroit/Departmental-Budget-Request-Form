@@ -4,9 +4,18 @@
 }
 
 #btn-next, #btn-last {
-    background-color: var(--blue);
+    background-color: var(--darkGray);
 }
 
 #btn-next:hover, #btn-last:hover {
     background-color: var(--yellow);
+    color: var(--darkGray);
+}
+
+/* Add style for when you cannot click the next button */
+#btn-next.disabled, #btn-last.disabled,
+#btn-next.disabled:hover, #btn-last.disabled:hover {
+    background-color: gray;
+    color: white;
+    pointer-events: none;
 }

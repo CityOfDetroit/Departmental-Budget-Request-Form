@@ -9,7 +9,7 @@ import { loadUploadPage } from '../01_upload/main.js'
  
 export function initializePageView(){
     // page set up
-    Body.clearAll();
+    Body.reset();
     Subtitle.update("Welcome");
     Welcome.show();
 }

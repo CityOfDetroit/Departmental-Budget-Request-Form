@@ -9,7 +9,7 @@ export function loadSummaryPage(){
     updatePageState('summary');
 
     // prepare page view
-    Body.clearAll();
+    Body.reset();
     Prompt.Buttons.Left.updateText('Submit');
     Prompt.Buttons.Right.updateText('Go back and edit');
 

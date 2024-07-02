@@ -5,8 +5,7 @@ import Prompt from '../prompt/prompt.js';
 import Sidebar from '../sidebar/sidebar.js';
 import Table from '../table/table.js';
 
-
-function clearAll() {
+function resetPage() {
     // hide everything in the body
     Welcome.hide();
     Modal.clear();
@@ -15,10 +14,13 @@ function clearAll() {
     Prompt.hide();
     Table.hide();
     Sidebar.hide();
+    // disable next button
+    NavButtons.Next.disable();
+    Prompt.Buttons.reset();
 }
 
 export const Body = {
-    clearAll : clearAll
+    reset : resetPage
 }
 
 export default Body;

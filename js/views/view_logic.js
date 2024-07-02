@@ -1,6 +1,6 @@
 import { initializeWelcomePage } from './00_welcome/main.js';
 import { cleanUpInitiativesPage, loadNewInitiatives } from './06_new_initiatives/main.js'
-import { loadRevenuePage } from './03_revenue/main.js'
+import { loadRevenuePage, cleanupRevenuePage } from './03_revenue/main.js'
 import { loadPersonnelPage } from './04_personnel/main.js';
 import { loadOTPage } from './04.5_OT/main.js';
 import { loadNonpersonnelPage } from './05_nonpersonnel/main.js';
@@ -13,8 +13,8 @@ import { loadPageState } from '../utils/data_utils/local_storage_handlers.js';
 export let PAGES = {
     'welcome' : initializeWelcomePage,
     'upload' : loadUploadPage,
-    'baseline-landing' : loadBaselineLandingPage,
     'revenue' : loadRevenuePage,
+    'baseline-landing' : loadBaselineLandingPage,
     'personnel' : loadPersonnelPage,
     'overtime' : loadOTPage,
     'nonpersonnel' : loadNonpersonnelPage,
@@ -24,6 +24,7 @@ export let PAGES = {
 
 export let CLEANUP = {
     'new-inits' : cleanUpInitiativesPage,
+    'revenue' : cleanupRevenuePage
 }
 
 export function nextPage(){

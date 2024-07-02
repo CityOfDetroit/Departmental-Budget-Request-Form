@@ -1,6 +1,7 @@
 [
     {
         "Vendor": "Law Firm LLC",
+        "CPA #" : "765421",
         "Account String": "1000-29320-320010",
         "Object": "Consulting",
         "End of Contract": "12/31/2024",
@@ -9,6 +10,7 @@
     },
     {
         "Vendor": "Office Supplier",
+        "CPA #" : "1234567",
         "Account String": "1000-29320-320010",
         "Object": "Office Supplies",
         "End of Contract": "12/31/2026",
@@ -17,6 +19,7 @@
     },
     {
         "Vendor": "Software Co.",
+        "CPA #" : "9876543",
         "Account String": "1000-29320-320010",
         "Object": "Information Technology",
         "End of Contract": "6/1/2025",

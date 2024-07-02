@@ -8,26 +8,46 @@ function updatePromptButton(id, text){
     showPromptButton(id);
 }
 
-function addPromptButtonAction(button_id, action_fn){
-    document.getElementById(button_id).addEventListener('click', action_fn);
-}
-
 function hidePromptButton(id){
     document.getElementById(id).style.display = 'none';
 }
 
+function unclickAll(){
+    document.getElementById('option1').classList.remove('clicked');
+    document.getElementById('option2').classList.remove('clicked');
+}
+
+function applyClickedStyle(button){
+    unclickAll();
+    button.classList.add('clicked');
+}
+
+function addPromptButtonAction(button_id, action_fn){
+    const buttonElement = document.getElementById(button_id);
+    buttonElement.addEventListener('click', action_fn);
+    buttonElement.addEventListener('click', function(){
+        applyClickedStyle(this);
+    });
+}
+
+function removePromptButtonAction(button_id, action_fn){
+    document.getElementById(button_id).removeEventListener('click', action_fn);
+}
+
 export const Left = {
-    show : showPromptButton('option1'),
-    hide : hidePromptButton('option1'),
+    show : function() { showPromptButton('option1') },
+    hide : function() { hidePromptButton('option1') },
     updateText : function(text) { updatePromptButton('option1', text) },
-    addAction : function(action_fn) { addPromptButtonAction('option1', action_fn) }
+    addAction : function(action_fn) { addPromptButtonAction('option1', action_fn) },
+    removeAction : function(action_fn) { removePromptButtonAction('option1', action_fn) }
 }
 
 export const Right = {
-    show : showPromptButton('option2'),
-    hide : hidePromptButton('option2'),
+    show : function() { showPromptButton('option2') },
+    hide : function() { hidePromptButton('option2') },
     updateText : function(text) { updatePromptButton('option2', text) },
-    addAction : function(action_fn) { addPromptButtonAction('option2', action_fn) }
+    addAction : function(action_fn) { addPromptButtonAction('option2', action_fn) },
+    removeAction : function(action_fn) { removePromptButtonAction('option2', action_fn) }
 }
 
 export const Buttons = {
@@ -40,7 +60,8 @@ export const Buttons = {
     hide : function() {
         hidePromptButton('option1');
         hidePromptButton('option2');
-    }
+    },
+    reset : unclickAll
 }
 
 export default Buttons;

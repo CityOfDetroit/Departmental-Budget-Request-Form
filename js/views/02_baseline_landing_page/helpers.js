@@ -16,7 +16,7 @@ export function preparePageView(){
     localStorage.setItem("fund", '');
 
     // prepare page view
-    Body.clearAll();
+    Body.reset();
     NavButtons.show();
 
     // update page text
@@ -37,14 +37,7 @@ function allowRowSelection(){
             this.classList.remove('hover-effect');
         });
         row.addEventListener('click', function() {
-            tableRows.forEach(function(tableRow) {
-                tableRow.classList = '';
-            });
-            this.classList.add('selected');
-            // get fund
-            var fund = this.querySelector('.fund-name').textContent;
-            // save selected fund
-            localStorage.setItem("fund", fund);
+            selectFund(tableRows, this);
         });
     });
 }
@@ -55,4 +48,19 @@ export async function initializeFundTable(){
     Table.show();
     Table.Columns.assignClasses(fundCols);
     allowRowSelection();
+}
+
+function selectFund(tableRows, selected_row){
+    // remove selected class from any other rows
+    tableRows.forEach(function(tableRow) {
+        tableRow.classList = '';
+    });
+    // add selected class to clicked row
+    selected_row.classList.add('selected');
+    // get fund and save selected fund
+    var fund = selected_row.querySelector('.fund-name').textContent;
+    localStorage.setItem("fund", fund);
+
+    // enable next step
+    NavButtons.Next.enable();
 }

@@ -7,6 +7,7 @@ function initializeNavButtons(){
     // initialize next button
     const next_btn = document.getElementById('btn-next');
     next_btn.addEventListener('click', nextPage); 
+    disable('btn-next');
 }
 
 function hideNavButtons() {
@@ -18,9 +19,29 @@ function showNavButtons() {
     initializeNavButtons();
 }
 
+function disable(button_id) {
+    document.getElementById(button_id).classList.add('disabled');
+}
+
+function enable(button_id) {
+    document.getElementById(button_id).classList.remove('disabled');
+}
+
+const Next = {
+    disable : function() { disable('btn-next') },
+    enable : function() { enable('btn-next') }
+}
+
+const Last = {
+    disable : function() { disable('btn-last') },
+    enable : function() { enable('btn-last') }
+}
+
 export const NavButtons = {
     hide : hideNavButtons,
     show : showNavButtons,
+    Next : Next,
+    Last : Last
 }
 
 export default NavButtons;

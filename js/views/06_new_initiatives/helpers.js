@@ -10,7 +10,7 @@ import Subtitle from '../../components/header/header.js'
 
 export function initializePageView() {
     // Prepare page view
-    Body.clearAll();
+    Body.reset();
     NavButtons.show();
     Prompt.Buttons.Right.addAction(nextPage);
 
@@ -34,9 +34,9 @@ export function setUpForm() {
     Form.new('modal-body');
     Form.NewField.shortText('Initiative Name:', 'Initiative Name', true); 
     Form.NewField.longText('Explain why this initiative is necessary and describe its potential impact.', 'Explanation', true);
+    Form.NewField.numericInput('Estimate of ADDITONAL revenue associated with this initiative?', 'Revenue', true);
     Form.NewField.numericInput('Estimate of ADDITONAL personnel cost?', 'Personnel Cost', true);
     Form.NewField.numericInput('Estimate of ADDITONAL nonpersonnel cost?', 'Non-personnel Cost', true);
-    Form.NewField.numericInput('Estimate of TOTAL ADDITIONAL cost?', 'Total Cost', true);
     Form.SubmitButton.add();
     // Initialize form submission to table data
     handleFormSubmissions();

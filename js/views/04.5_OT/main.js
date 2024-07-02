@@ -10,7 +10,7 @@ export function loadOTPage(){
     updatePageState('overtime');
 
     // prepare page view
-    Body.clearAll();
+    Body.reset();
     NavButtons.show();
     Sidebar.show();
 

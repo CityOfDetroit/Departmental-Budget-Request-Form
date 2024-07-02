@@ -20,7 +20,7 @@ const personnelColumns = [
 
 export function preparePageView(){
     // prepare page view
-    Body.clearAll();
+    Body.reset();
     NavButtons.show();
     Sidebar.show();
     Table.adjustWidth('90%');
