@@ -55,10 +55,19 @@ input {
     background-color: var(--palegreen);
 }
 
+.selected { 
+    font-weight: bold;
+}
+
 .btn-confirm {
     display: none;
 }
 
 .confirm-btn:hover {
     background-color: var(--green);
+}
+
+.hover-effect:hover {
+    cursor: pointer;
+    background-color: var(--verypalegreen); /* You can choose any color you like */
 }
