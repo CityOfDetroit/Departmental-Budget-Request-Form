@@ -53,8 +53,9 @@ export function handleFormSubmissions(event){
         // initialize form submission
         const modal = document.getElementById('main-modal');
         modal.addEventListener('submit', function(event) {
+            event.preventDefault();
             // get answers from form, hide form, show answers in table
-            const responses = fetchAllResponses(event);
+            const responses = Form.fetchAllResponses(event);
             // make sure it's not an empty response
             if (Object.values(responses)[0] != ''){
                 // change page view

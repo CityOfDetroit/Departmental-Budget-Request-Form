@@ -8,6 +8,7 @@ import Subtitle from "../../components/header/header.js";
 
 const nonPersonnelColumns = [
     { title: 'Request Total', className: 'request', isCost: true },
+    { title: 'Amount Remaining', className: 'remaining', isCost: true },
 ];
 
 export function preparePageView(){

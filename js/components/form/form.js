@@ -3,7 +3,6 @@ import NewField from "./subcomponents/fields.js";
 import SubmitButton from "./subcomponents/submit.js";
 
 function fetchAllResponses(event) {
-    event.preventDefault();  // Prevent the default form submission
 
     // Assuming `event.target` is the form itself
     const form = event.target;
@@ -45,7 +44,7 @@ function addForm(element_id = 'modal-body', form_id = 'new-form') {
 
 export const Form = {
   new : function(parent_elem_id) { addForm(parent_elem_id, 'new-form') },
-  fetchAllResponses : function(event) { fetchAllResponses(event) },
+  fetchAllResponses : function(event) { return fetchAllResponses(event) },
   NewField : NewField,
   Dropdown : Dropdown,
   SubmitButton : SubmitButton

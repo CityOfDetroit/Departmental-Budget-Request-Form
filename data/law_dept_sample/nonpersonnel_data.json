@@ -2,19 +2,25 @@
     {
         "Vendor": "Law Firm LLC",
         "Account String": "1000-29320-320010",
-        "Object": 613100,
+        "Object": "Consulting",
+        "End of Contract": "12/31/2024",
+        "Amount Remaining" : 50000,
         "Request Total": 100000
     },
     {
         "Vendor": "Office Supplier",
         "Account String": "1000-29320-320010",
-        "Object": 613100,
+        "Object": "Office Supplies",
+        "End of Contract": "12/31/2026",
+        "Amount Remaining" : 500000,
         "Request Total": 10000
     },
     {
         "Vendor": "Software Co.",
         "Account String": "1000-29320-320010",
-        "Object": 613100,
+        "Object": "Information Technology",
+        "End of Contract": "6/1/2025",
+        "Amount Remaining" : 30000,
         "Request Total": 30000
     }
 ]
