@@ -79,7 +79,7 @@ export function lastPage(){
         // Get the next key
         const lastKey = keys[currentIndex - 1];
         // go to that page
-        visitPage(nextKey);
+        visitPage(lastKey);
     } 
 }
 

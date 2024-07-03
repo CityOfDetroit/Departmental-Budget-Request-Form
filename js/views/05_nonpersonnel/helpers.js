@@ -7,7 +7,7 @@ import NavButtons from "../../components/nav_buttons/nav_buttons.js";
 import Subtitle from "../../components/header/header.js";
 
 const nonPersonnelColumns = [
-    { title: 'Request Total', className: 'request', isCost: true },
+    { title: 'FY26 Request', className: 'request', isCost: true },
     { title: 'Amount Remaining', className: 'remaining', isCost: true },
 ];
 
@@ -32,9 +32,10 @@ export async function initializeNonpersonnelTable(){
     await Table.Data.loadFromJSON(DATA_ROOT + 'nonpersonnel_data.json', 'main-table');
     //after table is loaded, fill it
     Table.show();
-    Table.Columns.addAtEnd(Table.Buttons.all_btns, "Select Action");
+    Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, " ");
     // assign cost classes
     Table.Columns.assignClasses(nonPersonnelColumns);
+    // enable editing
     Table.Buttons.Edit.init(nonPersonnelRowOnEdit, updateDisplayandTotals);
 }
 
