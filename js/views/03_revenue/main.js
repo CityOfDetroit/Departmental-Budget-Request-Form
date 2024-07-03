@@ -4,7 +4,7 @@ import { formatCurrency } from '../../utils/common_utils.js'
 import { REVENUE } from '../../init.js'
 import Body from '../../components/body/body.js'
 import NavButtons from '../../components/nav_buttons/nav_buttons.js'
-import { nextPage } from '../view_logic.js'
+import { pauseAndContinue } from '../view_logic.js'
 import Subtitle from '../../components/header/header.js'
 
 export function loadRevenuePage() {
@@ -25,7 +25,7 @@ export function loadRevenuePage() {
     Prompt.Buttons.Right.updateText("This doesn't look right");
 
     // clicking 'confirm' will also take us to the next page
-    Prompt.Buttons.Left.addAction(nextPage);
+    Prompt.Buttons.Left.addAction(pauseAndContinue);
     // TODO: allow user to edit revenue here
     Prompt.Buttons.Right.addAction(handleRevenueEdit);
 }
@@ -36,6 +36,6 @@ function handleRevenueEdit() {
 
 export function cleanupRevenuePage() {
     // remove event listeners on prompt buttons
-    Prompt.Buttons.Left.removeAction(nextPage);
-    Prompt.Buttons.Right.removeAction(handleRevenueEdit);
+    Prompt.Buttons.Left.removeAction(pauseAndContinue);
+    Prompt.Buttons.Right.removeAction();
 };

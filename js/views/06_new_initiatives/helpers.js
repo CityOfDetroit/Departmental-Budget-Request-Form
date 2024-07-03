@@ -5,20 +5,26 @@ import Form from '../../components/form/form.js'
 import Table from '../../components/table/table.js'
 import Body from '../../components/body/body.js'
 import NavButtons from '../../components/nav_buttons/nav_buttons.js'
-import { nextPage } from '../view_logic.js'
+import { pauseAndContinue } from '../view_logic.js'
 import Subtitle from '../../components/header/header.js'
 
 export function initializePageView() {
     // Prepare page view
     Body.reset();
     NavButtons.show();
-    Prompt.Buttons.Right.addAction(nextPage);
 
     // Load text
     Subtitle.update('New Initiatives');
     Prompt.Text.update('Do you have any new initiatives for FY26?');
     Prompt.Buttons.Left.updateText('Yes');
     Prompt.Buttons.Right.updateText('No');
+    // clicking 'no new initialitives' will also take us to the next page
+    Prompt.Buttons.Right.addAction(pauseAndContinue);
+    Prompt.Buttons.Left.addAction(enableContinue);
+}
+
+function enableContinue() {
+    NavButtons.Next.enable();
 }
 
 export function setUpModal() {
@@ -76,4 +82,9 @@ export function handleFormSubmissions(event){
 export function removeModalLinks(){
     Modal.Link.remove('option1');
     Modal.Link.remove('add-btn');
+}
+
+export function removePromptButtonListeners(){
+    Prompt.Buttons.Right.removeAction(pauseAndContinue);
+    Prompt.Buttons.Left.removeAction(enableContinue);
 }

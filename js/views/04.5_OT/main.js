@@ -14,6 +14,10 @@ export function loadOTPage(){
     NavButtons.show();
     Sidebar.show();
 
+    // just enable next for now
+    // TODO: only enable when all info is entered
+    NavButtons.Next.enable();
+
     // update page text
     Subtitle.update('Overtime Estimates');
     // TODO: update to make dynamic

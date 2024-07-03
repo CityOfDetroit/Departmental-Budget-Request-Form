@@ -21,6 +21,10 @@ export function preparePageView(){
     Subtitle.update('Non-Personnel');
     Prompt.Text.update('Select an action item for each non-personnel line item from last year.');
     updateDisplayandTotals();
+
+    // just enable next for now
+    // TODO: only enable when all info is entered
+    NavButtons.Next.enable();
 }
 
 export async function initializeNonpersonnelTable(){

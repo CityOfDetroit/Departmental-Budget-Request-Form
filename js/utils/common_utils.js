@@ -22,3 +22,10 @@ const unformatCurrency = (formattedAmount) => {
     return parseFloat(numericalPart);
 };
 
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export async function pauseExecution(seconds) {
+    await delay(seconds * 1000); // convert to milliseconds
+}
