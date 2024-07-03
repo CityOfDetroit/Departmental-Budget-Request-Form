@@ -18,11 +18,13 @@
 }
 
 #option1:hover, #option2:hover { 
-    background-color: var(--palegreen);
-    color: var(--citygreen);
+    background-color: var(--spiritgreen);
+    color: white;
 }
 
 #option2.clicked, #option1.clicked {
     font-weight: bold;
-    background-color: var(--palegreen);
+    background-color: var(--spiritgreen);
+    color: white;
+    border-width: 3;
 }

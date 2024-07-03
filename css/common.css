@@ -14,7 +14,9 @@
     --verypalegreen: #DFF5E3;
     --accentyellow: #feb70d;
     --nearblack: #18252a;
-    font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Nunito', sans-serif;
+    /* font-family: 'Montserrat', sans-serif; */
+
     font-size: 14px;
 }
 
@@ -31,3 +33,7 @@
     color: white; 
 }
 
+/* Font application for all text  */
+body, button, input, textarea, select, .sidebar, table {
+    font-family: var(--font-family), sans-serif;
+  }

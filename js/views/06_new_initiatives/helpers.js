@@ -20,11 +20,7 @@ export function initializePageView() {
     Prompt.Buttons.Right.updateText('No');
     // clicking 'no new initialitives' will also take us to the next page
     Prompt.Buttons.Right.addAction(pauseAndContinue);
-    Prompt.Buttons.Left.addAction(enableContinue);
-}
-
-function enableContinue() {
-    NavButtons.Next.enable();
+    Prompt.Buttons.Left.addAction(NavButtons.Next.enable);
 }
 
 export function setUpModal() {
@@ -86,5 +82,5 @@ export function removeModalLinks(){
 
 export function removePromptButtonListeners(){
     Prompt.Buttons.Right.removeAction(pauseAndContinue);
-    Prompt.Buttons.Left.removeAction(enableContinue);
+    Prompt.Buttons.Left.removeAction(NavButtons.Next.enable);
 }

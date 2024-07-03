@@ -1,22 +1,14 @@
-import Prompt from "../../components/prompt/prompt.js";
-import Table from '../../components/table/table.js'
-import Sidebar from "../../components/sidebar/sidebar.js";
-import { DATA_ROOT, fringe, cola, merit } from "../../init.js"
+
+import { DATA_ROOT, FISCAL_YEAR, fringe, cola, merit } from "../../init.js"
 import Body from "../../components/body/body.js";
 import NavButtons from "../../components/nav_buttons/nav_buttons.js";
 import Subtitle from "../../components/header/header.js";
 import Form from "../../components/form/form.js";
 import Modal from "../../components/modal/modal.js";
+import Prompt from "../../components/prompt/prompt.js";
+import Table from '../../components/table/table.js'
+import Sidebar from "../../components/sidebar/sidebar.js";
 
-const personnelColumns = [
-    { title: 'Job Name', className: 'job-name' },
-    { title: 'Baseline FTEs', className: 'baseline-ftes' },
-    { title: 'Supplemental FTEs', className: 'supp-ftes' },
-    { title: 'Service', className: 'service' },
-    { title: 'Total Cost (Baseline)', className: 'total-baseline', isCost: true },
-    { title: 'Total Cost (Supplementary)', className: 'total-supp', isCost: true },
-    { title: 'Current Average Salary', className: 'avg-salary', isCost: true }
-];
 
 export function preparePageView(){
     // prepare page view
@@ -33,9 +25,22 @@ export function preparePageView(){
     Prompt.Text.update('For each job in your department, select the service and request the number of baseline and supplemental FTEs.');
 }
 
+function assignClasses() {
+    // record columns and their classes
+    const personnelColumns = [
+        { title: 'Job Name', className: 'job-name' },
+        { title: `FY${FISCAL_YEAR} FTEs`, className: 'baseline-ftes' },
+        { title: 'Service', className: 'service' },
+        { title: 'Total Cost', className: 'total-baseline', isCost: true },
+        { title: 'Average Projected Salary', className: 'avg-salary', isCost: true }
+    ];
+
+    // assign cost classes
+    Table.Columns.assignClasses(personnelColumns)
+}
+
 function personnelRowOnEdit(){
     Table.Cell.createTextbox('baseline-ftes');
-    Table.Cell.createTextbox('supp-ftes');
     Table.Cell.createDropdown('service', DATA_ROOT + 'services.json');
 }
 
@@ -44,12 +49,10 @@ export async function initializePersonnelTable(){
     await Table.Data.loadFromJSON(DATA_ROOT + 'personnel_data.json');
     //after table is loaded, fill it
     Table.show();
-    Table.Columns.add(3, '', 'Service');
-    Table.Columns.addAtEnd('0', 'Total Cost (Baseline)');
-    Table.Columns.addAtEnd( '0', 'Total Cost (Supplementary)');
-    Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, ' ');
-    // assign cost classes
-    Table.Columns.assignClasses(personnelColumns);
+    Table.Columns.add(2, '', 'Service');
+    Table.Columns.addAtEnd( '0', 'Total Cost');
+    Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, ' ');;
+    assignClasses();
     // activate edit buttons
     Table.Buttons.Edit.init(personnelRowOnEdit, updateDisplayandTotals);
     initializeRowAddition();
@@ -75,19 +78,13 @@ function updateDisplayandTotals(){
         // fetch values for calculations
         let avg_salary = Table.Cell.getValue(rows[i], 'avg-salary');
         let baseline_ftes = Table.Cell.getValue(rows[i], 'baseline-ftes');
-        let supp_ftes = Table.Cell.getValue(rows[i], 'supp-ftes');
 
         // calcuate #FTEs x average salary + COLA adjustments + merit adjustments + fringe
         let total_baseline_cost = calculateTotalCost(baseline_ftes, avg_salary, fringe, cola, merit);
-        let total_supp_cost = calculateTotalCost(supp_ftes, avg_salary, fringe, cola, merit);
 
-        // update counters
+        // update counter and total
         Sidebar.incrementStat('baseline-personnel', total_baseline_cost);
-        Sidebar.incrementStat('supp-personnel', total_supp_cost);
-
-        // update totals in table
         Table.Cell.updateValue(rows[i], 'total-baseline', total_baseline_cost);
-        Table.Cell.updateValue(rows[i], 'total-supp', total_supp_cost);
     }
 }
 
@@ -104,10 +101,6 @@ export function setUpForm() {
     Form.new('modal-body');
     Form.NewField.shortText('Job Name:', 'job-name', true); 
     Form.NewField.shortText('Account String:', 'account-string', true); 
-    // Form.NewField.longText('Explain why this initiative is necessary and describe its potential impact.', 'Explanation', true);
-    // Form.NewField.numericInput('Estimate of ADDITONAL personnel cost?', 'Personnel Cost', true);
-    // Form.NewField.numericInput('Estimate of ADDITONAL nonpersonnel cost?', 'Non-personnel Cost', true);
-    // Form.NewField.numericInput('Estimate of TOTAL ADDITIONAL cost?', 'Total Cost', true);
     Form.SubmitButton.add();
     // Initialize form submission to table data
     handleFormSubmissions();

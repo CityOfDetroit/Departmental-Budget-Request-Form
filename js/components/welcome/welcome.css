@@ -6,21 +6,21 @@
     font-size: 1.75em;
     margin-bottom: 0px; /* Adds spacing between buttons */
     margin-left: 20%;
+    border-color: var(--citygreen);
+    border-width: 2;
+    color: var(--citygreen);
+    background-color: white;
 }
-
-#step-upload { background-color: var(--blue);}
-#step-initiatives { background-color: var(--orange); }
-#step-revenue {background-color: var(--green);}
-#step-personnel {background-color: var(--citygreen);}
-#step-nonpersonnel {background-color: var(--yellow);}
-#step-finish {background-color: var(--spiritgreen);}
 
 .step:hover {
     color: white;
-    opacity: 50%;
+    background-color: var(--spiritgreen);
 }
 
 #welcome-page {
     justify-content: center; 
     align-items: center; 
+}
+.step.disabled {
+    opacity: 50%;
 }
