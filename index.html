@@ -41,125 +41,114 @@
     <h1>FY2026 Budget Form</h1>
     <h2 id="subtitle"></h2>
 </header>
+        
+<!-- Main content -->
+<div id="main-panel">
+        
+    <!-- Welcome page buttons -->
+     <div id="welcome-page">
+        <button class="btn step" id="step-upload">
+            1. Upload your Excel data
+        </button>
+        <button class="btn step" id="step-revenue">
+            2. Baseline request
+        </button>
+        <button class="btn step" id="step-initiatives">
+            3. Name any new initiatives
+        </button>
+        <button class="btn step" id="step-finish">
+            4. Confirm and finish
+        </button>
+    </div>
 
+    <!-- Space for an initial prompt and response buttons -->
+    <div id="prompt-div">
+        <h3 id="prompt"></h3>
+        <br>
+        <button class="btn" id="option1"></button>
+        <button class="btn" id="option2"></button>
+    </div>
 
-<div class="container-fluid">
+    <!-- Table -->
+    <div class="table-container">
+        <!-- <form id="table-form"> -->
+            <table class="table table-bordered mt-3" id="main-table">
+                <thead class="thead-dark"></thead>
+                <tbody></tbody>
+            </table>
+        <!-- </form> -->
+    </div>
 
+    <!-- Add new row button -->
     <div class="row">
-        
-        <!-- Main content -->
-        <div id="main-panel">
-        
-            <!-- Welcome page buttons -->
-            <div id="welcome-page">
-                <button class="btn step" id="step-upload">
-                    1. Upload your Excel data
-                </button>
-                <button class="btn step" id="step-revenue">
-                    2. Baseline request
-                </button>
-                <button class="btn step" id="step-initiatives">
-                    3. Name any new initiatives
-                </button>
-                <button class="btn step" id="step-finish">
-                    4. Confirm and finish
-                </button>
-            </div>
-
-            <!-- Space for an initial prompt and response buttons -->
-            <div id="prompt-div">
-                <h3 id="prompt"></h3>
-                <br>
-                    <button class="btn" id="option1"></button>
-                    <button class="btn" id="option2"></button>
-            </div>
-
-            <!-- Table -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="table-container">
-                        <!-- <form id="table-form"> -->
-                            <table class="table table-bordered mt-3" id="main-table">
-                                <thead class="thead-dark"></thead>
-                                <tbody></tbody>
-                            </table>
-                        <!-- </form> -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- Add new row button -->
-            <div class="row">
-                <div id='add-btn-div'>
-                    <button class="btn btn-add" id="add-btn"></button>
-                </div>
-            </div>
-
-            <!-- Navigation buttons -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="nav-btns">
-                        <button class="btn" id="btn-last">
-                            <strong><< Previous</strong>
-                        </button>
-                        <button class="btn" id="btn-next">
-                            <strong>Continue >></strong>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
+        <div id='add-btn-div'>
+            <button class="btn btn-add" id="add-btn"></button>
         </div>
+    </div>
 
-        <!-- Sidebar -->
-        <div id="sidebar-panel">
-            <div class="sidebar-content">
-                <br>
-                <h4 id="sidebar-title"></h4>
-                <br>
-                <h6 id="section-header"><strong>Baseline</strong></h6>
-                <div id="baseline-stats">
-                    <div class='sidebar-stat-line' id="target">
-                        <span class="stat-label">FY26 target:</span> 
-                        <span class="stat"></span>
-                    </div>
-                    <div class='sidebar-stat-line' id="baseline-revenue">
-                        <span class="stat-label">Projected revenue:</span> 
-                        <span class="stat"></span>
-                    </div>
-                    <div class='sidebar-stat-line' id="baseline-personnel">
-                        <span class="stat-label">Personnel cost:</span> 
-                        <span class="stat"></span>
-                    </div>
-                    <div class='sidebar-stat-line' id="baseline-nonpersonnel">
-                        <span class="stat-label">Non-personnel cost:</span> 
-                        <span class="stat"></span>
-                    </div>
-                    <div class='sidebar-stat-line' id="baseline-total">
-                        <span class="stat-label">Total baseline:</span> 
-                        <span class="stat"></span>
-                    </div>
-                </div>
-                <br>
-                <h6 id="section-header"><strong>Supplemental</strong></h6>
-                <div id="supp-stats">
-                    <div class='sidebar-stat-line' id="supp-revenue">
-                        <span class="stat-label">Revenue:</span> 
-                        <span class="stat"></span>
-                    </div>
-                    <div class='sidebar-stat-line' id="supp-personnel">
-                        <span class="stat-label">Personnel cost:</span> 
-                        <span class="stat"></span>
-                    </div>
-                    <div class='sidebar-stat-line' id="supp-nonpersonnel">
-                        <span class="stat-label">Non-personnel cost:</span> 
-                        <span class="stat"></span>
-                    </div>
-                    <div class='sidebar-stat-line' id="supp-total">
-                        <span class="stat-label">Total supplemental:</span> 
-                        <span class="stat"></span>
-                    </div>
-                </div>
+    <!-- Navigation buttons -->
+    <div class="row">
+        <div class="col-md-12">
+            <div id="nav-btns">
+                <button class="btn" id="btn-last">
+                    <strong><< Previous</strong>
+                </button>
+                <button class="btn" id="btn-next">
+                    <strong>Continue >></strong>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Sidebar -->
+<div id="sidebar-panel">
+    <div class="sidebar-content">
+        <br>
+        <h4 id="sidebar-title">Summary</h4>
+        <br>
+        <h6 id="section-header"><strong>Baseline</strong></h6>
+        <div id="baseline-stats">
+            <div class='sidebar-stat-line' id="target">
+                <span class="stat-label">FY26 target:</span> 
+                <span class="stat"></span>
+            </div>
+            <div class='sidebar-stat-line' id="baseline-revenue">
+                <span class="stat-label">Projected revenue:</span> 
+                <span class="stat"></span>
+            </div>
+            <div class='sidebar-stat-line' id="baseline-personnel">
+                <span class="stat-label">Personnel cost:</span> 
+                <span class="stat"></span>
+            </div>
+            <div class='sidebar-stat-line' id="baseline-nonpersonnel">
+                <span class="stat-label">Non-personnel cost:</span> 
+                <span class="stat"></span>
+            </div>
+            <div class='sidebar-stat-line' id="baseline-total">
+                <span class="stat-label">Total baseline:</span> 
+                <span class="stat"></span>
+            </div>
+        </div>
+        <br>
+        <h6 id="section-header"><strong>Supplemental</strong></h6>
+        <div id="supp-stats">
+            <div class='sidebar-stat-line' id="supp-revenue">
+                <span class="stat-label">Revenue:</span> 
+                <span class="stat"></span>
+            </div>
+            <div class='sidebar-stat-line' id="supp-personnel">
+                <span class="stat-label">Personnel cost:</span> 
+                <span class="stat"></span>
+            </div>
+            <div class='sidebar-stat-line' id="supp-nonpersonnel">
+                <span class="stat-label">Non-personnel cost:</span> 
+                <span class="stat"></span>
+            </div>
+            <div class='sidebar-stat-line' id="supp-total">
+                <span class="stat-label">Total supplemental:</span> 
+                <span class="stat"></span>
             </div>
         </div>
     </div>

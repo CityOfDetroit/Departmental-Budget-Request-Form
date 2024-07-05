@@ -21,3 +21,4 @@ document.addEventListener('DOMContentLoaded', function () {
     var page_state = loadPageState();
     visitPage(page_state);
 });
+

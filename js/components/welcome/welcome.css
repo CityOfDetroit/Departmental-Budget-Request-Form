@@ -20,6 +20,7 @@
 #welcome-page {
     justify-content: center; 
     align-items: center; 
+    padding-top: 20px;
 }
 .step.disabled {
     opacity: 50%;

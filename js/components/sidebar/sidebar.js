@@ -5,20 +5,31 @@ import { TARGET } from "../../init.js";
 const root = document.documentElement;
 const sideBarWidth = getComputedStyle(root).getPropertyValue('--sidebar-width').trim();
 
-
-function hideSidebar(){
+function hideSidebar() {
     document.getElementById('sidebar-panel').style.display = 'none';
-    var contentWidth = document.documentElement.clientWidth;
-    document.getElementById('main-panel').style.width = contentWidth + 'px';
+    document.getElementById('main-panel').style.width = '100%'; 
+    document.querySelector('header').style.width = '100%'
 }
 
-function showSidebar(){
-    document.getElementById('sidebar-panel').style.display = 'block';
-    document.getElementById('sidebar-panel').style.width = sideBarWidth + 'px';
+function showSidebar() {
+    const sidebar = document.getElementById('sidebar-panel');
+    const mainPanel = document.getElementById('main-panel');
+    const header = document.querySelector('header');
+
+    sidebar.style.display = 'block'; // Show the sidebar
+    
+    // Calculate the remaining width for the main panel and header
     var contentWidth = document.documentElement.clientWidth;
-    document.getElementById('main-panel').style.width = contentWidth-sideBarWidth + 'px';
+    mainPanel.style.width = `${contentWidth - parseInt(sideBarWidth, 10)}px`; 
+    header.style.width = `${contentWidth - parseInt(sideBarWidth, 10)}px`; 
+
+    // add target to sidebar
     addTarget(TARGET);
+
+    // add event listener to resize content if window is adjusted
+    window.addEventListener('resize', showSidebar);
 }
+
 
 function updateSidebarTitle(new_title){
     document.getElementById('sidebar-title').textContent = new_title;
@@ -71,13 +82,18 @@ function addTarget(target){
     replaceSidebarStat('target', target);
 }
 
+function updateTitle(title){
+    document.querySelector('#sidebar-title').textContent = title;
+}
+
 const Sidebar = {
     hide: hideSidebar,
     show: showSidebar,
     updateTitle: updateSidebarTitle,
     updateStat: updateSidebarStat,
     incrementStat: incrementSidebarStat,
-    addTarget: addTarget
+    addTarget: addTarget,
+    updateTitle: updateTitle
 };
 
 export default Sidebar;

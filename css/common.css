@@ -20,7 +20,7 @@
     font-size: 14px;
     /* spacing */
     --header-height : 125px;
-    --sidebar-width: 220px;
+    --sidebar-width: 250px;
 }
 
 /* Button styling */
@@ -42,5 +42,16 @@ body, button, input, textarea, select, .sidebar, table {
   }
 
 #main-panel {
-    max-width: calc(100vw - var(--sidebar-width)); 
+    /* display: flex; */
+    /* flex-direction: column; */
+    justify-content: center; /* This will center content vertically */
+    min-height: calc(100vh - var(--header-height)) ; 
+    /* max-width: calc(100vw - var(--sidebar-width));  */
+    padding-top: 25px;
+    padding-bottom: 25px;
+    margin: 0;
+}
+
+div.row {
+    margin: 0px;
 }

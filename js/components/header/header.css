@@ -12,11 +12,10 @@ header {
     align-items: center;
     background-color: white;
     padding: 5px;
-    margin-bottom: 35px;
     border-bottom: 1px solid var(--citygreen); 
     /* border: 1px solid var(--citygreen);  */
     height: var(--header-height);
-    width: calc(100vw - var(--sidebar-width));
+    /* width: calc(100vw - var(--sidebar-width)); */
     padding-left: 20px;
 }
 

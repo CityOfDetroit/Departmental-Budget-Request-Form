@@ -23,7 +23,6 @@ export function loadSummaryPage(){
 
 export function cleanUpSummaryPage(){
     Prompt.Buttons.Right.removeAction(returnToWelcome);
-    console.log('attempting to clean up summary page')
 }
 
 const returnToWelcome = () => {visitPage('welcome')}

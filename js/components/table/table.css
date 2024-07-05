@@ -20,17 +20,19 @@ input {
     width: 100%;
 }
 
-.table-container {
+div.table-container {
     display: table; 
     overflow-x: auto; /* Scroll horizontally if the table content is wider than the container */
     overflow-y: auto;
-    margin: auto; 
+    padding-left: max(100px, 10vh);
+    padding-right: max(100px, 10vh);
     max-width: calc(100vw - var(--sidebar-width)); 
+    margin: auto;
+    min-height: 120px;
 
 }
   
 #main-table {
-    max-width: 0;
     font-size: calc(0.7vw + 0.5em);
     margin: auto;
 }

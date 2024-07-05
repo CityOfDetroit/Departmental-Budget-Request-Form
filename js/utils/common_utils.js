@@ -5,14 +5,14 @@ export const formatCurrency = (amount, return_zero = false) => {
         return "$ -"
     }
     if (amount < 0){
-        return '($' + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + ')';
+        return '($' + amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ')';
     } else if (amount == 0) {
         if (return_zero){
             return '$0';    
         }
         return "$ -"
     }
-    return '$' + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    return '$' + amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 } ;
 
 // function to convert formatted number to a float
