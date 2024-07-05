@@ -11,7 +11,6 @@ export function loadRevenuePage() {
 
     //update page state
     updatePageState('revenue');
-    localStorage.setItem("fund", '');
 
     // prepare page view
     Body.reset();

@@ -14,8 +14,8 @@ import { loadPageState } from '../utils/data_utils/local_storage_handlers.js';
 export let PAGES = {
     'welcome' : initializeWelcomePage,
     'upload' : loadUploadPage,
-    'revenue' : loadRevenuePage,
     'baseline-landing' : loadBaselineLandingPage,
+    'revenue' : loadRevenuePage,
     'personnel' : loadPersonnelPage,
     'overtime' : loadOTPage,
     'nonpersonnel' : loadNonpersonnelPage,
@@ -45,7 +45,6 @@ export function visitPage(new_page_key){
 export function nextPage(){
 
     var page_state = loadPageState();
-    console.log(page_state);
     const keys = Object.keys(PAGES);
   
     // Find the index of the current key

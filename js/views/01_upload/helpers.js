@@ -4,6 +4,10 @@ import NavButtons from '../../components/nav_buttons/nav_buttons.js'
 import Body from "../../components/body/body.js";
 
 export function initializePageView() {
+
+    // remove fund selection
+    localStorage.setItem("fund", '');
+
     // prepare page view
     Body.reset();
     NavButtons.show();

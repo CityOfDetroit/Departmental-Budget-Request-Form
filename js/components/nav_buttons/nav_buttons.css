@@ -1,6 +1,9 @@
 #nav-btns {
     margin: 20px;
     text-align: center;
+    /* margin-top: 100px; */
+    /* position: absolute; or 'absolute' depending on use-case */
+    /* top: 100px; Distance from the top of the viewport or the closest positioned ancestor */
 }
 
 #btn-next, #btn-last {

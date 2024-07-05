@@ -1,15 +1,22 @@
 import { formatCurrency } from "../../utils/common_utils.js";
 import { TARGET } from "../../init.js";
 
+// Assuming you have a CSS variable --main-color defined on the :root
+const root = document.documentElement;
+const sideBarWidth = getComputedStyle(root).getPropertyValue('--sidebar-width').trim();
+
+
 function hideSidebar(){
     document.getElementById('sidebar-panel').style.display = 'none';
-    document.getElementById('main-panel').className = 'col-md-12';
+    var contentWidth = document.documentElement.clientWidth;
+    document.getElementById('main-panel').style.width = contentWidth + 'px';
 }
 
 function showSidebar(){
-    document.getElementById('sidebar-panel').className = 'col-md-3';
     document.getElementById('sidebar-panel').style.display = 'block';
-    document.getElementById('main-panel').className = 'col-md-9';
+    document.getElementById('sidebar-panel').style.width = sideBarWidth + 'px';
+    var contentWidth = document.documentElement.clientWidth;
+    document.getElementById('main-panel').style.width = contentWidth-sideBarWidth + 'px';
     addTarget(TARGET);
 }
 

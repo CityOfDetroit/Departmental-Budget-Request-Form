@@ -24,13 +24,15 @@ input {
     display: table; 
     overflow-x: auto; /* Scroll horizontally if the table content is wider than the container */
     overflow-y: auto;
-    margin: auto; /* Optional: center the table container in the middle of the screen */
+    margin: auto; 
+    max-width: calc(100vw - var(--sidebar-width)); 
+
 }
   
 #main-table {
     max-width: 0;
-    max-width: calc(100vw - 350px); 
-    font-size: calc(0.7vw + 0.5em)
+    font-size: calc(0.7vw + 0.5em);
+    margin: auto;
 }
 
 /* Add new row button */
