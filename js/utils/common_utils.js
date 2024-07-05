@@ -22,6 +22,10 @@ export const unformatCurrency = (formattedAmount) => {
     return parseFloat(numericalPart);
 };
 
+export function displayWithCommas(value) {
+    return formatCurrency(value).replace('$', '');
+}
+
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }

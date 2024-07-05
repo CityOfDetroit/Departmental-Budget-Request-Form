@@ -40,13 +40,16 @@ function saveRowEdits(row){
             // save new entered value in textbox
             var textbox = cell.querySelector('input');
             var enteredValue = textbox.value;
-            cell.setAttribute('value', enteredValue);
             // update display and format with currency if relevant
             if ( cell.classList.contains('cost') ){
+                // if cost, remove commas first
+                enteredValue = enteredValue.replaceAll(',', '');
                 cell.textContent = formatCurrency(enteredValue);
             } else {
                 cell.textContent = enteredValue;
             }
+            // set value attribute to the new user input
+            cell.setAttribute('value', enteredValue);
         }
     })
 }
