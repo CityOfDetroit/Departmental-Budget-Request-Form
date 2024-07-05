@@ -1,4 +1,5 @@
 import Header from "./headers.js";
+import { formatCurrency } from "../../../utils/common_utils.js";
 
 function addNewRow(data_dictionary){
     // Get the table element by its ID
@@ -36,10 +37,16 @@ function saveRowEdits(row){
             var serviceSelector = cell.querySelector('select');
             cell.textContent = serviceSelector.value;
         } else if (cell.querySelector('input')) {
+            // save new entered value in textbox
             var textbox = cell.querySelector('input');
             var enteredValue = textbox.value;
-            cell.textContent = enteredValue;
             cell.setAttribute('value', enteredValue);
+            // update display and format with currency if relevant
+            if ( cell.classList.contains('cost') ){
+                cell.textContent = formatCurrency(enteredValue);
+            } else {
+                cell.textContent = enteredValue;
+            }
         }
     })
 }

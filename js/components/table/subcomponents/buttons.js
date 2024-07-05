@@ -53,7 +53,7 @@ function initializeConfirmButton(updateCallback){
     const confirm_btn = rowToEdit.querySelector(".btn-confirm");
     // show the row's confirm button
     confirm_btn.style.display = 'block';
-    confirm_btn.addEventListener('click', function(event){;
+    confirm_btn.addEventListener('click', function(){;
         // save row edits
         Rows.saveEdits(rowToEdit);
         // update values in sidebar

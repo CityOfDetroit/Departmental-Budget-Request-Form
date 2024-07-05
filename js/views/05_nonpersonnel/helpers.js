@@ -5,6 +5,7 @@ import { DATA_ROOT } from "../../init.js";
 import Body from "../../components/body/body.js";
 import NavButtons from "../../components/nav_buttons/nav_buttons.js";
 import Subtitle from "../../components/header/header.js";
+import { unformatCurrency } from "../../utils/common_utils.js";
 
 const nonPersonnelColumns = [
     { title: 'FY26 Request', className: 'request', isCost: true },
@@ -20,7 +21,6 @@ export function preparePageView(){
     // update page text
     Subtitle.update('Non-Personnel');
     Prompt.Text.update('Select an action item for each non-personnel line item from last year.');
-    updateDisplayandTotals();
 
     // just enable next for now
     // TODO: only enable when all info is entered
@@ -35,11 +35,17 @@ export async function initializeNonpersonnelTable(){
     Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, " ");
     // assign cost classes
     Table.Columns.assignClasses(nonPersonnelColumns);
+    // update sidebar
+    updateDisplayandTotals();
     // enable editing
     Table.Buttons.Edit.init(nonPersonnelRowOnEdit, updateDisplayandTotals);
 }
 
 function nonPersonnelRowOnEdit(){
+    // convert request to numeric from formatted currency
+    const request = document.querySelector('.active-editing > td.request');
+    request.textContent = unformatCurrency(request.textContent);
+    // make it editable
     Table.Cell.createTextbox('request');
 }
 
