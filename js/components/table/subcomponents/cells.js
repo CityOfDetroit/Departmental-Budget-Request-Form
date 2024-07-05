@@ -8,6 +8,12 @@ function getCellValue(row, className) {
     return cellValue ? parseFloat(cellValue) : 0;
 }
 
+// return text in cell
+function getCellText(row, className) {
+    var cell = row.querySelector(`.${className}`);
+    return cell.textContent;
+}
+
 function updateTableCell(row, col_class, new_value){
     const cell = row.querySelector(`.${col_class}`);
     cell.setAttribute('value', new_value);
@@ -40,6 +46,9 @@ async function createSelectCell(cellClass, json_filepath){
 const Cell = {
     getValue: function(row, className) {
         return getCellValue(row, className); 
+    },
+    getText: function(row, className) {
+        return getCellText(row, className); 
     },
     updateValue: function(row, col_class, new_value) {
         updateTableCell(row, col_class, new_value); 

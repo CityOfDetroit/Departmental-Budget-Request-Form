@@ -5,8 +5,9 @@
     margin: auto;
 }
 
-#prompt {
+h3#prompt {
     text-align: center;
+    font-size : 1.5em;
 }
 
 #option1, #option2 { 

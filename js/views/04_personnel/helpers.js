@@ -22,13 +22,18 @@ export function preparePageView(){
 
     // update page text
     Subtitle.update('Personnel');
-    Prompt.Text.update('For each job in your department, select the service and request the number of baseline and supplemental FTEs.');
+    Prompt.Text.update(`
+        This table displays the number of FTEs in each job code for in your department's 
+        current (amended) FY25 budget. To make edits to the number of positions, click the
+        "Edit" button on the row you would like to edit. The "Total Cost" column and the 
+        summary sidebar will also update to reflect any edits.
+    `);
 }
 
 function assignClasses() {
     // record columns and their classes
     const personnelColumns = [
-        { title: 'Job Name', className: 'job-name' },
+        { title: 'Job Name (Type)', className: 'job-name' },
         { title: `FY${FISCAL_YEAR} FTEs`, className: 'baseline-ftes' },
         { title: 'Service', className: 'service' },
         { title: 'Total Cost', className: 'total-baseline', isCost: true },
@@ -49,17 +54,18 @@ export async function initializePersonnelTable(){
     await Table.Data.loadFromJSON(DATA_ROOT + 'personnel_data.json');
     //after table is loaded, fill it
     Table.show();
-    Table.Columns.add(2, '', 'Service');
     Table.Columns.addAtEnd( '0', 'Total Cost');
     Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, ' ');;
     assignClasses();
+    // add up the baseline costs and update sidebar
+    updateDisplayandTotals();
     // activate edit buttons
     Table.Buttons.Edit.init(personnelRowOnEdit, updateDisplayandTotals);
     initializeRowAddition();
 }
 
 function initializeRowAddition(){
-    Table.Buttons.AddRow.updateText("Add new job name");
+    Table.Buttons.AddRow.updateText("Add new job");
     Table.Buttons.AddRow.show();
 }
 
@@ -77,7 +83,7 @@ function updateDisplayandTotals(){
     for (let i = 1; i < rows.length; i++){
         // fetch values for calculations
         let avg_salary = Table.Cell.getValue(rows[i], 'avg-salary');
-        let baseline_ftes = Table.Cell.getValue(rows[i], 'baseline-ftes');
+        let baseline_ftes = Table.Cell.getText(rows[i], 'baseline-ftes');
 
         // calcuate #FTEs x average salary + COLA adjustments + merit adjustments + fringe
         let total_baseline_cost = calculateTotalCost(baseline_ftes, avg_salary, fringe, cola, merit);

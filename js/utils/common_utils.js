@@ -1,6 +1,6 @@
 // Function to format number as currency
 export const formatCurrency = (amount, return_zero = false) => {
-    var amount = parseFloat(amount);
+    var amount = Math.round(parseFloat(amount));
     if (amount == NaN){
         return "$ -"
     }
