@@ -48,6 +48,7 @@ function replaceSidebarStat(stat_id, new_figure){
 }
 
 function incrementSidebarStat(stat_id, new_figure){
+    var new_figure = parseFloat(new_figure);
     updateSidebarStat(stat_id, fetchStat(stat_id) + new_figure)
 }
 

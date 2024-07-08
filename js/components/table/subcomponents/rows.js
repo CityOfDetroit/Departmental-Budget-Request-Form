@@ -22,8 +22,6 @@ function addNewRow(data_dictionary){
         new_row.appendChild(newCell);
     }
 
-    console.log(new_row);
-
     // Append the new row to the table body
     let tbody = table.querySelector('tbody');
     tbody.appendChild(new_row);
