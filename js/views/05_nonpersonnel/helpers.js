@@ -5,7 +5,6 @@ import { DATA_ROOT } from "../../init.js";
 import Body from "../../components/body/body.js";
 import NavButtons from "../../components/nav_buttons/nav_buttons.js";
 import Subtitle from "../../components/header/header.js";
-import { displayWithCommas, unformatCurrency } from "../../utils/common_utils.js";
 
 const nonPersonnelColumns = [
     { title: 'FY26 Request', className: 'request', isCost: true },
