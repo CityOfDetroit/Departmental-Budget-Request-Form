@@ -1,26 +1,23 @@
 [
     {
-        "Job Name": "Deputy Counsel",
+        "Job Name (Type)": "Deputy Counsel (Regular)",
         "Account String": "1000-29320-320010",
-        "Current FTEs (FY25)": 1,
-        "Baseline FTEs": 0,
-        "Supplemental FTEs": 0,
-        "Current Average Salary": "150000"
+        "Service" : "Appeals",
+        "FY26 FTEs": 1,
+        "Average Projected Salary": "150000"
     },
     {
-        "Job Name": "Legal Secretary",
+        "Job Name (Type)": "Legal Secretary (Regular)",
         "Account String": "1000-29320-320010",
-        "Current FTEs (FY25)": 5,
-        "Baseline FTEs": 0,
-        "Supplemental FTEs": 0,
-        "Current Average Salary": "55000"
+        "Service" : "FOIA",
+        "FY26 FTEs": 2,
+        "Average Projected Salary": "55000"
     },
     {
-        "Job Name": "Assistant Counsel",
+        "Job Name (Type)": "Assistant Counsel (Regular)",
         "Account String": "1000-29320-320010",
-        "Current FTEs (FY25)": 10,
-        "Baseline FTEs": 0,
-        "Supplemental FTEs": 0,
-        "Current Average Salary": "80000"
+        "Service" : "Appeals",
+        "FY26 FTEs": 10,
+        "Average Projected Salary": "80000"
     }
 ]

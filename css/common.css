@@ -1,4 +1,5 @@
 :root {
+    /* colors */
     --orange: #FB6523;
     --yellow: #D99733;
     --blue: #43748E;
@@ -11,20 +12,15 @@
     --citygreen: #004445;
     --spiritgreen: #279989;
     --palegreen: #9FD5B3;
+    --verypalegreen: #DFF5E3;
     --accentyellow: #feb70d;
     --nearblack: #18252a;
-    font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+    /* fonts */
+    font-family: 'Nunito', sans-serif;
     font-size: 14px;
-}
-
-/* Every page */
-
-/* start by hiding everything */
-#welcome-page{display: none;}
-#prompt-div{display: none;}
-
-body {
-    margin: 10px;
+    /* spacing */
+    --header-height : 125px;
+    --sidebar-width: 250px;
 }
 
 /* Button styling */
@@ -33,41 +29,29 @@ body {
     cursor: pointer;
     padding: 10px;
     margin-top: 5px;
+    margin-right : 2px;
+    margin-left: 2px;
     border-radius: 10px;
     background-color: gray;
     color: white; 
 }
 
-/* Action buttons */
+/* Font application for all text  */
+body, button, input, textarea, select, .sidebar, table {
+    font-family: var(--font-family), sans-serif;
+  }
 
-.action-btns {
-    text-align: center;
+#main-panel {
+    /* display: flex; */
+    /* flex-direction: column; */
+    justify-content: center; /* This will center content vertically */
+    min-height: calc(100vh - var(--header-height)) ; 
+    /* max-width: calc(100vw - var(--sidebar-width));  */
+    padding-top: 25px;
+    padding-bottom: 25px;
+    margin: 0;
 }
 
-.delete {
-    background-color: #ee9286;
+div.row {
+    margin: 0px;
 }
-.delete .btn-delete, .keep .btn-carryover, .supp .btn-supplemental {
-    background-color: #373A37;
-}
-.keep {
-    background-color: #90ee90;
-}
-.supp {
-    background-color: #e0b472;
-}
-
-.btn-delete {background-color: var(--orange);}
-.btn-supplemental { background-color: var(--yellow);}
-.btn-carryover {background-color: var(--green);}
-
-
-.error-message {
-    color: red;
-}
-
-/* confirm button */
-.confirm-btn:hover {
-    background-color: var(--green);
-}
-

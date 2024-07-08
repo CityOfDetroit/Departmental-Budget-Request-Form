@@ -1,14 +1,38 @@
-import { formatCurrency } from "../../utils/utils.js";
+import { formatCurrency } from "../../utils/common_utils.js";
+import { TARGET } from "../../init.js";
 
-export function hideSideBar(){
+// Assuming you have a CSS variable --main-color defined on the :root
+const root = document.documentElement;
+const sideBarWidth = getComputedStyle(root).getPropertyValue('--sidebar-width').trim();
+
+function hideSidebar() {
     document.getElementById('sidebar-panel').style.display = 'none';
-    document.getElementById('main-panel').className = 'col-md-12';
+    document.getElementById('main-panel').style.width = '100%'; 
+    document.querySelector('header').style.width = '100%'
 }
 
-export function showSideBar(){
-    document.getElementById('sidebar-panel').className = 'col-md-2';
-    document.getElementById('sidebar-panel').style.display = 'block';
-    document.getElementById('main-panel').className = 'col-md-10';
+function showSidebar() {
+    const sidebar = document.getElementById('sidebar-panel');
+    const mainPanel = document.getElementById('main-panel');
+    const header = document.querySelector('header');
+
+    sidebar.style.display = 'block'; // Show the sidebar
+    
+    // Calculate the remaining width for the main panel and header
+    var contentWidth = document.documentElement.clientWidth;
+    mainPanel.style.width = `${contentWidth - parseInt(sideBarWidth, 10)}px`; 
+    header.style.width = `${contentWidth - parseInt(sideBarWidth, 10)}px`; 
+
+    // add target to sidebar
+    addTarget(TARGET);
+
+    // add event listener to resize content if window is adjusted
+    window.addEventListener('resize', showSidebar);
+}
+
+
+function updateSidebarTitle(new_title){
+    document.getElementById('sidebar-title').textContent = new_title;
 }
 
 function updateSidebarStat(stat_id, new_figure){
@@ -23,17 +47,17 @@ function replaceSidebarStat(stat_id, new_figure){
     span.textContent = formatCurrency(new_figure);
 }
 
-export function incrementSidebarStat(stat_id, new_figure){
+function incrementSidebarStat(stat_id, new_figure){
     updateSidebarStat(stat_id, fetchStat(stat_id) + new_figure)
 }
 
-export function fetchStat(stat_id){
+function fetchStat(stat_id){
     const stat = document.querySelector(`#${stat_id} .stat`);
     return parseFloat(stat.getAttribute('value')) || 0;
 }
 
 // Function to update the display of the current and supp variables
-export function updateTotals() {
+function updateTotals() {
     // update bottom lines
     let supp_total =    -fetchStat('supp-revenue') + 
                         fetchStat('supp-personnel') +
@@ -50,10 +74,26 @@ export function updateTotals() {
         document.querySelector('#baseline-total .stat').style.color = "green";
     }
     if(baseline_total > target){
-        document.getElementById('#baseline-total .stat').style.color = "red";
+        document.querySelector('#baseline-total .stat').style.color = "red";
     }
 }
 
-export function addTarget(target){
+function addTarget(target){
     replaceSidebarStat('target', target);
 }
+
+function updateTitle(title){
+    document.querySelector('#sidebar-title').textContent = title;
+}
+
+const Sidebar = {
+    hide: hideSidebar,
+    show: showSidebar,
+    updateTitle: updateSidebarTitle,
+    updateStat: updateSidebarStat,
+    incrementStat: incrementSidebarStat,
+    addTarget: addTarget,
+    updateTitle: updateTitle
+};
+
+export default Sidebar;
