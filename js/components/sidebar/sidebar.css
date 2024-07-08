@@ -22,7 +22,7 @@
     padding: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow for some depth */
     border-right: 2px solid #DDDDDD; /* Right border */
-    border-radius: 15px 0px 0px 15px; /* Rounded corners on the left */
+    border-radius: 0px 0px 0px 15px; /* Rounded corners on the left */
     /* margin-top: var(--header-height); */
     width: var(--sidebar-width);
     margin: 0px;

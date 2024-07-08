@@ -1,40 +1,15 @@
 import { updatePageState } from '../../utils/data_utils/local_storage_handlers.js'
-import Prompt from '../../components/prompt/prompt.js'
-import { formatCurrency } from '../../utils/common_utils.js'
-import { REVENUE } from '../../init.js'
-import Body from '../../components/body/body.js'
-import NavButtons from '../../components/nav_buttons/nav_buttons.js'
-import { pauseAndContinue } from '../view_logic.js'
-import Subtitle from '../../components/header/header.js'
+import { preparePageView, removButtonEvents, setUpNavButtons, updateSidebar } from './helpers.js'
 
 export function loadRevenuePage() {
 
     //update page state
     updatePageState('revenue');
-
-    // prepare page view
-    Body.reset();
-    NavButtons.show();
-
-    // update page text
-    Subtitle.update('Revenue Projections');
-    // TODO: update to make dynamic
-    Prompt.Text.update(`Your revenue projection for FY26 is ${formatCurrency(REVENUE, true)}`);
-    Prompt.Buttons.Left.updateText('Confirm');
-    Prompt.Buttons.Right.updateText("This doesn't look right");
-
-    // clicking 'confirm' will also take us to the next page
-    Prompt.Buttons.Left.addAction(pauseAndContinue);
-    // TODO: allow user to edit revenue here
-    Prompt.Buttons.Right.addAction(handleRevenueEdit);
-}
-
-function handleRevenueEdit() {
-    NavButtons.Next.enable();
+    preparePageView();
+    setUpNavButtons();
 }
 
 export function cleanupRevenuePage() {
-    // remove event listeners on prompt buttons
-    Prompt.Buttons.Left.removeAction(pauseAndContinue);
-    Prompt.Buttons.Right.removeAction();
+    removButtonEvents();
+    updateSidebar();
 };
