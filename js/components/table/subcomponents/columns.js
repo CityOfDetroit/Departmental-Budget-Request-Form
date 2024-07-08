@@ -90,7 +90,8 @@ function addCostClass(headerName){
     cells.forEach(cell => {
         // Get the current text content of the cell and assign it to 'value' attribute
         if (!cell.getAttribute('value')){
-            const cellValue = cell.textContent.trim();
+            const cellText = cell.textContent.trim();
+            const cellValue = isNaN(cellText) || cellText === '' ? 0 : parseFloat(cellText);
             cell.setAttribute('value', cellValue);
 
             // Now format the text content like currency and replace it in the cell

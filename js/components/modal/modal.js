@@ -5,10 +5,6 @@ function clearModal(){
     //removeAllModalLinks()
 }
 
-// function removeAllModalLinks(){
-//     TODO
-// }
-
 function hideModal(modal_id) {
     $('#' + modal_id).modal('hide');
 }
@@ -20,6 +16,30 @@ function showModal(modal_id) {
 function showModalHandler() {
     showModal('main-modal');
 }
+
+const Submit = {
+    handler: null, 
+
+    init: function(onSubmit) {
+        const modal = document.getElementById('main-modal');
+        // add onSubmit function as handler
+        this.handler = function(event) {
+            event.preventDefault();
+            onSubmit(event);
+        };
+        // Adding the handler reference as the event listener
+        modal.addEventListener('submit', this.handler);
+    },
+
+    deinit: function() {
+        const modal = document.getElementById('main-modal');
+        if (this.handler !== null) {
+            // Removing the event listener and clear the handler
+            modal.removeEventListener('submit', this.handler);
+            this.handler = null;
+        }
+    }
+};
 
 const Link = {
     add : function(button_id){
@@ -43,7 +63,8 @@ export const Modal = {
     show : function() { showModal('main-modal') },
     clear : clearModal,
     Title : Title,
-    Link : Link
+    Link : Link,
+    Submit: Submit
 }
 
 export default Modal;

@@ -17,6 +17,8 @@ function resetPage() {
     // disable next button
     NavButtons.Next.disable();
     Prompt.Buttons.reset();
+    // disable submit button
+    Modal.Submit.deinit();
 }
 
 export const Body = {

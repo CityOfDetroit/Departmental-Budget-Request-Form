@@ -30,7 +30,7 @@ export function setUpNavButtons(){
     handleErrorComment();
 }
 
-export function removButtonEvents(){
+export function removeButtonEvents(){
     // remove event listeners on prompt buttons
     Prompt.Buttons.Left.removeAction(pauseAndContinue);
     Modal.Link.remove('option2');
@@ -45,23 +45,19 @@ function handleErrorComment(){
          'revenue-comment', true); 
     Form.SubmitButton.add();
     // save comment on submission
-    handleFormSubmissions();
+    Modal.Submit.init(handleRevenueCommentSubmission);
 }
 
-function handleFormSubmissions(event){
-    // initialize form submission
-    const modal = document.getElementById('main-modal');
-    modal.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const responses = Form.fetchAllResponses(event);
-        // TODO: save comment here
+function handleRevenueCommentSubmission(event){
+    // get data from form in modal        
+    const responses = Form.fetchAllResponses(event);
+    // TODO: save comment here
 
-        // hide modal, update page, and enable continue
-        Modal.hide();
-        Prompt.Buttons.hide();
-        Prompt.Text.update('Your comment has been received.');
-        NavButtons.Next.enable();
-    });
+    // hide modal, update page, and enable continue
+    Modal.hide();
+    Prompt.Buttons.hide();
+    Prompt.Text.update('Your comment has been received.');
+    NavButtons.Next.enable();
 }
 
 export function updateSidebar(){

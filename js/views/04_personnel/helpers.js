@@ -77,7 +77,6 @@ function calculateTotalCost(ftes, avg_salary, fringe, cola, merit){
 function updateDisplayandTotals(){
     // initialize
     Sidebar.updateStat('baseline-personnel', 0);
-    Sidebar.updateStat('supp-personnel', 0);
     // calculate for each row
     let rows = document.getElementsByTagName('tr');
     for (let i = 1; i < rows.length; i++){
@@ -109,29 +108,23 @@ export function setUpForm() {
     Form.NewField.shortText('Account String:', 'account-string', true); 
     Form.SubmitButton.add();
     // Initialize form submission to table data
-    handleFormSubmissions();
+    Modal.Submit.init(handleSubmitNewJob);
 }
 
-function handleFormSubmissions(event){
-        // initialize form submission
-        
-        const modal = document.getElementById('main-modal');
-        modal.addEventListener('submit', function(event) {
-            event.preventDefault();
-            // get answers from form, hide form, show answers in table
-            const responses = Form.fetchAllResponses(event);
-            // make sure it's not an empty response
-            if (Object.values(responses)[0] != ''){
-                // change page view
-                Modal.hide();
-        
-                // add data to table
-                Table.Rows.add(responses);
-                Table.show();
-                Table.Buttons.AddRow.show();
-                // TODO: save table data
-                // TODO: edit cost to show currency correctly
-                }
+function handleSubmitNewJob(event){        
+    // get answers from form, hide form, show answers in table
+    const responses = Form.fetchAllResponses(event);
+    // make sure it's not an empty response
+    if (Object.values(responses)[0] != ''){
+        // change page view
+        Modal.hide();
 
-        })
+        // add data to table
+        Table.Rows.add(responses);
+        Table.show();
+        Table.Buttons.AddRow.show();
+        // TODO: save table data
+        // TODO: edit cost to show currency correctly
+        }
+
 }

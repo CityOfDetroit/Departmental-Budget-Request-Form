@@ -15,6 +15,9 @@ export function initializePageView() {
     NavButtons.show();
     Sidebar.show();
 
+    // remove fund selection
+    localStorage.setItem("fund", '');
+
     // Load text
     Subtitle.update('New Initiatives');
     Prompt.Text.update('Do you have any new initiatives for FY26?');
@@ -50,7 +53,7 @@ export function setUpForm() {
 
     Form.SubmitButton.add();
     // Initialize form submission to table data
-    handleFormSubmissions();
+    Modal.Submit.init(handleNewInitSubmission);
 }
 
 export function setUpTable() {
@@ -74,31 +77,27 @@ function assignClasses() {
     Table.Columns.assignClasses(personnelColumns)
 }
 
-export function handleFormSubmissions(event){
-        // initialize form submission
-        const modal = document.getElementById('main-modal');
-        modal.addEventListener('submit', function(event) {
-            event.preventDefault();
-            // get answers from form, hide form, show answers in table
-            const responses = Form.fetchAllResponses(event);
-            // make sure it's not an empty response
-            if (Object.values(responses)[0] != ''){
-                // change page view
-                Modal.hide();
-                Prompt.hide();
-        
-                // add data to table
-                Table.Rows.add(responses);
-                assignClasses();
-                Table.show();
-                Table.Buttons.AddRow.show();
-                // TODO: save table data
+export function handleNewInitSubmission(event){
+    // get answers from form, hide form, show answers in table
+    const responses = Form.fetchAllResponses(event);
+    // make sure it's not an empty response
+    if (Object.values(responses)[0] != ''){
 
-                // add date to sidebar
-                updateSidebar(responses);
-                }
+        // add data to sidebar
+        updateSidebar(responses);
 
-        })
+        // change page view
+        Modal.hide();
+        Prompt.hide();
+
+        // add data to table
+        Table.Rows.add(responses);
+        assignClasses();
+        Table.show();
+        Table.Buttons.AddRow.show();
+        // TODO: save table data
+
+        }
 }
 
 function updateSidebar(responses){
@@ -115,4 +114,5 @@ export function removeModalLinks(){
 export function removePromptButtonListeners(){
     Prompt.Buttons.Right.removeAction(pauseAndContinue);
     Prompt.Buttons.Left.removeAction(NavButtons.Next.enable);
+    Modal.clear();
 }

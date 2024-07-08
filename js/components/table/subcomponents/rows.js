@@ -1,7 +1,7 @@
 import Header from "./headers.js";
 import { formatCurrency } from "../../../utils/common_utils.js";
 
-function addNewRow(data_dictionary){
+async function addNewRow(data_dictionary){
     // Get the table element by its ID
     const table = document.getElementById('main-table');
 
