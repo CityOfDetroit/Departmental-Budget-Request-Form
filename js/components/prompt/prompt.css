@@ -1,13 +1,13 @@
-#prompt-div {
+div#prompt-div {
     display: none;
-    text-align: center;
     width: 80%;
     margin: auto;
+    text-align: center;
 }
 
 h3#prompt {
     text-align: center;
-    font-size : 1.5em;
+    font-size : 1.2em;
 }
 
 #option1, #option2 { 
