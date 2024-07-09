@@ -1,7 +1,7 @@
 import { formatCurrency } from "../../utils/common_utils.js";
 import { DATA_ROOT, TARGET } from "../../init.js";
 import { fetchJSON } from "../../utils/data_utils/JSON_data_handlers.js";
-import { Baseline } from "../../utils/data_utils/local_storage_handlers.js";
+import { Baseline, Supplemental } from "../../utils/data_utils/local_storage_handlers.js";
 
 // Assuming you have a CSS variable --main-color defined on the :root
 const root = document.documentElement;
@@ -32,28 +32,15 @@ function showSidebar() {
     window.addEventListener('resize', showSidebar);
 }
 
-
 function updateSidebarTitle(new_title){
     document.getElementById('sidebar-title').textContent = new_title;
 }
-
-// function updateSidebarStat(stat_id, new_figure){
-//     replaceSidebarStat(stat_id, new_figure);
-//     updateTotals();
-// }
 
 function replaceSidebarStat(stat_id, new_figure){
     const span = document.querySelector(`#${stat_id} .stat`);
     span.setAttribute('value', new_figure);
     span.textContent = formatCurrency(new_figure);
 }
-
-// function incrementSidebarStat(stat_id, new_figure){
-//     var new_figure = parseFloat(new_figure);
-//     if (!isNaN(new_figure)){
-//         updateSidebarStat(stat_id, fetchStat(stat_id) + new_figure)
-//     }
-// }
 
 function fetchStat(stat_id){
     const stat = document.querySelector(`#${stat_id} .stat`);
@@ -88,12 +75,25 @@ async function updateBaseline(){
 
 }
 
+function updateSupp(){
+    var supp = new Supplemental;
+    replaceSidebarStat('supp-revenue', supp.revenue());
+    replaceSidebarStat('supp-personnel', supp.personnel());
+    replaceSidebarStat('supp-nonpersonnel', supp.nonpersonnel());
+    replaceSidebarStat('supp-total', supp.total());
+}
+
+function updateTotals(){
+    updateBaseline();
+    updateSupp();
+}
+
 const Sidebar = {
     hide: hideSidebar,
     show: showSidebar,
     updateTitle: updateSidebarTitle,
     addTarget: addTarget,
-    updateTotals: updateBaseline
+    updateTotals: updateTotals
 };
 
 export default Sidebar;

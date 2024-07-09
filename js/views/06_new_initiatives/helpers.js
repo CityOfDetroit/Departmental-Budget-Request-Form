@@ -83,9 +83,6 @@ export function handleNewInitSubmission(event){
     // make sure it's not an empty response
     if (Object.values(responses)[0] != ''){
 
-        // add data to sidebar
-        updateSidebar(responses);
-
         // change page view
         Modal.hide();
         Prompt.hide();
@@ -95,15 +92,9 @@ export function handleNewInitSubmission(event){
         assignClasses();
         Table.show();
         Table.Buttons.AddRow.show();
-        // TODO: save table data
-
-        }
-}
-
-function updateSidebar(responses){
-    Sidebar.incrementStat('supp-revenue', responses['Revenue']);
-    Sidebar.incrementStat('supp-personnel', responses['Personnel Cost']);
-    Sidebar.incrementStat('supp-nonpersonnel', responses['Non-personnel Cost']);
+        // save it
+        Table.save();
+    }
 }
 
 export function removeModalLinks(){

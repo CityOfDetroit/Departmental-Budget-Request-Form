@@ -23,7 +23,11 @@ export function loadFundState(){
 
 export function saveTableData() {
     var table = document.getElementById('main-table');
-    var save_as = `${loadPageState()}_${loadFundState()}`;
+    if (loadFundState()) {
+        var save_as = `${loadPageState()}_${loadFundState()}`;
+    } else {
+        var save_as = loadPageState();
+    }
     var rows = table.rows;
     var tableData = [];
     for (var i = 0; i < rows.length; i++) {
@@ -70,19 +74,24 @@ class StoredTable {
                 break;
         }
     }
-
     getSum() {
         // fill with zero until there is something saved in storage
-        if(!this.table){ 
-            return 0; 
-        }
-        var total_index = this.table[0].indexOf(this.totalCol());
-        let sum = 0;
-        for (let i = 1; i < this.table.length; i++){
-            sum += Math.round(parseFloat(this.table[i][total_index]));
-        }
-        return sum;
+        return colSum(this.table, this.totalCol())
     }
+
+}
+
+function colSum(table, colName) {
+    // fill with zero until there is something saved in storage
+    if(!table){ 
+        return 0; 
+    }
+    var col_index = table[0].indexOf(colName);
+    let sum = 0;
+    for (let i = 1; i < table.length; i++){
+        sum += Math.round(parseFloat(table[i][col_index]));
+    }
+    return sum;
 }
 
 // Holds all the detailed data for one fund's budget
@@ -148,4 +157,31 @@ export class Baseline {
     total() {
         return this.nonpersonnel() + this.personnel() - this.revenue();
     }
+}
+
+export class Supplemental {
+    constructor() {
+        this.table = loadTableData('new-inits');
+    }
+
+    getInits() {
+        return this.table.map((item) => { return item['Initiative Name'] });
+    }
+
+    personnel() {
+        return colSum(this.table, 'Personnel Cost');
+    }
+
+    nonpersonnel() {
+        return colSum(this.table, 'Non-personnel Cost');
+    }
+
+    revenue() {
+        return colSum(this.table, 'Revenue');
+    }
+
+    total(){
+        return this.personnel() + this.nonpersonnel() - this.revenue();
+    }
+
 }
