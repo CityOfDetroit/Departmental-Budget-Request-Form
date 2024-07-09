@@ -7,6 +7,7 @@ import Sidebar from '../../components/sidebar/sidebar.js';
 import Table from '../../components/table/table.js';
 
 import { OT_FRINGE, DATA_ROOT } from '../../init.js';
+import { saveTableData } from '../../utils/data_utils/local_storage_handlers.js';
 
 export function preparePageView(){
     // prepare page view
@@ -65,8 +66,6 @@ function calculateTotalCost(wages, salary, fringe){
 
 // update sidebar and also cost totals when the FTEs are edited
 function updateDisplayandTotals(){
-    // initialize
-    Sidebar.updateStat('baseline-personnel', 0);
     // calculate for each row
     let rows = document.getElementsByTagName('tr');
     for (let i = 1; i < rows.length; i++){
@@ -77,8 +76,10 @@ function updateDisplayandTotals(){
         // add salary and wages and fringe benefits (FICA)
         let row_total = calculateTotalCost(OT_salary, OT_wages, OT_FRINGE);
 
-        // update counter and total
-        Sidebar.incrementStat('baseline-personnel', row_total);
+        // update total
         Table.Cell.updateValue(rows[i], 'total', row_total);
+
+        //save data
+        Table.save();
     }
 }

@@ -1,5 +1,5 @@
 import { updatePageState } from '../../utils/data_utils/local_storage_handlers.js'
-import { preparePageView, removeButtonEvents, setUpNavButtons, updateSidebar } from './helpers.js'
+import { preparePageView, removeButtonEvents, setUpNavButtons } from './helpers.js'
 
 export function loadRevenuePage() {
 
@@ -11,5 +11,4 @@ export function loadRevenuePage() {
 
 export function cleanupRevenuePage() {
     removeButtonEvents();
-    updateSidebar();
 };

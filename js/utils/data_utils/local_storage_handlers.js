@@ -60,7 +60,7 @@ class StoredTable {
         switch(this.page){
             case 'personnel':
                 return 'Total Cost';
-            case 'OT':
+            case 'overtime':
                 return 'Total Cost (including benefits)';
             case 'nonpersonnel':
                 return `FY${FISCAL_YEAR} Request`;
@@ -89,13 +89,13 @@ class StoredTable {
 class Fund {
     constructor(fund){
         this.personnel = new StoredTable('personnel', fund);
-        this.OT = new StoredTable('OT', fund);
+        this.overtime = new StoredTable('overtime', fund);
         this.nonpersonnel = new StoredTable('nonpersonnel', fund);
         this.revenue = new StoredTable('revenue', fund);
     }
 
     getPersonnelCost() {
-        return this.personnel.getSum() + this.OT.getSum();
+        return this.personnel.getSum() + this.overtime.getSum();
     }
 
     getNonPersonnelCost() {

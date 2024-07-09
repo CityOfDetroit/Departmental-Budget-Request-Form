@@ -34,29 +34,12 @@ export async function initializeNonpersonnelTable(){
     Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, " ");
     // assign cost classes
     Table.Columns.assignClasses(nonPersonnelColumns);
-    // update sidebar
-    updateDisplayandTotals();
     // enable editing
-    Table.Buttons.Edit.init(nonPersonnelRowOnEdit, updateDisplayandTotals);
+    Table.Buttons.Edit.init(nonPersonnelRowOnEdit, Table.save);
 }
 
 function nonPersonnelRowOnEdit(){
     // make it editable
     Table.Cell.createTextbox('request');
-}
-
-// update sidebar and also cost totals when the FTEs are edited
-function updateDisplayandTotals(){
-    // initialize
-    Sidebar.updateStat('baseline-nonpersonnel', 0);
-    // calculate for each row
-    let rows = document.getElementsByTagName('tr');
-    for (let i = 1; i < rows.length; i++){
-        // fetch values for calculations
-        let request =  Table.Cell.getValue(rows[i], 'request');
-        
-        // update counters
-        Sidebar.incrementStat('baseline-nonpersonnel', request);
-    }
 }
 

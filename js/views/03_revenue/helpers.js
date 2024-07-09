@@ -7,7 +7,6 @@ import { pauseAndContinue } from '../view_logic.js'
 import Subtitle from '../../components/header/header.js'
 import Modal from '../../components/modal/modal.js'
 import Form from '../../components/form/form.js'
-import Sidebar from '../../components/sidebar/sidebar.js'
 
 export function preparePageView(){
     // prepare page view
@@ -58,8 +57,4 @@ function handleRevenueCommentSubmission(event){
     Prompt.Buttons.hide();
     Prompt.Text.update('Your comment has been received.');
     NavButtons.Next.enable();
-}
-
-export function updateSidebar(){
-    Sidebar.updateStat('baseline-revenue', REVENUE);
 }

@@ -89,7 +89,7 @@ function updateDisplayandTotals(){
         // update total column
         Table.Cell.updateValue(rows[i], 'total-baseline', total_baseline_cost);
     }
-    saveTableData();
+    Table.save();
 }
 
 
