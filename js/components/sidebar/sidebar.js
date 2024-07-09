@@ -1,5 +1,7 @@
 import { formatCurrency } from "../../utils/common_utils.js";
-import { TARGET } from "../../init.js";
+import { DATA_ROOT, TARGET } from "../../init.js";
+import { fetchJSON } from "../../utils/data_utils/JSON_data_handlers.js";
+import { Baseline } from "../../utils/data_utils/local_storage_handlers.js";
 
 // Assuming you have a CSS variable --main-color defined on the :root
 const root = document.documentElement;
@@ -35,11 +37,10 @@ function updateSidebarTitle(new_title){
     document.getElementById('sidebar-title').textContent = new_title;
 }
 
-function updateSidebarStat(stat_id, new_figure){
-    replaceSidebarStat(stat_id, new_figure);
-    // TODO: save in memory
-    updateTotals();
-}
+// function updateSidebarStat(stat_id, new_figure){
+//     replaceSidebarStat(stat_id, new_figure);
+//     updateTotals();
+// }
 
 function replaceSidebarStat(stat_id, new_figure){
     const span = document.querySelector(`#${stat_id} .stat`);
@@ -47,56 +48,52 @@ function replaceSidebarStat(stat_id, new_figure){
     span.textContent = formatCurrency(new_figure);
 }
 
-function incrementSidebarStat(stat_id, new_figure){
-    var new_figure = parseFloat(new_figure);
-    if (!isNaN(new_figure)){
-        updateSidebarStat(stat_id, fetchStat(stat_id) + new_figure)
-    }
-}
+// function incrementSidebarStat(stat_id, new_figure){
+//     var new_figure = parseFloat(new_figure);
+//     if (!isNaN(new_figure)){
+//         updateSidebarStat(stat_id, fetchStat(stat_id) + new_figure)
+//     }
+// }
 
 function fetchStat(stat_id){
     const stat = document.querySelector(`#${stat_id} .stat`);
     return parseFloat(stat.getAttribute('value')) || 0;
 }
 
-// Function to update the display of the current and supp variables
-function updateTotals() {
-    // update bottom lines
-    let supp_total =    -fetchStat('supp-revenue') + 
-                        fetchStat('supp-personnel') +
-                        fetchStat('supp-nonpersonnel');
-    let baseline_total = -fetchStat('baseline-revenue') + 
-                        fetchStat('baseline-personnel') +
-                        fetchStat('baseline-nonpersonnel');
-    replaceSidebarStat('supp-total', supp_total);
-    replaceSidebarStat('baseline-total', baseline_total);
-
-    // color code based on target
-    var target = fetchStat('target');
-    if(baseline_total <= target){
-        document.querySelector('#baseline-total .stat').style.color = "green";
-    }
-    if(baseline_total > target){
-        document.querySelector('#baseline-total .stat').style.color = "red";
-    }
-}
 
 function addTarget(target){
     replaceSidebarStat('target', target);
 }
 
-function updateTitle(title){
-    document.querySelector('#sidebar-title').textContent = title;
+// update all stats based on saved data
+async function updateBaseline(){
+    // collect all funds
+    var funds = await fetchJSON(DATA_ROOT + 'funds.json');
+    funds = funds.map((item) => { return item.Name });
+    // gather info and update sidebar accordingly
+    var baseline = new Baseline(funds);
+    replaceSidebarStat('baseline-revenue', baseline.revenue());
+    replaceSidebarStat('baseline-personnel', baseline.personnel());
+    replaceSidebarStat('baseline-nonpersonnel', baseline.nonpersonnel());
+    replaceSidebarStat('baseline-total', baseline.total());
+
+    // color code based on target
+    var target = fetchStat('target');
+    if(baseline.total() <= target){
+        document.querySelector('#baseline-total .stat').style.color = "green";
+    }
+    if(baseline.total() > target){
+        document.querySelector('#baseline-total .stat').style.color = "red";
+    }
+
 }
 
 const Sidebar = {
     hide: hideSidebar,
     show: showSidebar,
     updateTitle: updateSidebarTitle,
-    updateStat: updateSidebarStat,
-    incrementStat: incrementSidebarStat,
     addTarget: addTarget,
-    updateTitle: updateTitle
+    updateTotals: updateBaseline
 };
 
 export default Sidebar;

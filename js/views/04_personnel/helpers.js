@@ -8,6 +8,7 @@ import Modal from "../../components/modal/modal.js";
 import Prompt from "../../components/prompt/prompt.js";
 import Table from '../../components/table/table.js'
 import Sidebar from "../../components/sidebar/sidebar.js";
+import { saveTableData } from "../../utils/data_utils/local_storage_handlers.js";
 
 
 export function preparePageView(){
@@ -75,8 +76,6 @@ function calculateTotalCost(ftes, avg_salary, fringe, cola, merit){
 
 // update sidebar and also cost totals when the FTEs are edited
 function updateDisplayandTotals(){
-    // initialize
-    Sidebar.updateStat('baseline-personnel', 0);
     // calculate for each row
     let rows = document.getElementsByTagName('tr');
     for (let i = 1; i < rows.length; i++){
@@ -87,10 +86,10 @@ function updateDisplayandTotals(){
         // calcuate #FTEs x average salary + COLA adjustments + merit adjustments + fringe
         let total_baseline_cost = calculateTotalCost(baseline_ftes, avg_salary, fringe, cola, merit);
 
-        // update counter and total
-        Sidebar.incrementStat('baseline-personnel', total_baseline_cost);
+        // update total column
         Table.Cell.updateValue(rows[i], 'total-baseline', total_baseline_cost);
     }
+    saveTableData();
 }
 
 

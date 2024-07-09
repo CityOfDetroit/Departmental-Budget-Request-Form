@@ -12,15 +12,15 @@ import { pauseExecution } from '../utils/common_utils.js';
 import { loadPageState } from '../utils/data_utils/local_storage_handlers.js';
 
 export let PAGES = {
-    'welcome' : initializeWelcomePage,
-    'upload' : loadUploadPage,
-    'baseline-landing' : loadBaselineLandingPage,
-    'revenue' : loadRevenuePage,
+    // 'welcome' : initializeWelcomePage,
+    // 'upload' : loadUploadPage,
+    // 'baseline-landing' : loadBaselineLandingPage,
+    // 'revenue' : loadRevenuePage,
     'personnel' : loadPersonnelPage,
-    'overtime' : loadOTPage,
-    'nonpersonnel' : loadNonpersonnelPage,
-    'new-inits' : loadNewInitiatives,
-    'summary' : loadSummaryPage 
+    // 'overtime' : loadOTPage,
+    // 'nonpersonnel' : loadNonpersonnelPage,
+    // 'new-inits' : loadNewInitiatives,
+    // 'summary' : loadSummaryPage 
 }
 
 export let CLEANUP = {
