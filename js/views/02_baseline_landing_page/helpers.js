@@ -44,7 +44,7 @@ function allowRowSelection(){
 
 export async function initializeFundTable(){
     await Table.Data.loadFromJSON(DATA_ROOT + 'funds.json')
-    Table.adjustWidth('100%');
+    Table.adjustWidth('30%');
     Table.show();
     Table.Columns.assignClasses(fundCols);
     allowRowSelection();

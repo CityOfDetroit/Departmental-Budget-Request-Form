@@ -25,7 +25,7 @@ div.table-container {
     overflow-y: auto;
     margin-left: max(65px, 7vh);
     margin-right: max(65px, 7vh);
-    max-width: calc(100vw - var(--sidebar-width)); 
+    /* max-width: calc(100vw - var(--sidebar-width));  */
     /* margin: auto; */
     max-height: max(300px, 4vh);
     /* min-height: 120px; */
@@ -35,7 +35,7 @@ div.table-container {
 #main-table {
     font-size: calc(0.6vw + 0.5em);
     margin: auto;
-    width: 100%;
+    /* width: 100%; */
 }
 
 /* Add new row button */
