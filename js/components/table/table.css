@@ -78,5 +78,5 @@ div.table-container {
 
 .hover-effect:hover {
     cursor: pointer;
-    background-color: var(--verypalegreen); /* You can choose any color you like */
+    background-color: var(--verypalegreen); 
 }

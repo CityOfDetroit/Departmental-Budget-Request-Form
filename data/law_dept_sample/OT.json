@@ -1,0 +1,14 @@
+[
+    {
+        "Account String": "1000-29320-320010",
+        "Cost Center" : "Law Administration",
+        "Overtime Wages": 15000,
+        "Overtime Salary": 15000
+    },
+    {
+        "Account String": "1000-29320-320010",
+        "Cost Center" : "Law Department Grants",
+        "Overtime Wages": 15000,
+        "Overtime Salary": 0
+    }
+]

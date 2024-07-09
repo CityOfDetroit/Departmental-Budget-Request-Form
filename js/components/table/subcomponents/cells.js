@@ -26,7 +26,7 @@ function createEditableCell(cellClass){
     // Create an input element to edit the value
     var textbox = document.createElement('input');
     textbox.type = 'text';
-    textbox.value = cell.textContent;
+    textbox.value = cell.textContent.replace('$', '');
     // Clear the current content and append the textbox to the cell
     cell.innerHTML = '';
     cell.appendChild(textbox);

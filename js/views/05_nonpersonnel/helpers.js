@@ -41,9 +41,6 @@ export async function initializeNonpersonnelTable(){
 }
 
 function nonPersonnelRowOnEdit(){
-    // convert request to numeric from formatted currency
-    const request = document.querySelector('.active-editing > td.request');
-    request.textContent = request.textContent.replace('$', '');
     // make it editable
     Table.Cell.createTextbox('request');
 }
@@ -62,3 +59,4 @@ function updateDisplayandTotals(){
         Sidebar.incrementStat('baseline-nonpersonnel', request);
     }
 }
+

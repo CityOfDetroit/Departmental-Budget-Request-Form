@@ -10,6 +10,7 @@ export let DATA_ROOT = '../../../data/law_dept_sample/'
 export let REVENUE = 0;
 export let TARGET = 2000000;
 export var FISCAL_YEAR = '26';
+export var OT_FRINGE = 0.0765;
 
 // variables on the salary 
 export var fringe = 0.36
