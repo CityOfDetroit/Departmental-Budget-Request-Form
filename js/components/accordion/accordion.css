@@ -1,0 +1,10 @@
+#summary-accordion {
+    width: 60%;
+    margin: auto
+}
+
+.accordion-button:active, .accordion-button:not(.collapsed) {
+    background-color: var(--palegreen);
+    color: var(--citygreen);
+}
+

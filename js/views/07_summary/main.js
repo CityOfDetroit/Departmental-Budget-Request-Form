@@ -9,6 +9,7 @@ export function loadSummaryPage(){
     //update page state
     updatePageState('summary');
     summaryView();
+    // basicView();
 }
 
 export function cleanUpSummaryPage(){
@@ -17,6 +18,8 @@ export function cleanUpSummaryPage(){
 
 export function summaryView(){
     Body.reset();
+    Accordion.createFromFunds();
+    Accordion.show();
     
 }
 

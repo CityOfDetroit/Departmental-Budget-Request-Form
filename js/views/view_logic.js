@@ -38,9 +38,7 @@ export function visitPage(new_page_key){
         PAGES[new_page_key](); // Invokes the function if it exists in the PAGES map
     } else {
         console.error(`No page initializer found for state: ${new_page_key}`);
-    }
-    PAGES[new_page_key]();
-}
+    }}
 
 export function nextPage(){
 

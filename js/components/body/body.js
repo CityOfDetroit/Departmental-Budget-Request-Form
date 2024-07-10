@@ -1,4 +1,5 @@
 import Welcome from '../../components/welcome/welcome.js'
+import { Accordion } from '../accordion/accordion.js';
 import Modal from '../modal/modal.js';
 import NavButtons from '../nav_buttons/nav_buttons.js';
 import Prompt from '../prompt/prompt.js';
@@ -14,6 +15,7 @@ function resetPage() {
     Prompt.hide();
     Table.hide();
     Sidebar.hide();
+    Accordion.hide();
     // disable next button
     NavButtons.Next.disable();
     Prompt.Buttons.reset();

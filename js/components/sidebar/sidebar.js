@@ -72,7 +72,6 @@ async function updateBaseline(){
     if(baseline.total() > target){
         document.querySelector('#baseline-total .stat').style.color = "red";
     }
-
 }
 
 function updateSupp(){

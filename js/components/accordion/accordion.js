@@ -1,44 +1,50 @@
-export class Accordion {
-    constructor(containerId) {
-      this.container = document.getElementById(containerId);
-      this.accordionItems = [];
+
+import { fetchJSON } from "../../utils/data_utils/JSON_data_handlers.js";
+import { DATA_ROOT } from "../../init.js";
+
+const Content = {
+    add : function(fund, new_content){
+        var item = document.getElementById(`${fund}_header`);
+        item.querySelector('.accordion-body').textContent = new_content;
     }
-  
-    // Adds an accordion item with a header and body content
-    addItem(headerContent, bodyContent) {
-      const itemIndex = this.accordionItems.length;
-      const item = {
-        header: this.createAccordionHeader(headerContent, itemIndex),
-        body: this.createAccordionBody(bodyContent, itemIndex),
-      };
-      this.accordionItems.push(item);
-  
-      // Append the accordion item elements to the container
-      this.container.appendChild(item.header);
-      this.container.appendChild(item.body);
+}
+
+const Item = {
+    html : function(fund, content) {
+        return `<h2 class="accordion-header" id="${fund}_header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#${fund}_content" aria-expanded="false" aria-controls="${fund}_content">
+                        ${fund}
+                    </button>
+                </h2>
+                <div id="${fund}_content" class="accordion-collapse collapse" aria-labelledby="${fund}_header" data-bs-parent="#summary-accordion">
+                    <div class="accordion-body">${content}</div>
+                </div>`
+    },
+    add : function(fund, content) {
+        const parent = document.getElementById('summary-accordion');
+        const item_element = document.createElement('div');
+        item_element.classList.add('accordion-item');
+        item_element.innerHTML = this.html(fund, content);
+        parent.appendChild(item_element);
+    },
+    Content : Content
+}
+
+export const Accordion = {
+    Item : Item,
+    hide : function(){
+        document.getElementById('summary-accordion').style.display = 'none';
+    },
+    show : function(){
+        document.getElementById('summary-accordion').style.display = 'block';
+    },
+    async createFromFunds(){
+        var funds = await fetchJSON(DATA_ROOT + 'funds.json');
+        funds = funds.map((item) => { return item.Name });
+        funds.forEach(fund => {
+            Item.add(fund, `${fund} info`);
+        });
     }
-  
-    // Creates the header for an accordion item
-    createAccordionHeader(content, index) {
-      const header = document.createElement('cod-accordion-header');
-      header.id = `accordion-header-${index}`;
-      header.innerHTML = `<span>${content}</span>`;
-    //   header.addEventListener('click', () => this.toggleItem(index));
-      return header;
-    }
-  
-    // Creates the body for an accordion item
-    createAccordionBody(content, index) {
-      const body = document.createElement('cod-accordion-body');
-      body.id = `accordion-body-${index}`;
-    //   body.style.display = 'none';
-      body.innerHTML = `<p>${content}</p>`;
-      return body;
-    }
-  
-    // // Toggles an accordion item's visibility
-    // toggleItem(index) {
-    //   const body = this.accordionItems[index].body;
-    //   body.style.display = body.style.display === 'none' ? 'block' : 'none';
-    // }
-  }
+}
+
+export default Accordion;
