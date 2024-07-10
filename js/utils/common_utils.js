@@ -33,3 +33,7 @@ function delay(ms) {
 export async function pauseExecution(seconds) {
     await delay(seconds * 1000); // convert to milliseconds
 }
+
+export function cleanString(str){
+    return str.toLowerCase().replaceAll(' ', '-');
+}

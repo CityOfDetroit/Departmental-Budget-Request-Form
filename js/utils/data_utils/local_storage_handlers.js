@@ -95,7 +95,7 @@ function colSum(table, colName) {
 }
 
 // Holds all the detailed data for one fund's budget
-class Fund {
+export class Fund {
     constructor(fund){
         this.personnel = new StoredTable('personnel', fund);
         this.overtime = new StoredTable('overtime', fund);
