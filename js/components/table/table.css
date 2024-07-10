@@ -1,5 +1,7 @@
-thead > tr > th {
+#main-table thead > tr > th {
     text-align: left;
+    background-color: var(--darkGray);
+    color: white;
 }
 
 th {

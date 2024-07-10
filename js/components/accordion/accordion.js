@@ -79,6 +79,8 @@ export const Accordion = {
     Item : Item,
     hide : function(){
         document.getElementById('accordion-div').style.display = 'none';
+        // reset to delete content
+        document.getElementById('summary-accordion').innerHTML = '';
     },
     show : function(){
         document.getElementById('accordion-div').style.display = 'block';

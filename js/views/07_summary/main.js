@@ -20,22 +20,19 @@ export function summaryView(){
     Body.reset();
     Accordion.createFromFunds();
     Accordion.show();
-    
-}
 
-
-
-const returnToWelcome = () => {visitPage('welcome')}
-
-export function basicView(){
-    // prepare page view
-    Body.reset();
+    // prompt buttons
+    Prompt.Text.update('');
+    Prompt.show();
     Prompt.Buttons.Left.updateText('Download Excel');
-    Prompt.Buttons.Right.updateText('Go back and edit');
+    Prompt.Buttons.Right.updateText('Go back to home');
 
     // update page text
     Subtitle.update('Summary');
     // TODO: update to make dynamic
-    Prompt.Text.update(`Placeholder for summary and any issues.`);
     Prompt.Buttons.Right.addAction(returnToWelcome);
+    
 }
+
+const returnToWelcome = () => {visitPage('welcome')}
+

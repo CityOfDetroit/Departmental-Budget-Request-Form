@@ -1,5 +1,7 @@
-import { FISCAL_YEAR } from "../../init.js";
+import { FISCAL_YEAR, DATA_ROOT } from "../../init.js";
 import Sidebar from "../../components/sidebar/sidebar.js";
+import { PAGES } from "../../views/view_logic.js";
+import { fetchJSON } from "./JSON_data_handlers.js";
 
 // save page state
 export function updatePageState(page){
@@ -48,8 +50,27 @@ export function saveTableData() {
     Sidebar.updateTotals();
 }
 
+function deleteTable(name){
+    localStorage.setItem(name, '');
+}
+
+export async function deleteAllTables(){
+    var funds = await fetchJSON(DATA_ROOT + 'funds.json');
+    funds = funds.map((item) => { return item.Name });
+    for (const page in PAGES){
+        for(const i in funds){
+            deleteTable(`${page}_${funds[i]}`);
+        }
+    }
+    deleteTable('new-inits');
+}
+
 export function loadTableData(name){
-    return JSON.parse(localStorage.getItem(name));
+    const data = localStorage.getItem(name);
+    if ( data == '' ) {
+        return '';
+    }
+    return JSON.parse(data);
 }
 
 // Class to hold information on a specific fund and table
@@ -76,14 +97,14 @@ class StoredTable {
     }
     getSum() {
         // fill with zero until there is something saved in storage
-        return colSum(this.table, this.totalCol())
+        return colSum(this.table, this.totalCol());
     }
 
 }
 
 function colSum(table, colName) {
     // fill with zero until there is something saved in storage
-    if(!table){ 
+    if(!table || table == ''){ 
         return 0; 
     }
     var col_index = table[0].indexOf(colName);
@@ -97,6 +118,7 @@ function colSum(table, colName) {
 // Holds all the detailed data for one fund's budget
 export class Fund {
     constructor(fund){
+        this.fund = fund;
         this.personnel = new StoredTable('personnel', fund);
         this.overtime = new StoredTable('overtime', fund);
         this.nonpersonnel = new StoredTable('nonpersonnel', fund);
