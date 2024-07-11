@@ -26,7 +26,8 @@ export const SHEETS = {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    // CurrentPage.visit();
+    // TODO: move to upload page
     fetchAndProcessExcel(DATA_ROOT + 'sample_detail_sheet.xlsx');
+    CurrentPage.visit();
 });
 

@@ -7,11 +7,13 @@ export const FundLookupTable = {
     },
     update : function(fundData){
         const table = this.retrieve();
-        for (const fund of Object.keys(fundData)){
+        for (let fund of Object.keys(fundData)){
+            // fund = toString(fund);
             // add to lookup table if not in there already
             if (!table[fund]){
                 // get fund name
                 const fundName = fundData[fund][0]['Fund Name'];
+                console.log(fundName);
                 // add fund to dictionary
                 table[fund] = fundName;
             }

@@ -4,7 +4,6 @@ import { PAGES, visitPage } from "../../views/view_logic.js";
 import { fetchJSON } from "./JSON_data_handlers.js";
 import FundLookupTable from "./budget_data_handlers.js";
 
-
 export const CurrentPage = {
     update : function(page){
         localStorage.setItem('page_state', page);
@@ -26,8 +25,7 @@ export const CurrentFund = {
         return localStorage.getItem("fund");
     },
     name : function(){
-        const fundNumber = loadFundState();
-        return FundLookupTable.getName(fundNumber);
+        return FundLookupTable.getName( this.number());
     },
     reset : function() {
         this.update('');
@@ -37,10 +35,10 @@ export const CurrentFund = {
 // TODO: consider moving this into a const for Current Table (or to the table component)
 export function saveTableData() {
     var table = document.getElementById('main-table');
-    if (loadFundState()) {
-        var save_as = `${loadPageState()}_${loadFundState()}`;
+    if (CurrentFund.number()) {
+        var save_as = `${CurrentPage.load()}_${CurrentFund.number()}`;
     } else {
-        var save_as = loadPageState();
+        var save_as = CurrentPage.load();
     }
     var rows = table.rows;
     var tableData = [];

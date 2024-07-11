@@ -88,8 +88,9 @@ function updateTotals(){
 }
 
 function resetAll(){
+    // delete everything in local storage
+    localStorage.clear();
     // reset all stats to 0
-    deleteAllTables();
     updateTotals();
 }
 

@@ -6,6 +6,7 @@ import Table from "../../components/table/table.js";
 import { DATA_ROOT } from "../../init.js";
 import Body from "../../components/body/body.js";
 import { CurrentFund } from '../../utils/data_utils/local_storage_handlers.js';
+import FundLookupTable from '../../utils/data_utils/budget_data_handlers.js';
 
 const fundCols = [
     { title: 'ID', className: 'fund-id' },
@@ -59,9 +60,8 @@ function selectFund(tableRows, selected_row){
     // add selected class to clicked row
     selected_row.classList.add('selected');
     // get fund and save selected fund
-    var fund = selected_row.querySelector('.fund-name').textContent;
-    localStorage.setItem("fund", fund);
-
+    var fund = selected_row.querySelector('.fund-id').textContent;
+    CurrentFund.update(fund);
     // enable next step
     NavButtons.Next.enable();
 }

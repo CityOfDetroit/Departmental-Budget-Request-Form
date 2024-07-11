@@ -9,7 +9,7 @@ import { cleanUpSummaryPage, loadSummaryPage } from './07_summary/main.js';
 import { loadUploadPage } from './01_upload/main.js';
 import { pauseExecution } from '../utils/common_utils.js';
 
-import { loadPageState } from '../utils/data_utils/local_storage_handlers.js';
+import { CurrentPage } from '../utils/data_utils/local_storage_handlers.js';
 
 export let PAGES = {
     'welcome' : initializeWelcomePage,
@@ -31,7 +31,7 @@ export let CLEANUP = {
 
 export function visitPage(new_page_key){
     // clean up from current page
-    var page_state = loadPageState();
+    var page_state = CurrentPage.load();
     if (CLEANUP[page_state]) { CLEANUP[page_state]() };
     // Use the page_state to access and call the corresponding function from PAGES
     if (PAGES[new_page_key]) {
@@ -42,7 +42,7 @@ export function visitPage(new_page_key){
 
 export function nextPage(){
 
-    var page_state = loadPageState();
+    var page_state = CurrentPage.load();
     const keys = Object.keys(PAGES);
   
     // Find the index of the current key
@@ -62,7 +62,7 @@ export function nextPage(){
 
 export function lastPage(){
 
-    var page_state = loadPageState();
+    var page_state = CurrentPage.load();
     const keys = Object.keys(PAGES);
   
     // Find the index of the current key
