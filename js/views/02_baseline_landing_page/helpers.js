@@ -5,6 +5,7 @@ import NavButtons from '../../components/nav_buttons/nav_buttons.js'
 import Table from "../../components/table/table.js";
 import { DATA_ROOT } from "../../init.js";
 import Body from "../../components/body/body.js";
+import { CurrentFund } from '../../utils/data_utils/local_storage_handlers.js';
 
 const fundCols = [
     { title: 'ID', className: 'fund-id' },
@@ -13,7 +14,7 @@ const fundCols = [
 
 export function preparePageView(){
     
-    localStorage.setItem("fund", '');
+    CurrentFund.reset();
 
     // prepare page view
     Body.reset();

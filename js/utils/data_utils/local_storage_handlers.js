@@ -1,28 +1,40 @@
 import { FISCAL_YEAR, DATA_ROOT } from "../../init.js";
 import Sidebar from "../../components/sidebar/sidebar.js";
-import { PAGES } from "../../views/view_logic.js";
+import { PAGES, visitPage } from "../../views/view_logic.js";
 import { fetchJSON } from "./JSON_data_handlers.js";
+import FundLookupTable from "./budget_data_handlers.js";
 
-// save page state
-export function updatePageState(page){
-    localStorage.setItem('page_state', page);
+
+export const CurrentPage = {
+    update : function(page){
+        localStorage.setItem('page_state', page);
+    },
+    load : function(){
+        const pageState = localStorage.getItem('page_state');
+        return pageState !== null ? pageState : 'welcome';
+    },
+    visit : function(){
+        visitPage(this.load());
+    }
 }
 
-// load page state
-export function loadPageState(page){
-    const pageState = localStorage.getItem('page_state');
-    return pageState !== null ? pageState : 'welcome';
+export const CurrentFund = {
+    update : function(fund){
+        localStorage.setItem('fund', fund);
+    },
+    number : function(){
+        return localStorage.getItem("fund");
+    },
+    name : function(){
+        const fundNumber = loadFundState();
+        return FundLookupTable.getName(fundNumber);
+    },
+    reset : function() {
+        this.update('');
+    }
 }
 
-// TODO: move fund state management here
-export function updateFundState(fund){
-    localStorage.setItem('fund', fund);
-}
-
-export function loadFundState(){
-    return localStorage.getItem("fund");
-}
-
+// TODO: consider moving this into a const for Current Table (or to the table component)
 export function saveTableData() {
     var table = document.getElementById('main-table');
     if (loadFundState()) {

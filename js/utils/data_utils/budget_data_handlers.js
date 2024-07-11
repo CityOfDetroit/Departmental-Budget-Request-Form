@@ -21,6 +21,9 @@ export const FundLookupTable = {
     },
     reset : function() {
         this.save({});
+    },
+    getName : function(number){
+        return this.retrieve()[number];
     }
 }
 

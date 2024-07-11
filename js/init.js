@@ -1,7 +1,6 @@
 // import functions
 import { fetchAndProcessExcel } from './utils/data_utils/XLSX_handlers.js';
-import { loadPageState } from './utils/data_utils/local_storage_handlers.js'
-import { visitPage } from './views/view_logic.js'
+import { CurrentPage } from './utils/data_utils/local_storage_handlers.js';
 
 // path for my laptop
 export let DATA_ROOT = '../../../data/law_dept_sample/'
@@ -27,8 +26,7 @@ export const SHEETS = {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    // var page_state = loadPageState();
-    // visitPage(page_state);
+    // CurrentPage.visit();
     fetchAndProcessExcel(DATA_ROOT + 'sample_detail_sheet.xlsx');
 });
 

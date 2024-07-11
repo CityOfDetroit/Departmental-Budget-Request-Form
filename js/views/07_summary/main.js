@@ -1,4 +1,4 @@
-import { updatePageState } from "../../utils/data_utils/local_storage_handlers.js";
+import { CurrentPage } from "../../utils/data_utils/local_storage_handlers.js";
 import Prompt from '../../components/prompt/prompt.js'
 import Body from "../../components/body/body.js";
 import Subtitle from "../../components/header/header.js";
@@ -7,7 +7,7 @@ import { Accordion } from "../../components/accordion/accordion.js";
 
 export function loadSummaryPage(){
     //update page state
-    updatePageState('summary');
+    CurrentPage.update('summary');
     summaryView();
     // basicView();
 }

@@ -1,11 +1,11 @@
 
 import { initializePageView, setUpModal, setUpForm, setUpTable, removeModalLinks, removePromptButtonListeners } from './helpers.js'
-import { updatePageState } from '../../utils/data_utils/local_storage_handlers.js'
+import { CurrentPage } from '../../utils/data_utils/local_storage_handlers.js'
 
 
 // set up page and initialize all buttons
 export function loadNewInitiatives() {
-    updatePageState('new-inits');
+    CurrentPage.update('new-inits');
     initializePageView();
     setUpModal();
     setUpForm();
