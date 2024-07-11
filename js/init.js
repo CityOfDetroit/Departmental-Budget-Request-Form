@@ -19,12 +19,12 @@ export var cola = 0.02
 export var merit = 0.02
 
 // sheets to expect on detail sheet
-export const SHEETS = [
-    {'personnel' : 'FTE, Salary-Wage, & Benefits'},
-    {'overtime': 'Overtime & Other Personnel'},
-    {'nonpersonnel' : 'Non-Personnel Operating'},
-    {'revenue': 'Revenue'}
-]
+export const SHEETS = {
+    'FTE, Salary-Wage, & Benefits' : 'personnel' ,
+    'Overtime & Other Personnel' : 'overtime',
+    'Non-Personnel Operating' : 'nonpersonnel',
+    'Revenue' : 'revenue'
+}
 
 document.addEventListener('DOMContentLoaded', function () {
     // var page_state = loadPageState();

@@ -1,6 +1,7 @@
 
 
 import { DATA_ROOT, SHEETS } from '../../init.js';
+import FundLookupTable from './budget_data_handlers.js';
 
 export function fetchAndProcessExcel(filePath) {
     fetch(filePath)
@@ -53,9 +54,8 @@ function deleteTopRowsUntilFullData(data) {
 
 function processWorkbook(workbook) {
     workbook.SheetNames.forEach(sheetName => {
-
         // only convert sheets we need
-        if (sheetName in Object.values(SHEETS)) {
+        if (Object.keys(SHEETS).includes(sheetName)) {
              // read in sheets
             const sheet = workbook.Sheets[sheetName];
             const rawData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
@@ -65,7 +65,6 @@ function processWorkbook(workbook) {
 
             // get new headers
             const headers = dataRows[0];
-            console.log(headers);
 
             // isolate Fund column to split data
             const fundIndex = headers.indexOf('Fund');
@@ -79,21 +78,26 @@ function processWorkbook(workbook) {
 
             dataRows.forEach(row => {
                 const fund = row[fundIndex];
-                if (!fundData[fund]) {
-                    fundData[fund] = [];
+                if(fund && fund != "Fund"){
+                    if (!fundData[fund]) {
+                        fundData[fund] = [];
+                    }
+                    const rowData = {};
+                    headers.forEach((header, index) => {
+                        rowData[header] = row[index];
+                    });
+                    fundData[fund].push(rowData);
                 }
-                const rowData = {};
-                headers.forEach((header, index) => {
-                    rowData[header] = row[index];
-                });
-                fundData[fund].push(rowData);
             });
 
-            // Object.keys(fundData).forEach(fund => {
-            //     const key = `${sheetName}-${fund}`;
-            //     localStorage.setItem(key, JSON.stringify(fundData[fund]));
-            //     console.log(`Data for ${key} saved to localStorage`);
-            // });
+            // save fund number and name as we go along
+            FundLookupTable.update(fundData);            
+
+            Object.keys(fundData).forEach(fund => {
+                const key = `${SHEETS[sheetName]}-${fund}`;
+            // localStorage.setItem(key, JSON.stringify(fundData[fund]));
+                console.log(`Data for ${key} saved to localStorage`);
+            });
         }
        
     });
