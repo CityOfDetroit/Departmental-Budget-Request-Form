@@ -57,8 +57,9 @@ function selectFund(tableRows, selected_row){
     // add selected class to clicked row
     selected_row.classList.add('selected');
     // get fund and save selected fund
-    var fund = selected_row.querySelector('.fund-id').textContent;
-    CurrentFund.update(fund);
+    var fund = selected_row.querySelector('.fund-name').textContent;
+    var fundNumber = parseInt(fund);
+    CurrentFund.update(fundNumber);
     // enable next step
     NavButtons.Next.enable();
 }
