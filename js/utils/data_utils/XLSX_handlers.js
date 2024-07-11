@@ -1,9 +1,9 @@
 
 
-import { DATA_ROOT, SHEETS } from '../../init.js';
+import { SHEETS } from '../../init.js';
 import FundLookupTable from './budget_data_handlers.js';
 
-export function fetchAndProcessExcel(filePath) {
+export async function fetchAndProcessExcel(filePath) {
     fetch(filePath)
         .then(response => {
             if (!response.ok) {
@@ -94,9 +94,8 @@ function processWorkbook(workbook) {
             FundLookupTable.update(fundData);            
 
             Object.keys(fundData).forEach(fund => {
-                const key = `${SHEETS[sheetName]}-${fund}`;
+                const key = `${SHEETS[sheetName]}_${fund}`;
                 localStorage.setItem(key, JSON.stringify(fundData[fund]));
-                // console.log(`Data for ${key} saved to localStorage`);
             });
         }
        

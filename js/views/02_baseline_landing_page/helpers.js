@@ -3,13 +3,11 @@ import Subtitle from '../../components/header/header.js'
 import Prompt from '../../components/prompt/prompt.js'
 import NavButtons from '../../components/nav_buttons/nav_buttons.js'
 import Table from "../../components/table/table.js";
-import { DATA_ROOT } from "../../init.js";
 import Body from "../../components/body/body.js";
 import { CurrentFund } from '../../utils/data_utils/local_storage_handlers.js';
 
 const fundCols = [
-    { title: 'ID', className: 'fund-id' },
-    { title: 'Name', className: 'fund-name' },
+    { title: 'Fund', className: 'fund-name' },
 ];
 
 export function preparePageView(){
@@ -44,7 +42,7 @@ function allowRowSelection(){
 }
 
 export async function initializeFundTable(){
-    await Table.Data.loadFromJSON(DATA_ROOT + 'funds.json');
+    await Table.Data.loadFunds();
     Table.adjustWidth('30%');
     Table.show();
     Table.Columns.assignClasses(fundCols);

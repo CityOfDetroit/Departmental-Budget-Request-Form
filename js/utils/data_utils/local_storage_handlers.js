@@ -3,6 +3,7 @@ import Sidebar from "../../components/sidebar/sidebar.js";
 import { PAGES, visitPage } from "../../views/view_logic.js";
 import { fetchJSON } from "./JSON_data_handlers.js";
 import FundLookupTable from "./budget_data_handlers.js";
+import { convertToJSON } from "./JSON_data_handlers.js";
 
 export const CurrentPage = {
     update : function(page){
@@ -40,24 +41,9 @@ export function saveTableData() {
     } else {
         var save_as = CurrentPage.load();
     }
-    var rows = table.rows;
-    var tableData = [];
-    for (var i = 0; i < rows.length; i++) {
-        var cols = rows[i].cells;
-        var rowData = [];
-        for (var j = 0; j < cols.length; j++) {
-            // if a formatted cost, save the underlying value instead
-            if (cols[j].classList.contains('cost')) {
-                rowData.push(cols[j].getAttribute('value'));
-            } else {
-                rowData.push(cols[j].innerText);
-            }
-        }
-        tableData.push(rowData);
-    }
-    // Save JSON string to localStorage
-    localStorage.setItem(save_as, JSON.stringify(tableData));
-    Sidebar.updateTotals();
+    localStorage.setItem(save_as, convertToJSON(table));
+    console.log('uncomment this line');
+    //Sidebar.updateTotals();
 }
 
 function deleteTable(name){
@@ -117,12 +103,18 @@ function colSum(table, colName) {
     if(!table || table == ''){ 
         return 0; 
     }
-    var col_index = table[0].indexOf(colName);
-    let sum = 0;
-    for (let i = 1; i < table.length; i++){
-        sum += Math.round(parseFloat(table[i][col_index]));
+    const headers = Object.keys(table[0]);
+    if (headers.includes(colName)) {
+        let sum = 0;
+        for (let i = 1; i < table.length; i++){
+            sum += Math.round(parseFloat(table[i][colName]));
+        }
+        return sum;
+    } else {
+        console.error('Could not find expected total column in saved data. See StoredTable.totalCol() switch.');
+        return 0;
     }
-    return sum;
+
 }
 
 // Holds all the detailed data for one fund's budget

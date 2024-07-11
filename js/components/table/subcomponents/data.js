@@ -1,8 +1,7 @@
-import { fetchJSON } from "../../../utils/data_utils/JSON_data_handlers.js";
-import { saveTableData } from "../../../utils/data_utils/local_storage_handlers.js";
+import FundLookupTable from "../../../utils/data_utils/budget_data_handlers.js";
+import { CurrentFund, CurrentPage, loadTableData, saveTableData } from "../../../utils/data_utils/local_storage_handlers.js";
 
-async function loadJSONIntoTable(jsonFilePath) {
-    const data = await fetchJSON(jsonFilePath);
+function loadTable(data) {
     try {
         if(Array.isArray(data)) {
             const table = document.getElementById('main-table');
@@ -34,12 +33,35 @@ async function loadJSONIntoTable(jsonFilePath) {
             });
     
         } else {
-            console.error('The provided JSON file does not contain an array of objects.');
+            console.error('Empty table saved in localStorage.');
         }
     } catch(error) {
-        console.error('Failed to load and parse the JSON file:', error);
+        console.error('No table saved in localStorage:', error);
     }
     saveTableData();
+}
+
+async function loadFromStorage(){
+    // look up table in storage and pass to table load function
+    const key = `${CurrentPage.load()}_${CurrentFund.number()}`;
+    const data = await loadTableData(key);
+    loadTable(data);
+}
+
+
+function loadFunds(){
+    // get list of funds from storage
+    const fundDict = FundLookupTable.retrieve();
+    // build out data in correct format
+    const resultArray = [];
+    for (const key in fundDict) {
+        if (fundDict.hasOwnProperty(key)) {
+            resultArray.push({
+                Fund: fundDict[key]     // Use the value directly
+            });
+        }
+    }
+    loadTable(resultArray);
 }
 
 
@@ -98,7 +120,8 @@ function sort(primaryClass, secondaryClass) {
 
 
 export const Data = {
-    loadFromJSON : loadJSONIntoTable,
+    loadFromJSON : loadFromStorage,
+    loadFunds : loadFunds,
     sort : function(colA, colB) { sort(colA, colB) }
 }
 
