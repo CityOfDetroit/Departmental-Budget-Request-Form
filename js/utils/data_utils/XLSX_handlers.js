@@ -95,8 +95,8 @@ function processWorkbook(workbook) {
 
             Object.keys(fundData).forEach(fund => {
                 const key = `${SHEETS[sheetName]}-${fund}`;
-            // localStorage.setItem(key, JSON.stringify(fundData[fund]));
-                console.log(`Data for ${key} saved to localStorage`);
+                localStorage.setItem(key, JSON.stringify(fundData[fund]));
+                // console.log(`Data for ${key} saved to localStorage`);
             });
         }
        

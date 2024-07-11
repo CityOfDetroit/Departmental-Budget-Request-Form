@@ -26,6 +26,9 @@ export const FundLookupTable = {
     },
     getName : function(number){
         return this.retrieve()[number];
+    },
+    listFunds : function(){
+        return Object.keys(this.retrieve());
     }
 }
 

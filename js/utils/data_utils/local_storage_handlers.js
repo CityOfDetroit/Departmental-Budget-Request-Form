@@ -154,10 +154,10 @@ export class Fund {
 
 export class Baseline {
     // baseline will just contain a list of funds
-    constructor(fund_names) {
-        this.fund_names = fund_names;
+    constructor() {
+        const allFunds = FundLookupTable.listFunds();
         this.funds = [];
-        fund_names.forEach((fund) => { 
+        allFunds.forEach((fund) => { 
             this.funds.push(new Fund(fund));
         });
     } 

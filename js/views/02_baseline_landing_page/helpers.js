@@ -6,7 +6,6 @@ import Table from "../../components/table/table.js";
 import { DATA_ROOT } from "../../init.js";
 import Body from "../../components/body/body.js";
 import { CurrentFund } from '../../utils/data_utils/local_storage_handlers.js';
-import FundLookupTable from '../../utils/data_utils/budget_data_handlers.js';
 
 const fundCols = [
     { title: 'ID', className: 'fund-id' },

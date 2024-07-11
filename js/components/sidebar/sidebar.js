@@ -1,7 +1,6 @@
 import { formatCurrency } from "../../utils/common_utils.js";
-import { DATA_ROOT, TARGET } from "../../init.js";
-import { fetchJSON } from "../../utils/data_utils/JSON_data_handlers.js";
-import { Baseline, Supplemental, deleteAllTables } from "../../utils/data_utils/local_storage_handlers.js";
+import { TARGET } from "../../init.js";
+import { Baseline, Supplemental } from "../../utils/data_utils/local_storage_handlers.js";
 
 // Assuming you have a CSS variable --main-color defined on the :root
 const root = document.documentElement;
@@ -54,11 +53,8 @@ function addTarget(target){
 
 // update all stats based on saved data
 async function updateBaseline(){
-    // collect all funds
-    var funds = await fetchJSON(DATA_ROOT + 'funds.json');
-    funds = funds.map((item) => { return item.Name });
     // gather info and update sidebar accordingly
-    var baseline = new Baseline(funds);
+    var baseline = new Baseline();
     replaceSidebarStat('baseline-revenue', baseline.revenue());
     replaceSidebarStat('baseline-personnel', baseline.personnel());
     replaceSidebarStat('baseline-nonpersonnel', baseline.nonpersonnel());
