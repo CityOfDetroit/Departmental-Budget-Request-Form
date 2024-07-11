@@ -1,4 +1,5 @@
 // import functions
+import { fetchAndProcessExcel } from './utils/data_utils/XLSX_handlers.js';
 import { loadPageState } from './utils/data_utils/local_storage_handlers.js'
 import { visitPage } from './views/view_logic.js'
 
@@ -17,9 +18,17 @@ export var fringe = 0.36
 export var cola = 0.02
 export var merit = 0.02
 
+// sheets to expect on detail sheet
+export const SHEETS = [
+    {'personnel' : 'FTE, Salary-Wage, & Benefits'},
+    {'overtime': 'Overtime & Other Personnel'},
+    {'nonpersonnel' : 'Non-Personnel Operating'},
+    {'revenue': 'Revenue'}
+]
 
 document.addEventListener('DOMContentLoaded', function () {
-    var page_state = loadPageState();
-    visitPage(page_state);
+    // var page_state = loadPageState();
+    // visitPage(page_state);
+    fetchAndProcessExcel(DATA_ROOT + 'sample_detail_sheet.xlsx');
 });
 

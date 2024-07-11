@@ -38,10 +38,10 @@ const FundTable = {
     fill : function(fund) {
         this.init(fund);
         const fundObject = new Fund(fund);
-        this.addRow(fund, 'Personnel', fundObject.getPersonnelCost());
-        this.addRow(fund, 'Non-Personnel', fundObject.getNonPersonnelCost());
+        this.addRow(fund, 'Personnel Expenses', fundObject.getPersonnelCost());
+        this.addRow(fund, 'Non-Personnel Expenses', fundObject.getNonPersonnelCost());
         this.addRow(fund, 'Revenue', fundObject.getRevenue());
-        this.addRow(fund, 'Total', fundObject.getTotal());
+        this.addRow(fund, 'Net Expenses (Revenues)', fundObject.getTotal());
     }
 }
 
