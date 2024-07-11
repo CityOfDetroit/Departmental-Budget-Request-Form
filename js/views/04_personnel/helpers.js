@@ -8,8 +8,6 @@ import Modal from "../../components/modal/modal.js";
 import Prompt from "../../components/prompt/prompt.js";
 import Table from '../../components/table/table.js'
 import Sidebar from "../../components/sidebar/sidebar.js";
-import { saveTableData } from "../../utils/data_utils/local_storage_handlers.js";
-
 
 export function preparePageView(){
     // prepare page view
@@ -34,11 +32,12 @@ export function preparePageView(){
 function assignClasses() {
     // record columns and their classes
     const personnelColumns = [
-        { title: 'Job Name (Type)', className: 'job-name' },
-        { title: `FY${FISCAL_YEAR} FTEs`, className: 'baseline-ftes' },
+        { title: 'Job Title', className: 'job-name' },
+        { title: 'Account String', className: 'string' },
         { title: 'Service', className: 'service' },
-        { title: 'Total Cost', className: 'total-baseline', isCost: true },
-        { title: 'Average Projected Salary', className: 'avg-salary', isCost: true }
+        { title: `FY${FISCAL_YEAR} Requested FTE`, className: 'baseline-ftes' },
+        { title: `FY${FISCAL_YEAR} Average Projected Salary/Wage`, className: 'avg-salary', isCost: true },
+        { title: 'Total Cost', className: 'total-baseline', isCost: true }
     ];
 
     // assign cost classes

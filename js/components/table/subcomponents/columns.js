@@ -104,15 +104,76 @@ function addCostClass(headerName){
 }
 
 function assignColumnClasses(columnDefinitions) {
-  columnDefinitions.forEach(column => {
-      // Assign class to column
-      assignClassToColumn(column.title, column.className);
+    columnDefinitions.forEach(column => {
+        // Assign class to column
+        assignClassToColumn(column.title, column.className);
 
-      // If the column is a cost column, add the specific cost class
-      if (column.isCost) {
-          addCostClass(column.title);
+        // If the column is a cost column, add the specific cost class
+        if (column.isCost) {
+            addCostClass(column.title);
+        }
+
+        // show the column
+        showColumnByTitle(column.title);
+    });
+}
+
+function hideColumn(index) {
+  var table = document.getElementById('main-table');
+  var rows = table.rows;
+
+  for (var i = 0; i < rows.length; i++) {
+      var cells = rows[i].cells;
+      if (cells.length > index) {
+          cells[index].style.display = 'none';
       }
-  });
+  }
+}
+
+// Function to show a specific column
+function showColumn(index) {
+  var table = document.getElementById('main-table');
+  var rows = table.rows;
+
+  for (var i = 0; i < rows.length; i++) {
+      var cells = rows[i].cells;
+      if (cells.length > index) {
+          cells[index].style.display = 'table-cell';
+      }
+  }
+}
+
+// Function to get the column index by title
+function getColumnIndexByTitle(table, title) {
+  var headers = table.querySelectorAll('th');
+  for (var i = 0; i < headers.length; i++) {
+      if (headers[i].innerText === title) {
+          return i;
+      }
+  }
+  return -1; // Column not found
+}
+
+// Function to hide a column by title
+function hideColumnByTitle(title) {
+  var table = document.getElementById('main-table');
+  var index = getColumnIndexByTitle(table, title);
+  if (index !== -1) {
+      hideColumn(index);
+  } else {
+      console.log(`Column with title "${title}" not found.`);
+  }
+}
+
+// Function to show a column by title
+function showColumnByTitle(title) {
+  var table = document.getElementById('main-table');
+  var index = getColumnIndexByTitle(table, title);
+  if (index !== -1) {
+      showColumn(index);
+  } else {
+      console.log(`Column with title "${title}" not found.`);
+  }
 }
 
 
@@ -125,6 +186,12 @@ const Column = {
   },
   assignClasses: function(column_definitions) {
       return assignColumnClasses(column_definitions);
+  },
+  hide : function(colName) {
+      hideColumnByTitle(colName);
+  },
+  show : function(colName) {
+      showColumnByTitle(colName);
   }
 };
 

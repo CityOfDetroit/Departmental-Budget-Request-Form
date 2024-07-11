@@ -1,3 +1,9 @@
+#main-table {
+    font-size: calc(0.6vw + 0.5em);
+    margin: auto;
+    /* width: 100%; */
+}
+
 #main-table thead > tr > th {
     text-align: left;
     background-color: var(--darkGray);
@@ -17,6 +23,15 @@ tr td {
     border-bottom: 1px solid black;
 }
 
+/* Default to hidden columns */
+
+#main-table tbody > tr > td {
+    display : none;
+}
+#main-table thead > tr > th {
+    display : none;
+}
+
 /* textbox width in table */
 input {
     width: 100%;
@@ -34,11 +49,7 @@ div.table-container {
 
 }
   
-#main-table {
-    font-size: calc(0.6vw + 0.5em);
-    margin: auto;
-    /* width: 100%; */
-}
+/* Buttons */
 
 /* Add new row button */
 .btn-add { 
