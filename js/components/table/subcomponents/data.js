@@ -1,7 +1,7 @@
 import FundLookupTable from "../../../utils/data_utils/budget_data_handlers.js";
 import { CurrentFund, CurrentPage, loadTableData, saveTableData } from "../../../utils/data_utils/local_storage_handlers.js";
 
-function loadTable(data) {
+function fillTable(data) {
     try {
         if(Array.isArray(data)) {
             const table = document.getElementById('main-table');
@@ -45,7 +45,7 @@ async function loadFromStorage(){
     // look up table in storage and pass to table load function
     const key = `${CurrentPage.load()}_${CurrentFund.number()}`;
     const data = await loadTableData(key);
-    loadTable(data);
+    fillTable(data);
 }
 
 
@@ -61,7 +61,7 @@ function loadFunds(){
             });
         }
     }
-    loadTable(resultArray);
+    fillTable(resultArray);
 }
 
 

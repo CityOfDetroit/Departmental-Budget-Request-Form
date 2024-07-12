@@ -37,3 +37,7 @@ export async function pauseExecution(seconds) {
 export function cleanString(str){
     return str.toLowerCase().replaceAll(' ', '-');
 }
+
+export function removeNewLines(str){
+    return str.replaceAll(/[\r\n]+/g, "");
+}

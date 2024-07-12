@@ -37,7 +37,8 @@ function assignClasses() {
         { title: 'Service', className: 'service' },
         { title: `FY${FISCAL_YEAR} Requested FTE`, className: 'baseline-ftes' },
         { title: `FY${FISCAL_YEAR} Average Projected Salary/Wage`, className: 'avg-salary', isCost: true },
-        { title: 'Total Cost', className: 'total-baseline', isCost: true }
+        { title: 'Total Cost', className: 'total-baseline', isCost: true },
+        { title: 'Edit', className: 'edit' }
     ];
 
     // assign cost classes
@@ -51,11 +52,10 @@ function personnelRowOnEdit(){
 
 export async function initializePersonnelTable(){
     // load table data from json
-    await Table.Data.loadFromJSON(DATA_ROOT + 'personnel_data.json');
-    //after table is loaded, fill it
+    await Table.Data.loadFromJSON();
+    //after table is loaded, show it
     Table.show();
-    Table.Columns.addAtEnd( '0', 'Total Cost');
-    Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, ' ');;
+    Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, 'Edit');;
     assignClasses();
     // add up the baseline costs and update sidebar
     updateDisplayandTotals();

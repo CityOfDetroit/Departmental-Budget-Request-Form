@@ -2,6 +2,7 @@
 
 import { SHEETS } from '../../init.js';
 import FundLookupTable from './budget_data_handlers.js';
+import { removeNewLines } from '../common_utils.js';
 
 export async function fetchAndProcessExcel(filePath) {
     fetch(filePath)
@@ -84,7 +85,7 @@ function processWorkbook(workbook) {
                     }
                     const rowData = {};
                     headers.forEach((header, index) => {
-                        rowData[header] = row[index];
+                        rowData[removeNewLines(header)] = row[index];
                     });
                     fundData[fund].push(rowData);
                 }

@@ -44,8 +44,8 @@ div.table-container {
     margin-right: max(65px, 7vh);
     /* max-width: calc(100vw - var(--sidebar-width));  */
     /* margin: auto; */
-    max-height: max(300px, 4vh);
-    /* min-height: 120px; */
+    max-height: max(350px, 6vh);
+    min-height: 350px;
 
 }
   
