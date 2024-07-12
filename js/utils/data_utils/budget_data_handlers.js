@@ -32,4 +32,8 @@ export const FundLookupTable = {
     }
 }
 
-export default FundLookupTable;
+export const Services = {
+    list : function(){
+        
+    }
+}

@@ -32,7 +32,7 @@ function createEditableCell(cellClass){
     cell.appendChild(textbox);
 }
 
-async function createSelectCell(cellClass, json_filepath){
+async function createDropdown(cellClass, options){
     // get cell
     const cell = document.querySelector(`.active-editing td.${cellClass}`);
     // add service dropdown
@@ -57,7 +57,7 @@ const Cell = {
         createEditableCell(className)
     },
     createDropdown : function(className, json_filepath){
-        createSelectCell(className, json_filepath);
+        createDropdown(className, json_filepath);
     },
 };
 

@@ -47,7 +47,7 @@ function assignClasses() {
 
 function personnelRowOnEdit(){
     Table.Cell.createTextbox('baseline-ftes');
-    Table.Cell.createDropdown('service', DATA_ROOT + 'services.json');
+    Table.Cell.createDropdown('service', Services.list());
 }
 
 export async function initializePersonnelTable(){
