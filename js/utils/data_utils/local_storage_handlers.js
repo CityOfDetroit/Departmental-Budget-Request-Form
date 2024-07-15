@@ -41,7 +41,6 @@ export function saveTableData() {
     } else {
         var save_as = CurrentPage.load();
     }
-    console.log(`converting to JSON: ${table}`);
     localStorage.setItem(save_as, convertToJSON(table, ['Edit']));
     console.log('uncomment this line');
     //Sidebar.updateTotals();

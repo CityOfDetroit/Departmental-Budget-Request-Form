@@ -1,4 +1,5 @@
 import { formatCurrency } from "../../../utils/common_utils.js";
+import { Services } from "../../../utils/data_utils/budget_data_handlers.js";
 import Dropdown from "../../form/subcomponents/dropdown.js";
 
 // return cell value attribute or 0 if it does not exist
@@ -32,11 +33,11 @@ function createEditableCell(cellClass){
     cell.appendChild(textbox);
 }
 
-async function createDropdown(cellClass, options){
+async function createServiceDropdown(cellClass){
     // get cell
     const cell = document.querySelector(`.active-editing td.${cellClass}`);
     // add service dropdown
-    const serviceDropdown = await Dropdown.createFromJSON(json_filepath);
+    const serviceDropdown = await Dropdown.create(Services.list());
     serviceDropdown.value = cell.textContent;
     // Clear the current content and append the textbox to the cell
     cell.innerHTML = '';

@@ -1,7 +1,7 @@
 
 
 import { SHEETS } from '../../init.js';
-import { FundLookupTable } from './budget_data_handlers.js';
+import { FundLookupTable, Services } from './budget_data_handlers.js';
 import { removeNewLines } from '../common_utils.js';
 
 export async function fetchAndProcessExcel(filePath) {
@@ -99,6 +99,25 @@ function processWorkbook(workbook) {
                 localStorage.setItem(key, JSON.stringify(fundData[fund]));
             });
         }
-       
+
+        // But also save the possible services
+        else if (sheetName == 'Drop-Downs'){
+            const sheet = workbook.Sheets[sheetName];
+            // Convert the sheet to JSON to easily manipulate data
+            const sheetData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+            // Locate the "services" column header in row 0
+            const headerRow = sheetData[0];
+            const servicesIndex = headerRow.indexOf('Services');
+
+            if (servicesIndex === -1) {
+                console.error('Header "Services" not found');
+            } else {
+                // Extract data from the "services" column (excluding the header row)
+                const servicesColumn = sheetData.slice(1).map(row => row[servicesIndex]);
+                // save the data
+                Services.save(servicesColumn);
+            }
+        }
     });
 }
