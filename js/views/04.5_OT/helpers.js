@@ -48,7 +48,7 @@ function OTRowOnEdit(){
 
 export async function initializeOTTable(){
     // load table data from json
-    await Table.Data.loadFromJSON(DATA_ROOT + 'OT.json');
+    await Table.Data.load();
     //after table is loaded, fill it
     Table.show();
     Table.Columns.addAtEnd( '0', 'Total Cost (including benefits)');

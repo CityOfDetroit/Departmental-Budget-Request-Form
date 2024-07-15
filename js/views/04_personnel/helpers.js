@@ -53,7 +53,7 @@ function personnelRowOnEdit(){
 
 export async function initializePersonnelTable(){
     // load table data from json
-    await Table.Data.loadFromJSON();
+    await Table.Data.load();
     //after table is loaded, show it
     Table.show();
     Table.Columns.addAtEnd('0', 'Total Cost');

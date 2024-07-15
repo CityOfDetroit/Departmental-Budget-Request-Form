@@ -28,7 +28,7 @@ export function preparePageView(){
 
 export async function initializeNonpersonnelTable(){
     // load table data from json
-    await Table.Data.loadFromJSON(DATA_ROOT + 'nonpersonnel_data.json', 'main-table');
+    await Table.Data.load();
     //after table is loaded, fill it
     Table.show();
     Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, " ");

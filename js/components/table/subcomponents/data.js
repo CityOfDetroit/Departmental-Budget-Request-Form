@@ -120,7 +120,7 @@ function sort(primaryClass, secondaryClass) {
 
 
 export const Data = {
-    loadFromJSON : loadFromStorage,
+    load : loadFromStorage,
     loadFunds : loadFunds,
     sort : function(colA, colB) { sort(colA, colB) }
 }

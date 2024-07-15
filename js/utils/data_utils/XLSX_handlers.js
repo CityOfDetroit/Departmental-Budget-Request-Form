@@ -59,7 +59,7 @@ function processWorkbook(workbook) {
         if (Object.keys(SHEETS).includes(sheetName)) {
              // read in sheets
             const sheet = workbook.Sheets[sheetName];
-            const rawData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+            const rawData = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: null });
 
             // Clean the data by removing top rows with incomplete data
             const dataRows = deleteTopRowsUntilFullData(rawData);
