@@ -37,6 +37,10 @@ input {
     width: 100%;
 }
 
+select {
+    max-width: 100px;
+}
+
 div.table-container {
     overflow-x: auto; 
     overflow-y: auto;

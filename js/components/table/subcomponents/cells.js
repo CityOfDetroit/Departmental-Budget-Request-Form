@@ -33,11 +33,12 @@ function createEditableCell(cellClass){
     cell.appendChild(textbox);
 }
 
-async function createServiceDropdown(cellClass){
+function createServiceDropdown(){
     // get cell
+    var cellClass = 'service';
     const cell = document.querySelector(`.active-editing td.${cellClass}`);
     // add service dropdown
-    const serviceDropdown = await Dropdown.create(Services.list());
+    const serviceDropdown = Dropdown.create(Services.list());
     serviceDropdown.value = cell.textContent;
     // Clear the current content and append the textbox to the cell
     cell.innerHTML = '';
@@ -57,9 +58,7 @@ const Cell = {
     createTextbox : function(className) {
         createEditableCell(className)
     },
-    createDropdown : function(className, json_filepath){
-        createDropdown(className, json_filepath);
-    },
+    createServiceDropdown : createServiceDropdown
 };
 
 export default Cell;

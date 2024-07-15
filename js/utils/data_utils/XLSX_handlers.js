@@ -115,8 +115,9 @@ function processWorkbook(workbook) {
             } else {
                 // Extract data from the "services" column (excluding the header row)
                 const servicesColumn = sheetData.slice(1).map(row => row[servicesIndex]);
+                const cleanedServicesColumn = servicesColumn.filter(value => value != null);
                 // save the data
-                Services.save(servicesColumn);
+                Services.save(cleanedServicesColumn);
             }
         }
     });

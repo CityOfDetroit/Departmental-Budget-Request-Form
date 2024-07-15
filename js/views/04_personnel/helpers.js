@@ -48,7 +48,7 @@ function assignClasses() {
 
 function personnelRowOnEdit(){
     Table.Cell.createTextbox('baseline-ftes');
-    Table.Cell.createDropdown('service', Services.list());
+    Table.Cell.createServiceDropdown(Services.list());
 }
 
 export async function initializePersonnelTable(){
@@ -56,7 +56,8 @@ export async function initializePersonnelTable(){
     await Table.Data.loadFromJSON();
     //after table is loaded, show it
     Table.show();
-    Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, 'Edit');;
+    Table.Columns.addAtEnd('0', 'Total Cost');
+    Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, 'Edit');
     assignClasses();
     // add up the baseline costs and update sidebar
     updateDisplayandTotals();
