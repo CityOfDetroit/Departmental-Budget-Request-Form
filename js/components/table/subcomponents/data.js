@@ -1,4 +1,4 @@
-import FundLookupTable from "../../../utils/data_utils/budget_data_handlers.js";
+import { FundLookupTable } from "../../../utils/data_utils/budget_data_handlers.js";
 import { CurrentFund, CurrentPage, loadTableData, saveTableData } from "../../../utils/data_utils/local_storage_handlers.js";
 
 function fillTable(data) {
