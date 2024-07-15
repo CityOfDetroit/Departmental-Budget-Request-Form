@@ -8,7 +8,7 @@ export async function fetchJSON(jsonFilePath) {
     });
 }
 
-export function convertToJSON(table){
+export function convertToJSON(table, colsToRemove = []){
     const rows = table.rows;
     // Extract headers from the first row
     const headerRow = rows[0].cells;
@@ -24,7 +24,10 @@ export function convertToJSON(table){
         const cols = rows[i].cells;
         const rowData = {};
             headers.forEach((header, index) => {
-                if (cols[index].classList.contains('cost')) {
+                if (colsToRemove.includes(header)){
+                    return;
+                }
+                else if (cols[index].classList.contains('cost')) {
                     rowData[header] = cols[index].getAttribute('value');
                 } else {
                     rowData[header] = cols[index].innerText;
