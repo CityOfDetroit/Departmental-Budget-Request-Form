@@ -3,6 +3,7 @@
 import { SHEETS } from '../../init.js';
 import { FundLookupTable, Services } from './budget_data_handlers.js';
 import { removeNewLines } from '../common_utils.js';
+import { Baseline } from './local_storage_handlers.js';
 
 function deleteTopRowsUntilFullData(data) {
     // function to try to find the top of the usable data
@@ -101,4 +102,55 @@ export function processWorkbook(arrayBuffer) {
     });
 
     console.log('all excel data saved');
+}
+
+// Utility function to append a sheet to the workbook if data is present
+function appendSheetToWorkbook(workbook, data, sheetName) {
+    if (data.length > 0) {
+        const sheet = XLSX.utils.json_to_sheet(data);
+        XLSX.utils.book_append_sheet(workbook, sheet, sheetName);
+    }
+}
+
+export function downloadXLSX() {
+    const baseline = new Baseline();
+    const workbook = XLSX.utils.book_new(); // Create a new workbook
+
+    const dataMap = {
+        Personnel: 'personnel',
+        Overtime: 'overtime',
+        NonPersonnel: 'nonpersonnel',
+        Revenue: 'revenue'
+    };
+
+    const sheetData = {
+        Personnel: [],
+        Overtime: [],
+        NonPersonnel: [],
+        Revenue: []
+    };
+
+    baseline.funds.forEach(fund => {
+        Object.keys(dataMap).forEach(sheetName => {
+            if (fund[dataMap[sheetName]] && fund[dataMap[sheetName]].table) {
+                sheetData[sheetName].push(...fund[dataMap[sheetName]].table);
+            }
+        });
+    });
+
+    Object.keys(sheetData).forEach(sheetName => {
+        appendSheetToWorkbook(workbook, sheetData[sheetName], sheetName);
+    });
+
+    // Generate a downloadable file
+    const wbout = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([wbout], { type: 'application/octet-stream' });
+
+    // Create a link and trigger the download
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "baseline_data.xlsx";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
