@@ -4,28 +4,6 @@ import { SHEETS } from '../../init.js';
 import { FundLookupTable, Services } from './budget_data_handlers.js';
 import { removeNewLines } from '../common_utils.js';
 
-export async function fetchAndProcessExcel(filePath) {
-    fetch(filePath)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.arrayBuffer(); // return the ArrayBuffer
-        })
-        .then(data => {
-            try {
-                // Read the data into a workbook
-                const workbook = XLSX.read(data, { type: 'array' });
-                processWorkbook(workbook);
-            } catch (err) {
-                console.error('Error reading the Excel file:', err);
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching the Excel file:', error);
-        });
-}
-
 function deleteTopRowsUntilFullData(data) {
     // function to try to find the top of the usable data
     let fullDataRowFound = false;
@@ -53,13 +31,14 @@ function deleteTopRowsUntilFullData(data) {
     return data;
 }
 
-function processWorkbook(workbook) {
+export function processWorkbook(arrayBuffer) {
+    const workbook = XLSX.read(arrayBuffer, { type: 'array' });
     workbook.SheetNames.forEach(sheetName => {
         // only convert sheets we need
         if (Object.keys(SHEETS).includes(sheetName)) {
              // read in sheets
             const sheet = workbook.Sheets[sheetName];
-            const rawData = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: null });
+            const rawData = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
 
             // Clean the data by removing top rows with incomplete data
             const dataRows = deleteTopRowsUntilFullData(rawData);
@@ -121,4 +100,6 @@ function processWorkbook(workbook) {
             }
         }
     });
+
+    console.log('all excel data saved');
 }

@@ -81,6 +81,6 @@ export function lastPage(){
 }
 
 export async function pauseAndContinue(){
-    await pauseExecution(0.5);
+    await pauseExecution(0.1);
     nextPage();
 }
