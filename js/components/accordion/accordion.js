@@ -4,15 +4,17 @@ import { DATA_ROOT } from "../../init.js";
 import { Fund } from "../../utils/data_utils/local_storage_handlers.js";
 import { cleanString, formatCurrency } from "../../utils/common_utils.js";
 import Table from "../table/table.js";
+import { FundLookupTable } from "../../utils/data_utils/budget_data_handlers.js";
 
 const FundTable = {
-    table_id : (fund) => { return `table-${cleanString(fund)}` },
+    table_id : (fund) => { return `table-${fund}` },
     init : function(fund) {
         // create empty table and put it in the accordion
         var table = document.createElement('table');
         table.id = this.table_id(fund);
         table.classList.add('accordion-table');
-        var parent = document.querySelector(`#${cleanString(fund)}_content .accordion-body`);
+        console.log(document.querySelector('.accordion'));
+        var parent = document.querySelector(`#fund_${fund}_content .accordion-body`);
         parent.appendChild(table);
     },
     createNewCell : function(content, row) {
@@ -47,14 +49,14 @@ const FundTable = {
 
 const Item = {
     html : function(fund) {
-        var id = cleanString(fund);
-        return `<h2 class="accordion-header" id="${id}_header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#${id}_content" aria-expanded="false" aria-controls="${id}_content">
+        var id = fund; // cleanString(fund);
+        return `<h2 class="accordion-header" id="fund_${id}_header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#fund_${id}_content" aria-expanded="false" aria-controls="fund_${id}_content">
                         <span class="name"></span>:
                         <span class="amount"></span>
                     </button>
                 </h2>
-                <div id="${id}_content" class="accordion-collapse collapse" aria-labelledby="${id}_header" data-bs-parent="#summary-accordion">
+                <div id="fund_${id}_content" class="accordion-collapse collapse" aria-labelledby="fund_${id}_header" data-bs-parent="#summary-accordion">
                     <div class="accordion-body"></div>
                 </div>`
     },
@@ -65,12 +67,13 @@ const Item = {
         item_element.classList.add('accordion-item');
         item_element.innerHTML = this.html(fund);
         parent.appendChild(item_element);
+        console.log(parent);
         FundTable.fill(fund);
     },
     FundTable : FundTable,
     updateHeader : function(fund, new_amount) {
-        const header_btn = document.querySelector(`#${cleanString(fund)}_header button`);
-        header_btn.querySelector('span.name').textContent = fund;
+        const header_btn = document.querySelector(`#fund_${fund}_header button`);
+        header_btn.querySelector('span.name').textContent = FundLookupTable.getName(fund);
         header_btn.querySelector('span.amount').textContent = formatCurrency(new_amount);
     }
 }
@@ -86,8 +89,8 @@ export const Accordion = {
         document.getElementById('accordion-div').style.display = 'block';
     },
     async createFromFunds(){
-        var funds = await fetchJSON(DATA_ROOT + 'funds.json');
-        funds = funds.map((item) => { return item.Name });
+        var funds = FundLookupTable.listFunds();
+
         funds.forEach(fund => {
             Item.add(fund);
             const fundObject = new Fund(fund);
