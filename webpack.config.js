@@ -41,6 +41,14 @@ module.exports = {
           'css-loader'
         ], // Use style-loader in development for hot reloading
       },
+      {
+        test: /\.html$/, // Process any .html files
+        use: ['html-loader'],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
     ],
   },
 
