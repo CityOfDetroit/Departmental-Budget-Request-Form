@@ -19,6 +19,9 @@ export const formatCurrency = (amount, return_zero = false) => {
 export const unformatCurrency = (formattedAmount) => {
     // Remove any currency symbols and commas
     let numericalPart = formattedAmount.replace(/[^0-9.-]+/g, "");
+    if (numericalPart == '-'){
+        return 0;
+    }
     return parseFloat(numericalPart);
 };
 

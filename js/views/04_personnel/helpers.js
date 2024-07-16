@@ -1,5 +1,5 @@
 
-import { DATA_ROOT, FISCAL_YEAR, fringe, cola, merit } from "../../init.js"
+import { FISCAL_YEAR, fringe, cola, merit } from "../../init.js"
 import Body from "../../components/body/body.js";
 import NavButtons from "../../components/nav_buttons/nav_buttons.js";
 import Subtitle from "../../components/header/header.js";
@@ -16,8 +16,6 @@ export function preparePageView(){
     NavButtons.show();
     Sidebar.show();
     Table.adjustWidth('90%');
-    // just enable next for now
-    // TODO only enable when all info is entered
     NavButtons.Next.enable();
 
     // update page text

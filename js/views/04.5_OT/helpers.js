@@ -6,8 +6,7 @@ import Subtitle from '../../components/header/header.js';
 import Sidebar from '../../components/sidebar/sidebar.js';
 import Table from '../../components/table/table.js';
 
-import { OT_FRINGE, DATA_ROOT } from '../../init.js';
-import { saveTableData } from '../../utils/data_utils/local_storage_handlers.js';
+import { OT_FRINGE } from '../../init.js';
 
 export function preparePageView(){
     // prepare page view
@@ -31,10 +30,12 @@ function assignClasses() {
     // record columns and their classes
     const OT_cols = [
         { title: 'Account String', className: 'string' },
-        { title: `Cost Center`, className: 'cc' },
-        { title: 'Overtime Wages', className: 'OT-wages', isCost: true },
-        { title: 'Overtime Salary', className: 'OT-salary', isCost: true },
-        { title: 'Total Cost (including benefits)', className : 'total', isCost: true}
+        { title: `Cost Center Name`, className: 'cc' },
+        { title: 'Recurring or One-Time', className: 'recurring'},
+        { title: 'Hourly Employee Overtime (Wages)', className: 'OT-wages', isCost: true },
+        { title: 'Salaried Employee Overtime (Salary)', className: 'OT-salary', isCost: true },
+        { title: 'Total Cost (including benefits)', className : 'total', isCost: true},
+        { title: 'Edit', className: 'edit'}
     ];
 
     // assign cost classes
@@ -51,8 +52,10 @@ export async function initializeOTTable(){
     await Table.Data.load();
     //after table is loaded, fill it
     Table.show();
+    Table.Columns.addAtEnd( '0', 'Hourly Employee Overtime (Wages)');
+    Table.Columns.addAtEnd( '0', 'Salaried Employee Overtime (Salary)');
     Table.Columns.addAtEnd( '0', 'Total Cost (including benefits)');
-    Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, ' ');;
+    Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, 'Edit');;
     assignClasses();
     // add up the baseline costs and update sidebar
     updateDisplayandTotals();
