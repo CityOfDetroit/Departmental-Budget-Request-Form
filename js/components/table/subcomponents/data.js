@@ -1,6 +1,5 @@
 import { FundLookupTable } from "../../../utils/data_utils/budget_data_handlers.js";
 import { CurrentFund, CurrentPage, loadTableData, saveTableData } from "../../../utils/data_utils/local_storage_handlers.js";
-import { nextPage } from "../../../views/view_logic.js";
 
 function fillTable(data) {
     try {
@@ -38,8 +37,12 @@ function fillTable(data) {
 }
 
 async function loadFromStorage(){
-    // look up table in storage and pass to table load function
-    const key = `${CurrentPage.load()}_${CurrentFund.number()}`;
+    // look up table in storage and pass to table load function\
+    if (CurrentFund.number()){
+        var key = `${CurrentPage.load()}_${CurrentFund.number()}`;
+    } else {
+        var key = CurrentPage.load();
+    }
     const data = await loadTableData(key);
     if (!data){
         // if no table in storage, return 0

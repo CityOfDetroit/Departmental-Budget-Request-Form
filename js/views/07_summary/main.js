@@ -10,11 +10,11 @@ export function loadSummaryPage(){
     //update page state
     CurrentPage.update('summary');
     summaryView();
-    // basicView();
 }
 
 export function cleanUpSummaryPage(){
     Prompt.Buttons.Right.removeAction(returnToWelcome);
+    Prompt.Buttons.Left.removeAction(downloadXLSX);
 }
 
 export function summaryView(){
