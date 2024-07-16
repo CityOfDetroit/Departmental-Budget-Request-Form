@@ -1,3 +1,5 @@
+import './sidebar.css';
+
 import { formatCurrency } from "../../utils/common_utils.js";
 import { TARGET } from "../../init.js";
 import { Baseline, Supplemental } from "../../utils/data_utils/local_storage_handlers.js";

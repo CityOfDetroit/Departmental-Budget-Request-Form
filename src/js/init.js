@@ -1,3 +1,6 @@
+// import styles
+import '../css/common.css';
+
 // import functions
 import { fetchAndProcessExcel } from './utils/data_utils/XLSX_handlers.js';
 import { CurrentPage } from './utils/data_utils/local_storage_handlers.js';
