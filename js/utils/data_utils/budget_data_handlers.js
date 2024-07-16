@@ -13,7 +13,6 @@ export const FundLookupTable = {
             if (!table[fund]){
                 // get fund name
                 const fundName = fundData[fund][0]['Fund Name'];
-                console.log(fundName);
                 // add fund to dictionary
                 table[fund] = fundName;
             }
