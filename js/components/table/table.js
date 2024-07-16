@@ -4,7 +4,6 @@ import Columns from './subcomponents/columns.js'
 import Header from './subcomponents/headers.js'
 import Rows from './subcomponents/rows.js'
 import Data from './subcomponents/data.js'
-import { unformatCurrency } from '../../utils/common_utils.js'
 import { saveTableData } from '../../utils/data_utils/local_storage_handlers.js'
 
 function adjustTableWidth(width_pct){

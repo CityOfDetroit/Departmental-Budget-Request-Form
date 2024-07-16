@@ -9,6 +9,9 @@ import Prompt from "../../components/prompt/prompt.js";
 import Table from '../../components/table/table.js'
 import Sidebar from "../../components/sidebar/sidebar.js";
 import { Services } from "../../utils/data_utils/budget_data_handlers.js";
+import { convertToJSON } from "../../utils/data_utils/JSON_data_handlers.js";
+
+import { Baseline, loadTableData } from "../../utils/data_utils/local_storage_handlers.js";
 
 export function preparePageView(){
     // prepare page view
@@ -54,7 +57,6 @@ export async function initializePersonnelTable(){
     await Table.Data.load();
     //after table is loaded, show it
     Table.show();
-    Table.Columns.addAtEnd('0', 'Total Cost');
     Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, 'Edit');
     assignClasses();
     // add up the baseline costs and update sidebar
@@ -87,8 +89,12 @@ function updateDisplayandTotals(){
 
         // update total column
         Table.Cell.updateValue(rows[i], 'total-baseline', total_baseline_cost);
+
     }
+
+    // Save the table after all updates are done
     Table.save();
+
 }
 
 

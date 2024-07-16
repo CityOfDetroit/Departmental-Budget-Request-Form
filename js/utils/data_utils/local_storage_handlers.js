@@ -42,8 +42,7 @@ export function saveTableData() {
         var save_as = CurrentPage.load();
     }
     localStorage.setItem(save_as, convertToJSON(table, ['Edit']));
-    console.log('uncomment this line');
-    //Sidebar.updateTotals();
+    Sidebar.updateTotals();
 }
 
 function deleteTable(name){
@@ -93,12 +92,12 @@ class StoredTable {
     }
     getSum() {
         // fill with zero until there is something saved in storage
-        return colSum(this.table, this.totalCol());
+        return colSum(this.table, this.totalCol(), this.name);
     }
 
 }
 
-function colSum(table, colName) {
+function colSum(table, colName, name) {
     // fill with zero until there is something saved in storage
     if(!table || table == ''){ 
         return 0; 
@@ -106,12 +105,12 @@ function colSum(table, colName) {
     const headers = Object.keys(table[0]);
     if (headers.includes(colName)) {
         let sum = 0;
-        for (let i = 1; i < table.length; i++){
+        for (let i = 0; i < table.length; i++){
             sum += Math.round(parseFloat(table[i][colName]));
         }
         return sum;
     } else {
-        console.error('Could not find expected total column in saved data. See StoredTable.totalCol() switch.');
+        console.error(`Could not find expected total column in saved data for ${name}. Returning 0. See StoredTable.totalCol() switch.`);
         return 0;
     }
 
