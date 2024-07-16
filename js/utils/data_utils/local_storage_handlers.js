@@ -110,7 +110,7 @@ function colSum(table, colName, name) {
         }
         return sum;
     } else {
-        console.error(`Could not find expected total column in saved data for ${name}. Returning 0. See StoredTable.totalCol() switch.`);
+        // console.error(`Could not find expected total column in saved data for ${name}. Returning 0. See StoredTable.totalCol() switch.`);
         return 0;
     }
 

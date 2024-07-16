@@ -44,8 +44,8 @@ function assignClasses() {
 }
 
 function OTRowOnEdit(){
-    Table.Cell.createTextbox('OT-wages');
-    Table.Cell.createTextbox('OT-salary');
+    Table.Cell.createTextbox('OT-wages', true);
+    Table.Cell.createTextbox('OT-salary', true);
     Table.Cell.createServiceDropdown(Services.list());
 }
 
@@ -56,7 +56,7 @@ export async function initializeOTTable(){
     Table.show();
     Table.Columns.addAtEnd( '0', 'Hourly Employee Overtime (Wages)');
     Table.Columns.addAtEnd( '0', 'Salaried Employee Overtime (Salary)');
-    Table.Columns.addAtEnd( '0', 'Total Cost (including benefits)');
+    // Table.Columns.addAtEnd( '0', 'Total Cost (including benefits)');
     Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, 'Edit');;
     assignClasses();
     // add up the baseline costs and update sidebar

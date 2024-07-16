@@ -26,7 +26,7 @@ export const unformatCurrency = (formattedAmount) => {
 };
 
 export function displayWithCommas(value) {
-    if (value == '$ -'){
+    if (value == 0){
         return 0;
     }
     return formatCurrency(value).replace('$', '');

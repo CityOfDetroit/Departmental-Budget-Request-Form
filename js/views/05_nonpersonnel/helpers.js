@@ -20,7 +20,7 @@ const nonPersonnelColumns = [
     { title: 'Edit', className : 'edit' },
     { title : 'Account String', className : 'account-string'},
     { title : 'CPA #', className : 'cpa'},
-    { title : 'End of Contract', className : 'contract-end'},
+    { title : 'Contract End Date', className : 'contract-end'},
     { title: 'Recurring or One-Time', className: 'recurring'}
 
 ];
@@ -54,7 +54,7 @@ export async function initializeNonpersonnelTable(){
 
 function nonPersonnelRowOnEdit(){
     // make it editable
-    Table.Cell.createTextbox('request');
+    Table.Cell.createTextbox('request', true);
     Table.Cell.createServiceDropdown();
 }
 

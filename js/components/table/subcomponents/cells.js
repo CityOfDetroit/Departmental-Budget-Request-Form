@@ -21,13 +21,19 @@ function updateTableCell(row, col_class, new_value){
     cell.textContent = formatCurrency(new_value);
 }
 
-function createEditableCell(cellClass){
+function createEditableCell(cellClass, isCost){
     // get cell
     const cell = document.querySelector(`.active-editing td.${cellClass}`);
     // Create an input element to edit the value
     var textbox = document.createElement('input');
     textbox.type = 'text';
-    textbox.value = displayWithCommas(cell.textContent);
+    if (isCost){
+        var value = cell.getAttribute('value');
+        console.log(value);
+    } else {
+        var value = cell.textContent;
+    }
+    textbox.value = displayWithCommas(value);
     // Clear the current content and append the textbox to the cell
     cell.innerHTML = '';
     cell.appendChild(textbox);
@@ -55,8 +61,8 @@ const Cell = {
     updateValue: function(row, col_class, new_value) {
         updateTableCell(row, col_class, new_value); 
     },
-    createTextbox : function(className) {
-        createEditableCell(className)
+    createTextbox : function(className, isCost) {
+        createEditableCell(className, isCost)
     },
     createServiceDropdown : createServiceDropdown
 };
