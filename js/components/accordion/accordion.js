@@ -1,8 +1,5 @@
-
-import { fetchJSON } from "../../utils/data_utils/JSON_data_handlers.js";
-import { DATA_ROOT } from "../../init.js";
 import { Fund } from "../../utils/data_utils/local_storage_handlers.js";
-import { cleanString, formatCurrency } from "../../utils/common_utils.js";
+import { formatCurrency } from "../../utils/common_utils.js";
 import Table from "../table/table.js";
 import { FundLookupTable } from "../../utils/data_utils/budget_data_handlers.js";
 
@@ -13,7 +10,6 @@ const FundTable = {
         var table = document.createElement('table');
         table.id = this.table_id(fund);
         table.classList.add('accordion-table');
-        console.log(document.querySelector('.accordion'));
         var parent = document.querySelector(`#fund_${fund}_content .accordion-body`);
         parent.appendChild(table);
     },
@@ -67,7 +63,6 @@ const Item = {
         item_element.classList.add('accordion-item');
         item_element.innerHTML = this.html(fund);
         parent.appendChild(item_element);
-        console.log(parent);
         FundTable.fill(fund);
     },
     FundTable : FundTable,
