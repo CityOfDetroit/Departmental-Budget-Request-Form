@@ -53,17 +53,20 @@ function personnelRowOnEdit(){
 }
 
 export async function initializePersonnelTable(){
-    // load table data from json
-    await Table.Data.load();
-    //after table is loaded, show it
-    Table.show();
-    Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, 'Edit');
-    assignClasses();
-    // add up the baseline costs and update sidebar
-    updateDisplayandTotals();
-    // activate edit buttons
-    Table.Buttons.Edit.init(personnelRowOnEdit, updateDisplayandTotals);
-    initializeRowAddition();
+    // load table data from local storage
+    if(await Table.Data.load()) {
+        //after table is loaded, show it
+        Table.show();
+        Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, 'Edit');
+        assignClasses();
+        // add up the baseline costs and update sidebar
+        updateDisplayandTotals();
+        // activate edit buttons
+        Table.Buttons.Edit.init(personnelRowOnEdit, updateDisplayandTotals);
+        initializeRowAddition();
+    } else {
+        Prompt.Text.update('No personnel expenses for this fund.')
+    }
 }
 
 function initializeRowAddition(){
@@ -89,7 +92,6 @@ function updateDisplayandTotals(){
 
         // update total column
         Table.Cell.updateValue(rows[i], 'total-baseline', total_baseline_cost);
-
     }
 
     // Save the table after all updates are done

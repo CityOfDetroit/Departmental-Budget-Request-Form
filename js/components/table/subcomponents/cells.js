@@ -29,7 +29,6 @@ function createEditableCell(cellClass, isCost){
     textbox.type = 'text';
     if (isCost){
         var value = cell.getAttribute('value');
-        console.log(value);
     } else {
         var value = cell.textContent;
     }

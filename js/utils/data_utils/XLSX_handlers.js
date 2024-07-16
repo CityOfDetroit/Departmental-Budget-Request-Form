@@ -10,7 +10,6 @@ function deleteTopRowsUntilFullData(data) {
 
     while (!fullDataRowFound && data.length > 0) {
         const row = data[0]; // Get the top row
-        //console.log(row);
         let hasAllData = true;
 
         for (const cell of row) {

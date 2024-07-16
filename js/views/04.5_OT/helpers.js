@@ -50,19 +50,22 @@ function OTRowOnEdit(){
 }
 
 export async function initializeOTTable(){
-    // load table data from json
-    await Table.Data.load();
-    //after table is loaded, fill it
-    Table.show();
-    Table.Columns.addAtEnd( '0', 'Hourly Employee Overtime (Wages)');
-    Table.Columns.addAtEnd( '0', 'Salaried Employee Overtime (Salary)');
-    // Table.Columns.addAtEnd( '0', 'Total Cost (including benefits)');
-    Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, 'Edit');;
-    assignClasses();
-    // add up the baseline costs and update sidebar
-    updateDisplayandTotals();
-    // activate edit buttons
-    Table.Buttons.Edit.init(OTRowOnEdit, updateDisplayandTotals);
+    // load table data from local storage
+    if(await Table.Data.load()) {
+        //after table is loaded, fill it
+        Table.show();
+        Table.Columns.addAtEnd( '0', 'Hourly Employee Overtime (Wages)');
+        Table.Columns.addAtEnd( '0', 'Salaried Employee Overtime (Salary)');
+        // Table.Columns.addAtEnd( '0', 'Total Cost (including benefits)');
+        Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, 'Edit');;
+        assignClasses();
+        // add up the baseline costs and update sidebar
+        updateDisplayandTotals();
+        // activate edit buttons
+        Table.Buttons.Edit.init(OTRowOnEdit, updateDisplayandTotals);
+    } else {
+        Prompt.Text.update('No overtime expenses for this fund.')
+    }
 }
 
 function calculateTotalCost(wages, salary, fringe){
