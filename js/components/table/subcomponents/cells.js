@@ -1,4 +1,4 @@
-import { formatCurrency } from "../../../utils/common_utils.js";
+import { formatCurrency, displayWithCommas } from "../../../utils/common_utils.js";
 import { Services } from "../../../utils/data_utils/budget_data_handlers.js";
 import Dropdown from "../../form/subcomponents/dropdown.js";
 
@@ -27,7 +27,7 @@ function createEditableCell(cellClass){
     // Create an input element to edit the value
     var textbox = document.createElement('input');
     textbox.type = 'text';
-    textbox.value = cell.textContent.replace('$', '');
+    textbox.value = displayWithCommas(cell.textContent);
     // Clear the current content and append the textbox to the cell
     cell.innerHTML = '';
     cell.appendChild(textbox);

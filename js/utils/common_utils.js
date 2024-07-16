@@ -26,6 +26,9 @@ export const unformatCurrency = (formattedAmount) => {
 };
 
 export function displayWithCommas(value) {
+    if (value == '$ -'){
+        return 0;
+    }
     return formatCurrency(value).replace('$', '');
 }
 
@@ -42,5 +45,6 @@ export function cleanString(str){
 }
 
 export function removeNewLines(str){
+    // TODO: ensure there is a space between words on new lines
     return str.replaceAll(/[\r\n]+/g, "");
 }

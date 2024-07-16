@@ -5,7 +5,7 @@ import NavButtons from '../../components/nav_buttons/nav_buttons.js';
 import Subtitle from '../../components/header/header.js';
 import Sidebar from '../../components/sidebar/sidebar.js';
 import Table from '../../components/table/table.js';
-
+import { Services } from '../../utils/data_utils/budget_data_handlers.js';
 import { OT_FRINGE } from '../../init.js';
 
 export function preparePageView(){
@@ -31,6 +31,7 @@ function assignClasses() {
     const OT_cols = [
         { title: 'Account String', className: 'string' },
         { title: `Cost Center Name`, className: 'cc' },
+        { title: 'Service', className: 'service' },
         { title: 'Recurring or One-Time', className: 'recurring'},
         { title: 'Hourly Employee Overtime (Wages)', className: 'OT-wages', isCost: true },
         { title: 'Salaried Employee Overtime (Salary)', className: 'OT-salary', isCost: true },
@@ -45,6 +46,7 @@ function assignClasses() {
 function OTRowOnEdit(){
     Table.Cell.createTextbox('OT-wages');
     Table.Cell.createTextbox('OT-salary');
+    Table.Cell.createServiceDropdown(Services.list());
 }
 
 export async function initializeOTTable(){
