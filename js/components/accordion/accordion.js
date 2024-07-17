@@ -52,13 +52,13 @@ const Item = {
                         <span class="amount"></span>
                     </button>
                 </h2>
-                <div id="fund_${id}_content" class="accordion-collapse collapse" aria-labelledby="fund_${id}_header" data-bs-parent="#summary-accordion">
+                <div id="fund_${id}_content" class="accordion-collapse collapse" aria-labelledby="fund_${id}_header" data-bs-parent=".summary-accordion">
                     <div class="accordion-body"></div>
                 </div>`
     },
-    add : function(fund) {
+    add : function(fund, accordion_id) {
         // get accordion and add a new item to it
-        const parent = document.getElementById('summary-accordion');
+        const parent = document.querySelector(`#${accordion_id} .summary-accordion`);
         const item_element = document.createElement('div');
         item_element.classList.add('accordion-item');
         item_element.innerHTML = this.html(fund);
@@ -76,18 +76,18 @@ const Item = {
 export const Accordion = {
     Item : Item,
     hide : function(){
-        document.getElementById('accordion-div').style.display = 'none';
+        document.querySelector('#accordion-div').style.display = 'none';
         // reset to delete content
-        document.getElementById('summary-accordion').innerHTML = '';
+        document.querySelector('#baseline-accordion .summary-accordion').innerHTML = '';
     },
     show : function(){
-        document.getElementById('accordion-div').style.display = 'block';
+        document.querySelector('#accordion-div').style.display = 'block';
     },
     async createFromFunds(){
         var funds = FundLookupTable.listFunds();
 
         funds.forEach(fund => {
-            Item.add(fund);
+            Item.add(fund, 'baseline-accordion');
             const fundObject = new Fund(fund);
             Item.updateHeader(fund, fundObject.getTotal());
         });

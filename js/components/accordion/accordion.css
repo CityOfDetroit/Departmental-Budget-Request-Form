@@ -1,9 +1,9 @@
-#summary-accordion {
+.summary-accordion {
     width: 60%;
-    margin: auto
+    margin: auto;
 }
 
-#accordion-baseline-title {
+.accordion-title {
     margin-left: 20%;
     font-weight: bold;
     padding-bottom: 10px;
