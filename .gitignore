@@ -1,5 +1,5 @@
 # Ignore all .xlsx files
-*.xlsx
+# *.xlsx
 
 # Logs
 logs

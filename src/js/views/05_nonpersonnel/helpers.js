@@ -21,8 +21,8 @@ const nonPersonnelColumns = [
     { title : 'Account String', className : 'account-string'},
     { title : 'CPA #', className : 'cpa'},
     { title : 'Contract End Date', className : 'contract-end'},
-    { title: 'Recurring or One-Time', className: 'recurring'}
-
+    { title: 'Recurring or One-Time', className: 'recurring'},
+    { title: 'Object Name', className: 'object'}
 ];
 
 export function preparePageView(){
@@ -41,15 +41,18 @@ export function preparePageView(){
 }
 
 export async function initializeNonpersonnelTable(){
-    // load table data from json
-    await Table.Data.load();
-    //after table is loaded, fill it
-    Table.show();
-    Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, "Edit");
-    // assign cost classes
-    Table.Columns.assignClasses(nonPersonnelColumns);
-    // enable editing
-    Table.Buttons.Edit.init(nonPersonnelRowOnEdit, Table.save);
+    // load table data from storage
+    if(await Table.Data.load()) {
+        //after table is loaded, fill it
+        Table.show();
+        Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, "Edit");
+        // assign cost classes
+        Table.Columns.assignClasses(nonPersonnelColumns);
+        // enable editing
+        Table.Buttons.Edit.init(nonPersonnelRowOnEdit, Table.save);
+    } else {
+        Prompt.Text.update('No personnel expenses for this fund.')
+    }
 }
 
 function nonPersonnelRowOnEdit(){

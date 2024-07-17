@@ -4,16 +4,17 @@ import Body from "../../components/body/body.js";
 import Subtitle from "../../components/header/header.js";
 import { visitPage } from "../view_logic.js";
 import { Accordion } from "../../components/accordion/accordion.js";
+import { downloadXLSX } from "../../utils/data_utils/XLSX_handlers.js";
 
 export function loadSummaryPage(){
     //update page state
     CurrentPage.update('summary');
     summaryView();
-    // basicView();
 }
 
 export function cleanUpSummaryPage(){
     Prompt.Buttons.Right.removeAction(returnToWelcome);
+    Prompt.Buttons.Left.removeAction(downloadXLSX);
 }
 
 export function summaryView(){
@@ -29,8 +30,9 @@ export function summaryView(){
 
     // update page text
     Subtitle.update('Summary');
-    // TODO: update to make dynamic
+    // add button links
     Prompt.Buttons.Right.addAction(returnToWelcome);
+    Prompt.Buttons.Left.addAction(downloadXLSX);
     
 }
 

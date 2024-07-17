@@ -49,7 +49,7 @@ div.table-container {
     /* max-width: calc(100vw - var(--sidebar-width));  */
     /* margin: auto; */
     max-height: max(350px, 6vh);
-    min-height: 350px;
+    /* min-height: 350px; */
 
 }
   

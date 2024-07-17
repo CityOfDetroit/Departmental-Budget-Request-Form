@@ -1,5 +1,5 @@
 
-import { initializePageView, setUpModal, setUpForm, setUpTable, removeModalLinks, removePromptButtonListeners } from './helpers.js'
+import { initializePageView, setUpModal, setUpForm, removeModalLinks, removePromptButtonListeners, initializeInitTable } from './helpers.js'
 import { CurrentPage } from '../../utils/data_utils/local_storage_handlers.js'
 
 
@@ -9,7 +9,7 @@ export function loadNewInitiatives() {
     initializePageView();
     setUpModal();
     setUpForm();
-    setUpTable();
+    initializeInitTable();
 }
 
 export function cleanUpInitiativesPage() {
