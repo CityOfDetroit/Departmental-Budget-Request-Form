@@ -79,8 +79,3 @@ export function lastPage(){
         visitPage(lastKey);
     } 
 }
-
-export async function pauseAndContinue(){
-    await pauseExecution(0.1);
-    nextPage();
-}
