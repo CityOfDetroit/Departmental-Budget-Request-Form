@@ -68,9 +68,9 @@ const Item = {
         parent.appendChild(item_element);
     },
     ExpenseTable : ExpenseTable,
-    updateHeader : function(fund, new_amount) {
-        const header_btn = document.querySelector(`#fund_${fund}_header button`);
-        header_btn.querySelector('span.name').textContent = FundLookupTable.getName(fund);
+    updateHeader : function(title, id, new_amount) {
+        const header_btn = document.querySelector(`#fund_${id}_header button`);
+        header_btn.querySelector('span.name').textContent = title;
         header_btn.querySelector('span.amount').textContent = formatCurrency(new_amount);
     }
 }
@@ -91,7 +91,7 @@ export const Accordion = {
             Item.add(fund, 'baseline-accordion');
             Item.ExpenseTable.fillFromFund(fund);
             const fundObject = new Fund(fund);
-            Item.updateHeader(fund, fundObject.getTotal());
+            Item.updateHeader(FundLookupTable.getName(fund), fund, fundObject.getTotal());
         });
     },
     createSupp() {
@@ -99,7 +99,7 @@ export const Accordion = {
         supp.initiatives.forEach(program => {
             Item.add(program.name, 'supp-accordion');
             Item.ExpenseTable.fillFromInit(program);
-            Item.updateHeader(program.name, program.net());
+            Item.updateHeader(program.name, program.name, program.net());
         });
     },
     build() {
