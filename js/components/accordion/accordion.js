@@ -3,7 +3,7 @@ import { formatCurrency } from "../../utils/common_utils.js";
 import Table from "../table/table.js";
 import { FundLookupTable } from "../../utils/data_utils/budget_data_handlers.js";
 
-const FundTable = {
+const ExpenseTable = {
     table_id : (fund) => { return `table-${fund}` },
     init : function(fund) {
         // create empty table and put it in the accordion
@@ -63,9 +63,11 @@ const Item = {
         item_element.classList.add('accordion-item');
         item_element.innerHTML = this.html(fund);
         parent.appendChild(item_element);
-        FundTable.fill(fund);
     },
-    FundTable : FundTable,
+    fillFromFund(fund) {
+        ExpenseTable.fill(fund);
+    },
+    ExpenseTable : ExpenseTable,
     updateHeader : function(fund, new_amount) {
         const header_btn = document.querySelector(`#fund_${fund}_header button`);
         header_btn.querySelector('span.name').textContent = FundLookupTable.getName(fund);
@@ -83,14 +85,21 @@ export const Accordion = {
     show : function(){
         document.querySelector('#accordion-div').style.display = 'block';
     },
-    async createFromFunds(){
+    async createBaseline(){
         var funds = FundLookupTable.listFunds();
-
         funds.forEach(fund => {
             Item.add(fund, 'baseline-accordion');
+            Item.fillFromFund(fund);
             const fundObject = new Fund(fund);
             Item.updateHeader(fund, fundObject.getTotal());
         });
+    },
+    createSupp() {
+        return;
+    },
+    build() {
+        this.createBaseline();
+        this.createSupp();
     }
 }
 

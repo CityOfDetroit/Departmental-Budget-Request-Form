@@ -8,7 +8,7 @@ import { downloadXLSX } from "../../utils/data_utils/XLSX_handlers.js";
 
 export function summaryView(){
     Body.reset();
-    Accordion.createFromFunds();
+    Accordion.build();
     Accordion.show();
 
     // prompt buttons
