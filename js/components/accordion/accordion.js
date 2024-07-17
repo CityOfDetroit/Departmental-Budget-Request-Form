@@ -81,6 +81,7 @@ export const Accordion = {
         document.querySelector('#accordion-div').style.display = 'none';
         // reset to delete content
         document.querySelector('#baseline-accordion .summary-accordion').innerHTML = '';
+        document.querySelector('#supp-accordion .summary-accordion').innerHTML = '';
     },
     show : function(){
         document.querySelector('#accordion-div').style.display = 'block';
@@ -99,7 +100,7 @@ export const Accordion = {
         supp.initiatives.forEach(program => {
             Item.add(program.name, 'supp-accordion');
             Item.ExpenseTable.fillFromInit(program);
-            // Item.updateHeader(program.name, program.name, program.net());
+            Item.updateHeader(program.name, program.name, program.net());
         });
     },
     build() {
