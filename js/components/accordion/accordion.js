@@ -99,7 +99,7 @@ export const Accordion = {
         supp.initiatives.forEach(program => {
             Item.add(program.name, 'supp-accordion');
             Item.ExpenseTable.fillFromInit(program);
-            Item.updateHeader(program.name, program.name, program.net());
+            // Item.updateHeader(program.name, program.name, program.net());
         });
     },
     build() {
