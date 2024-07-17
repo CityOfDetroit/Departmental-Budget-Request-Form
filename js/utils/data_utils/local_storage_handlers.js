@@ -97,7 +97,7 @@ class StoredTable {
 
 }
 
-function colSum(table, colName, name) {
+function colSum(table, colName) {
     // fill with zero until there is something saved in storage
     if(!table || table == ''){ 
         return 0; 
