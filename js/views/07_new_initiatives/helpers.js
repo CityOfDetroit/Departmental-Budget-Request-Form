@@ -61,7 +61,7 @@ function assignClasses() {
     const initiativesCols = [
         { title: 'Initiative Name', className: 'init-name' },
         { title: `Explanation`, className: 'explanation' },
-        { title: 'Ballpark Total', className: 'total', isCost: true },
+        { title: 'Ballpark Total Expenses', className: 'total', isCost: true },
         { title: 'Revenue', className: 'revenue', isCost: true },
         { title: 'Personnel Cost', className: 'personnel', isCost: true },
         { title: 'Non-personnel Cost', className: 'nonpersonnel', isCost: true }
