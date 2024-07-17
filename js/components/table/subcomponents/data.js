@@ -3,38 +3,33 @@ import { CurrentFund, CurrentPage, loadTableData, saveTableData } from "../../..
 
 function fillTable(data) {
     try {
-        if(Array.isArray(data)) {
-            const table = document.getElementById('main-table');
-            const thead = table.querySelector('thead');
-            const tbody = table.querySelector('tbody');
+        const table = document.getElementById('main-table');
+        const thead = table.querySelector('thead');
+        const tbody = table.querySelector('tbody');
 
-            // clear existing data
-            thead.innerHTML = '';
-            tbody.innerHTML = '';
-    
-            // Create table header row
-            const headerRow = document.createElement('tr');
-            Object.keys(data[0]).forEach(key => {
-              const header = document.createElement('th');
-              header.textContent = key;
-              headerRow.appendChild(header);
+        // clear existing data
+        thead.innerHTML = '';
+        tbody.innerHTML = '';
+
+        // Create table header row
+        const headerRow = document.createElement('tr');
+        Object.keys(data[0]).forEach(key => {
+            const header = document.createElement('th');
+            header.textContent = key;
+            headerRow.appendChild(header);
+        });
+        thead.appendChild(headerRow);
+
+        // Create table body rows
+        data.forEach(item => {
+            const row = document.createElement('tr');
+            Object.values(item).forEach(val => {
+            const cell = document.createElement('td');
+            cell.textContent = val;
+            row.appendChild(cell);
             });
-            thead.appendChild(headerRow);
-    
-            // Create table body rows
-            data.forEach(item => {
-              const row = document.createElement('tr');
-              Object.values(item).forEach(val => {
-                const cell = document.createElement('td');
-                cell.textContent = val;
-                row.appendChild(cell);
-              });
-              tbody.appendChild(row);
-            });
-    
-        } else {
-            console.error('Empty table saved in localStorage.');
-        }
+            tbody.appendChild(row);
+        });
     } catch(error) {
         console.error('No table saved in localStorage:', error);
     }
@@ -42,10 +37,20 @@ function fillTable(data) {
 }
 
 async function loadFromStorage(){
-    // look up table in storage and pass to table load function
-    const key = `${CurrentPage.load()}_${CurrentFund.number()}`;
+    // look up table in storage and pass to table load function\
+    if (CurrentFund.number()){
+        var key = `${CurrentPage.load()}_${CurrentFund.number()}`;
+    } else {
+        var key = CurrentPage.load();
+    }
     const data = await loadTableData(key);
-    fillTable(data);
+    if (!data){
+        // if no table in storage, return 0
+        return 0;
+    } else {
+        fillTable(data);
+        return 1;
+    }
 }
 
 

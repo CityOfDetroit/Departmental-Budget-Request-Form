@@ -1,5 +1,4 @@
 // import functions
-import { fetchAndProcessExcel } from './utils/data_utils/XLSX_handlers.js';
 import { CurrentPage } from './utils/data_utils/local_storage_handlers.js';
 
 // path for my laptop
@@ -8,7 +7,7 @@ export let DATA_ROOT = '../../../data/law_dept_sample/'
 // export let DATA_ROOT = '../../budget-request-demo/data/law_dept_sample/'
 
 export let REVENUE = 0;
-export let TARGET = 20000000;
+export let TARGET = 14000000;
 export var FISCAL_YEAR = '26';
 export var OT_FRINGE = 0.0765;
 
