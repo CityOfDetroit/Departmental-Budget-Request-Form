@@ -27,3 +27,7 @@ export function summaryView(){
 
 const returnToWelcome = () => {visitPage('welcome')}
 
+export function disablePromptButtons(){
+    Prompt.Buttons.Right.removeAction(returnToWelcome);
+    Prompt.Buttons.Left.removeAction(downloadXLSX);
+}
