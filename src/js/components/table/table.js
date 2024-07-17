@@ -1,3 +1,5 @@
+import './table.css';
+
 import Buttons from './subcomponents/buttons.js'
 import Cell from './subcomponents/cells.js'
 import Columns from './subcomponents/columns.js'

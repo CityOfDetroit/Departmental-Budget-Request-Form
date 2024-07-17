@@ -1,3 +1,5 @@
+import './body.css';
+
 import Welcome from '../../components/welcome/welcome.js'
 import { Accordion } from '../accordion/accordion.js';
 import { FileUpload } from '../file_upload/file_upload.js';
