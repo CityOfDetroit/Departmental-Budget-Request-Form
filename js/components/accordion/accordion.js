@@ -28,7 +28,7 @@ const FundTable = {
         this.createNewCell(formatCurrency(number), new_row);
         // create Edit button 
         var button = '';
-        if (name != 'Total'){
+        if (name != 'Net Expenses (Revenues)'){
             button = Table.Buttons.Edit.html;
         }
         this.createNewCell(button, new_row);
