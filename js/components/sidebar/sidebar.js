@@ -73,8 +73,7 @@ async function updateBaseline(){
 function updateSupp(){
     var supp = new Supplemental;
     replaceSidebarStat('supp-revenue', supp.revenue());
-    replaceSidebarStat('supp-personnel', supp.personnel());
-    replaceSidebarStat('supp-nonpersonnel', supp.nonpersonnel());
+    replaceSidebarStat('supp-expenses', supp.expenses());
     replaceSidebarStat('supp-total', supp.total());
 }
 

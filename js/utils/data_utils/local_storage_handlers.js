@@ -200,9 +200,11 @@ export class Supplemental {
     constructor() {
         this.table = loadTableData('new-inits');
         this.initiatives = [];
-        this.table.forEach((row) => { 
-            this.initiatives.push(new Initiative(row));
-        });
+        if(this.table){
+            this.table.forEach((row) => { 
+                this.initiatives.push(new Initiative(row));
+            });
+        }
     }
 
     getInits() {
