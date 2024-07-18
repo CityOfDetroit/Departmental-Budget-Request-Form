@@ -5,14 +5,6 @@ import Body from "../../components/body/body.js";
 import NavButtons from "../../components/nav_buttons/nav_buttons.js";
 import Subtitle from "../../components/header/header.js";
 
-// "Vendor": "Law Firm LLC",
-//         "CPA #" : "765421",
-//         "Account String": "1000-29320-320010",
-//         "Object Name": "Consulting",
-//         "End of Contract": "12/31/2024",
-//         "Amount Remaining" : 50000,
-//         "FY26 Request": 100000
-
 const nonPersonnelColumns = [
     { title: 'FY26 Request', className: 'request', isCost: true },
     { title: 'Amount Remaining on Contract', className: 'remaining', isCost: true },
@@ -51,7 +43,7 @@ export async function initializeNonpersonnelTable(){
         // enable editing
         Table.Buttons.Edit.init(nonPersonnelRowOnEdit, Table.save);
     } else {
-        Prompt.Text.update('No personnel expenses for this fund.')
+        Prompt.Text.update('No non-personnel expenditures for this fund.')
     }
 }
 

@@ -20,13 +20,13 @@ function redirectForEdit(){
         const lineItem = row.querySelector('.line-item').textContent;
         // visit the correct page for editing
         switch(lineItem){
-            case 'Personnel Expenses':
+            case 'Personnel Expenditures':
                 visitPage('personnel');
                 break;
-            case 'Non-Personnel Expenses':
+            case 'Non-Personnel Expenditures':
                 visitPage('nonpersonnel');
                 break;
-            case 'Revenue':
+            case 'Revenues':
                 visitPage('revenue');
                 break;
             default:
@@ -61,7 +61,7 @@ const ExpenseTable = {
         this.createNewCell(formatCurrency(number), new_row, 'cost');
         // create Edit button 
         var button = '';
-        if (row_name != 'Net Expenses (Revenues)'){
+        if (row_name != 'Net Expenditures (Revenues)'){
             button = Table.Buttons.Edit.html;
         }
         this.createNewCell(button, new_row);
@@ -69,16 +69,16 @@ const ExpenseTable = {
     fillFromFund(fund) {
         this.init(fund);
         const fundObject = new Fund(fund);
-        this.addRow(fund, 'Personnel Expenses', fundObject.getPersonnelCost());
-        this.addRow(fund, 'Non-Personnel Expenses', fundObject.getNonPersonnelCost());
-        this.addRow(fund, 'Revenue', fundObject.getRevenue());
-        this.addRow(fund, 'Net Expenses (Revenues)', fundObject.getTotal());
+        this.addRow(fund, 'Personnel Expenditures', fundObject.getPersonnelCost());
+        this.addRow(fund, 'Non-Personnel Expenditures', fundObject.getNonPersonnelCost());
+        this.addRow(fund, 'Revenues', fundObject.getRevenue());
+        this.addRow(fund, 'Net Expenditures (Revenues)', fundObject.getTotal());
     },
     fillFromInit(program) {
         this.init(program.name);
-        this.addRow(program.name, 'Expenses', program.expenses());
-        this.addRow(program.name, 'Revenue', program.revenue());
-        this.addRow(program.name, 'Net Expenses (Revenues)', program.net());
+        this.addRow(program.name, 'Expenditures', program.expenses());
+        this.addRow(program.name, 'Revenues', program.revenue());
+        this.addRow(program.name, 'Net Expenditures (Revenues)', program.net());
     }
 }
 
