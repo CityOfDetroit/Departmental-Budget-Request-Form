@@ -1,53 +1,90 @@
-import './accordion.css';
+import './accordion.css'
 
-import { Fund } from "../../utils/data_utils/local_storage_handlers.js";
-import { formatCurrency } from "../../utils/common_utils.js";
+import { CurrentFund, Fund, Supplemental } from "../../utils/data_utils/local_storage_handlers.js";
+import { formatCurrency, cleanString } from "../../utils/common_utils.js";
 import Table from "../table/table.js";
 import { FundLookupTable } from "../../utils/data_utils/budget_data_handlers.js";
+import { visitPage } from '../../views/view_logic.js';
+
+function redirectForEdit(){
+    const row = document.querySelector(`.active-editing`);
+    const table = row.parentElement;
+    const section = table.closest('.summary-container');
+    // new initiative edits should all redirect to the new-inits page
+    if (section.id == 'supp-accordion'){
+        visitPage('new-inits');
+    }
+    else {
+        const fund = table.id.replace('table-','');
+        CurrentFund.update(fund);
+        const lineItem = row.querySelector('.line-item').textContent;
+        // visit the correct page for editing
+        switch(lineItem){
+            case 'Personnel Expenses':
+                visitPage('personnel');
+                break;
+            case 'Non-Personnel Expenses':
+                visitPage('nonpersonnel');
+                break;
+            case 'Revenue':
+                visitPage('revenue');
+                break;
+            default:
+                console.error('Name of line item in table does not match a page destination.')
+        }
+    }
+}
 
 const ExpenseTable = {
-    table_id : (fund) => { return `table-${fund}` },
-    init : function(fund) {
+    table_id : (fund) => { return `table-${cleanString(fund)}` },
+    init(fund) {
         // create empty table and put it in the accordion
         var table = document.createElement('table');
         table.id = this.table_id(fund);
         table.classList.add('accordion-table');
-        var parent = document.querySelector(`#fund_${fund}_content .accordion-body`);
+        var parent = document.querySelector(`#fund_${cleanString(fund)}_content .accordion-body`);
         parent.appendChild(table);
     },
-    createNewCell : function(content, row) {
+    createNewCell(content, row, className) {
         const newCell = document.createElement('td');
         newCell.innerHTML = content;
+        newCell.classList.add(className);
         row.appendChild(newCell);
     },
-    addRow : function(fund, name, number){
-        var table = document.getElementById(this.table_id(fund));
+    addRow(fund_name, row_name, number){
+        var table = document.getElementById(this.table_id(fund_name));
         var new_row = document.createElement('tr');
         table.appendChild(new_row);
         // Create a cell for the line item label
-        this.createNewCell(name, new_row);
+        this.createNewCell(row_name, new_row, 'line-item');
         // create a cell for the amount
-        this.createNewCell(formatCurrency(number), new_row);
+        this.createNewCell(formatCurrency(number), new_row, 'cost');
         // create Edit button 
         var button = '';
-        if (name != 'Net Expenses (Revenues)'){
+        if (row_name != 'Net Expenses (Revenues)'){
             button = Table.Buttons.Edit.html;
         }
         this.createNewCell(button, new_row);
     },
-    fill : function(fund) {
+    fillFromFund(fund) {
         this.init(fund);
         const fundObject = new Fund(fund);
         this.addRow(fund, 'Personnel Expenses', fundObject.getPersonnelCost());
         this.addRow(fund, 'Non-Personnel Expenses', fundObject.getNonPersonnelCost());
         this.addRow(fund, 'Revenue', fundObject.getRevenue());
         this.addRow(fund, 'Net Expenses (Revenues)', fundObject.getTotal());
+    },
+    fillFromInit(program) {
+        this.init(program.name);
+        this.addRow(program.name, 'Expenses', program.expenses());
+        this.addRow(program.name, 'Revenue', program.revenue());
+        this.addRow(program.name, 'Net Expenses (Revenues)', program.net());
     }
 }
 
 const Item = {
     html : function(fund) {
-        var id = fund; // cleanString(fund);
+        var id = cleanString(fund);
         return `<h2 class="accordion-header" id="fund_${id}_header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#fund_${id}_content" aria-expanded="false" aria-controls="fund_${id}_content">
                         <span class="name"></span>:
@@ -66,13 +103,11 @@ const Item = {
         item_element.innerHTML = this.html(fund);
         parent.appendChild(item_element);
     },
-    fillFromFund(fund) {
-        ExpenseTable.fill(fund);
-    },
     ExpenseTable : ExpenseTable,
-    updateHeader : function(fund, new_amount) {
-        const header_btn = document.querySelector(`#fund_${fund}_header button`);
-        header_btn.querySelector('span.name').textContent = FundLookupTable.getName(fund);
+    updateHeader : function(title, id, new_amount) {
+        var id = cleanString(id);
+        const header_btn = document.querySelector(`#fund_${id}_header button`);
+        header_btn.querySelector('span.name').textContent = title;
         header_btn.querySelector('span.amount').textContent = formatCurrency(new_amount);
     }
 }
@@ -83,6 +118,7 @@ export const Accordion = {
         document.querySelector('#accordion-div').style.display = 'none';
         // reset to delete content
         document.querySelector('#baseline-accordion .summary-accordion').innerHTML = '';
+        document.querySelector('#supp-accordion .summary-accordion').innerHTML = '';
     },
     show : function(){
         document.querySelector('#accordion-div').style.display = 'block';
@@ -91,17 +127,24 @@ export const Accordion = {
         var funds = FundLookupTable.listFunds();
         funds.forEach(fund => {
             Item.add(fund, 'baseline-accordion');
-            Item.fillFromFund(fund);
+            Item.ExpenseTable.fillFromFund(fund);
             const fundObject = new Fund(fund);
-            Item.updateHeader(fund, fundObject.getTotal());
+            Item.updateHeader(FundLookupTable.getName(fund), fund, fundObject.getTotal());
         });
     },
     createSupp() {
-        return;
+        const supp = new Supplemental;
+        supp.initiatives.forEach(program => {
+            Item.add(program.name, 'supp-accordion');
+            Item.ExpenseTable.fillFromInit(program);
+            Item.updateHeader(program.name, program.name, program.net());
+        });
     },
     build() {
         this.createBaseline();
         this.createSupp();
+        // initialize edit buttons
+        Table.Buttons.Edit.init(redirectForEdit);
     }
 }
 

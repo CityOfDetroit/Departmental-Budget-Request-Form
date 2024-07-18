@@ -1,4 +1,4 @@
-import './sidebar.css';
+import './sidebar.css'
 
 import { formatCurrency } from "../../utils/common_utils.js";
 import { TARGET } from "../../init.js";
@@ -75,8 +75,7 @@ async function updateBaseline(){
 function updateSupp(){
     var supp = new Supplemental;
     replaceSidebarStat('supp-revenue', supp.revenue());
-    replaceSidebarStat('supp-personnel', supp.personnel());
-    replaceSidebarStat('supp-nonpersonnel', supp.nonpersonnel());
+    replaceSidebarStat('supp-expenses', supp.expenses());
     replaceSidebarStat('supp-total', supp.total());
 }
 
@@ -86,7 +85,6 @@ function updateTotals(){
 }
 
 function resetAll(){
-    // delete everything in local storage
     localStorage.clear();
     // reset all stats to 0
     updateTotals();

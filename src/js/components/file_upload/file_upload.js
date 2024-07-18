@@ -19,6 +19,7 @@ export const FileUpload = {
 }
 
 function readXL(event) {
+
     // read uploaded file
     const file = event.target.files[0];
 

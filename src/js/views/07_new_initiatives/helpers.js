@@ -15,6 +15,10 @@ export function initializePageView() {
     NavButtons.show();
     Sidebar.show();
 
+    //table appearance
+    Table.adjustWidth('70%');
+    Table.Buttons.AddRow.updateText('Add another new initiative');
+
     // remove fund selection
     localStorage.setItem("fund", '');
 
@@ -45,7 +49,7 @@ export function setUpForm() {
         ii). Why is the initiative needed? What is the value-add to residents? What is the Department’s plan for implementing the Initiative?
         iii). Why can’t the Initiative be funded with the Department’s baseline budget?`, 'Explanation', true);
 
-    Form.NewField.numericInput('What is your ballpark estimate of TOTAL ADDITONAL expenses associated with this initiative?', 'Ballpark Total', false);
+    Form.NewField.numericInput('What is your ballpark estimate of TOTAL ADDITONAL expenses associated with this initiative?', 'Ballpark Total Expenses', false);
 
     Form.NewField.numericInput('Estimate of ADDITONAL personnel cost?', 'Personnel Cost', false);
     Form.NewField.numericInput('Estimate of ADDITONAL nonpersonnel cost?', 'Non-personnel Cost', false);
@@ -61,7 +65,7 @@ function assignClasses() {
     const initiativesCols = [
         { title: 'Initiative Name', className: 'init-name' },
         { title: `Explanation`, className: 'explanation' },
-        { title: 'Ballpark Total', className: 'total', isCost: true },
+        { title: 'Ballpark Total Expenses', className: 'total', isCost: true },
         { title: 'Revenue', className: 'revenue', isCost: true },
         { title: 'Personnel Cost', className: 'personnel', isCost: true },
         { title: 'Non-personnel Cost', className: 'nonpersonnel', isCost: true }
@@ -72,12 +76,11 @@ function assignClasses() {
 }
 
 export async function initializeInitTable(){
+    Table.clear();
     // load table data from storage
     if(await Table.Data.load()) {
         //after table is loaded, fill it
         assignClasses();
-        Table.adjustWidth('70%');
-        Table.Buttons.AddRow.updateText('Add another new initiative');
         tableView();
     }
 }
