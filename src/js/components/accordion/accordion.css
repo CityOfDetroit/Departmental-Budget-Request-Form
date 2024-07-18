@@ -55,10 +55,11 @@ span.amount {
 .btn-add-init {
     background-color: var(--spiritgreen);
     border-color: var(--citygreen);
-    position: absolute;
+    /* position: absolute; */
     right: 0;
-    margin-right: calc(20vw + 15px);
-    margin-top: -8px;
+    /* margin-left: 20px; */
+    /* margin-right: calc(20vw + 15px); */
+    margin-top: 15px;
 }
 
 #supp-title {
@@ -67,4 +68,14 @@ span.amount {
 
 .btn-add-init:hover {
     background-color: var(--palegreen);
+}
+.add-init-btn-div{
+    text-align: center;
+}
+
+span.top-line-amount {
+    font-weight: bold;
+    position: absolute;
+    right: 0;
+    margin-right: calc(20vw + 20px);
 }
