@@ -22,7 +22,7 @@ function updateButtonText(className, text){
     document.querySelector(`.${className}`).textContent = text;
 }
 
-function handleRowEdit(makeRowEditable, updateCallback){
+function handleRowEdit(actionOnClick, updateCallback = null){
     // attach an event listener to each edit button in every row
     var editButtons = document.getElementsByClassName('btn-edit');
     for (var i = 0; i < editButtons.length; i++) {
@@ -32,18 +32,17 @@ function handleRowEdit(makeRowEditable, updateCallback){
             // mark row as being edited
             rowToEdit.classList.add('active-editing');
             
-            // turn relevant entries into textboxes
-            makeRowEditable();
+            // turn relevant entries into textboxes, usually
+            actionOnClick();
 
             // hide edit buttons
             Edit.hide();
-            initializeConfirmButton(updateCallback);
-    
+            if(updateCallback){
+                initializeConfirmButton(updateCallback);
+            }
         });
     };
 }
-
-// Confirm button
 
 function initializeConfirmButton(updateCallback){
     // get element and add listener for click
@@ -68,8 +67,8 @@ const Edit = {
     html: '<button class="btn btn-edit">Edit</button>',
     hide: hideButton('btn-edit'),
     show: showButton('btn-edit'),
-    init : function(makeRowEditable, updateCallback){
-        handleRowEdit(makeRowEditable, updateCallback)
+    init : function(actionOnClick, updateCallback){
+        handleRowEdit(actionOnClick, updateCallback)
     }
 };
 

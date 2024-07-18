@@ -50,14 +50,25 @@
 
     <!-- Summary page accordion -->
     <div id='accordion-div'>
-        <div id='baseline-accordion'>
+        <div id='baseline-accordion' class="summary-container">
             <h3 id="baseline-title" class="accordion-title">Baseline</h3>
             <div class="accordion summary-accordion"></div>
         </div>
-        <div id="supp-accordion">
+        <div id="supp-accordion" class="summary-container">
             <h3 id="supp-title" class="accordion-title">Suplemental</h3>
             <div class="accordion summary-accordion"></div>
         </div>
+    </div>
+
+    <!-- Space for an initial prompt and response buttons -->
+    <div id="prompt-div">
+        <h3 id="prompt"></h3>
+        <br>
+        <!-- File upload -->
+        <input type="file" id="file-input" accept=".xls,.xlsx" />
+        <!-- Prompt buttons -->
+        <button class="btn" id="option1"></button>
+        <button class="btn" id="option2"></button>
     </div>
 
     <!-- Table -->
@@ -75,17 +86,6 @@
         <div id='add-btn-div'>
             <button class="btn btn-add" id="add-btn"></button>
         </div>
-    </div>
-
-    <!-- Space for an initial prompt and response buttons -->
-    <div id="prompt-div">
-        <h3 id="prompt"></h3>
-        <br>
-        <!-- File upload -->
-        <input type="file" id="file-input" accept=".xls,.xlsx" />
-        <!-- Prompt buttons -->
-        <button class="btn" id="option1"></button>
-        <button class="btn" id="option2"></button>
     </div>
 
     <!-- Navigation buttons -->

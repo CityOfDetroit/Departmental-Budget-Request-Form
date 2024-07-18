@@ -1,9 +1,39 @@
 import './accordion.css'
 
-import { Fund, Supplemental } from "../../utils/data_utils/local_storage_handlers.js";
+import { CurrentFund, Fund, Supplemental } from "../../utils/data_utils/local_storage_handlers.js";
 import { formatCurrency, cleanString } from "../../utils/common_utils.js";
 import Table from "../table/table.js";
 import { FundLookupTable } from "../../utils/data_utils/budget_data_handlers.js";
+import { visitPage } from '../../views/view_logic.js';
+
+function redirectForEdit(){
+    const row = document.querySelector(`.active-editing`);
+    const table = row.parentElement;
+    const section = table.closest('.summary-container');
+    // new initiative edits should all redirect to the new-inits page
+    if (section.id == 'supp-accordion'){
+        visitPage('new-inits');
+    }
+    else {
+        const fund = table.id.replace('table-','');
+        CurrentFund.update(fund);
+        const lineItem = row.querySelector('.line-item').textContent;
+        // visit the correct page for editing
+        switch(lineItem){
+            case 'Personnel Expenses':
+                visitPage('personnel');
+                break;
+            case 'Non-Personnel Expenses':
+                visitPage('nonpersonnel');
+                break;
+            case 'Revenue':
+                visitPage('revenue');
+                break;
+            default:
+                console.error('Name of line item in table does not match a page destination.')
+        }
+    }
+}
 
 const ExpenseTable = {
     table_id : (fund) => { return `table-${cleanString(fund)}` },
@@ -15,9 +45,10 @@ const ExpenseTable = {
         var parent = document.querySelector(`#fund_${cleanString(fund)}_content .accordion-body`);
         parent.appendChild(table);
     },
-    createNewCell(content, row) {
+    createNewCell(content, row, className) {
         const newCell = document.createElement('td');
         newCell.innerHTML = content;
+        newCell.classList.add(className);
         row.appendChild(newCell);
     },
     addRow(fund_name, row_name, number){
@@ -25,9 +56,9 @@ const ExpenseTable = {
         var new_row = document.createElement('tr');
         table.appendChild(new_row);
         // Create a cell for the line item label
-        this.createNewCell(row_name, new_row);
+        this.createNewCell(row_name, new_row, 'line-item');
         // create a cell for the amount
-        this.createNewCell(formatCurrency(number), new_row);
+        this.createNewCell(formatCurrency(number), new_row, 'cost');
         // create Edit button 
         var button = '';
         if (row_name != 'Net Expenses (Revenues)'){
@@ -112,6 +143,8 @@ export const Accordion = {
     build() {
         this.createBaseline();
         this.createSupp();
+        // initialize edit buttons
+        Table.Buttons.Edit.init(redirectForEdit);
     }
 }
 
