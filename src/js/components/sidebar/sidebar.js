@@ -85,6 +85,7 @@ function updateTotals(){
 }
 
 function resetAll(){
+    console.log('deleting everything');
     // delete everything in local storage
     localStorage.clear();
     // reset all stats to 0

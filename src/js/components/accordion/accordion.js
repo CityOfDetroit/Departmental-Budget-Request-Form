@@ -1,18 +1,18 @@
 import './accordion.css'
 
 import { Fund, Supplemental } from "../../utils/data_utils/local_storage_handlers.js";
-import { formatCurrency } from "../../utils/common_utils.js";
+import { formatCurrency, cleanString } from "../../utils/common_utils.js";
 import Table from "../table/table.js";
 import { FundLookupTable } from "../../utils/data_utils/budget_data_handlers.js";
 
 const ExpenseTable = {
-    table_id : (fund) => { return `table-${fund}` },
+    table_id : (fund) => { return `table-${cleanString(fund)}` },
     init(fund) {
         // create empty table and put it in the accordion
         var table = document.createElement('table');
         table.id = this.table_id(fund);
         table.classList.add('accordion-table');
-        var parent = document.querySelector(`#fund_${fund}_content .accordion-body`);
+        var parent = document.querySelector(`#fund_${cleanString(fund)}_content .accordion-body`);
         parent.appendChild(table);
     },
     createNewCell(content, row) {
@@ -20,17 +20,17 @@ const ExpenseTable = {
         newCell.innerHTML = content;
         row.appendChild(newCell);
     },
-    addRow(fund, name, number){
-        var table = document.getElementById(this.table_id(fund));
+    addRow(fund_name, row_name, number){
+        var table = document.getElementById(this.table_id(fund_name));
         var new_row = document.createElement('tr');
         table.appendChild(new_row);
         // Create a cell for the line item label
-        this.createNewCell(name, new_row);
+        this.createNewCell(row_name, new_row);
         // create a cell for the amount
         this.createNewCell(formatCurrency(number), new_row);
         // create Edit button 
         var button = '';
-        if (name != 'Net Expenses (Revenues)'){
+        if (row_name != 'Net Expenses (Revenues)'){
             button = Table.Buttons.Edit.html;
         }
         this.createNewCell(button, new_row);
@@ -44,13 +44,16 @@ const ExpenseTable = {
         this.addRow(fund, 'Net Expenses (Revenues)', fundObject.getTotal());
     },
     fillFromInit(program) {
-        // this.init(program);
+        this.init(program.name);
+        this.addRow(program.name, 'Expenses', program.expenses());
+        this.addRow(program.name, 'Revenue', program.revenue());
+        this.addRow(program.name, 'Net Expenses (Revenues)', program.net());
     }
 }
 
 const Item = {
     html : function(fund) {
-        var id = fund; // cleanString(fund);
+        var id = cleanString(fund);
         return `<h2 class="accordion-header" id="fund_${id}_header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#fund_${id}_content" aria-expanded="false" aria-controls="fund_${id}_content">
                         <span class="name"></span>:
@@ -71,6 +74,7 @@ const Item = {
     },
     ExpenseTable : ExpenseTable,
     updateHeader : function(title, id, new_amount) {
+        var id = cleanString(id);
         const header_btn = document.querySelector(`#fund_${id}_header button`);
         header_btn.querySelector('span.name').textContent = title;
         header_btn.querySelector('span.amount').textContent = formatCurrency(new_amount);
