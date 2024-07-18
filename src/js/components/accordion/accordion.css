@@ -51,3 +51,20 @@ span.amount {
 .accordion-header button {
     font-size: 0.8em;
 }
+
+.btn-add-init {
+    background-color: var(--spiritgreen);
+    border-color: var(--citygreen);
+    position: absolute;
+    right: 0;
+    margin-right: calc(20vw + 15px);
+    margin-top: -8px;
+}
+
+#supp-title {
+   margin-top: 20px;
+}
+
+.btn-add-init:hover {
+    background-color: var(--palegreen);
+}

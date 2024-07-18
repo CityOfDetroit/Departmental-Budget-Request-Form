@@ -87,7 +87,7 @@ const Item = {
         var id = cleanString(fund);
         return `<h2 class="accordion-header" id="fund_${id}_header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#fund_${id}_content" aria-expanded="false" aria-controls="fund_${id}_content">
-                        <span class="name"></span>:
+                        <span class="name"></span>
                         <span class="amount"></span>
                     </button>
                 </h2>
@@ -112,8 +112,18 @@ const Item = {
     }
 }
 
+const AddInitButton = {
+    init() {
+        const btn = document.querySelector('.btn-add-init');
+        btn.addEventListener('click', function(){
+            visitPage('new-inits');
+        })
+    }
+}
+
 export const Accordion = {
     Item : Item,
+    AddInitButton: AddInitButton,
     hide : function(){
         document.querySelector('#accordion-div').style.display = 'none';
         // reset to delete content
@@ -145,7 +155,9 @@ export const Accordion = {
         this.createSupp();
         // initialize edit buttons
         Table.Buttons.Edit.init(redirectForEdit);
+        this.AddInitButton.init();
     }
 }
+
 
 export default Accordion;

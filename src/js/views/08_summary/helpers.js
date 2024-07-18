@@ -23,10 +23,6 @@ export function summaryView(){
     // add button links
     Prompt.Buttons.Right.addAction(returnToWelcome);
     Prompt.Buttons.Left.addAction(downloadXLSX);
-
-    // add a button to add more initiatives
-    Table.Buttons.AddRow.show();
-    Table.Buttons.AddRow.updateText('Add another initiative');
     
 }
 
