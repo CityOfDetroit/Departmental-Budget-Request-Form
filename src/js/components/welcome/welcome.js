@@ -1,5 +1,3 @@
-import './welcome.css';
-
 // Hide and unhide welcome buttons
 function unhideWelcomeButtons(){
     document.getElementById("welcome-page").style.display = "block";

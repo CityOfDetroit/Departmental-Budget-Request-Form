@@ -1,5 +1,3 @@
-import './header.css';
-
 import { CurrentFund } from "../../utils/data_utils/local_storage_handlers.js";
 
 export const Subtitle = {

@@ -1,5 +1,3 @@
-import './nav_buttons.css';
-
 import { nextPage, lastPage } from '../../views/view_logic.js'
 
 function initializeNavButtons(){

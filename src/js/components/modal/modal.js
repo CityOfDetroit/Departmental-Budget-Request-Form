@@ -1,4 +1,3 @@
-import './modal.css';
 
 function clearModal(){
     updateModalTitle('');

@@ -1,6 +1,3 @@
-// import styles
-import '../css/common.css';
-
 // import functions
 import { CurrentPage } from './utils/data_utils/local_storage_handlers.js';
 

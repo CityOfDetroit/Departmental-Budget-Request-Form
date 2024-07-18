@@ -1,4 +1,3 @@
-import './prompt.css';
 
 import Text from "./subcomponents/text.js";
 import Buttons from "./subcomponents/buttons.js";

@@ -1,5 +1,3 @@
-import './file_upload.css';
-
 import { processWorkbook } from "../../utils/data_utils/XLSX_handlers.js";
 
 export const FileUpload = {

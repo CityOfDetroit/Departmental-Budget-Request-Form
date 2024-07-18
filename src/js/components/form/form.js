@@ -1,5 +1,3 @@
-import './form.css';
-
 import Dropdown from "./subcomponents/dropdown.js";
 import NewField from "./subcomponents/fields.js";
 import SubmitButton from "./subcomponents/submit.js";
