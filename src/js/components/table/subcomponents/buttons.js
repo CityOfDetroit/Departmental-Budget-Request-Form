@@ -22,8 +22,6 @@ function updateButtonText(className, text){
     document.querySelector(`.${className}`).textContent = text;
 }
 
-// EDIT button
-
 function handleRowEdit(makeRowEditable, updateCallback){
     // attach an event listener to each edit button in every row
     var editButtons = document.getElementsByClassName('btn-edit');
