@@ -1,5 +1,3 @@
-import './sidebar.css';
-
 import { formatCurrency } from "../../utils/common_utils.js";
 import { TARGET } from "../../init.js";
 import { Baseline, Supplemental } from "../../utils/data_utils/local_storage_handlers.js";
@@ -75,8 +73,7 @@ async function updateBaseline(){
 function updateSupp(){
     var supp = new Supplemental;
     replaceSidebarStat('supp-revenue', supp.revenue());
-    replaceSidebarStat('supp-personnel', supp.personnel());
-    replaceSidebarStat('supp-nonpersonnel', supp.nonpersonnel());
+    replaceSidebarStat('supp-expenses', supp.expenses());
     replaceSidebarStat('supp-total', supp.total());
 }
 
