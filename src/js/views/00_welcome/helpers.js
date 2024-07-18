@@ -13,7 +13,6 @@ export function initializePageView(){
     Body.reset();
     Subtitle.update("Welcome");
     Welcome.show();
-    Sidebar.reset();
 }
 
 export function addLinks(){

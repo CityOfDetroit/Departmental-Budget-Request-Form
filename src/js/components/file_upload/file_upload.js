@@ -1,6 +1,7 @@
 import './file_upload.css';
 
 import { processWorkbook } from "../../utils/data_utils/XLSX_handlers.js";
+import Sidebar from '../sidebar/sidebar.js';
 
 export const FileUpload = {
     init : function() {
@@ -18,9 +19,13 @@ export const FileUpload = {
 }
 
 function readXL(event) {
+    // get file
     const file = event.target.files[0];
 
     if (file) {
+        // delete existing storage
+        Sidebar.reset();
+        // populate with new Excel data
         const reader = new FileReader();
         reader.onload = function(e) {
             const arrayBuffer = e.target.result;
