@@ -7,7 +7,6 @@ import { loadNonpersonnelPage } from './06_nonpersonnel/main.js';
 import { loadBaselineLandingPage } from './02_baseline_landing_page/main.js';
 import { cleanUpSummaryPage, loadSummaryPage } from './08_summary/main.js';
 import { loadUploadPage } from './01_upload/main.js';
-import { pauseExecution } from '../utils/common_utils.js';
 
 import { CurrentPage } from '../utils/data_utils/local_storage_handlers.js';
 
