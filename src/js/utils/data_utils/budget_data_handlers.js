@@ -8,13 +8,14 @@ export const FundLookupTable = {
     update : function(fundData){
         const table = this.retrieve();
         for (let fund of Object.keys(fundData)){
-            // fund = toString(fund);
             // add to lookup table if not in there already
             if (!table[fund]){
                 // get fund name
                 const fundName = fundData[fund][0]['Fund Name'];
                 // add fund to dictionary
-                table[fund] = fundName;
+                table[fund] = {};
+                table[fund]['name'] = fundName;
+                table[fund]['viewed'] = false;
             }
         }
         // save any updates
@@ -24,7 +25,8 @@ export const FundLookupTable = {
         this.save({});
     },
     getName : function(number){
-        return this.retrieve()[number];
+        if(number == '') { return '' };
+        return this.retrieve()[number]['name'];
     },
     listFunds : function(){
         return Object.keys(this.retrieve());

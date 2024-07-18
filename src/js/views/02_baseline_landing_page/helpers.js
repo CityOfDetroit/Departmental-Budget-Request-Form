@@ -41,8 +41,8 @@ function allowRowSelection(){
     });
 }
 
-export async function initializeFundTable(){
-    await Table.Data.loadFunds();
+export function initializeFundTable(){
+    Table.Data.loadFunds();
     Table.adjustWidth('30%');
     Table.show();
     Table.Columns.assignClasses(fundCols);

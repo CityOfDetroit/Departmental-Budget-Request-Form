@@ -62,7 +62,7 @@ function loadFunds(){
     for (const key in fundDict) {
         if (fundDict.hasOwnProperty(key)) {
             resultArray.push({
-                Fund: fundDict[key]     // Use the value directly
+                Fund: fundDict[key]['name']     // Use the value directly
             });
         }
     }

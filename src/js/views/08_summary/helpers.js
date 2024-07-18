@@ -16,7 +16,7 @@ export function summaryView(){
 
     // prompt buttons
     Prompt.Buttons.Right.updateText('Download Excel');
-    Prompt.Buttons.Left.updateText('Go back to home');
+    Prompt.Buttons.Left.updateText('Start over');
     // add button links
     Prompt.Buttons.Left.addAction(returnToWelcome);
     Prompt.Buttons.Right.addAction(downloadXLSX);
@@ -47,4 +47,5 @@ const returnToWelcome = () => {visitPage('welcome')}
 export function disablePromptButtons(){
     Prompt.Buttons.Left.removeAction(returnToWelcome);
     Prompt.Buttons.Right.removeAction(downloadXLSX);
+    Prompt.Buttons.Right.enable();
 }
