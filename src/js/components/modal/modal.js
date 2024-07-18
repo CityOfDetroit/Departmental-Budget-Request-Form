@@ -1,4 +1,6 @@
 
+import './modal.css';
+
 function clearModal(){
     updateModalTitle('');
     document.getElementById('modal-body').innerHTML = '';

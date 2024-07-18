@@ -1,3 +1,5 @@
+import './accordion.css';
+
 import { Fund } from "../../utils/data_utils/local_storage_handlers.js";
 import { formatCurrency } from "../../utils/common_utils.js";
 import Table from "../table/table.js";
