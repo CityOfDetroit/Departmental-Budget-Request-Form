@@ -1,7 +1,6 @@
 import Subtitle from '../../components/header/header.js'
 import Welcome from '../../components/welcome/welcome.js'
 import Body from '../../components/body/body.js'
-import Sidebar from '../../components/sidebar/sidebar.js'
 
 import { loadNewInitiatives } from '../07_new_initiatives/main.js'
 import { loadSummaryPage } from '../08_summary/main.js'
@@ -13,7 +12,6 @@ export function initializePageView(){
     Body.reset();
     Subtitle.update("Welcome");
     Welcome.show();
-    Sidebar.reset();
 }
 
 export function addLinks(){
