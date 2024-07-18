@@ -1,4 +1,6 @@
-import { Fund, Initiative, Supplemental } from "../../utils/data_utils/local_storage_handlers.js";
+import './accordion.css'
+
+import { Fund, Supplemental } from "../../utils/data_utils/local_storage_handlers.js";
 import { formatCurrency } from "../../utils/common_utils.js";
 import Table from "../table/table.js";
 import { FundLookupTable } from "../../utils/data_utils/budget_data_handlers.js";
