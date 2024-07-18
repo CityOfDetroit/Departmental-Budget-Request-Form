@@ -65,7 +65,7 @@ export async function initializePersonnelTable(){
         Table.Buttons.Edit.init(personnelRowOnEdit, updateDisplayandTotals);
         initializeRowAddition();
     } else {
-        Prompt.Text.update('No personnel expenses for this fund.')
+        Prompt.Text.update('No personnel expenditures for this fund.')
     }
 }
 

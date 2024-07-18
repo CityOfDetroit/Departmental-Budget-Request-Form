@@ -64,7 +64,7 @@ export async function initializeOTTable(){
         // activate edit buttons
         Table.Buttons.Edit.init(OTRowOnEdit, updateDisplayandTotals);
     } else {
-        Prompt.Text.update('No overtime expenses for this fund.')
+        Prompt.Text.update('No overtime expenditures for this fund.')
     }
 }
 

@@ -1,9 +1,9 @@
-#summary-accordion {
+.summary-accordion {
     width: 60%;
-    margin: auto
+    margin: auto;
 }
 
-#accordion-baseline-title {
+.accordion-title {
     margin-left: 20%;
     font-weight: bold;
     padding-bottom: 10px;
@@ -50,4 +50,32 @@ span.amount {
 
 .accordion-header button {
     font-size: 0.8em;
+}
+
+.btn-add-init {
+    background-color: var(--spiritgreen);
+    border-color: var(--citygreen);
+    /* position: absolute; */
+    right: 0;
+    /* margin-left: 20px; */
+    /* margin-right: calc(20vw + 15px); */
+    margin-top: 15px;
+}
+
+#supp-title {
+   margin-top: 20px;
+}
+
+.btn-add-init:hover {
+    background-color: var(--palegreen);
+}
+.add-init-btn-div{
+    text-align: center;
+}
+
+span.top-line-amount {
+    font-weight: bold;
+    position: absolute;
+    right: 0;
+    margin-right: calc(20vw + 20px);
 }

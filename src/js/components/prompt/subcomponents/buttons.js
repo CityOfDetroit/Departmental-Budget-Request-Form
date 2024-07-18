@@ -34,12 +34,22 @@ function removePromptButtonAction(button_id, action_fn){
     document.getElementById(button_id).removeEventListener('click', action_fn);
 }
 
+function disable(button_id){
+    document.querySelector(`#${button_id}`).classList.add('disabled');
+}
+
+function enable(button_id){
+    document.querySelector(`#${button_id}`).classList.remove('disabled');
+}
+
 export const Left = {
     show : function() { showPromptButton('option1') },
     hide : function() { hidePromptButton('option1') },
     updateText : function(text) { updatePromptButton('option1', text) },
     addAction : function(action_fn) { addPromptButtonAction('option1', action_fn) },
-    removeAction : function(action_fn) { removePromptButtonAction('option1', action_fn) }
+    removeAction : function(action_fn) { removePromptButtonAction('option1', action_fn) },
+    disable : function() { disable('option1') },
+    enable : function() { enable('option1') }
 }
 
 export const Right = {
@@ -47,7 +57,9 @@ export const Right = {
     hide : function() { hidePromptButton('option2') },
     updateText : function(text) { updatePromptButton('option2', text) },
     addAction : function(action_fn) { addPromptButtonAction('option2', action_fn) },
-    removeAction : function(action_fn) { removePromptButtonAction('option2', action_fn) }
+    removeAction : function(action_fn) { removePromptButtonAction('option2', action_fn) },
+    disable : function() { disable('option2') },
+    enable : function() { enable('option2') }
 }
 
 export const Buttons = {

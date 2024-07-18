@@ -97,7 +97,7 @@ class StoredTable {
 
 }
 
-function colSum(table, colName, name) {
+function colSum(table, colName) {
     // fill with zero until there is something saved in storage
     if(!table || table == ''){ 
         return 0; 
@@ -182,21 +182,37 @@ export class Baseline {
     }
 }
 
+export class Initiative {
+    constructor(row) {
+        this.data = row;
+        this.name = row['Initiative Name'];
+    }
+
+    expenses() { return this.data['Ballpark Total Expenses']}
+
+    revenue() { return this.data['Revenue'] }
+
+    net() { return this.expenses() - this.revenue() }
+
+}
+
 export class Supplemental {
     constructor() {
         this.table = loadTableData('new-inits');
+        this.initiatives = [];
+        if(this.table){
+            this.table.forEach((row) => { 
+                this.initiatives.push(new Initiative(row));
+            });
+        }
     }
 
     getInits() {
         return this.table.map((item) => { return item['Initiative Name'] });
     }
 
-    personnel() {
-        return colSum(this.table, 'Personnel Cost');
-    }
-
-    nonpersonnel() {
-        return colSum(this.table, 'Non-personnel Cost');
+    expenses() {
+        return colSum(this.table, 'Ballpark Total Expenses');
     }
 
     revenue() {
@@ -204,7 +220,7 @@ export class Supplemental {
     }
 
     total(){
-        return this.personnel() + this.nonpersonnel() - this.revenue();
+        return this.expenses() - this.revenue();
     }
 
 }

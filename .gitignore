@@ -1,5 +1,6 @@
-# Ignore all .xlsx files
-# *.xlsx
+
+# powershell
+.ps1
 
 # Logs
 logs

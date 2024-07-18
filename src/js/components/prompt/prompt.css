@@ -29,3 +29,11 @@ h3#prompt {
     color: white;
     border-width: 3;
 }
+
+#option1.disabled, #option2.disabled, #option1.disabled:hover, #option2.disabled:hover {
+    background-color: lightgray;
+    color: gray;
+    pointer-events: none;
+    border-color: gray;
+}
+
