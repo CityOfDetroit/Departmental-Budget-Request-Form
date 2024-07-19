@@ -97,3 +97,8 @@ div.table-container {
     cursor: pointer;
     background-color: var(--verypalegreen); 
 }
+
+/* Fund table */
+.fund-name > .viewed-fund {
+    color: gray;
+}

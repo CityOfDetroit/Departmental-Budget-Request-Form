@@ -53,6 +53,14 @@ body, button, input, textarea, select, .sidebar, table {
     margin: 0;
 }
 
-div.row {
-    margin: 0px;
+/* Font awesome */
+
+i.fas.fa-check { 
+    font-size: 1.5em;
+    color: var(--spiritgreen);
+    margin-right: 10px;
 }
+
+/* div.row {
+    margin: 0px;
+} */
