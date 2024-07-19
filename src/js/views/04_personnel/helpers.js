@@ -38,9 +38,12 @@ function assignClasses() {
         { title: 'Account String', className: 'string' },
         { title: 'Service', className: 'service' },
         { title: `FY${FISCAL_YEAR} Requested FTE`, className: 'baseline-ftes' },
-        { title: `FY${FISCAL_YEAR} Average Projected Salary/Wage`, className: 'avg-salary', isCost: true },
+        { title: `FY${FISCAL_YEAR-1} Average Projected Salary/Wage`, className: 'avg-salary', isCost: true },
         { title: 'Total Cost', className: 'total-baseline', isCost: true },
-        { title: 'Edit', className: 'edit' }
+        { title: 'Edit', className: 'edit' },
+        // calculation columns
+        // { title: 'Salary/Wage Final Request', className: 'final-salary-pre-fringe' },
+        // { title: 'Fringe Benefits Final Request', className: 'fringe'}
     ];
 
     // assign cost classes
