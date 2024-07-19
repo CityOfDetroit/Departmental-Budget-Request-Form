@@ -16,7 +16,7 @@ const nonPersonnelColumns = [
     { title : 'CPA #', className : 'cpa'},
     { title : 'Contract End Date', className : 'contract-end'},
     { title: 'Recurring or One-Time', className: 'recurring'},
-    { title: 'Object Name', className: 'object'}
+    { title: 'Object Catgory', className: 'object'}
 ];
 
 export function preparePageView(){
