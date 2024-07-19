@@ -60,6 +60,14 @@ export function nextPage(){
             return;
         }
     }
+
+    // unless on personnel (which will go to overtime), return to summary if all funds are viewed
+    const returnPages = ['revenue', 'nonpersonnel', 'new-inits', 'overtime'];
+    if (!FundLookupTable.fundsLeft() && returnPages.includes(CurrentPage.load())) {
+        visitPage('summary');
+        return;
+    }
+
     if (currentIndex >= 0 && currentIndex < keys.length - 1) {
         // Check if there is a next key, and get it
         const nextKey = keys[currentIndex + 1];

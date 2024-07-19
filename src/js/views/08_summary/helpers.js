@@ -5,14 +5,19 @@ import Subtitle from "../../components/header/header.js";
 import { visitPage } from "../view_logic.js";
 import { Accordion } from "../../components/accordion/accordion.js";
 import { downloadXLSX } from "../../utils/data_utils/XLSX_handlers.js";
-import { Baseline } from '../../utils/data_utils/local_storage_handlers.js';
+import { Baseline, CurrentFund } from '../../utils/data_utils/local_storage_handlers.js';
 import { TARGET } from '../../init.js';
 import { formatCurrency } from '../../utils/common_utils.js';
 
 export function summaryView(){
+
+    // show/hide elements
     Body.reset();
     Accordion.build();
     Accordion.show();
+
+    // set fund to none
+    CurrentFund.reset();
 
     // prompt buttons
     Prompt.Buttons.Right.updateText('Download Excel');
