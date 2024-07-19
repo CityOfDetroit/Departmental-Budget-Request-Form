@@ -58,15 +58,17 @@ function loadFunds(){
     // get list of funds from storage
     const fundDict = FundLookupTable.retrieve();
     // build out data in correct format
-    const resultArray = [];
-    for (const key in fundDict) {
-        if (fundDict.hasOwnProperty(key)) {
-            resultArray.push({
-                Fund: fundDict[key]['name']     // Use the value directly
-            });
+    const ret = [];
+    Object.keys(fundDict).forEach(key => {
+        // determine if the fund has already been edited
+        if (fundDict[key]['viewed']){
+            // todo: add a checkmark here
+            ret.push({'Fund' : fundDict[key]['name'] + ' (Edited)'});
+        } else {
+            ret.push({'Fund' : fundDict[key]['name']});   
         }
-    }
-    fillTable(resultArray);
+    });
+    fillTable(ret);
 }
 
 

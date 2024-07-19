@@ -5,7 +5,7 @@ import Form from '../../components/form/form.js'
 import Table from '../../components/table/table.js'
 import Body from '../../components/body/body.js'
 import NavButtons from '../../components/nav_buttons/nav_buttons.js'
-import { pauseAndContinue } from '../view_logic.js'
+import { nextPage } from '../view_logic.js'
 import Subtitle from '../../components/header/header.js'
 import Sidebar from '../../components/sidebar/sidebar.js'
 
@@ -28,7 +28,7 @@ export function initializePageView() {
     Prompt.Buttons.Left.updateText('Yes');
     Prompt.Buttons.Right.updateText('No');
     // clicking 'no new initialitives' will also take us to the next page
-    Prompt.Buttons.Right.addAction(pauseAndContinue);
+    Prompt.Buttons.Right.addAction(nextPage);
     Prompt.Buttons.Left.addAction(NavButtons.Next.enable);
 }
 
@@ -114,7 +114,7 @@ export function removeModalLinks(){
 }
 
 export function removePromptButtonListeners(){
-    Prompt.Buttons.Right.removeAction(pauseAndContinue);
+    Prompt.Buttons.Right.removeAction(nextPage);
     Prompt.Buttons.Left.removeAction(NavButtons.Next.enable);
     Modal.clear();
 }

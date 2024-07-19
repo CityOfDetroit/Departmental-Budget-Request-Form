@@ -30,6 +30,29 @@ export const FundLookupTable = {
     },
     listFunds : function(){
         return Object.keys(this.retrieve());
+    },
+    editFund : function(fund){
+        const table = this.retrieve();
+        if (table[fund]){
+            table[fund]['viewed'] = true;
+            this.save(table);
+        } else {
+            console.error('No fund selected.');
+        }
+        
+    },
+    listUneditedFunds : function(){
+        const table = this.retrieve();
+        const ret = [];
+        this.listFunds().forEach(key => {
+            if (!table[key]['viewed']){
+                ret.push(key);
+            }
+        });
+        return ret;
+    },
+    fundsLeft : function(){
+        return (this.listUneditedFunds().length > 0);
     }
 }
 

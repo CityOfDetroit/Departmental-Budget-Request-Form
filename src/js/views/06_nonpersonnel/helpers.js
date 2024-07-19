@@ -4,6 +4,8 @@ import Table from "../../components/table/table.js";
 import Body from "../../components/body/body.js";
 import NavButtons from "../../components/nav_buttons/nav_buttons.js";
 import Subtitle from "../../components/header/header.js";
+import { FundLookupTable } from "../../utils/data_utils/budget_data_handlers.js";
+import { CurrentFund } from "../../utils/data_utils/local_storage_handlers.js";
 
 const nonPersonnelColumns = [
     { title: 'FY26 Request', className: 'request', isCost: true },
@@ -26,9 +28,6 @@ export function preparePageView(){
     // update page text
     Subtitle.update('Non-Personnel');
     Prompt.Text.update('Select an action item for each non-personnel line item from last year.');
-
-    // just enable next for now
-    // TODO: only enable when all info is entered
     NavButtons.Next.enable();
 }
 
