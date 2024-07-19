@@ -18,7 +18,7 @@
 
 .accordion-table { 
     width: 100%;
-    font-size: 1.25em;
+    font-size: 1.2em;
     /* border-collapse: separate; This is required for rounded corners */
 }
 
@@ -49,7 +49,7 @@ span.amount {
 }
 
 .accordion-header button {
-    font-size: 0.8em;
+    font-size: 0.6em;
 }
 
 .btn-add-init {

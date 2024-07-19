@@ -5,18 +5,23 @@ import Subtitle from "../../components/header/header.js";
 import { visitPage } from "../view_logic.js";
 import { Accordion } from "../../components/accordion/accordion.js";
 import { downloadXLSX } from "../../utils/data_utils/XLSX_handlers.js";
-import { Baseline } from '../../utils/data_utils/local_storage_handlers.js';
+import { Baseline, CurrentFund } from '../../utils/data_utils/local_storage_handlers.js';
 import { TARGET } from '../../init.js';
 import { formatCurrency } from '../../utils/common_utils.js';
 
 export function summaryView(){
+
+    // show/hide elements
     Body.reset();
     Accordion.build();
     Accordion.show();
 
+    // set fund to none
+    CurrentFund.reset();
+
     // prompt buttons
     Prompt.Buttons.Right.updateText('Download Excel');
-    Prompt.Buttons.Left.updateText('Go back to home');
+    Prompt.Buttons.Left.updateText('Start over');
     // add button links
     Prompt.Buttons.Left.addAction(returnToWelcome);
     Prompt.Buttons.Right.addAction(downloadXLSX);
@@ -47,4 +52,5 @@ const returnToWelcome = () => {visitPage('welcome')}
 export function disablePromptButtons(){
     Prompt.Buttons.Left.removeAction(returnToWelcome);
     Prompt.Buttons.Right.removeAction(downloadXLSX);
+    Prompt.Buttons.Right.enable();
 }

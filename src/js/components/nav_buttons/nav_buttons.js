@@ -31,7 +31,13 @@ function enable(button_id) {
 
 const Next = {
     disable : function() { disable('btn-next') },
-    enable : function() { enable('btn-next') }
+    enable : function() { enable('btn-next') },
+    addAction : function(fn) {
+        document.querySelector(`#btn-next`).addEventListener('click', fn);
+    },
+    removeAction : function(fn) {
+        document.querySelector(`#btn-next`).removeEventListener('click', fn);
+    },
 }
 
 const Last = {

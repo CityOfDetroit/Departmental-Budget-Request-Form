@@ -25,7 +25,7 @@ function fillTable(data) {
             const row = document.createElement('tr');
             Object.values(item).forEach(val => {
             const cell = document.createElement('td');
-            cell.textContent = val;
+            cell.innerHTML = val;
             row.appendChild(cell);
             });
             tbody.appendChild(row);
@@ -58,15 +58,22 @@ function loadFunds(){
     // get list of funds from storage
     const fundDict = FundLookupTable.retrieve();
     // build out data in correct format
-    const resultArray = [];
-    for (const key in fundDict) {
-        if (fundDict.hasOwnProperty(key)) {
-            resultArray.push({
-                Fund: fundDict[key]     // Use the value directly
-            });
+    const ret = [];
+    Object.keys(fundDict).forEach(key => {
+        // determine if the fund has already been edited
+        if (fundDict[key]['viewed']){
+            // todo: add a checkmark here
+            ret.push({'Fund' :  `<span class = 'viewed-fund'> 
+                                    <i class="fas fa-check"></i>
+                                    ${fundDict[key]['name']}
+                                </span>`});
+        } else {
+            ret.push({'Fund' : `<span class = 'unviewed-fund'> 
+                                    ${fundDict[key]['name']}
+                                </span>`});   
         }
-    }
-    fillTable(resultArray);
+    });
+    fillTable(ret);
 }
 
 

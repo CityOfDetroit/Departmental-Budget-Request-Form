@@ -3,7 +3,7 @@ import { formatCurrency } from '../../utils/common_utils.js'
 import { REVENUE } from '../../init.js'
 import Body from '../../components/body/body.js'
 import NavButtons from '../../components/nav_buttons/nav_buttons.js'
-import { pauseAndContinue } from '../view_logic.js'
+import { nextPage } from '../view_logic.js'
 import Subtitle from '../../components/header/header.js'
 import Modal from '../../components/modal/modal.js'
 import Form from '../../components/form/form.js'
@@ -23,7 +23,7 @@ export function preparePageView(){
 
 export function setUpNavButtons(){
     // clicking 'confirm' will also take us to the next page
-    Prompt.Buttons.Left.addAction(pauseAndContinue);
+    Prompt.Buttons.Left.addAction(nextPage);
     // TODO: allow user to edit revenue here
     Modal.Link.add('option2');
     handleErrorComment();
@@ -31,7 +31,7 @@ export function setUpNavButtons(){
 
 export function removeButtonEvents(){
     // remove event listeners on prompt buttons
-    Prompt.Buttons.Left.removeAction(pauseAndContinue);
+    Prompt.Buttons.Left.removeAction(nextPage);
     Modal.Link.remove('option2');
 }
 
