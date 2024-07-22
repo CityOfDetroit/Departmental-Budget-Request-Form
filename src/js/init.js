@@ -4,20 +4,11 @@ import '../css/common.css';
 // import functions
 import { CurrentPage } from './utils/data_utils/local_storage_handlers.js';
 
-// path for my laptop
-export let DATA_ROOT = '../../../data/law_dept_sample/'
-// github path
-// export let DATA_ROOT = '../../budget-request-demo/data/law_dept_sample/'
-
+// temporary hard-coding
 export let REVENUE = 0;
 export let TARGET = 14000000;
+// Set to equal current fiscal year
 export var FISCAL_YEAR = '26';
-export var OT_FRINGE = 0.0765;
-
-// variables on the salary 
-export var fringe = 0.36
-export var cola = 0.02
-export var merit = 0.02
 
 // sheets to expect on detail sheet
 export const SHEETS = {
