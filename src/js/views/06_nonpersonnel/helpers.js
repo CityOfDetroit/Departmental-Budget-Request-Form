@@ -4,8 +4,6 @@ import Table from "../../components/table/table.js";
 import Body from "../../components/body/body.js";
 import NavButtons from "../../components/nav_buttons/nav_buttons.js";
 import Subtitle from "../../components/header/header.js";
-import { FundLookupTable } from "../../utils/data_utils/budget_data_handlers.js";
-import { CurrentFund } from "../../utils/data_utils/local_storage_handlers.js";
 
 const nonPersonnelColumns = [
     { title: 'FY26 Request', className: 'request', isCost: true },
@@ -16,7 +14,7 @@ const nonPersonnelColumns = [
     { title : 'CPA #', className : 'cpa'},
     { title : 'Contract End Date', className : 'contract-end'},
     { title: 'Recurring or One-Time', className: 'recurring'},
-    { title: 'Object Catgory', className: 'object'}
+    { title: 'Object Catgory', className: 'object'}  
 ];
 
 export function preparePageView(){

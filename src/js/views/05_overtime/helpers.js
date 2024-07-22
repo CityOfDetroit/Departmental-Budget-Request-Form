@@ -6,7 +6,6 @@ import Subtitle from '../../components/header/header.js';
 import Sidebar from '../../components/sidebar/sidebar.js';
 import Table from '../../components/table/table.js';
 import { Services } from '../../utils/data_utils/budget_data_handlers.js';
-import { OT_FRINGE } from '../../init.js';
 
 export function preparePageView(){
     // prepare page view
@@ -36,7 +35,9 @@ function assignClasses() {
         { title: 'Hourly Employee Overtime (Wages)', className: 'OT-wages', isCost: true },
         { title: 'Salaried Employee Overtime (Salary)', className: 'OT-salary', isCost: true },
         { title: 'Total Cost (including benefits)', className : 'total', isCost: true},
-        { title: 'Edit', className: 'edit'}
+        { title: 'Edit', className: 'edit'},
+        // calc columns
+        { title: 'FICA Rate', className: 'fica', hide: true}
     ];
 
     // assign cost classes
@@ -80,9 +81,10 @@ function updateDisplayandTotals(){
         // fetch values for calculations
         let OT_salary = Table.Cell.getValue(rows[i], 'OT-salary');
         let OT_wages = Table.Cell.getValue(rows[i], 'OT-wages');
+        let fringe_rate = Table.Cell.getText(rows[i], 'fringe');
 
         // add salary and wages and fringe benefits (FICA)
-        let row_total = calculateTotalCost(OT_salary, OT_wages, OT_FRINGE);
+        let row_total = calculateTotalCost(OT_salary, OT_wages, fringe_rate);
 
         // update total
         Table.Cell.updateValue(rows[i], 'total', row_total);

@@ -1,5 +1,5 @@
 
-import { FISCAL_YEAR, fringe, cola, merit } from "../../init.js"
+import { FISCAL_YEAR } from "../../init.js"
 import Body from "../../components/body/body.js";
 import NavButtons from "../../components/nav_buttons/nav_buttons.js";
 import Subtitle from "../../components/header/header.js";
@@ -9,9 +9,7 @@ import Prompt from "../../components/prompt/prompt.js";
 import Table from '../../components/table/table.js'
 import Sidebar from "../../components/sidebar/sidebar.js";
 import { Services } from "../../utils/data_utils/budget_data_handlers.js";
-import { convertToJSON } from "../../utils/data_utils/JSON_data_handlers.js";
 
-import { Baseline, loadTableData } from "../../utils/data_utils/local_storage_handlers.js";
 
 export function preparePageView(){
     // prepare page view
@@ -38,12 +36,11 @@ function assignClasses() {
         { title: 'Account String', className: 'string' },
         { title: 'Service', className: 'service' },
         { title: `FY${FISCAL_YEAR} Requested FTE`, className: 'baseline-ftes' },
-        { title: `FY${FISCAL_YEAR-1} Average Projected Salary/Wage`, className: 'avg-salary', isCost: true },
+        { title: `FY${FISCAL_YEAR} Average Projected Salary/Wage`, className: 'avg-salary', isCost: true },
         { title: 'Total Cost', className: 'total-baseline', isCost: true },
         { title: 'Edit', className: 'edit' },
         // calculation columns
-        // { title: 'Salary/Wage Final Request', className: 'final-salary-pre-fringe' },
-        // { title: 'Fringe Benefits Final Request', className: 'fringe'}
+        { title: 'Fringe Benefits Final Request', className: 'fringe', isCost: true, hide: true}
     ];
 
     // assign cost classes
@@ -77,10 +74,6 @@ function initializeRowAddition(){
     Table.Buttons.AddRow.show();
 }
 
-function calculateTotalCost(ftes, avg_salary, fringe, cola, merit){
-    return ftes * avg_salary * (1 + fringe) * (1 + cola) * (1 + merit);
-}
-
 // update sidebar and also cost totals when the FTEs are edited
 function updateDisplayandTotals(){
     // calculate for each row
@@ -88,10 +81,11 @@ function updateDisplayandTotals(){
     for (let i = 1; i < rows.length; i++){
         // fetch values for calculations
         let avg_salary = Table.Cell.getValue(rows[i], 'avg-salary');
+        let fringe = Table.Cell.getValue(rows[i], 'fringe');
         let baseline_ftes = Table.Cell.getText(rows[i], 'baseline-ftes');
 
         // calcuate #FTEs x average salary + COLA adjustments + merit adjustments + fringe
-        let total_baseline_cost = calculateTotalCost(baseline_ftes, avg_salary, fringe, cola, merit);
+        let total_baseline_cost = (avg_salary + fringe) * baseline_ftes;
 
         // update total column
         Table.Cell.updateValue(rows[i], 'total-baseline', total_baseline_cost);
