@@ -114,7 +114,9 @@ function assignColumnClasses(columnDefinitions) {
         }
 
         // show the column
-        showColumnByTitle(column.title);
+        if (!column.hide){
+            showColumnByTitle(column.title);
+        }
     });
 }
 
