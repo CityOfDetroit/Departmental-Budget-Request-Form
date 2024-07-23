@@ -21,14 +21,13 @@ export function summaryView(){
 
     // prompt buttons
     Prompt.Buttons.Right.updateText('Download Excel');
-    Prompt.Buttons.Left.updateText('Start over');
+    Prompt.Buttons.Left.updateText('Start over with new Excel upload');
     // add button links
     Prompt.Buttons.Left.addAction(returnToWelcome);
     Prompt.Buttons.Right.addAction(downloadXLSX);
 
     // update page text
     Subtitle.update('Summary');
-
     compareToTarget()
 }
 

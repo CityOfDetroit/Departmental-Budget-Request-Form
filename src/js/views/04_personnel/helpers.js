@@ -1,5 +1,5 @@
 
-import { FISCAL_YEAR, fringe, cola, merit } from "../../init.js"
+import { FISCAL_YEAR } from "../../init.js"
 import Body from "../../components/body/body.js";
 import NavButtons from "../../components/nav_buttons/nav_buttons.js";
 import Subtitle from "../../components/header/header.js";
@@ -9,9 +9,8 @@ import Prompt from "../../components/prompt/prompt.js";
 import Table from '../../components/table/table.js'
 import Sidebar from "../../components/sidebar/sidebar.js";
 import { Services } from "../../utils/data_utils/budget_data_handlers.js";
-import { convertToJSON } from "../../utils/data_utils/JSON_data_handlers.js";
+import Tooltip from "../../components/tooltip/tooltip.js";
 
-import { Baseline, loadTableData } from "../../utils/data_utils/local_storage_handlers.js";
 
 export function preparePageView(){
     // prepare page view
@@ -35,12 +34,19 @@ function assignClasses() {
     // record columns and their classes
     const personnelColumns = [
         { title: 'Job Title', className: 'job-name' },
-        { title: 'Account String', className: 'string' },
+        { title: 'Account String', className: 'account-string' },
         { title: 'Service', className: 'service' },
         { title: `FY${FISCAL_YEAR} Requested FTE`, className: 'baseline-ftes' },
         { title: `FY${FISCAL_YEAR} Average Projected Salary/Wage`, className: 'avg-salary', isCost: true },
         { title: 'Total Cost', className: 'total-baseline', isCost: true },
-        { title: 'Edit', className: 'edit' }
+        { title: 'Edit', className: 'edit' },
+        // hidden columns needed for calculations
+        { title: 'Fringe Benefits Rate', className: 'fringe', hide: true },
+        { title: 'Appropriation Name', className: 'approp-name', hide: true },
+        { title: 'Cost Center Name', className: 'cc-name',  hide: true },
+        { title: 'General Increase Rate', className: 'general-increase-rate', hide: true},
+        { title: 'Step/Merit Increase Rate', className: 'merit-increase-rate', hide: true},
+        { title: `Average Salary/Wage as of 9/1/20${FISCAL_YEAR-2}`, className: 'current-salary', isCost: true, hide: true},
     ];
 
     // assign cost classes
@@ -64,6 +70,8 @@ export async function initializePersonnelTable(){
         // activate edit buttons
         Table.Buttons.Edit.init(personnelRowOnEdit, updateDisplayandTotals);
         initializeRowAddition();
+        // Link up tooltips to display more info on hover
+        Tooltip.linkAllPersonnel();
     } else {
         Prompt.Text.update('No personnel expenditures for this fund.')
     }
@@ -74,10 +82,6 @@ function initializeRowAddition(){
     Table.Buttons.AddRow.show();
 }
 
-function calculateTotalCost(ftes, avg_salary, fringe, cola, merit){
-    return ftes * avg_salary * (1 + fringe) * (1 + cola) * (1 + merit);
-}
-
 // update sidebar and also cost totals when the FTEs are edited
 function updateDisplayandTotals(){
     // calculate for each row
@@ -85,10 +89,11 @@ function updateDisplayandTotals(){
     for (let i = 1; i < rows.length; i++){
         // fetch values for calculations
         let avg_salary = Table.Cell.getValue(rows[i], 'avg-salary');
+        let fringe = parseFloat(Table.Cell.getText(rows[i], 'fringe'));
         let baseline_ftes = Table.Cell.getText(rows[i], 'baseline-ftes');
 
         // calcuate #FTEs x average salary + COLA adjustments + merit adjustments + fringe
-        let total_baseline_cost = calculateTotalCost(baseline_ftes, avg_salary, fringe, cola, merit);
+        let total_baseline_cost = avg_salary * baseline_ftes * (1 + fringe);
 
         // update total column
         Table.Cell.updateValue(rows[i], 'total-baseline', total_baseline_cost);
@@ -98,7 +103,6 @@ function updateDisplayandTotals(){
     Table.save();
 
 }
-
 
 export function setUpModal() {
     // Initialize modal

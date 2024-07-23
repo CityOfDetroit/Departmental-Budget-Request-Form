@@ -6,7 +6,7 @@ import Subtitle from '../../components/header/header.js';
 import Sidebar from '../../components/sidebar/sidebar.js';
 import Table from '../../components/table/table.js';
 import { Services } from '../../utils/data_utils/budget_data_handlers.js';
-import { OT_FRINGE } from '../../init.js';
+import Tooltip from '../../components/tooltip/tooltip.js';
 
 export function preparePageView(){
     // prepare page view
@@ -29,14 +29,17 @@ export function preparePageView(){
 function assignClasses() {
     // record columns and their classes
     const OT_cols = [
-        { title: 'Account String', className: 'string' },
-        { title: `Cost Center Name`, className: 'cc' },
+        // { title: 'Account String', className: 'account-string' },
+        { title: `Cost Center Name`, className: 'cc-name' },
+        { title: 'Appropriation Name', className: 'approp-name'},
         { title: 'Service', className: 'service' },
         { title: 'Recurring or One-Time', className: 'recurring'},
         { title: 'Hourly Employee Overtime (Wages)', className: 'OT-wages', isCost: true },
         { title: 'Salaried Employee Overtime (Salary)', className: 'OT-salary', isCost: true },
         { title: 'Total Cost (including benefits)', className : 'total', isCost: true},
-        { title: 'Edit', className: 'edit'}
+        { title: 'Edit', className: 'edit'},
+        // calc columns
+        { title: 'FICA Rate', className: 'fica', hide: true},
     ];
 
     // assign cost classes
@@ -54,22 +57,22 @@ export async function initializeOTTable(){
     if(await Table.Data.load()) {
         //after table is loaded, fill it
         Table.show();
-        Table.Columns.addAtEnd( '0', 'Hourly Employee Overtime (Wages)');
-        Table.Columns.addAtEnd( '0', 'Salaried Employee Overtime (Salary)');
-        // Table.Columns.addAtEnd( '0', 'Total Cost (including benefits)');
         Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, 'Edit');;
         assignClasses();
         // add up the baseline costs and update sidebar
         updateDisplayandTotals();
         // activate edit buttons
         Table.Buttons.Edit.init(OTRowOnEdit, updateDisplayandTotals);
+        // wire up tooltips to show info on click
+        Tooltip.linkAllOvertime();
     } else {
         Prompt.Text.update('No overtime expenditures for this fund.')
     }
 }
 
-function calculateTotalCost(wages, salary, fringe){
-    return (wages + salary) * (1 + fringe) ;
+function calculateTotalCost(salary, wages, fica_rate){
+    fica_rate = parseFloat(fica_rate);
+    return (wages + salary) * (1 + fica_rate) ;
 }
 
 // update sidebar and also cost totals when the FTEs are edited
@@ -80,9 +83,10 @@ function updateDisplayandTotals(){
         // fetch values for calculations
         let OT_salary = Table.Cell.getValue(rows[i], 'OT-salary');
         let OT_wages = Table.Cell.getValue(rows[i], 'OT-wages');
+        let fica_rate = Table.Cell.getText(rows[i], 'fica');
 
         // add salary and wages and fringe benefits (FICA)
-        let row_total = calculateTotalCost(OT_salary, OT_wages, OT_FRINGE);
+        let row_total = calculateTotalCost(OT_salary, OT_wages, fica_rate);
 
         // update total
         Table.Cell.updateValue(rows[i], 'total', row_total);

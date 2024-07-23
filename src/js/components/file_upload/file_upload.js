@@ -38,3 +38,5 @@ function readXL(event) {
         reader.readAsArrayBuffer(file); // Read the file as an ArrayBuffer
     }
 }
+
+export default FileUpload;

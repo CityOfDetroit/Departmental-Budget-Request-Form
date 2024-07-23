@@ -1,4 +1,4 @@
-import { FISCAL_YEAR, DATA_ROOT } from "../../init.js";
+import { FISCAL_YEAR } from "../../init.js";
 import Sidebar from "../../components/sidebar/sidebar.js";
 import { PAGES, visitPage } from "../../views/view_logic.js";
 import { fetchJSON } from "./JSON_data_handlers.js";

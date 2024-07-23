@@ -4,19 +4,26 @@ import Table from "../../components/table/table.js";
 import Body from "../../components/body/body.js";
 import NavButtons from "../../components/nav_buttons/nav_buttons.js";
 import Subtitle from "../../components/header/header.js";
-import { FundLookupTable } from "../../utils/data_utils/budget_data_handlers.js";
-import { CurrentFund } from "../../utils/data_utils/local_storage_handlers.js";
+import Tooltip from "../../components/tooltip/tooltip.js";
 
 const nonPersonnelColumns = [
     { title: 'FY26 Request', className: 'request', isCost: true },
-    { title: 'Amount Remaining on Contract', className: 'remaining', isCost: true },
     { title: 'Service', className : 'service' },
     { title: 'Edit', className : 'edit' },
     { title : 'Account String', className : 'account-string'},
-    { title : 'CPA #', className : 'cpa'},
-    { title : 'Contract End Date', className : 'contract-end'},
     { title: 'Recurring or One-Time', className: 'recurring'},
-    { title: 'Object Name', className: 'object'}
+
+    { title : 'CPA #', className : 'cpa'},
+
+    // hidden columns used for calcs and info boxes
+    { title: 'Appropriation Name', className: 'approp-name', hide: true },
+    { title: 'Cost Center Name', className: 'cc-name',  hide: true },
+    { title : 'Contract End Date', className : 'contract-end', hide:true},
+    { title: 'Amount Remaining on Contract', className: 'remaining', isCost: true , hide: true},
+    { title: 'Object Name', className: 'object-name', hide: true},
+    { title: 'Vendor Name', className: 'vendor', hide: true},
+    { title: 'Object Category', className: 'object-category', hide: true},
+    { title: 'BPA/CPA Description', className: 'cpa-description', hide: true}  
 ];
 
 export function preparePageView(){
@@ -41,6 +48,8 @@ export async function initializeNonpersonnelTable(){
         Table.Columns.assignClasses(nonPersonnelColumns);
         // enable editing
         Table.Buttons.Edit.init(nonPersonnelRowOnEdit, Table.save);
+        // show info boxes on click
+        Tooltip.linkAllNP();
     } else {
         Prompt.Text.update('No non-personnel expenditures for this fund.')
     }

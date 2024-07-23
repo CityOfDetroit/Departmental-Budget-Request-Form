@@ -1,0 +1,37 @@
+#tooltip {
+    position: absolute;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    visibility: hidden;
+    white-space: nowrap;
+    font-size: 14px;
+    z-index: 1000;
+    max-width: 300px;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+.tooltip-cell {
+    /* color: blue; */
+    /* text-decoration: underline; */
+    cursor: pointer;
+}
+
+.tooltip-cell .info-icon {
+    margin-left: 5px;
+    color: var(--spiritgreen);
+    font-size: 15px;
+}
+
+.tooltip-cell:hover {
+    background-color: #f0f0f0; /* Change background on hover */
+}
+
+.detail {
+    color: blue;
+    color: var(--spiritgreen);
+    text-decoration: underline;
+    margin-left: 5px;
+}
