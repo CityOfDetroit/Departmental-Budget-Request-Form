@@ -176,6 +176,10 @@ export const Tooltip = {
     linkAllNP : function() {
         this.linkAccountStringCol();
         this.linkCPACol();
+    },
+
+    linkAllRevenue : function() {
+        this.linkAccountStringCol();
     }
 }
 

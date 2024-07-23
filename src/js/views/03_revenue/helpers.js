@@ -4,6 +4,7 @@ import NavButtons from '../../components/nav_buttons/nav_buttons.js'
 import Subtitle from '../../components/header/header.js'
 import Sidebar from '../../components/sidebar/sidebar.js'
 import Table from '../../components/table/table.js'
+import Tooltip from '../../components/tooltip/tooltip.js'
 
 const revenueColumns = [
     { title: 'Edit', className : 'edit' },
@@ -50,7 +51,7 @@ export async function initializeRevTable(){
         // enable editing
         Table.Buttons.Edit.init(revRowOnEdit, Table.save);
         // show info boxes on click
-        //Tooltip.linkAllRevenue();
+        Tooltip.linkAllRevenue();
     } else {
         Prompt.Text.update('No revenues for this fund.')
     }
