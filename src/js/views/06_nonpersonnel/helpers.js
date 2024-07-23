@@ -7,14 +7,19 @@ import Subtitle from "../../components/header/header.js";
 
 const nonPersonnelColumns = [
     { title: 'FY26 Request', className: 'request', isCost: true },
-    { title: 'Amount Remaining on Contract', className: 'remaining', isCost: true },
     { title: 'Service', className : 'service' },
     { title: 'Edit', className : 'edit' },
     { title : 'Account String', className : 'account-string'},
-    { title : 'CPA #', className : 'cpa'},
-    { title : 'Contract End Date', className : 'contract-end'},
     { title: 'Recurring or One-Time', className: 'recurring'},
-    { title: 'Object Category', className: 'object'}  
+
+    { title : 'CPA #', className : 'cpa'},
+    { title : 'Contract End Date', className : 'contract-end', hide:true},
+    { title: 'Amount Remaining on Contract', className: 'remaining', isCost: true , hide: true},
+
+    // hidden columns used for calcs and info boxes
+    { title: 'Object Name', className: 'object-name', hide: true},
+    { title: 'Vendor Name', className: 'vendor', hide: true},
+    { title: 'Object Category', className: 'object-category', hide: true}  
 ];
 
 export function preparePageView(){

@@ -61,6 +61,15 @@ function showFinalPersonnelCost(event){
     editTooltipText(message);
 }
 
+function showFICA(event){
+    const row = event.target.parentElement;
+    const fica = parseFloat(Cell.getText(row, 'fica'));
+    const ficaPercentage = (fica * 100).toFixed(2);
+    const message = `This total is overtime wages plus overtime salary plus FICA, 
+                     which is ${ficaPercentage}% for this cost center.`
+    editTooltipText(message);
+}
+
 export const Tooltip = {
 
     hide : hideTooltip,
@@ -114,10 +123,22 @@ export const Tooltip = {
         })
     },
 
-    linkAll : function() {
+    linkTotalNPCol : function() {
+        // get all relevant cells
+        document.querySelectorAll('.total').forEach( (cell) => {
+            this.link(cell, showFICA);
+        })
+    },
+
+    linkAllPersonnel : function() {
         this.linkAccountStringCol();
         this.linkSalaryCol();
         this.linkTotalPersonnelCostCol();
+    },
+
+    linkAllOvertime : function() {
+        // this.linkAccountStringCol();
+        this.linkTotalNPCol();
     }
 }
 

@@ -70,11 +70,11 @@ export async function initializePersonnelTable(){
         // activate edit buttons
         Table.Buttons.Edit.init(personnelRowOnEdit, updateDisplayandTotals);
         initializeRowAddition();
+        // Link up tooltips to display more info on hover
+        Tooltip.linkAllPersonnel();
     } else {
         Prompt.Text.update('No personnel expenditures for this fund.')
     }
-    // Link up tooltips to display more info on hover
-    Tooltip.linkAll();
 }
 
 function initializeRowAddition(){

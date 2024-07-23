@@ -6,6 +6,7 @@ import Subtitle from '../../components/header/header.js';
 import Sidebar from '../../components/sidebar/sidebar.js';
 import Table from '../../components/table/table.js';
 import { Services } from '../../utils/data_utils/budget_data_handlers.js';
+import Tooltip from '../../components/tooltip/tooltip.js';
 
 export function preparePageView(){
     // prepare page view
@@ -28,8 +29,9 @@ export function preparePageView(){
 function assignClasses() {
     // record columns and their classes
     const OT_cols = [
-        { title: 'Account String', className: 'string' },
-        { title: `Cost Center Name`, className: 'cc' },
+        // { title: 'Account String', className: 'account-string' },
+        { title: `Cost Center Name`, className: 'cc-name' },
+        { title: 'Appropriation Name', className: 'approp-name'},
         { title: 'Service', className: 'service' },
         { title: 'Recurring or One-Time', className: 'recurring'},
         { title: 'Hourly Employee Overtime (Wages)', className: 'OT-wages', isCost: true },
@@ -37,7 +39,7 @@ function assignClasses() {
         { title: 'Total Cost (including benefits)', className : 'total', isCost: true},
         { title: 'Edit', className: 'edit'},
         // calc columns
-        { title: 'FICA Rate', className: 'fica', hide: true}
+        { title: 'FICA Rate', className: 'fica', hide: true},
     ];
 
     // assign cost classes
@@ -61,6 +63,8 @@ export async function initializeOTTable(){
         updateDisplayandTotals();
         // activate edit buttons
         Table.Buttons.Edit.init(OTRowOnEdit, updateDisplayandTotals);
+        // wire up tooltips to show info on click
+        Tooltip.linkAllOvertime();
     } else {
         Prompt.Text.update('No overtime expenditures for this fund.')
     }
