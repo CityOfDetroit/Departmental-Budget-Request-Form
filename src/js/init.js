@@ -6,7 +6,7 @@ import { CurrentPage } from './utils/data_utils/local_storage_handlers.js';
 
 // temporary hard-coding
 export let REVENUE = 0;
-export let TARGET = 14000000;
+export let TARGET = 10000000;
 // Set to equal current fiscal year
 export var FISCAL_YEAR = '26';
 

@@ -85,7 +85,7 @@ class StoredTable {
             case 'nonpersonnel':
                 return `FY${FISCAL_YEAR} Request`;
             case 'revenue':
-                break;
+                return `Departmental Request Total`;
             default:
                 break;
         }
