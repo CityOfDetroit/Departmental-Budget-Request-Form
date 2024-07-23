@@ -13,4 +13,5 @@
 .tooltip-cell {
     color: blue;
     text-decoration: underline;
+    cursor: pointer;
 }

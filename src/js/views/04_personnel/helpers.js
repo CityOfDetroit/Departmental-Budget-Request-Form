@@ -9,6 +9,7 @@ import Prompt from "../../components/prompt/prompt.js";
 import Table from '../../components/table/table.js'
 import Sidebar from "../../components/sidebar/sidebar.js";
 import { Services } from "../../utils/data_utils/budget_data_handlers.js";
+import Tooltip from "../../components/tooltip/tooltip.js";
 
 
 export function preparePageView(){
@@ -33,14 +34,16 @@ function assignClasses() {
     // record columns and their classes
     const personnelColumns = [
         { title: 'Job Title', className: 'job-name' },
-        { title: 'Account String', className: 'string' },
+        { title: 'Account String', className: 'account-string' },
         { title: 'Service', className: 'service' },
         { title: `FY${FISCAL_YEAR} Requested FTE`, className: 'baseline-ftes' },
         { title: `FY${FISCAL_YEAR} Average Projected Salary/Wage`, className: 'avg-salary', isCost: true },
         { title: 'Total Cost', className: 'total-baseline', isCost: true },
         { title: 'Edit', className: 'edit' },
-        // calculation columns
-        { title: 'Fringe Benefits Final Request', className: 'fringe', isCost: true, hide: true}
+        // hidden columns needed for calculations
+        { title: 'Fringe Benefits Final Request', className: 'fringe', isCost: true, hide: true },
+        { title: 'Appropriation Name', className: 'approp-name', hide: true },
+        { title: 'Cost Center Name', className: 'cc-name',  hide: true }
     ];
 
     // assign cost classes
@@ -67,6 +70,8 @@ export async function initializePersonnelTable(){
     } else {
         Prompt.Text.update('No personnel expenditures for this fund.')
     }
+    // Link up tooltips to display more info on hover
+    Tooltip.linkAccountStringCol();
 }
 
 function initializeRowAddition(){
@@ -95,7 +100,6 @@ function updateDisplayandTotals(){
     Table.save();
 
 }
-
 
 export function setUpModal() {
     // Initialize modal
