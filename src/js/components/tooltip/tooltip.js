@@ -14,19 +14,20 @@ function showTooltip() {
 function editTooltipText(newText){
     // edit text to display inside tooltip
     const tooltip = document.getElementById('tooltip');
-    tooltip.innerText = newText;
+    tooltip.innerHTML = newText;
 }
 
-function showAccountString(event){
-    const row = event.target.parentElement;
+function showAccountString(row){
     const approp = Cell.getText(row, 'approp-name');
     const cc =  Cell.getText(row, 'cc-name');
-    editTooltipText(`Appropriation: ${approp}
-                    Cost Center: ${cc}`)
+    const obj =  Cell.getText(row, 'object-name');
+    var message = `<strong>Appropriation</strong>: ${approp}<br>
+                    <strong>Cost Center</strong>: ${cc}`;
+    if (obj) { message += `<br><strong>Object</strong>: ${obj}`}
+    editTooltipText(message);
 }
 
-function showSalaryProjection(event){
-    const row = event.target.parentElement;
+function showSalaryProjection(row){
     const general_increase = Cell.getText(row, 'general-increase-rate');
     const merit_increase =  Cell.getText(row, 'merit-increase-rate');
     const current_salary = Cell.getValue(row, 'current-salary');
@@ -48,8 +49,7 @@ function showSalaryProjection(event){
     editTooltipText(message);
 }
 
-function showFinalPersonnelCost(event){
-    const row = event.target.parentElement;
+function showFinalPersonnelCost(row){
     const proj_salary = Cell.getValue(row, 'avg-salary');
     const ftes = Cell.getText(row, 'baseline-ftes');
     const fringe = parseFloat(Cell.getText(row, 'fringe'));
@@ -61,12 +61,30 @@ function showFinalPersonnelCost(event){
     editTooltipText(message);
 }
 
-function showFICA(event){
-    const row = event.target.parentElement;
+function showFICA(row){
     const fica = parseFloat(Cell.getText(row, 'fica'));
     const ficaPercentage = (fica * 100).toFixed(2);
     const message = `This total is overtime wages plus overtime salary plus FICA, 
                      which is ${ficaPercentage}% for this cost center.`
+    editTooltipText(message);
+}
+
+function showCPA(row){
+    const cpa = parseFloat(Cell.getText(row, 'cpa'));
+    const description = Cell.getText(row, 'cpa-description');
+    const vendor = Cell.getText(row, 'vendor');
+    const contract_end = Cell.getText(row, 'contract-end');
+    const remaining = Cell.getValue(row, 'remaining');
+    if (cpa) {
+        var message = `<strong>CPA #${cpa}</strong>`;
+    } else {
+        var message = `No CPA`;
+    }
+    if (vendor) {message += `<br><strong>Vendor</strong>: ${vendor}`};
+    if (description) {message += `<br><strong>Description</strong>: ${description}`};
+    if (contract_end) {message += `<br><strong>Contract End Date</strong>: ${contract_end}`}
+    if (remaining) {message += `<br><strong>Amount Remaining on Contract</strong>: ${formatCurrency(remaining)}`}
+
     editTooltipText(message);
 }
 
@@ -81,13 +99,20 @@ export const Tooltip = {
         element.classList.add('tooltip-cell');
 
         // Create and append the Font Awesome info icon
-        const infoIcon = document.createElement('i');
-        infoIcon.classList.add('fas', 'fa-info-circle', 'info-icon');
-        element.appendChild(infoIcon);
+        // const infoIcon = document.createElement('i');
+        // infoIcon.classList.add('fas', 'fa-info-circle', 'info-icon');
+        // element.appendChild(infoIcon);
+
+        // Create and append (detail)
+        const detail = document.createElement('span');
+        detail.classList.add('detail');
+        detail.textContent = '(detail)';
+        element.appendChild(detail);
 
         // add event listener to show tooltip on mouseover
         element.addEventListener('click', function (event) {
-            displayFn(event);
+            const row = event.target.closest('tr');
+            displayFn(row);
             showTooltip();
         });
         // and hide when mouse moves off
@@ -123,10 +148,17 @@ export const Tooltip = {
         })
     },
 
-    linkTotalNPCol : function() {
+    linkTotalOTCol : function() {
         // get all relevant cells
         document.querySelectorAll('.total').forEach( (cell) => {
             this.link(cell, showFICA);
+        })
+    },
+
+    linkCPACol : function() {
+        // get all relevant cells
+        document.querySelectorAll('.cpa').forEach( (cell) => {
+            this.link(cell, showCPA);
         })
     },
 
@@ -138,7 +170,12 @@ export const Tooltip = {
 
     linkAllOvertime : function() {
         // this.linkAccountStringCol();
-        this.linkTotalNPCol();
+        this.linkTotalOTCol();
+    },
+
+    linkAllNP : function() {
+        this.linkAccountStringCol();
+        this.linkCPACol();
     }
 }
 

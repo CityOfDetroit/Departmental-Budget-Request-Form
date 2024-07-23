@@ -8,6 +8,9 @@
     white-space: nowrap;
     font-size: 14px;
     z-index: 1000;
+    max-width: 300px;
+    word-wrap: break-word;
+    white-space: normal;
 }
 
 .tooltip-cell {
@@ -24,4 +27,11 @@
 
 .tooltip-cell:hover {
     background-color: #f0f0f0; /* Change background on hover */
+}
+
+.detail {
+    color: blue;
+    color: var(--spiritgreen);
+    text-decoration: underline;
+    margin-left: 5px;
 }

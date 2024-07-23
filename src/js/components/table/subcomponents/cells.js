@@ -15,7 +15,7 @@ function getCellText(row, className) {
     if (cell) {
         return cell.textContent;
     } else {
-        console.log(`Error retrieving cell text for class ${className}`);
+        //console.log(`Error retrieving cell text for class ${className}`);
         return '';
     }
 }
