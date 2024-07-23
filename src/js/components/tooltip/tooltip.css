@@ -11,7 +11,17 @@
 }
 
 .tooltip-cell {
-    color: blue;
-    text-decoration: underline;
+    /* color: blue; */
+    /* text-decoration: underline; */
     cursor: pointer;
+}
+
+.tooltip-cell .info-icon {
+    margin-left: 5px;
+    color: var(--spiritgreen);
+    font-size: 15px;
+}
+
+.tooltip-cell:hover {
+    background-color: #f0f0f0; /* Change background on hover */
 }

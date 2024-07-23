@@ -17,7 +17,6 @@ function editTooltipText(newText){
 
 function showAccountString(event){
     const row = event.target.parentElement;
-    console.log(row);
     const approp = Cell.getText(row, 'approp-name');
     const cc =  Cell.getText(row, 'cc-name');
     editTooltipText(`Appropriation: ${approp}
@@ -30,8 +29,15 @@ export const Tooltip = {
     show : showTooltip,
 
     link : function(element) {
+
         // add class to show cell with an underline, etc
         element.classList.add('tooltip-cell');
+
+        // Create and append the Font Awesome info icon
+        const infoIcon = document.createElement('i');
+        infoIcon.classList.add('fas', 'fa-info-circle', 'info-icon');
+        element.appendChild(infoIcon);
+        
         // add event listener to show tooltip on mouseover
         element.addEventListener('click', function (event) {
             showAccountString(event);
