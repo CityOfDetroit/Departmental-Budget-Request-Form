@@ -41,9 +41,12 @@ function assignClasses() {
         { title: 'Total Cost', className: 'total-baseline', isCost: true },
         { title: 'Edit', className: 'edit' },
         // hidden columns needed for calculations
-        { title: 'Fringe Benefits Final Request', className: 'fringe', isCost: true, hide: true },
+        { title: 'Fringe Benefits Rate', className: 'fringe', hide: true },
         { title: 'Appropriation Name', className: 'approp-name', hide: true },
-        { title: 'Cost Center Name', className: 'cc-name',  hide: true }
+        { title: 'Cost Center Name', className: 'cc-name',  hide: true },
+        { title: 'General Increase Rate', className: 'general-increase-rate', hide: true},
+        { title: 'Step/Merit Increase Rate', className: 'merit-increase-rate', hide: true},
+        { title: `Average Salary/Wage as of 9/1/20${FISCAL_YEAR-2}`, className: 'current-salary', isCost: true, hide: true},
     ];
 
     // assign cost classes
@@ -71,7 +74,7 @@ export async function initializePersonnelTable(){
         Prompt.Text.update('No personnel expenditures for this fund.')
     }
     // Link up tooltips to display more info on hover
-    Tooltip.linkAccountStringCol();
+    Tooltip.linkAll();
 }
 
 function initializeRowAddition(){
@@ -86,11 +89,11 @@ function updateDisplayandTotals(){
     for (let i = 1; i < rows.length; i++){
         // fetch values for calculations
         let avg_salary = Table.Cell.getValue(rows[i], 'avg-salary');
-        let fringe = Table.Cell.getValue(rows[i], 'fringe');
+        let fringe = parseFloat(Table.Cell.getText(rows[i], 'fringe'));
         let baseline_ftes = Table.Cell.getText(rows[i], 'baseline-ftes');
 
         // calcuate #FTEs x average salary + COLA adjustments + merit adjustments + fringe
-        let total_baseline_cost = (avg_salary + fringe) * baseline_ftes;
+        let total_baseline_cost = avg_salary * baseline_ftes * (1 + fringe);
 
         // update total column
         Table.Cell.updateValue(rows[i], 'total-baseline', total_baseline_cost);

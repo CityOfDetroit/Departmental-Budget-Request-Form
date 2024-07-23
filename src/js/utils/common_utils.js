@@ -37,6 +37,10 @@ export function cleanString(str){
 }
 
 export function removeNewLines(str){
-    // TODO: ensure there is a space between words on new lines
-    return str.replaceAll(/[\r\n]+/g, "");
+    // replace all new lines with spaces
+    str = str.replaceAll(/[\r\n]+/g, " ");
+    // remove any extra spaces or trailing/leading whitespace
+    str = str.replaceAll('  ', ' ');
+    str = str.replace(/^\s+|\s+$/g, '');
+    return str;
 }
