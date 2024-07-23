@@ -34,7 +34,7 @@ export function preparePageView(){
     Table.adjustWidth('100%');
     // update page text
     Subtitle.update('Non-Personnel');
-    Prompt.Text.update('Select an action item for each non-personnel line item from last year.');
+    Prompt.Text.update('Review and edit non-personnel line items.');
     NavButtons.Next.enable();
 }
 

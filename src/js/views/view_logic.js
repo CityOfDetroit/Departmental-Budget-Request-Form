@@ -24,7 +24,6 @@ export let PAGES = {
 
 export let CLEANUP = {
     'new-inits' : cleanUpInitiativesPage,
-    'revenue' : cleanupRevenuePage,
     'summary' : cleanUpSummaryPage
 }
 

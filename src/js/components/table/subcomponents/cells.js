@@ -34,10 +34,10 @@ function createEditableCell(cellClass, isCost){
     textbox.type = 'text';
     if (isCost){
         var value = cell.getAttribute('value');
+        textbox.value = displayWithCommas(value);
     } else {
-        var value = cell.textContent;
+        textbox.value = cell.textContent;
     }
-    textbox.value = displayWithCommas(value);
     // Clear the current content and append the textbox to the cell
     cell.innerHTML = '';
     cell.appendChild(textbox);
