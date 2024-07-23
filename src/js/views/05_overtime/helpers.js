@@ -55,9 +55,6 @@ export async function initializeOTTable(){
     if(await Table.Data.load()) {
         //after table is loaded, fill it
         Table.show();
-        Table.Columns.addAtEnd( '0', 'Hourly Employee Overtime (Wages)');
-        Table.Columns.addAtEnd( '0', 'Salaried Employee Overtime (Salary)');
-        // Table.Columns.addAtEnd( '0', 'Total Cost (including benefits)');
         Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, 'Edit');;
         assignClasses();
         // add up the baseline costs and update sidebar
@@ -69,8 +66,9 @@ export async function initializeOTTable(){
     }
 }
 
-function calculateTotalCost(wages, salary, fringe){
-    return (wages + salary) * (1 + fringe) ;
+function calculateTotalCost(salary, wages, fica_rate){
+    fica_rate = parseFloat(fica_rate);
+    return (wages + salary) * (1 + fica_rate) ;
 }
 
 // update sidebar and also cost totals when the FTEs are edited
@@ -81,10 +79,10 @@ function updateDisplayandTotals(){
         // fetch values for calculations
         let OT_salary = Table.Cell.getValue(rows[i], 'OT-salary');
         let OT_wages = Table.Cell.getValue(rows[i], 'OT-wages');
-        let fringe_rate = Table.Cell.getText(rows[i], 'fringe');
+        let fica_rate = Table.Cell.getText(rows[i], 'fica');
 
         // add salary and wages and fringe benefits (FICA)
-        let row_total = calculateTotalCost(OT_salary, OT_wages, fringe_rate);
+        let row_total = calculateTotalCost(OT_salary, OT_wages, fica_rate);
 
         // update total
         Table.Cell.updateValue(rows[i], 'total', row_total);

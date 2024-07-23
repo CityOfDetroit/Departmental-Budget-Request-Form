@@ -12,7 +12,12 @@ function getCellValue(row, className) {
 // return text in cell
 function getCellText(row, className) {
     var cell = row.querySelector(`.${className}`);
-    return cell.textContent;
+    if (cell) {
+        return cell.textContent;
+    } else {
+        console.log(`Error retrieving cell text for class ${className}`);
+        return '';
+    }
 }
 
 function updateTableCell(row, col_class, new_value){
