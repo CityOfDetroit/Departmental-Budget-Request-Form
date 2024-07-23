@@ -1,0 +1,16 @@
+#tooltip {
+    position: absolute;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    visibility: hidden;
+    white-space: nowrap;
+    font-size: 14px;
+    z-index: 1000;
+}
+
+.tooltip-cell {
+    color: blue;
+    text-decoration: underline;
+}

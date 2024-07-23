@@ -8,6 +8,7 @@ import NavButtons from '../nav_buttons/nav_buttons.js';
 import Prompt from '../prompt/prompt.js';
 import Sidebar from '../sidebar/sidebar.js';
 import Table from '../table/table.js';
+import Tooltip from '../tooltip/tooltip.js';  
 
 function resetPage() {
     // hide everything in the body
@@ -20,6 +21,7 @@ function resetPage() {
     Sidebar.hide();
     Accordion.hide();
     FileUpload.hide();
+    Tooltip.hide();
     // disable next button
     NavButtons.Next.disable();
     Prompt.Buttons.reset();
