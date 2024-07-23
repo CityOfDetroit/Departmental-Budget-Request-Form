@@ -61,28 +61,3 @@ function revRowOnEdit(){
     Table.Cell.createTextbox('request', true);
     Table.Cell.createTextbox('notes');
 }
-
-
-function handleErrorComment(){
-    var fund = localStorage.getItem("fund");
-    Modal.clear();
-    Modal.Title.update(`Comment on ${fund} Revenue`);
-    Form.new('modal-body');
-    Form.NewField.longText('Explain your concerns here. Someone from the revenue team will follow up with you.',
-         'revenue-comment', true); 
-    Form.SubmitButton.add();
-    // save comment on submission
-    Modal.Submit.init(handleRevenueCommentSubmission);
-}
-
-function handleRevenueCommentSubmission(event){
-    // get data from form in modal        
-    const responses = Form.fetchAllResponses(event);
-    // TODO: save comment here
-
-    // hide modal, update page, and enable continue
-    Modal.hide();
-    Prompt.Buttons.hide();
-    Prompt.Text.update('Your comment has been received.');
-    NavButtons.Next.enable();
-}
