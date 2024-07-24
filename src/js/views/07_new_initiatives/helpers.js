@@ -47,16 +47,20 @@ export function setUpForm() {
     // Set up form
     Form.new('modal-body');
     Form.NewField.shortText('Initiative Name:', 'Initiative Name', true); 
-    Form.NewField.longText(`Describe what the Initiative is and why it is needed and should be funded: 
-        i). What is the business case for the Initiative?
-        ii). Why is the initiative needed? What is the value-add to residents? What is the Department’s plan for implementing the Initiative?
-        iii). Why can’t the Initiative be funded with the Department’s baseline budget?`, 'Explanation', true);
+    Form.NewField.longText('What is the business case for the Initiative?', 'Q1', true);
+    Form.NewField.longText(`Why is the initiative needed? What is the value-add to residents? 
+        What is the Department’s plan for implementing the Initiative?`, 'Q2', true);
+    Form.NewField.longText(`Why can’t the Initiative be funded with the Department’s baseline budget?`, 'Explanation', true);
 
     Form.NewField.numericInput('What is your ballpark estimate of TOTAL ADDITONAL expenses associated with this initiative?', 'Ballpark Total Expenses', false);
+
+    // TODO: Edit to drop down
+    Form.NewField.shortText('Relevant account string (if known)?', 'Account String', false);
 
     Form.NewField.numericInput('Estimate of ADDITONAL personnel cost?', 'Personnel Cost', false);
     Form.NewField.numericInput('Estimate of ADDITONAL nonpersonnel cost?', 'Non-personnel Cost', false);
     Form.NewField.numericInput('Estimate of ADDITONAL revenue (if applicable)?', 'Revenue', false);
+    Form.NewField.numericInput('If there will be revenue, is it one-time or recurring?', 'One-time v. Recurring', false);
 
     Form.SubmitButton.add();
     // Initialize form submission to table data
