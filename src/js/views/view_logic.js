@@ -49,6 +49,13 @@ export function nextPage(){
     // clean up current page
     if (CLEANUP[page_state]) { CLEANUP[page_state]() };
 
+    // unless on personnel (which will go to overtime), return to summary if all funds are viewed
+    const returnPages = ['revenue', 'nonpersonnel', 'new-inits', 'overtime'];
+    if (!FundLookupTable.fundsLeft() && returnPages.includes(CurrentPage.load())) {
+        visitPage('summary');
+        return;
+    }
+
     // if on non-personnel, circle back to fund selection unless all funds are edited
     if (CurrentPage.load() == 'nonpersonnel'){
         // mark fund as viewed/edited
@@ -58,13 +65,6 @@ export function nextPage(){
             visitPage('baseline-landing');
             return;
         }
-    }
-
-    // unless on personnel (which will go to overtime), return to summary if all funds are viewed
-    const returnPages = ['revenue', 'nonpersonnel', 'new-inits', 'overtime'];
-    if (!FundLookupTable.fundsLeft() && returnPages.includes(CurrentPage.load())) {
-        visitPage('summary');
-        return;
     }
 
     if (currentIndex >= 0 && currentIndex < keys.length - 1) {
