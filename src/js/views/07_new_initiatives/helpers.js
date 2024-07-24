@@ -17,22 +17,25 @@ export function initializePageView() {
     Body.reset();
     NavButtons.show();
     Sidebar.show();
+    NavButtons.Next.enable();
 
     //table appearance
-    Table.adjustWidth('70%');
-    Table.Buttons.AddRow.updateText('Add another new initiative');
+    Table.adjustWidth('100%');
+    Table.Buttons.AddRow.updateText('Add new initiative');
 
     // remove fund selection
     localStorage.setItem("fund", '');
 
     // Load text
     Subtitle.update('New Initiatives');
-    Prompt.Text.update('Would you like to propose any new initiatives for FY26? ' + explanation);
-    Prompt.Buttons.Left.updateText('Yes, propose a new initiative');
-    Prompt.Buttons.Right.updateText('No new initiatives');
+    Prompt.Text.update('This is the place to propose new initiatives for FY26. ' + explanation);
+    NavButtons.Next.enable
+    // Prompt.Buttons.Left.updateText('Yes, propose a new initiative');
+    // Prompt.Buttons.Right.updateText('No new initiatives');
     // clicking 'no new initialitives' will also take us to the next page
-    Prompt.Buttons.Right.addAction(nextPage);
-    Prompt.Buttons.Left.addAction(NavButtons.Next.enable);
+    Table.Buttons.AddRow.show();
+    // Prompt.Buttons.Right.addAction(nextPage);
+    // Prompt.Buttons.Left.addAction(NavButtons.Next.enable);
 }
 
 export function setUpModal() {
@@ -46,21 +49,24 @@ export function setUpModal() {
 export function setUpForm() {
     // Set up form
     Form.new('modal-body');
+
+    // general questions
     Form.NewField.shortText('Initiative Name:', 'Initiative Name', true); 
     Form.NewField.longText('What is the business case for the Initiative?', 'Q1', true);
     Form.NewField.longText(`Why is the initiative needed? What is the value-add to residents? 
         What is the Department’s plan for implementing the Initiative?`, 'Q2', true);
     Form.NewField.longText(`Why can’t the Initiative be funded with the Department’s baseline budget?`, 'Explanation', true);
 
+    // Numbers
     Form.NewField.numericInput('What is your ballpark estimate of TOTAL ADDITONAL expenses associated with this initiative?', 'Ballpark Total Expenses', false);
-
     // TODO: Edit to drop down
     Form.NewField.shortText('Relevant account string (if known)?', 'Account String', false);
-
     Form.NewField.numericInput('Estimate of ADDITONAL personnel cost?', 'Personnel Cost', false);
     Form.NewField.numericInput('Estimate of ADDITONAL nonpersonnel cost?', 'Non-personnel Cost', false);
     Form.NewField.numericInput('Estimate of ADDITONAL revenue (if applicable)?', 'Revenue', false);
     Form.NewField.numericInput('If there will be revenue, is it one-time or recurring?', 'One-time v. Recurring', false);
+    const recurringDropdown = Form.Dropdown.RecurringVOneTime();
+
 
     Form.SubmitButton.add();
     // Initialize form submission to table data
@@ -111,9 +117,8 @@ function tableView() {
     Modal.hide();
     Prompt.hide();
     assignClasses();
-    Table.Buttons.AddRow.show();
     NavButtons.Next.enable();
-    Prompt.Text.update(explanation);
+    Table.Buttons.AddRow.updateText('Add another new initiative');
 }
 
 export function removeModalLinks(){

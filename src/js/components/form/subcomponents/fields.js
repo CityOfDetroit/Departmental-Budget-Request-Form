@@ -1,10 +1,12 @@
 // function to add questions to forms
-// type is 'input' or 'textarea'
+
+import Dropdown from "./dropdown";
+
 // inputType is for validation ('number' or 'text', etc)
-function appendFormElement(type, label, inputId, required, inputType, form_id = 'new-form', cost = false) {
+function appendFormElement(label, inputEl, inputId, required) {
 
     // change if we want forms elsewhere
-    const form = document.getElementById(form_id);
+    const form = document.getElementById('new-form');
 
     // create outer wrapper for element
     const wrapper = document.createElement('div');  
@@ -12,18 +14,7 @@ function appendFormElement(type, label, inputId, required, inputType, form_id = 
     // label question
     const labelEl = document.createElement('label');
     labelEl.textContent = label;
-  
-    // set type (input or textarea)
-    let inputEl;
-    if (type === 'input') {
-      inputEl = document.createElement('input');
-      inputEl.type = inputType;
-    } else if (type === 'textarea') {
-      inputEl = document.createElement('textarea');
-    } else {
-      throw new Error('Unsupported element type');
-    }
-  
+
     // mark as required if applicable
     inputEl.required = required;
 
@@ -39,14 +30,24 @@ function appendFormElement(type, label, inputId, required, inputType, form_id = 
 } 
 
 export const NewField = {
-    shortText : function(label, inputId, required = false, form_id = 'new-form', cost = false) {
-        appendFormElement('input', label, inputId, required, 'text', form_id);
+    shortText : function(label, inputId, required = false) {
+        const inputEl = document.createElement('input');
+        inputEl.type = 'text';
+        appendFormElement(label, inputEl, inputId,required);
     },
-    longText : function(label, inputId, required = false, form_id = 'new-form', cost = false) {
-        appendFormElement('textarea', label, inputId, required, form_id);
+    longText : function(label, inputId, required = false) {
+      const inputEl = document.createElement('textarea');
+      inputEl.type = 'text';
+      appendFormElement(label, inputEl, inputId, required);
     },
-    numericInput: function(label, inputId, required = false, form_id = 'new-form', cost = true) {
-        appendFormElement('input', label, inputId, required, 'number', form_id);
+    numericInput : function(label, inputId, required = false) {
+      const inputEl = document.createElement('input');
+      inputEl.type = 'number';
+      appendFormElement(label, inputEl, inputId,required);
+    },
+    dropdown : function(label, inputId, optionArray, required = false){
+      const inputEl = Dropdown.create(optionArray);
+      appendFormElement(label, inputEl, inputId, required);
     }
 }
 
