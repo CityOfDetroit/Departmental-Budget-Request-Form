@@ -64,8 +64,7 @@ export function setUpForm() {
     Form.NewField.numericInput('Estimate of ADDITONAL personnel cost?', 'Personnel Cost', false);
     Form.NewField.numericInput('Estimate of ADDITONAL nonpersonnel cost?', 'Non-personnel Cost', false);
     Form.NewField.numericInput('Estimate of ADDITONAL revenue (if applicable)?', 'Revenue', false);
-    Form.NewField.numericInput('If there will be revenue, is it one-time or recurring?', 'One-time v. Recurring', false);
-    const recurringDropdown = Form.Dropdown.RecurringVOneTime();
+    Form.NewField.dropdown('If there will be revenue, is it one-time or recurring?', 'One-time v. Recurring', ['One-Time', 'Recurring']);
 
 
     Form.SubmitButton.add();

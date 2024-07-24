@@ -36,9 +36,8 @@ export const NewField = {
         appendFormElement(label, inputEl, inputId,required);
     },
     longText : function(label, inputId, required = false) {
-      const inputEl = document.createElement('textarea');
-      inputEl.type = 'text';
-      appendFormElement(label, inputEl, inputId, required);
+        const inputEl = document.createElement('textarea');
+        appendFormElement(label, inputEl, inputId, required);
     },
     numericInput : function(label, inputId, required = false) {
       const inputEl = document.createElement('input');
