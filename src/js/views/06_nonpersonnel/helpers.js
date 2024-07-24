@@ -59,5 +59,6 @@ function nonPersonnelRowOnEdit(){
     // make it editable
     Table.Cell.createTextbox('request', true);
     Table.Cell.createServiceDropdown();
+    Table.Cell.createDropdown('recurring', ['One-Time', 'Recurring']);
 }
 

@@ -50,6 +50,7 @@ function OTRowOnEdit(){
     Table.Cell.createTextbox('OT-wages', true);
     Table.Cell.createTextbox('OT-salary', true);
     Table.Cell.createServiceDropdown(Services.list());
+    Table.Cell.createDropdown('recurring', ['One-Time', 'Recurring']);
 }
 
 export async function initializeOTTable(){

@@ -61,4 +61,5 @@ function revRowOnEdit(){
     // make it editable
     Table.Cell.createTextbox('request', true);
     Table.Cell.createTextbox('notes');
+    Table.Cell.createDropdown('recurring', ['One-Time', 'Recurring']);
 }
