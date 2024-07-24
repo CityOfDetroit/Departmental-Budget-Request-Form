@@ -9,6 +9,9 @@ import { nextPage } from '../view_logic.js'
 import Subtitle from '../../components/header/header.js'
 import Sidebar from '../../components/sidebar/sidebar.js'
 
+const explanation = `New initiative submissions will count as supplemental line items and will be the starting 
+        point for a conversation with both OB and ODFS, who will help with the details.`
+
 export function initializePageView() {
     // Prepare page view
     Body.reset();
@@ -24,9 +27,9 @@ export function initializePageView() {
 
     // Load text
     Subtitle.update('New Initiatives');
-    Prompt.Text.update('Do you have any new initiatives for FY26?');
-    Prompt.Buttons.Left.updateText('Yes');
-    Prompt.Buttons.Right.updateText('No');
+    Prompt.Text.update('Would you like to propose any new initiatives for FY26? ' + explanation);
+    Prompt.Buttons.Left.updateText('Yes, propose a new initiative');
+    Prompt.Buttons.Right.updateText('No new initiatives');
     // clicking 'no new initialitives' will also take us to the next page
     Prompt.Buttons.Right.addAction(nextPage);
     Prompt.Buttons.Left.addAction(NavButtons.Next.enable);
@@ -106,6 +109,7 @@ function tableView() {
     assignClasses();
     Table.Buttons.AddRow.show();
     NavButtons.Next.enable();
+    Prompt.Text.update(explanation);
 }
 
 export function removeModalLinks(){
