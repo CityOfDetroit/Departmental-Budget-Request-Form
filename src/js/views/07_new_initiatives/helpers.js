@@ -57,10 +57,11 @@ export function setUpForm() {
         What is the Department’s plan for implementing the Initiative?`, 'Q2', true);
     Form.NewField.longText(`Why can’t the Initiative be funded with the Department’s baseline budget?`, 'Q3', true);
 
-    // Numbers
-    Form.NewField.numericInput('What is your ballpark estimate of TOTAL ADDITONAL expenses associated with this initiative?', 'Ballpark Total Expenses', false);
     // TODO: Edit to drop down
     Form.NewField.shortText('Relevant account string (if known)?', 'Account String', false);
+
+    // Numbers
+    Form.NewField.numericInput('What is your ballpark estimate of TOTAL ADDITONAL expenses associated with this initiative?', 'Ballpark Total Expenses', false);
     Form.NewField.numericInput('Estimate of ADDITONAL personnel cost?', 'Personnel Cost', false);
     Form.NewField.numericInput('Estimate of ADDITONAL nonpersonnel cost?', 'Non-personnel Cost', false);
     Form.NewField.numericInput('Estimate of ADDITONAL revenue (if applicable)?', 'Revenue', false);
@@ -76,14 +77,18 @@ function assignClasses() {
     // record columns and their classes
     const initiativesCols = [
         { title: 'Initiative Name', className: 'init-name' },
+        { title: 'Account String', className: 'account-string' },
         { title: 'Ballpark Total Expenses', className: 'total', isCost: true },
         { title: 'Revenue', className: 'revenue', isCost: true },
         { title: 'Personnel Cost', className: 'personnel', isCost: true },
         { title: 'Non-personnel Cost', className: 'nonpersonnel', isCost: true },
-        { title: 'Q1', className: 'q1' },
-        { title: 'Q2', className: 'q2' },
-        { title: 'Q3', className: 'q3' },
         { title: 'One-time v. Recurring', className: 'rev-type' },
+        { title: 'Edit', className : 'edit' },
+
+        // hide the explanation columns
+        { title: 'Q1', className: 'q1', hide: true },
+        { title: 'Q2', className: 'q2', hide: true },
+        { title: 'Q3', className: 'q3', hide: true },
     ];
 
     // assign cost classes
@@ -95,9 +100,17 @@ export async function initializeInitTable(){
     // load table data from storage
     if(await Table.Data.load()) {
         //after table is loaded, fill it
+        Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, "Edit");
         assignClasses();
-        tableView();
+        // enable editing
+        Table.Buttons.Edit.init(rowOnEdit, Table.save);
+        // show table
+        Table.show();
     }
+}
+
+function rowOnEdit(){
+    return;
 }
 
 function handleNewInitSubmission(event){
@@ -109,18 +122,11 @@ function handleNewInitSubmission(event){
         Table.Rows.add(responses);
         // save it
         Table.save();
-        tableView();
+        // show updated table
+        initializeInitTable();
+        Modal.hide();
+        Table.Buttons.AddRow.updateText('Add another new initiative');
     }
-}
-
-function tableView() {
-    // change page view
-    Table.show();
-    Modal.hide();
-    Prompt.hide();
-    assignClasses();
-    NavButtons.Next.enable();
-    Table.Buttons.AddRow.updateText('Add another new initiative');
 }
 
 export function removeModalLinks(){
