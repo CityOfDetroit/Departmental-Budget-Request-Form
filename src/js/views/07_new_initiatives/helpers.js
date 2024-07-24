@@ -55,7 +55,7 @@ export function setUpForm() {
     Form.NewField.longText('What is the business case for the Initiative?', 'Q1', true);
     Form.NewField.longText(`Why is the initiative needed? What is the value-add to residents? 
         What is the Department’s plan for implementing the Initiative?`, 'Q2', true);
-    Form.NewField.longText(`Why can’t the Initiative be funded with the Department’s baseline budget?`, 'Explanation', true);
+    Form.NewField.longText(`Why can’t the Initiative be funded with the Department’s baseline budget?`, 'Q3', true);
 
     // Numbers
     Form.NewField.numericInput('What is your ballpark estimate of TOTAL ADDITONAL expenses associated with this initiative?', 'Ballpark Total Expenses', false);
@@ -64,7 +64,7 @@ export function setUpForm() {
     Form.NewField.numericInput('Estimate of ADDITONAL personnel cost?', 'Personnel Cost', false);
     Form.NewField.numericInput('Estimate of ADDITONAL nonpersonnel cost?', 'Non-personnel Cost', false);
     Form.NewField.numericInput('Estimate of ADDITONAL revenue (if applicable)?', 'Revenue', false);
-    Form.NewField.dropdown('If there will be revenue, is it one-time or recurring?', 'One-time v. Recurring', ['One-Time', 'Recurring']);
+    Form.NewField.dropdown(`If there will be revenue, is it one-time or recurring?`, 'One-time v. Recurring', ['N/A', 'One-Time', 'Recurring']);
 
 
     Form.SubmitButton.add();
@@ -76,11 +76,14 @@ function assignClasses() {
     // record columns and their classes
     const initiativesCols = [
         { title: 'Initiative Name', className: 'init-name' },
-        { title: `Explanation`, className: 'explanation' },
         { title: 'Ballpark Total Expenses', className: 'total', isCost: true },
         { title: 'Revenue', className: 'revenue', isCost: true },
         { title: 'Personnel Cost', className: 'personnel', isCost: true },
-        { title: 'Non-personnel Cost', className: 'nonpersonnel', isCost: true }
+        { title: 'Non-personnel Cost', className: 'nonpersonnel', isCost: true },
+        { title: 'Q1', className: 'q1' },
+        { title: 'Q2', className: 'q2' },
+        { title: 'Q3', className: 'q3' },
+        { title: 'One-time v. Recurring', className: 'rev-type' },
     ];
 
     // assign cost classes
