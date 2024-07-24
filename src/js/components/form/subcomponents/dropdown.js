@@ -1,10 +1,10 @@
-async function createDropdownFromJSON(json_path) {
-    // Fetch JSON data from a file asynchronously
-    const response = await fetch(json_path);
-    const dataArray = await response.json();
-    // create and return element
-    return createDropdown(dataArray);
-}
+// async function createDropdownFromJSON(json_path) {
+//     // Fetch JSON data from a file asynchronously
+//     const response = await fetch(json_path);
+//     const dataArray = await response.json();
+//     // create and return element
+//     return createDropdown(dataArray);
+// }
 
 function createDropdown(dataArray) {
 
@@ -25,8 +25,8 @@ function createDropdown(dataArray) {
 
 
 export const Dropdown = {
-    createFromJSON : function(json_path){ return createDropdownFromJSON(json_path) },
-    create : function(dataArray) { return createDropdown(dataArray) }
+    // createFromJSON : function(json_path){ return createDropdownFromJSON(json_path) },
+    create : function(dataArray) { return createDropdown(dataArray) },
 }
 
 export default Dropdown;

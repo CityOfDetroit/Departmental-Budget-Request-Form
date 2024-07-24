@@ -34,25 +34,24 @@ function createEditableCell(cellClass, isCost){
     textbox.type = 'text';
     if (isCost){
         var value = cell.getAttribute('value');
+        textbox.value = displayWithCommas(value);
     } else {
-        var value = cell.textContent;
+        textbox.value = cell.textContent;
     }
-    textbox.value = displayWithCommas(value);
     // Clear the current content and append the textbox to the cell
     cell.innerHTML = '';
     cell.appendChild(textbox);
 }
 
-function createServiceDropdown(){
+function createDropdown(cellClass, optionArray){
     // get cell
-    var cellClass = 'service';
     const cell = document.querySelector(`.active-editing td.${cellClass}`);
     // add service dropdown
-    const serviceDropdown = Dropdown.create(Services.list());
-    serviceDropdown.value = cell.textContent;
+    const dropdown = Dropdown.create(optionArray);
+    dropdown.value = cell.textContent;
     // Clear the current content and append the textbox to the cell
     cell.innerHTML = '';
-    cell.appendChild(serviceDropdown);
+    cell.appendChild(dropdown);
 }
 
 const Cell = {
@@ -68,7 +67,8 @@ const Cell = {
     createTextbox : function(className, isCost) {
         createEditableCell(className, isCost)
     },
-    createServiceDropdown : createServiceDropdown
+    createServiceDropdown :  () => { createDropdown('service', Services.list()) },
+    createDropdown : createDropdown
 };
 
 export default Cell;

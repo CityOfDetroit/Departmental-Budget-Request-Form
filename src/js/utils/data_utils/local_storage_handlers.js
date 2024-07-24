@@ -85,7 +85,7 @@ class StoredTable {
             case 'nonpersonnel':
                 return `FY${FISCAL_YEAR} Request`;
             case 'revenue':
-                break;
+                return `Departmental Request Total`;
             default:
                 break;
         }
@@ -106,7 +106,9 @@ function colSum(table, colName) {
     if (headers.includes(colName)) {
         let sum = 0;
         for (let i = 0; i < table.length; i++){
-            sum += Math.round(parseFloat(table[i][colName]));
+            var value = Math.round(parseFloat(table[i][colName]));
+            // treat NaN (non-numerics) as zeroes
+            if (value) { sum += value; }
         }
         return sum;
     } else {
@@ -188,9 +190,21 @@ export class Initiative {
         this.name = row['Initiative Name'];
     }
 
-    expenses() { return this.data['Ballpark Total Expenses']}
+    expenses() { 
+        if (this.data['Ballpark Total Expenses']) {
+            return this.data['Ballpark Total Expenses'];
+        } else {
+            return 0;
+        }
+    }
 
-    revenue() { return this.data['Revenue'] }
+    revenue() { 
+        if (this.data['Revenue']) {
+            return this.data['Revenue'];
+        } else {
+            return 0;
+        }
+    }
 
     net() { return this.expenses() - this.revenue() }
 
