@@ -12,6 +12,8 @@ import Sidebar from '../../components/sidebar/sidebar.js'
 const explanation = `New initiative submissions will count as supplemental line items and will be the starting 
         point for a conversation with both OB and ODFS, who will help with the details.`
 
+const dropdownOptions = ['N/A', 'One-Time', 'Recurring']
+
 export function initializePageView() {
     // Prepare page view
     Body.reset();
@@ -61,11 +63,13 @@ export function setUpForm() {
     Form.NewField.shortText('Relevant account string (if known)?', 'Account String', false);
 
     // Numbers
-    Form.NewField.numericInput('What is your ballpark estimate of TOTAL ADDITONAL expenses associated with this initiative?', 'Ballpark Total Expenses', false);
+    Form.NewField.numericInput('What is your ballpark estimate of TOTAL ADDITONAL expenses associated with this initiative?', 
+        'Ballpark Total Expenses', false);
     Form.NewField.numericInput('Estimate of ADDITONAL personnel cost?', 'Personnel Cost', false);
     Form.NewField.numericInput('Estimate of ADDITONAL nonpersonnel cost?', 'Non-personnel Cost', false);
     Form.NewField.numericInput('Estimate of ADDITONAL revenue (if applicable)?', 'Revenue', false);
-    Form.NewField.dropdown(`If there will be revenue, is it one-time or recurring?`, 'One-time v. Recurring', ['N/A', 'One-Time', 'Recurring']);
+    Form.NewField.dropdown(`If there will be revenue, is it one-time or recurring?`, 
+        'One-time v. Recurring', dropdownOptions);
 
 
     Form.SubmitButton.add();
@@ -110,7 +114,13 @@ export async function initializeInitTable(){
 }
 
 function rowOnEdit(){
-    return;
+    Table.Cell.createTextbox('total', true);
+    Table.Cell.createTextbox('revenue', true);
+    Table.Cell.createTextbox('personnel', true);
+    Table.Cell.createTextbox('nonpersonnel', true);
+    Table.Cell.createTextbox('account-string');
+    Table.Cell.createTextbox('init-name');
+    Table.Cell.createDropdown('rev-type', dropdownOptions);
 }
 
 function handleNewInitSubmission(event){
