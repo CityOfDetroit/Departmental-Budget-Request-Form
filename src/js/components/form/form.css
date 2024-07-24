@@ -10,3 +10,13 @@ textarea, input {
     margin-left: 20%;
     background-color: var(--spiritgreen);
 }
+
+#new-form label {
+    display: block; /* Ensure label is on its own line */
+    margin-bottom: 0.5em; 
+}
+
+#new-form select {
+    margin: auto;
+    width: 300px;
+}

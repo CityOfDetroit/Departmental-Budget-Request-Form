@@ -40,13 +40,13 @@ export const NewField = {
         appendFormElement(label, inputEl, inputId, required);
     },
     numericInput : function(label, inputId, required = false) {
-      const inputEl = document.createElement('input');
-      inputEl.type = 'number';
-      appendFormElement(label, inputEl, inputId,required);
+        const inputEl = document.createElement('input');
+        inputEl.type = 'number';
+        appendFormElement(label, inputEl, inputId,required);
     },
     dropdown : function(label, inputId, optionArray, required = false){
-      const inputEl = Dropdown.create(optionArray);
-      appendFormElement(label, inputEl, inputId, required);
+        var inputEl = Dropdown.create(optionArray);
+        appendFormElement(label, inputEl, inputId, required);
     }
 }
 
