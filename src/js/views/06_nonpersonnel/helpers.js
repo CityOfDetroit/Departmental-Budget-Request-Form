@@ -49,7 +49,7 @@ export async function initializeNonpersonnelTable(){
         // enable editing
         Table.Buttons.Edit.init(nonPersonnelRowOnEdit, Table.save);
         // show info boxes on click
-        Tooltip.linkAllNP();
+        Tooltip.linkAll();
     } else {
         Prompt.Text.update('No non-personnel expenditures for this fund.')
     }

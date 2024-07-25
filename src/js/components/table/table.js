@@ -7,6 +7,7 @@ import Header from './subcomponents/headers.js'
 import Rows from './subcomponents/rows.js'
 import Data from './subcomponents/data.js'
 import { saveTableData } from '../../utils/data_utils/local_storage_handlers.js'
+import Tooltip from '../tooltip/tooltip.js';
 
 function adjustTableWidth(width_pct){
     const table = document.getElementById('main-table');
@@ -44,7 +45,13 @@ const Table = {
     clear : clearTable,
     hide : hideTable,
     show : showTable,
-    save : saveTableData
+    save : function() {
+        // remove the detail text
+        Tooltip.unlink();
+        saveTableData();
+        // relink, depending on page
+        Tooltip.linkAll();
+    }
 }
 
 export default Table;

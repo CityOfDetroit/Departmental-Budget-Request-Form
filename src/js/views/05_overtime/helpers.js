@@ -65,7 +65,7 @@ export async function initializeOTTable(){
         // activate edit buttons
         Table.Buttons.Edit.init(OTRowOnEdit, updateDisplayandTotals);
         // wire up tooltips to show info on click
-        Tooltip.linkAllOvertime();
+        Tooltip.linkAll();
     } else {
         Prompt.Text.update('No overtime expenditures for this fund.')
     }

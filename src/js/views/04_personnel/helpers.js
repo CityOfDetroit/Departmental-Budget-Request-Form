@@ -71,7 +71,7 @@ export async function initializePersonnelTable(){
         Table.Buttons.Edit.init(personnelRowOnEdit, updateDisplayandTotals);
         initializeRowAddition();
         // Link up tooltips to display more info on hover
-        Tooltip.linkAllPersonnel();
+        Tooltip.linkAll();
     } else {
         Prompt.Text.update('No personnel expenditures for this fund.')
     }
