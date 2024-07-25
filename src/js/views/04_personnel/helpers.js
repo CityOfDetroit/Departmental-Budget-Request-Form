@@ -111,7 +111,8 @@ export function setUpForm() {
     // Set up form
     Form.new('modal-body');
     Form.NewField.shortText('Job Title:', 'job-name', true); 
-    Form.NewField.shortText('Account String:', 'account-string', true); 
+    Form.NewField.dropdown('Appropriation:', 'approp-name', [], true);
+    Form.NewField.dropdown('Cost Center:', 'cc-name', [], true);
     Form.NewField.dropdown('Service', 'service', Services.list(), true);
     Form.NewField.shortText('Number of FTEs requested:', 'baseline-ftes', true);
     Form.NewField.shortText(`Projected average salary IN FISCAL YEAR ${FISCAL_YEAR}:`, 'avg-salary', true);
@@ -127,6 +128,7 @@ function handleSubmitNewJob(event){
     // edit inputs from modal
     responses['avg-salary'] = unformatCurrency(responses['avg-salary']);
     responses['fringe'] = parseFloat(responses['fringe']) / 100;
+    responses['account-string'] = `${responses['approp-name']}-${responses['cc-name']}`
     // make sure it's not an empty response
     if (Object.values(responses)[0] != ''){
         // change page view

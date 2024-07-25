@@ -5,6 +5,10 @@ import Body from "../../components/body/body.js";
 import NavButtons from "../../components/nav_buttons/nav_buttons.js";
 import Subtitle from "../../components/header/header.js";
 import Tooltip from "../../components/tooltip/tooltip.js";
+import Modal from "../../components/modal/modal.js";
+import Form from "../../components/form/form.js";
+import { Services } from "../../utils/data_utils/budget_data_handlers.js";
+import { FISCAL_YEAR } from "../../init.js";
 
 const nonPersonnelColumns = [
     { title: 'FY26 Request', className: 'request', isCost: true },
@@ -36,6 +40,14 @@ export function preparePageView(){
     Subtitle.update('Non-Personnel');
     Prompt.Text.update('Review and edit non-personnel line items.');
     NavButtons.Next.enable();
+
+    // form for new row
+    setUpModal();
+    setUpForm();
+
+    // show new row button
+    Table.Buttons.AddRow.updateText("Add new non-personnel item");
+    Table.Buttons.AddRow.show()
 }
 
 export async function initializeNonpersonnelTable(){
@@ -62,3 +74,44 @@ function nonPersonnelRowOnEdit(){
     Table.Cell.createDropdown('recurring', ['One-Time', 'Recurring']);
 }
 
+export function setUpModal() {
+    // Initialize modal
+    Modal.clear();
+    Modal.Link.add('add-btn');
+    Modal.Title.update('New non-personnel item');
+}
+
+export function setUpForm() {
+    // Set up form
+    Form.new('modal-body');
+    Form.NewField.dropdown('Appropriation:', 'approp-name', [], true);
+    Form.NewField.dropdown('Cost Center:', 'cc-name', [], true);
+    Form.NewField.dropdown('Object:', 'object-name', [], true);
+    Form.NewField.dropdown('Service', 'service', Services.list(), true);
+    Form.NewField.longText('Describe your new request:', 'description', true);
+    Form.NewField.dropdown('Recurring or One-Time', 'recurring', ['Recurring', 'One-Time'], true); 
+    Form.NewField.shortText('Amount requested:', 'request', true);
+    Form.SubmitButton.add();
+    // Initialize form submission to table data
+    Modal.Submit.init(submitNewRow);
+}
+
+
+function submitNewRow(event){        
+    // get answers from form, hide form, show answers in table
+    const responses = Form.fetchAllResponses(event);
+    // edit inputs from modal
+    responses['avg-salary'] = unformatCurrency(responses['avg-salary']);
+    responses['fringe'] = parseFloat(responses['fringe']) / 100;
+    // make sure it's not an empty response
+    if (Object.values(responses)[0] != ''){
+        // change page view
+        Modal.hide();
+        // add data to table
+        Table.Rows.add(responses);
+        Table.save();
+        initializePersonnelTable();
+
+    }
+
+}

@@ -32,7 +32,8 @@ export function preparePageView(){
     setUpForm();
 
     // show new row button
-    initializeRowAddition();
+    Table.Buttons.AddRow.updateText("Add new cost center");
+    Table.Buttons.AddRow.show();
 }
 
 function setUpModal() {
@@ -83,11 +84,6 @@ export async function initializeOTTable(){
     } else {
         Prompt.Text.update('No overtime expenditures for this fund.')
     }
-}
-
-function initializeRowAddition(){
-    Table.Buttons.AddRow.updateText("Add new cost center");
-    Table.Buttons.AddRow.show();
 }
 
 function calculateTotalCost(salary, wages, fica_rate){
