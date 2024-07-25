@@ -129,28 +129,28 @@ export const Tooltip = {
     
     linkAccountStringCol : function() {
         // get all relevant cells
-        document.querySelectorAll('.account-string').forEach( (cell) => {
+        document.querySelectorAll('td.account-string').forEach( (cell) => {
             this.link(cell, showAccountString);
         })
     },
 
     linkSalaryCol : function() {
         // get all relevant cells
-        document.querySelectorAll('.avg-salary').forEach( (cell) => {
+        document.querySelectorAll('td.avg-salary').forEach( (cell) => {
             this.link(cell, showSalaryProjection);
         })
     },
 
     linkTotalPersonnelCostCol : function() {
         // get all relevant cells
-        document.querySelectorAll('.total-baseline').forEach( (cell) => {
+        document.querySelectorAll('td.total-baseline').forEach( (cell) => {
             this.link(cell, showFinalPersonnelCost);
         })
     },
 
     linkTotalOTCol : function() {
         // get all relevant cells
-        document.querySelectorAll('.total').forEach( (cell) => {
+        document.querySelectorAll('td.total').forEach( (cell) => {
             this.link(cell, showFICA);
         })
     },

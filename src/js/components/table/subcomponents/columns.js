@@ -83,7 +83,7 @@ function addCostClass(headerName){
     assignClassToColumn( headerName, 'cost');
 
     // Get all the cells with the specified class name
-    const cells = document.querySelectorAll(`.cost`);
+    const cells = document.querySelectorAll(`td.cost`);
       
     cells.forEach(cell => {
         // Get the current text content of the cell and assign it to 'value' attribute
