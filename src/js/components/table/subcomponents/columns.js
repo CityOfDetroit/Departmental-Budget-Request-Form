@@ -50,20 +50,18 @@ function assignClassToColumn(headerName, className) {
 
     // Find the index of the column by its header name
     const thead = table.tHead;
-    if (!thead || thead.rows.length === 0) {
-        console.error('The table header is not found or has no rows.');
-        return;
-    }
-    
     let headerCellIndex = -1;
     const headerCells = thead.rows[0].cells; // Assuming the first row contains header cells (<th>)
     for (let i = 0; i < headerCells.length; i++) {
         if (headerCells[i].textContent.trim() === headerName) {
+            // assign the class to the header cell
+            headerCells[i].classList.add(className);
             headerCellIndex = i;
             break;
         }
     }
 
+    // error check
     if (headerCellIndex === -1) {
         console.error(`No header found with name "${headerName}"`);
         return;
