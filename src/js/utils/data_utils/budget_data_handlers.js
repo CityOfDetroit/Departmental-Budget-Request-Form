@@ -1,3 +1,10 @@
+import { CurrentFund } from "./local_storage_handlers";
+
+function getUniqueValues(data, key) {
+    const values = data.map(obj => obj[key]);
+    return Array.from(new Set(values));
+}
+
 export const FundLookupTable = {
     retrieve : function() {
         return JSON.parse(localStorage.getItem('fund-lookup-table')) || {};
@@ -5,9 +12,12 @@ export const FundLookupTable = {
     save : function(fundDict){
         localStorage.setItem('fund-lookup-table', JSON.stringify(fundDict));
     },
+
     update : function(fundData){
         const table = this.retrieve();
+
         for (let fund of Object.keys(fundData)){
+
             // add to lookup table if not in there already
             if (!table[fund]){
                 // get fund name
@@ -16,11 +26,33 @@ export const FundLookupTable = {
                 table[fund] = {};
                 table[fund]['name'] = fundName;
                 table[fund]['viewed'] = false;
+                // build lists of unique cost centers and appropriations
+                table[fund]['approp'] = getUniqueValues(fundData[fund], 'Appropriation Name');
+                table[fund]['cc'] = getUniqueValues(fundData[fund], 'Cost Center Name');
             }
         }
         // save any updates
         this.save(table);
     },
+
+    getCostCenters : function() {
+        // get current fund
+        const fund = CurrentFund.number()
+        if (this.retrieve()[fund]){
+            return this.retrieve()[fund]['cc'];
+        }
+        return [];
+    },
+
+    getApprops : function() {
+        // get current fund
+        const fund = CurrentFund.number()
+        if (this.retrieve()[fund]){
+            return this.retrieve()[fund]['approp'];
+        }
+        return [];
+    },
+
     reset : function() {
         this.save({});
     },

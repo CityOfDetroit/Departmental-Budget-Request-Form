@@ -60,7 +60,8 @@ export function setUpForm() {
     Form.NewField.longText(`Why can’t the Initiative be funded with the Department’s baseline budget?`, 'Q3', true);
 
     // TODO: Edit to drop down
-    Form.NewField.shortText('Relevant account string (if known)?', 'Account String', false);
+    Form.NewField.dropdown('Appropriation (if known):', 'approp-name', FundLookupTable.getApprops(), true);
+    Form.NewField.dropdown('Cost Center (if known):', 'cc-name', FundLookupTable.getCostCenters(), true);
 
     // Numbers
     Form.NewField.numericInput('What is your ballpark estimate of TOTAL ADDITONAL expenses associated with this initiative?', 

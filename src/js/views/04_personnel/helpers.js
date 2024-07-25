@@ -8,7 +8,7 @@ import Modal from "../../components/modal/modal.js";
 import Prompt from "../../components/prompt/prompt.js";
 import Table from '../../components/table/table.js'
 import Sidebar from "../../components/sidebar/sidebar.js";
-import { Services } from "../../utils/data_utils/budget_data_handlers.js";
+import { FundLookupTable, Services } from "../../utils/data_utils/budget_data_handlers.js";
 import { unformatCurrency } from "../../utils/common_utils.js";
 
 
@@ -111,8 +111,8 @@ export function setUpForm() {
     // Set up form
     Form.new('modal-body');
     Form.NewField.shortText('Job Title:', 'job-name', true); 
-    Form.NewField.dropdown('Appropriation:', 'approp-name', [], true);
-    Form.NewField.dropdown('Cost Center:', 'cc-name', [], true);
+    Form.NewField.dropdown('Appropriation:', 'approp-name', FundLookupTable.getApprops(), true);
+    Form.NewField.dropdown('Cost Center:', 'cc-name', FundLookupTable.getCostCenters(), true);
     Form.NewField.dropdown('Service', 'service', Services.list(), true);
     Form.NewField.shortText('Number of FTEs requested:', 'baseline-ftes', true);
     Form.NewField.shortText(`Projected average salary IN FISCAL YEAR ${FISCAL_YEAR}:`, 'avg-salary', true);

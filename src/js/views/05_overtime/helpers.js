@@ -115,8 +115,8 @@ function updateDisplayandTotals(){
 export function setUpForm() {
     // Set up form
     Form.new('modal-body');
-    Form.NewField.shortText('Appropriation:', 'approp-name', true); 
-    Form.NewField.shortText('Cost Center:', 'cc-name', true); 
+    Form.NewField.dropdown('Appropriation:', 'approp-name', FundLookupTable.getApprops(), true);
+    Form.NewField.dropdown('Cost Center:', 'cc-name', FundLookupTable.getCostCenters(), true); 
     Form.NewField.dropdown('Service', 'service', Services.list(), true);
     Form.NewField.dropdown('Recurring or One-Time', 'recurring', ['Recurring', 'One-Time'], true);
     Form.NewField.shortText('Overtime amount requested:', 'OT-wages', true);
