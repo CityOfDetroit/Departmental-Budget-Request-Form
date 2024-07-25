@@ -11,16 +11,23 @@ async function addNewRow(data_dictionary){
         Header.add(Object.keys(data_dictionary));
     }
 
-    // add row of data
+    // initialize new row of data
     const new_row = document.createElement('tr');
-    const cell_data_array = Object.values(data_dictionary);
 
-    for (const cell_data of cell_data_array) {
+    // go through each header and add the right cell value depending on its class
+    let thElements = header_row.querySelectorAll('th');
+    thElements.forEach( (header_cell) => {
         // Create new cell and add it to the row
         const newCell = document.createElement('td');
-        newCell.textContent = cell_data;
         new_row.appendChild(newCell);
-    }
+        // the data has an appropriate class, add the info to the cell. Otherwise, keep empty cell
+        Object.keys(data_dictionary).forEach( (className) => {
+            if (header_cell.classList.contains(className) ){
+                newCell.textContent = data_dictionary[className];
+                newCell.classList.add(className);
+            }
+        })
+    });
 
     // Append the new row to the table body
     let tbody = table.querySelector('tbody');

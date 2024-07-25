@@ -41,6 +41,7 @@ export function preparePageView(){
 }
 
 export async function initializeRevTable(){
+    console.log(document.getElementById('main-table'));
     // load table data from storage
     if(await Table.Data.load()) {
         //after table is loaded, fill it

@@ -114,7 +114,7 @@ export function setUpModal() {
 export function setUpForm() {
     // Set up form
     Form.new('modal-body');
-    Form.NewField.shortText('Job Name:', 'job-name', true); 
+    Form.NewField.shortText('Job Title:', 'job-name', true); 
     Form.NewField.shortText('Account String:', 'account-string', true); 
     Form.SubmitButton.add();
     // Initialize form submission to table data
@@ -131,10 +131,9 @@ function handleSubmitNewJob(event){
 
         // add data to table
         Table.Rows.add(responses);
-        Table.show();
-        Table.Buttons.AddRow.show();
-        // TODO: save table data
-        // TODO: edit cost to show currency correctly
-        }
+        Table.save();
+        initializePersonnelTable();
+
+    }
 
 }
