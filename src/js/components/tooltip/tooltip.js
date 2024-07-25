@@ -184,7 +184,7 @@ export const Tooltip = {
     unlink : function() {
         let details = document.querySelectorAll('.detail');
         details.forEach( (span) => {
-            span.textContent = '';
+            span.remove();
         })
     }
 }
