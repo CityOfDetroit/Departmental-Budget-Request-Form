@@ -135,6 +135,8 @@ function handleSubmitNewRow(event){
 
     // edit inputs from modal
     responses['OT-wages'] = unformatCurrency(responses['OT-wages']);
+    responses['fica'] = 0.0765;
+
     // make sure it's not an empty response
     if (Object.values(responses)[0] != ''){
         // change page view
