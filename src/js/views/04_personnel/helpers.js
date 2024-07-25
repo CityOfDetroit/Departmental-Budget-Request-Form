@@ -9,7 +9,6 @@ import Prompt from "../../components/prompt/prompt.js";
 import Table from '../../components/table/table.js'
 import Sidebar from "../../components/sidebar/sidebar.js";
 import { Services } from "../../utils/data_utils/budget_data_handlers.js";
-import Tooltip from "../../components/tooltip/tooltip.js";
 import { unformatCurrency } from "../../utils/common_utils.js";
 
 
@@ -20,6 +19,10 @@ export function preparePageView(){
     Sidebar.show();
     Table.adjustWidth('90%');
     NavButtons.Next.enable();
+
+    // new row button
+    Table.Buttons.AddRow.updateText("Add new job");
+    Table.Buttons.AddRow.show();
 
     // update page text
     Subtitle.update('Personnel');
@@ -70,15 +73,9 @@ export async function initializePersonnelTable(){
         updateDisplayandTotals();
         // activate edit buttons
         Table.Buttons.Edit.init(personnelRowOnEdit, updateDisplayandTotals);
-        initializeRowAddition();
     } else {
         Prompt.Text.update('No personnel expenditures for this fund.')
     }
-}
-
-function initializeRowAddition(){
-    Table.Buttons.AddRow.updateText("Add new job");
-    Table.Buttons.AddRow.show();
 }
 
 // update sidebar and also cost totals when the FTEs are edited
@@ -127,11 +124,9 @@ export function setUpForm() {
 function handleSubmitNewJob(event){        
     // get answers from form, hide form, show answers in table
     const responses = Form.fetchAllResponses(event);
-
     // edit inputs from modal
     responses['avg-salary'] = unformatCurrency(responses['avg-salary']);
     responses['fringe'] = parseFloat(responses['fringe']) / 100;
-    console.log(responses);
     // make sure it's not an empty response
     if (Object.values(responses)[0] != ''){
         // change page view

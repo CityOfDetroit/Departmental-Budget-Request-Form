@@ -6,7 +6,9 @@ import Subtitle from '../../components/header/header.js';
 import Sidebar from '../../components/sidebar/sidebar.js';
 import Table from '../../components/table/table.js';
 import { Services } from '../../utils/data_utils/budget_data_handlers.js';
-import Tooltip from '../../components/tooltip/tooltip.js';
+import Modal from '../../components/modal/modal.js';
+import Form from '../../components/form/form.js';
+import { unformatCurrency } from '../../utils/common_utils.js';
 
 export function preparePageView(){
     // prepare page view
@@ -24,6 +26,20 @@ export function preparePageView(){
     initializeOTTable();
     Prompt.Text.update(`Please see your baseline overtime / holiday pay / shift premiums in the table below.
         Make any edits and continue.`);
+
+    // form for new row
+    setUpModal();
+    setUpForm();
+
+    // show new row button
+    initializeRowAddition();
+}
+
+function setUpModal() {
+    // Initialize modal
+    Modal.clear();
+    Modal.Link.add('add-btn');
+    Modal.Title.update('New cost center for overtime');
 }
 
 function assignClasses() {
@@ -69,6 +85,11 @@ export async function initializeOTTable(){
     }
 }
 
+function initializeRowAddition(){
+    Table.Buttons.AddRow.updateText("Add new cost center");
+    Table.Buttons.AddRow.show();
+}
+
 function calculateTotalCost(salary, wages, fica_rate){
     fica_rate = parseFloat(fica_rate);
     return (wages + salary) * (1 + fica_rate) ;
@@ -93,4 +114,36 @@ function updateDisplayandTotals(){
         //save data
         Table.save();
     }
+}
+
+export function setUpForm() {
+    // Set up form
+    Form.new('modal-body');
+    Form.NewField.shortText('Appropriation:', 'approp-name', true); 
+    Form.NewField.shortText('Cost Center:', 'cc-name', true); 
+    Form.NewField.dropdown('Service', 'service', Services.list(), true);
+    Form.NewField.dropdown('Recurring or One-Time', 'recurring', ['Recurring', 'One-Time'], true);
+    Form.NewField.shortText('Overtime amount requested:', 'OT-wages', true);
+    Form.SubmitButton.add();
+    // Initialize form submission to table data
+    Modal.Submit.init(handleSubmitNewRow);
+}
+
+function handleSubmitNewRow(event){        
+    // get answers from form, hide form, show answers in table
+    const responses = Form.fetchAllResponses(event);
+
+    // edit inputs from modal
+    responses['OT-wages'] = unformatCurrency(responses['OT-wages']);
+    // make sure it's not an empty response
+    if (Object.values(responses)[0] != ''){
+        // change page view
+        Modal.hide();
+        // add data to table
+        Table.Rows.add(responses);
+        Table.save();
+        initializeOTTable();
+
+    }
+
 }
