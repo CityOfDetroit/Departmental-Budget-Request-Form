@@ -89,7 +89,7 @@ function showCPA(row){
     editTooltipText(message);
 }
 
-function link (element, displayFn) {
+function link(element, displayFn) {
 
     // add class to show cell with an underline, etc
     element.classList.add('tooltip-cell');

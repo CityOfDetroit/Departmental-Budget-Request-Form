@@ -10,6 +10,7 @@ import Table from '../../components/table/table.js'
 import Sidebar from "../../components/sidebar/sidebar.js";
 import { Services } from "../../utils/data_utils/budget_data_handlers.js";
 import Tooltip from "../../components/tooltip/tooltip.js";
+import { unformatCurrency } from "../../utils/common_utils.js";
 
 
 export function preparePageView(){
@@ -115,6 +116,9 @@ export function setUpForm() {
     Form.NewField.shortText('Job Title:', 'job-name', true); 
     Form.NewField.shortText('Account String:', 'account-string', true); 
     Form.NewField.dropdown('Service', 'service', Services.list(), true);
+    Form.NewField.shortText('Number of FTEs requested:', 'baseline-ftes', true);
+    Form.NewField.shortText(`Projected average salary IN FISCAL YEAR ${FISCAL_YEAR}:`, 'avg-salary', true);
+    Form.NewField.shortText(`Expected fringe rate (as a percentage)`, 'fringe', true);
     Form.SubmitButton.add();
     // Initialize form submission to table data
     Modal.Submit.init(handleSubmitNewJob);
@@ -123,11 +127,15 @@ export function setUpForm() {
 function handleSubmitNewJob(event){        
     // get answers from form, hide form, show answers in table
     const responses = Form.fetchAllResponses(event);
+
+    // edit inputs from modal
+    responses['avg-salary'] = unformatCurrency(responses['avg-salary']);
+    responses['fringe'] = parseFloat(responses['fringe']) / 100;
+    console.log(responses);
     // make sure it's not an empty response
     if (Object.values(responses)[0] != ''){
         // change page view
         Modal.hide();
-
         // add data to table
         Table.Rows.add(responses);
         Table.save();
