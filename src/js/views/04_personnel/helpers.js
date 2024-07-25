@@ -70,8 +70,6 @@ export async function initializePersonnelTable(){
         // activate edit buttons
         Table.Buttons.Edit.init(personnelRowOnEdit, updateDisplayandTotals);
         initializeRowAddition();
-        // Link up tooltips to display more info on hover
-        Tooltip.linkAll();
     } else {
         Prompt.Text.update('No personnel expenditures for this fund.')
     }
@@ -116,6 +114,7 @@ export function setUpForm() {
     Form.new('modal-body');
     Form.NewField.shortText('Job Title:', 'job-name', true); 
     Form.NewField.shortText('Account String:', 'account-string', true); 
+    Form.NewField.dropdown('Service', 'service', Services.list(), true);
     Form.SubmitButton.add();
     // Initialize form submission to table data
     Modal.Submit.init(handleSubmitNewJob);

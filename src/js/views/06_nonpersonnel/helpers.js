@@ -48,7 +48,7 @@ export async function initializeNonpersonnelTable(){
         Table.Columns.assignClasses(nonPersonnelColumns);
         // enable editing
         Table.Buttons.Edit.init(nonPersonnelRowOnEdit, Table.save);
-        // show info boxes on click
+        // show detail buttons
         Tooltip.linkAll();
     } else {
         Prompt.Text.update('No non-personnel expenditures for this fund.')

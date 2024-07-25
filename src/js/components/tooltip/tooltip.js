@@ -148,7 +148,7 @@ function linkTotalOTCol() {
 
 function linkCPACol() {
     // get all relevant cells
-    document.querySelectorAll('.cpa').forEach( (cell) => {
+    document.querySelectorAll('td.cpa').forEach( (cell) => {
         link(cell, showCPA);
     })
 }
