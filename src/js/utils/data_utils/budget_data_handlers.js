@@ -97,3 +97,47 @@ export const Services = {
         return JSON.parse(localStorage.getItem('services-list')) || {};
     }
 }
+
+export const ObjectCategories = {
+    list : [
+        // 'Salaries & Wages',
+        // 'Employee Benefits',
+        'Professional & Contractual Services',
+        'Operating Supplies',
+        'Operating Services',
+        'Equipment Acquisition',
+        'Capital Outlays',
+        'Fixed Charges',
+        'Other Expenses'
+    ]
+}
+
+function getNumber(input) {
+    const match = input.match(/^\d+/);
+    return match ? match[0] : null;
+}
+
+export const AccountString = {
+    build : (approp, cc, obj = null) => {
+        // put together account string fund-approp-costcenter[-obj] (w optional object)
+        const fund = CurrentFund.number();
+        approp = getNumber(approp);
+        cc = getNumber(cc);
+        var string = `${fund}-${approp}-${cc}`;
+        string = obj ? `${string}-${getNumber(obj)}` : string;
+        return string;
+    },
+
+    getAccountStringSection : (account_string, section) => {
+        const sections = account_string.split("-");
+        return sections.length > section ? sections[section] : null;
+    },
+
+    fund : (account_string) => { this.getAccountStringSection(account_string, 0) },
+
+    approp : (account_string) => { this.getAccountStringSection(account_string, 1) },
+
+    costCenter : (account_string) => { this.getAccountStringSection(account_string, 2) },
+
+    object : (account_string) => { this.getAccountStringSection(account_string, 3) },
+}
