@@ -8,7 +8,7 @@ import Modal from "../../components/modal/modal.js";
 import Prompt from "../../components/prompt/prompt.js";
 import Table from '../../components/table/table.js'
 import Sidebar from "../../components/sidebar/sidebar.js";
-import { FundLookupTable, Services } from "../../utils/data_utils/budget_data_handlers.js";
+import { AccountString, FundLookupTable, Services } from "../../utils/data_utils/budget_data_handlers.js";
 import { unformatCurrency } from "../../utils/common_utils.js";
 
 export function preparePageView(){
@@ -46,9 +46,9 @@ function assignClasses() {
         // hidden columns needed for calculations
         { title: 'Fringe Benefits Rate', className: 'fringe', hide: true },
         { title: 'Appropriation Name', className: 'approp-name', hide: true },
+        { title: 'Appropriation', className: 'approp', hide: true },
         { title: 'Cost Center Name', className: 'cc-name',  hide: true },
-        { title: 'Object Name', className: 'object-name',  hide: true },
-        { title: 'Object', className: 'object',  hide: true },
+        { title: 'Cost Center', className: 'cc',  hide: true },
         { title: 'General Increase Rate', className: 'general-increase-rate', hide: true},
         { title: 'Step/Merit Increase Rate', className: 'merit-increase-rate', hide: true},
         { title: `Average Salary/Wage as of 9/1/20${FISCAL_YEAR-2}`, className: 'current-salary', isCost: true, hide: true},
@@ -129,7 +129,10 @@ function handleSubmitNewJob(event){
     // edit inputs from modal
     responses['avg-salary'] = unformatCurrency(responses['avg-salary']);
     responses['fringe'] = parseFloat(responses['fringe']) / 100;
-    responses['account-string'] = `${responses['approp-name']}-${responses['cc-name']}`
+    console.log(responses['approp-name']);
+    responses['account-string'] = AccountString.build(responses['approp-name'], responses['cc-name'])
+    responses['approp'] = AccountString.getNumber(responses['approp-name']);
+    responses['cc'] = AccountString.getNumber(responses['cc-name']);
     // make sure it's not an empty response
     if (Object.values(responses)[0] != ''){
         // change page view
