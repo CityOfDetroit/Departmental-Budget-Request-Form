@@ -5,7 +5,7 @@ import NavButtons from '../../components/nav_buttons/nav_buttons.js';
 import Subtitle from '../../components/header/header.js';
 import Sidebar from '../../components/sidebar/sidebar.js';
 import Table from '../../components/table/table.js';
-import { Services } from '../../utils/data_utils/budget_data_handlers.js';
+import { AccountString, Services } from '../../utils/data_utils/budget_data_handlers.js';
 import Modal from '../../components/modal/modal.js';
 import Form from '../../components/form/form.js';
 import { unformatCurrency } from '../../utils/common_utils.js';
@@ -59,6 +59,9 @@ function assignClasses() {
         { title: 'Edit', className: 'edit'},
         // calc columns
         { title: 'FICA Rate', className: 'fica', hide: true},
+        { title: 'Account String', className: 'account-string', hide: true},
+        { title: `Cost Center`, className: 'cc', hide: true },
+        { title: 'Appropriation', className: 'approp', hide: true},
     ];
 
     // assign cost classes
@@ -134,6 +137,10 @@ function handleSubmitNewRow(event){
     // edit inputs from modal
     responses['OT-wages'] = unformatCurrency(responses['OT-wages']);
     responses['fica'] = 0.0765;
+    // create account string
+    responses['account-string'] = AccountString.build(responses['approp-name'], responses['cc-name']);
+    responses['approp'] = AccountString.getNumber(responses['approp-name']);
+    responses['cc'] = AccountString.getNumber(responses['cc-name']);
 
     // make sure it's not an empty response
     if (Object.values(responses)[0] != ''){

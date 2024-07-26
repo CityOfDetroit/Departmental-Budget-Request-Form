@@ -7,8 +7,9 @@ import Subtitle from "../../components/header/header.js";
 import Tooltip from "../../components/tooltip/tooltip.js";
 import Modal from "../../components/modal/modal.js";
 import Form from "../../components/form/form.js";
-import { ObjectCategories, Services } from "../../utils/data_utils/budget_data_handlers.js";
+import { ObjectCategories, Services, AccountString } from "../../utils/data_utils/budget_data_handlers.js";
 import { FundLookupTable } from "../../utils/data_utils/budget_data_handlers.js";
+import { unformatCurrency } from "../../utils/common_utils.js";
 
 const nonPersonnelColumns = [
     { title: 'FY26 Request', className: 'request', isCost: true },
@@ -22,9 +23,12 @@ const nonPersonnelColumns = [
     // hidden columns used for calcs and info boxes
     { title: 'Appropriation Name', className: 'approp-name', hide: true },
     { title: 'Cost Center Name', className: 'cc-name',  hide: true },
-    { title : 'Contract End Date', className : 'contract-end', hide:true},
+    { title: 'Appropriation', className: 'approp', hide: true },
+    { title: 'Cost Center', className: 'cc',  hide: true },
+    { title: 'Contract End Date', className: 'contract-end', hide:true},
     { title: 'Amount Remaining on Contract', className: 'remaining', isCost: true , hide: true},
     { title: 'Object Name', className: 'object-name', hide: true},
+    { title: 'Object', className: 'object', hide: true},
     { title: 'Vendor Name', className: 'vendor', hide: true},
     { title: 'Object Category', className: 'object-category', hide: true},
     { title: 'BPA/CPA Description', className: 'cpa-description', hide: true}  
@@ -87,7 +91,8 @@ export function setUpForm() {
     Form.NewField.dropdown('Appropriation:', 'approp-name', FundLookupTable.getApprops(), true);
     Form.NewField.dropdown('Cost Center:', 'cc-name', FundLookupTable.getCostCenters(), true);
     Form.NewField.dropdown('Object Category:', 'object-category', ObjectCategories.list, true);
-    Form.NewField.shortText('Object Number (if known):', 'object-number', true);
+    // TODO: maybe give dropdown based on selected obj category
+    Form.NewField.shortText('Object Number (if known):', 'object', false);
     Form.NewField.dropdown('Service', 'service', Services.list(), true);
     Form.NewField.longText('Describe your new request:', 'description', true);
     Form.NewField.dropdown('Recurring or One-Time', 'recurring', ['Recurring', 'One-Time'], true); 
@@ -104,6 +109,13 @@ function submitNewRow(event){
     // edit inputs from modal
     responses['avg-salary'] = unformatCurrency(responses['avg-salary']);
     responses['fringe'] = parseFloat(responses['fringe']) / 100;
+    // create account string
+    responses['account-string'] = AccountString.build(responses['approp-name'], responses['cc-name'], responses['object']);
+    responses['approp'] = AccountString.getNumber(responses['approp-name']);
+    responses['cc'] = AccountString.getNumber(responses['cc-name']);
+    // TODO: build out lookup table from meta.obj tab from detail sheet?
+    responses['object-name'] = responses['object'];
+
     // make sure it's not an empty response
     if (Object.values(responses)[0] != ''){
         // change page view
@@ -111,7 +123,7 @@ function submitNewRow(event){
         // add data to table
         Table.Rows.add(responses);
         Table.save();
-        initializePersonnelTable();
+        initializeNonpersonnelTable();
 
     }
 
