@@ -9,7 +9,6 @@ function initializeNavButtons(){
     // initialize next button
     const next_btn = document.getElementById('btn-next');
     next_btn.addEventListener('click', nextPage); 
-    // disable('btn-next');
 }
 
 function hideNavButtons() {

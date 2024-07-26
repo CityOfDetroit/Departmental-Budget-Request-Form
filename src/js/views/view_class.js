@@ -6,24 +6,28 @@ import Subtitle from "../components/header/header.js";
 import Table from "../components/table/table.js";
 import Form from "../components/form/form.js";
 import Modal from "../components/modal/modal.js";
-import Sidebar from "../components/sidebar/sidebar.js";
+
+import { CurrentPage } from "../utils/data_utils/local_storage_handlers.js";
 
 export class View {
-    constructor(page_state) {
-        this.page_state = page_state
+
+    constructor() {
+        // page state in local storage
+        this.page_state = '';
+
+        // whether to display
+        this.navButtons = true; 
+        this.sidebar = true;
+
+        // text to show in the prompt area
+        this.prompt = null;
+
+        // subtitle text
+        this.subtitle = '';
+
+        // table object of class ViewTable or null
+        this.table = null;
     }
-
-    navButtons() { return true }
-
-    sidebar() { return true }
-
-    form() { return null }
-
-    prompt() { return '' }
-
-    table() { return new ViewTable() }
-
-    subtitle() { return '' }
 
     visit() {
         // update page state
@@ -33,19 +37,19 @@ export class View {
         Body.reset();
         
         // default to showing navbuttons
-        if (this.navButtons()) { NavButtons.show(); };
+        if (this.navButtons) { NavButtons.show(); };
         
         // default to showing sidebar
-        if (this.sidebar()) { Sidebar.show() };
+        if (this.sidebar) { Sidebar.show() };
 
         // initialize prompt text and buttons
-        if (this.prompt()) { Prompt.Text.update(this.prompt()) };
+        if (this.prompt) { Prompt.Text.update(this.prompt) };
         
         // initialize table
-        if (this.table()) { this.table(); }
+        if (this.table) { this.table.build(); }
 
         // show page subtitle
-        if (this.subtitle()) { Subtitle.update(this.subtitle()) };
+        if (this.subtitle) { Subtitle.update(this.subtitle) };
     }
 
     cleanup() { return }
@@ -55,18 +59,7 @@ export class View {
 export class ViewTable {
 
     constructor(){
-        // build out table from local storage
-        this.build();
-
-        // add the add new row button if needed
-        if (this.addButtonText()) { 
-            this.setUpForm();
-        }
-    }
-
-    columns() {
-        // common columns in every table
-        const cols = [
+        this.columns = [
             { title: 'Account String', className: 'account-string' },
             { title: 'Appropriation Name', className: 'approp-name', hide: true },
             { title: 'Appropriation', className: 'approp', hide: true },
@@ -76,11 +69,24 @@ export class ViewTable {
             { title: 'Fund', className: 'fund',  hide: true },
             { title: 'Edit', className: 'edit' },
         ];
-        return cols;
+        
+        // whether to add an edit column
+        this.addEdit = true ;
+
+        // message to show if there's no saved data
+        this.noDataMessage = null;
+   
+        // text to show for new row button
+        this.addButtonText = null ;
     }
 
     async build() {
     // build table from local storage and initialize edit buttons
+
+        // add the add new row button if needed
+        if (this.addButtonText) { 
+            this.setUpForm();
+        }
 
         if(await Table.Data.load()) {
 
@@ -88,14 +94,14 @@ export class ViewTable {
             Table.show();
 
             // add an edit column if needed
-            if (this.addEdit()) { 
+            if (this.addEdit) { 
                 Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, 'Edit'); 
                 // activate edit buttons
                 Table.Buttons.Edit.init(this.actionOnEdit, this.updateSidebar);
             }
             
             // assign the correct classes based on the table columns
-            Table.Columns.assignClasses(this.columns());
+            Table.Columns.assignClasses(this.columns);
 
             // Apply any update function to make sure sidebar is up to date
             this.updateSidebar();
@@ -103,8 +109,8 @@ export class ViewTable {
         } else {
 
             // show a message if there's no saved table data for the selected fund
-            if (noDataMessage()) {
-                Prompt.Text.update(noDataMessage());
+            if (this.noDataMessage) {
+                Prompt.Text.update(this.noDataMessage);
             }
         }
     }
@@ -112,25 +118,17 @@ export class ViewTable {
     // placeholder for action on row edit click
     actionOnEdit() { return }
 
-    // whether to add an edit column
-    addEdit() { return true };
-
     // update function for the sidebar; default to just saving the table
     updateSidebar() { Table.save() }
 
-    // message to show if there's no saved data
-    noDataMessage() { return null };
-
-    // text to show for new row button
-    addButtonText() { return null };
-
+    // extra questions of the form to add a new row
     addCustomQuestions() { return };
 
     setUpForm() {
         // set up modal for form when add button is pressed
         Modal.clear();
         Modal.Link.add('add-btn');
-        Modal.Title.update(addButtonText());
+        Modal.Title.update(this.addButtonText);
 
         // create form
         Form.new('modal-body');
