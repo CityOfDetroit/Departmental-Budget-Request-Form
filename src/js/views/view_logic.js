@@ -85,6 +85,12 @@ export function lastPage(){
 
     // clean up current page
     if (CLEANUP[page_state]) { CLEANUP[page_state]() };
+
+    // if on new-inits, circle back to fund selection
+    if (CurrentPage.load() == 'new-inits'){
+        visitPage('baseline-landing');
+        return;
+    }
     
     // Check if there is a next key
     if (currentIndex >= 1) {

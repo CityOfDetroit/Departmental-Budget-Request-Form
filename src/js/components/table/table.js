@@ -45,7 +45,7 @@ const Table = {
     clear : clearTable,
     hide : hideTable,
     show : showTable,
-    save : function() {
+    save : async function() {
         // remove the detail text
         Tooltip.unlink();
         saveTableData();

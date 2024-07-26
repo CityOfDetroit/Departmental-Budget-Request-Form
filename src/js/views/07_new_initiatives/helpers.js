@@ -19,10 +19,10 @@ const initiativesCols = [
     { title: 'Initiative Name', className: 'init-name' },
     { title: 'Account String', className: 'account-string' },
     { title: 'Ballpark Total Expenses', className: 'total', isCost: true },
-    { title: 'Revenue', className: 'revenue', isCost: true },
     { title: 'Personnel Cost', className: 'personnel', isCost: true },
     { title: 'Non-personnel Cost', className: 'nonpersonnel', isCost: true },
-    { title: 'One-time v. Recurring', className: 'rev-type' },
+    { title: 'Revenue', className: 'revenue', isCost: true },
+    { title: 'Revenue Type', className: 'rev-type' },
     { title: 'Edit', className : 'edit' },
 
     // hide the explanation columns
@@ -110,16 +110,19 @@ function assignClasses() {
 }
 
 export async function initializeInitTable(){
+    
     // load table data from storage
     if(await Table.Data.load()) {
         // after table is loaded, fill it
         Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, "Edit");
         assignClasses();
+        // show table
+        Table.show();
         // enable editing
         Table.Buttons.Edit.init(rowOnEdit, Table.save);
-        // show table
-        Table.save();
-        Table.show();
+    } else {
+        Table.clear();
+        console.log('no data');
     }
 }
 
@@ -128,7 +131,6 @@ function rowOnEdit(){
     Table.Cell.createTextbox('revenue', true);
     Table.Cell.createTextbox('personnel', true);
     Table.Cell.createTextbox('nonpersonnel', true);
-    Table.Cell.createTextbox('account-string');
     Table.Cell.createTextbox('init-name');
     Table.Cell.createDropdown('rev-type', dropdownOptions);
 }
@@ -136,6 +138,7 @@ function rowOnEdit(){
 function submitNewRow(event){
     // get answers from form, hide form, show answers in table
     const responses = Form.fetchAllResponses(event);
+    console.log(responses);
 
     // create account string columns
     responses['approp'] = AccountString.getNumber(responses['approp-name']);

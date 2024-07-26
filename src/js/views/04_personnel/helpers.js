@@ -129,7 +129,6 @@ function handleSubmitNewJob(event){
     // edit inputs from modal
     responses['avg-salary'] = unformatCurrency(responses['avg-salary']);
     responses['fringe'] = parseFloat(responses['fringe']) / 100;
-    console.log(responses['approp-name']);
     responses['account-string'] = AccountString.build(responses['approp-name'], responses['cc-name'])
     responses['approp'] = AccountString.getNumber(responses['approp-name']);
     responses['cc'] = AccountString.getNumber(responses['cc-name']);
