@@ -62,9 +62,9 @@ export async function deleteAllTables(){
 
 export function loadTableData(name){
     const data = localStorage.getItem(name);
-    if ( data == '' ) {
-        return '';
-    }
+    if ( data == '' || data == '[]' ) {
+        return 0;
+    };
     return JSON.parse(data);
 }
 
