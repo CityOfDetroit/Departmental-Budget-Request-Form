@@ -1,21 +1,21 @@
-function addTableHeaders(header_array){
+function addTableHeaders(cols){
 
     // Get the table element by its ID
     const table = document.getElementById('main-table');
     
     // Create a table header row element
     const headerRow = document.createElement('tr');
-    
-    for (const headerText of header_array) {
 
+    cols.forEach(col => {
         // Create a header cell element
         const headerCell = document.createElement('th');
-        headerCell.textContent = headerText;
+        headerCell.textContent = col['title'];
+        headerCell.classList.add(col['className']);
         
         // Append the header cell to the header row
         headerRow.appendChild(headerCell);
-    }
-    
+    });
+
     // Append the header row to the table header
     let thead = table.querySelector('thead');
     thead.appendChild(headerRow);

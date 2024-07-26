@@ -35,13 +35,28 @@ export const FundLookupTable = {
         this.save(table);
     },
 
+    getAll: function(key) {
+        // function to aggregate all approps or CCs for every fund in one array
+        const funds = this.retrieve();
+        const ret = [];
+        for (const fund in funds) {
+            if (funds.hasOwnProperty(fund)) {
+                for (let i in funds[fund][key]){
+                    ret.push(funds[fund][key][i]);
+                }
+            }
+        }
+        return ret;
+    },
+
     getCostCenters : function() {
         // get current fund
         const fund = CurrentFund.number()
         if (this.retrieve()[fund]){
             return this.retrieve()[fund]['cc'];
         }
-        return [];
+        // if no fund (ie. we're on the new initiative page), return all options
+        return this.getAll('cc');
     },
 
     getApprops : function() {
@@ -50,7 +65,8 @@ export const FundLookupTable = {
         if (this.retrieve()[fund]){
             return this.retrieve()[fund]['approp'];
         }
-        return [];
+        // if no fund (ie. we're on the new initiative page), return all options
+        return this.getAll('approp');
     },
 
     reset : function() {
@@ -62,6 +78,16 @@ export const FundLookupTable = {
     },
     listFunds : function(){
         return Object.keys(this.retrieve());
+    },
+    listFundNames : function(){
+        const funds = this.retrieve();
+        // initialize array
+        var ret = [];
+        Object.keys(funds).forEach( (fund_number) => {
+            var fund_name = funds[fund_number]['name'];
+            ret.push(fund_name);
+        });
+        return ret;
     },
     editFund : function(fund){
         const table = this.retrieve();
@@ -119,9 +145,9 @@ export const AccountString = {
         return match ? match[0] : null;
     },
 
-    build : function(approp, cc, obj = null) {
+    build : function(approp, cc, obj = null, fund = null) {
         // put together account string fund-approp-costcenter[-obj] (w optional object)
-        const fund = CurrentFund.number();
+        if (!fund) { fund = CurrentFund.number() };
         // hits error here
         approp = this.getNumber(approp);
         cc = this.getNumber(cc);

@@ -24,9 +24,9 @@ function fillTable(data) {
         data.forEach(item => {
             const row = document.createElement('tr');
             Object.values(item).forEach(val => {
-            const cell = document.createElement('td');
-            cell.innerHTML = val;
-            row.appendChild(cell);
+                const cell = document.createElement('td');
+                cell.innerHTML = val;
+                row.appendChild(cell);
             });
             tbody.appendChild(row);
         });
