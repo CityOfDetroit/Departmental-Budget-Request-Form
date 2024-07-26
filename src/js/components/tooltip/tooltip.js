@@ -22,8 +22,9 @@ function showAccountString(row){
     const approp = Cell.getText(row, 'approp-name');
     const cc =  Cell.getText(row, 'cc-name');
     const obj =  Cell.getText(row, 'object-name');
+    const fund = Cell.getText(row, 'fund-name');
     var message = 
-        `<strong>Fund</strong>: ${CurrentFund.name()}<br>
+        `<strong>Fund</strong>: ${fund}<br>
         <strong>Appropriation</strong>: ${approp}<br>
         <strong>Cost Center</strong>: ${cc}`;
     if (obj) { message += `<br><strong>Object</strong>: ${obj}`}
@@ -174,6 +175,9 @@ export const Tooltip = {
                 linkCPACol();  
                 break;
             case 'revenue':
+                linkAccountStringCol();
+                break;
+            case 'new-inits':
                 linkAccountStringCol();
                 break;
             default:

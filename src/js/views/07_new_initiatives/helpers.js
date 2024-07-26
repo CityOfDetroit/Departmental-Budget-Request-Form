@@ -101,7 +101,7 @@ export function setUpForm() {
 
     Form.SubmitButton.add();
     // Initialize form submission to table data
-    Modal.Submit.init(handleNewInitSubmission);
+    Modal.Submit.init(submitNewRow);
 }
 
 function assignClasses() {
@@ -110,7 +110,6 @@ function assignClasses() {
 }
 
 export async function initializeInitTable(){
-    Table.clear();
     // load table data from storage
     if(await Table.Data.load()) {
         // after table is loaded, fill it
@@ -119,6 +118,7 @@ export async function initializeInitTable(){
         // enable editing
         Table.Buttons.Edit.init(rowOnEdit, Table.save);
         // show table
+        Table.save();
         Table.show();
     }
 }
@@ -133,7 +133,7 @@ function rowOnEdit(){
     Table.Cell.createDropdown('rev-type', dropdownOptions);
 }
 
-function handleNewInitSubmission(event){
+function submitNewRow(event){
     // get answers from form, hide form, show answers in table
     const responses = Form.fetchAllResponses(event);
 
@@ -145,13 +145,11 @@ function handleNewInitSubmission(event){
    
     // make sure it's not an empty response
     if (Object.values(responses)[0] != ''){
+        Modal.hide();
         // add data to table
         Table.Rows.add(responses, initiativesCols);
-        // save it
         Table.save();
-        // show updated table
         initializeInitTable();
-        Modal.hide();
         Table.Buttons.AddRow.updateText('Add another new initiative');
     }
 }
