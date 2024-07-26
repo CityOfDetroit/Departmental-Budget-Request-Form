@@ -2,7 +2,7 @@ import { FISCAL_YEAR } from '../../init';
 import Cell from '../table/subcomponents/cells';
 import { formatCurrency } from '../../utils/common_utils';
 import './tooltip.css'
-import { CurrentPage } from '../../utils/data_utils/local_storage_handlers';
+import { CurrentFund, CurrentPage } from '../../utils/data_utils/local_storage_handlers';
 
 function hideTooltip() {
     document.getElementById('tooltip').style.visibility = 'hidden';
@@ -22,8 +22,10 @@ function showAccountString(row){
     const approp = Cell.getText(row, 'approp-name');
     const cc =  Cell.getText(row, 'cc-name');
     const obj =  Cell.getText(row, 'object-name');
-    var message = `<strong>Appropriation</strong>: ${approp}<br>
-                    <strong>Cost Center</strong>: ${cc}`;
+    var message = 
+        `<strong>Fund</strong>: ${CurrentFund.name()}<br>
+        <strong>Appropriation</strong>: ${approp}<br>
+        <strong>Cost Center</strong>: ${cc}`;
     if (obj) { message += `<br><strong>Object</strong>: ${obj}`}
     editTooltipText(message);
 }
@@ -35,16 +37,15 @@ function showSalaryProjection(row){
     const proj_salary = Cell.getValue(row, 'avg-salary');
     if (current_salary){
         var message = `The average salary/wage for this position was 
-            ${formatCurrency(current_salary)} as of September 20${FISCAL_YEAR-2}. With two general 
-            increases of ${general_increase*100}% and a merit increase of ${merit_increase*100}%, the 
-            Budget Office projects that the average annual 
-            salary/wage for this position will be ${formatCurrency(proj_salary)} in FY${FISCAL_YEAR}.`;
+            ${formatCurrency(current_salary)} as of September 20${FISCAL_YEAR-2}. 
+            Given a ${general_increase*100}% general increase rate and a ${merit_increase*100}% 
+            merit increase, the FY${FISCAL_YEAR} projection for this position's average 
+            annual salary/wage is ${formatCurrency(proj_salary)}.`;
     } else {
         var message = `The average salary/wage for this position was 
             unknown as of September 20${FISCAL_YEAR-2}, or the position
-            did not exist. The Budget Office projects that 
-            the average annual salary/wage for this position 
-            will be ${formatCurrency(proj_salary)} in FY2026.`
+            did not exist. The FY${FISCAL_YEAR} projection for this position's 
+            average annual salary/wage is ${formatCurrency(proj_salary)}.`
     }
 
     editTooltipText(message);
@@ -65,7 +66,7 @@ function showFinalPersonnelCost(row){
 function showFICA(row){
     const fica = parseFloat(Cell.getText(row, 'fica'));
     const ficaPercentage = (fica * 100).toFixed(2);
-    const message = `This total is overtime wages plus overtime salary plus FICA, 
+    const message = `This total is overtime wages plus overtime salary plus FICA (payroll tax), 
                      which is ${ficaPercentage}% for this cost center.`
     editTooltipText(message);
 }
