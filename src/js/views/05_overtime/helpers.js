@@ -9,6 +9,8 @@ import { Services } from '../../utils/data_utils/budget_data_handlers.js';
 import Modal from '../../components/modal/modal.js';
 import Form from '../../components/form/form.js';
 import { unformatCurrency } from '../../utils/common_utils.js';
+import { FundLookupTable } from "../../utils/data_utils/budget_data_handlers.js";
+
 
 export function preparePageView(){
     // prepare page view

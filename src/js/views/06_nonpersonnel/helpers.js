@@ -7,8 +7,8 @@ import Subtitle from "../../components/header/header.js";
 import Tooltip from "../../components/tooltip/tooltip.js";
 import Modal from "../../components/modal/modal.js";
 import Form from "../../components/form/form.js";
-import { Services } from "../../utils/data_utils/budget_data_handlers.js";
-import { FISCAL_YEAR } from "../../init.js";
+import { ObjectCategories, Services } from "../../utils/data_utils/budget_data_handlers.js";
+import { FundLookupTable } from "../../utils/data_utils/budget_data_handlers.js";
 
 const nonPersonnelColumns = [
     { title: 'FY26 Request', className: 'request', isCost: true },
@@ -86,7 +86,8 @@ export function setUpForm() {
     Form.new('modal-body');
     Form.NewField.dropdown('Appropriation:', 'approp-name', FundLookupTable.getApprops(), true);
     Form.NewField.dropdown('Cost Center:', 'cc-name', FundLookupTable.getCostCenters(), true);
-    Form.NewField.dropdown('Object:', 'object-name', [], true);
+    Form.NewField.dropdown('Object Category:', 'object-category', ObjectCategories.list, true);
+    Form.NewField.shortText('Object Number (if known):', 'object-number', true);
     Form.NewField.dropdown('Service', 'service', Services.list(), true);
     Form.NewField.longText('Describe your new request:', 'description', true);
     Form.NewField.dropdown('Recurring or One-Time', 'recurring', ['Recurring', 'One-Time'], true); 

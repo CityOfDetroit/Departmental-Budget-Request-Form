@@ -11,7 +11,6 @@ import Sidebar from "../../components/sidebar/sidebar.js";
 import { FundLookupTable, Services } from "../../utils/data_utils/budget_data_handlers.js";
 import { unformatCurrency } from "../../utils/common_utils.js";
 
-
 export function preparePageView(){
     // prepare page view
     Body.reset();
@@ -48,6 +47,8 @@ function assignClasses() {
         { title: 'Fringe Benefits Rate', className: 'fringe', hide: true },
         { title: 'Appropriation Name', className: 'approp-name', hide: true },
         { title: 'Cost Center Name', className: 'cc-name',  hide: true },
+        { title: 'Object Name', className: 'object-name',  hide: true },
+        { title: 'Object', className: 'object',  hide: true },
         { title: 'General Increase Rate', className: 'general-increase-rate', hide: true},
         { title: 'Step/Merit Increase Rate', className: 'merit-increase-rate', hide: true},
         { title: `Average Salary/Wage as of 9/1/20${FISCAL_YEAR-2}`, className: 'current-salary', isCost: true, hide: true},
