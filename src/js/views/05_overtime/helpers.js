@@ -5,8 +5,12 @@ import NavButtons from '../../components/nav_buttons/nav_buttons.js';
 import Subtitle from '../../components/header/header.js';
 import Sidebar from '../../components/sidebar/sidebar.js';
 import Table from '../../components/table/table.js';
-import { Services } from '../../utils/data_utils/budget_data_handlers.js';
-import Tooltip from '../../components/tooltip/tooltip.js';
+import { AccountString, Services } from '../../utils/data_utils/budget_data_handlers.js';
+import Modal from '../../components/modal/modal.js';
+import Form from '../../components/form/form.js';
+import { unformatCurrency } from '../../utils/common_utils.js';
+import { FundLookupTable } from "../../utils/data_utils/budget_data_handlers.js";
+
 
 export function preparePageView(){
     // prepare page view
@@ -24,6 +28,21 @@ export function preparePageView(){
     initializeOTTable();
     Prompt.Text.update(`Please see your baseline overtime / holiday pay / shift premiums in the table below.
         Make any edits and continue.`);
+
+    // form for new row
+    setUpModal();
+    setUpForm();
+
+    // show new row button
+    Table.Buttons.AddRow.updateText("Add new cost center");
+    Table.Buttons.AddRow.show();
+}
+
+function setUpModal() {
+    // Initialize modal
+    Modal.clear();
+    Modal.Link.add('add-btn');
+    Modal.Title.update('New cost center for overtime');
 }
 
 function assignClasses() {
@@ -40,6 +59,9 @@ function assignClasses() {
         { title: 'Edit', className: 'edit'},
         // calc columns
         { title: 'FICA Rate', className: 'fica', hide: true},
+        { title: 'Account String', className: 'account-string', hide: true},
+        { title: `Cost Center`, className: 'cc', hide: true },
+        { title: 'Appropriation', className: 'approp', hide: true},
     ];
 
     // assign cost classes
@@ -64,8 +86,6 @@ export async function initializeOTTable(){
         updateDisplayandTotals();
         // activate edit buttons
         Table.Buttons.Edit.init(OTRowOnEdit, updateDisplayandTotals);
-        // wire up tooltips to show info on click
-        Tooltip.linkAllOvertime();
     } else {
         Prompt.Text.update('No overtime expenditures for this fund.')
     }
@@ -95,4 +115,42 @@ function updateDisplayandTotals(){
         //save data
         Table.save();
     }
+}
+
+export function setUpForm() {
+    // Set up form
+    Form.new('modal-body');
+    Form.NewField.dropdown('Appropriation:', 'approp-name', FundLookupTable.getApprops(), true);
+    Form.NewField.dropdown('Cost Center:', 'cc-name', FundLookupTable.getCostCenters(), true); 
+    Form.NewField.dropdown('Service', 'service', Services.list(), true);
+    Form.NewField.dropdown('Recurring or One-Time', 'recurring', ['Recurring', 'One-Time'], true);
+    Form.NewField.shortText('Overtime amount requested:', 'OT-wages', true);
+    Form.SubmitButton.add();
+    // Initialize form submission to table data
+    Modal.Submit.init(handleSubmitNewRow);
+}
+
+function handleSubmitNewRow(event){        
+    // get answers from form, hide form, show answers in table
+    const responses = Form.fetchAllResponses(event);
+
+    // edit inputs from modal
+    responses['OT-wages'] = unformatCurrency(responses['OT-wages']);
+    responses['fica'] = 0.0765;
+    // create account string
+    responses['account-string'] = AccountString.build(responses['approp-name'], responses['cc-name']);
+    responses['approp'] = AccountString.getNumber(responses['approp-name']);
+    responses['cc'] = AccountString.getNumber(responses['cc-name']);
+
+    // make sure it's not an empty response
+    if (Object.values(responses)[0] != ''){
+        // change page view
+        Modal.hide();
+        // add data to table
+        Table.Rows.add(responses);
+        Table.save();
+        initializeOTTable();
+
+    }
+
 }

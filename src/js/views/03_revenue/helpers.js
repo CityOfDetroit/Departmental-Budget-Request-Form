@@ -51,7 +51,7 @@ export async function initializeRevTable(){
         // enable editing
         Table.Buttons.Edit.init(revRowOnEdit, Table.save);
         // show info boxes on click
-        Tooltip.linkAllRevenue();
+        Tooltip.linkAll();
     } else {
         Prompt.Text.update('No revenues for this fund.')
     }

@@ -8,9 +8,8 @@ import Modal from "../../components/modal/modal.js";
 import Prompt from "../../components/prompt/prompt.js";
 import Table from '../../components/table/table.js'
 import Sidebar from "../../components/sidebar/sidebar.js";
-import { Services } from "../../utils/data_utils/budget_data_handlers.js";
-import Tooltip from "../../components/tooltip/tooltip.js";
-
+import { AccountString, FundLookupTable, Services } from "../../utils/data_utils/budget_data_handlers.js";
+import { unformatCurrency } from "../../utils/common_utils.js";
 
 export function preparePageView(){
     // prepare page view
@@ -19,6 +18,10 @@ export function preparePageView(){
     Sidebar.show();
     Table.adjustWidth('90%');
     NavButtons.Next.enable();
+
+    // new row button
+    Table.Buttons.AddRow.updateText("Add new job");
+    Table.Buttons.AddRow.show();
 
     // update page text
     Subtitle.update('Personnel');
@@ -43,7 +46,9 @@ function assignClasses() {
         // hidden columns needed for calculations
         { title: 'Fringe Benefits Rate', className: 'fringe', hide: true },
         { title: 'Appropriation Name', className: 'approp-name', hide: true },
+        { title: 'Appropriation', className: 'approp', hide: true },
         { title: 'Cost Center Name', className: 'cc-name',  hide: true },
+        { title: 'Cost Center', className: 'cc',  hide: true },
         { title: 'General Increase Rate', className: 'general-increase-rate', hide: true},
         { title: 'Step/Merit Increase Rate', className: 'merit-increase-rate', hide: true},
         { title: `Average Salary/Wage as of 9/1/20${FISCAL_YEAR-2}`, className: 'current-salary', isCost: true, hide: true},
@@ -69,17 +74,9 @@ export async function initializePersonnelTable(){
         updateDisplayandTotals();
         // activate edit buttons
         Table.Buttons.Edit.init(personnelRowOnEdit, updateDisplayandTotals);
-        initializeRowAddition();
-        // Link up tooltips to display more info on hover
-        Tooltip.linkAllPersonnel();
     } else {
         Prompt.Text.update('No personnel expenditures for this fund.')
     }
-}
-
-function initializeRowAddition(){
-    Table.Buttons.AddRow.updateText("Add new job");
-    Table.Buttons.AddRow.show();
 }
 
 // update sidebar and also cost totals when the FTEs are edited
@@ -114,8 +111,13 @@ export function setUpModal() {
 export function setUpForm() {
     // Set up form
     Form.new('modal-body');
-    Form.NewField.shortText('Job Name:', 'job-name', true); 
-    Form.NewField.shortText('Account String:', 'account-string', true); 
+    Form.NewField.shortText('Job Title:', 'job-name', true); 
+    Form.NewField.dropdown('Appropriation:', 'approp-name', FundLookupTable.getApprops(), true);
+    Form.NewField.dropdown('Cost Center:', 'cc-name', FundLookupTable.getCostCenters(), true);
+    Form.NewField.dropdown('Service', 'service', Services.list(), true);
+    Form.NewField.shortText('Number of FTEs requested:', 'baseline-ftes', true);
+    Form.NewField.shortText(`Projected average salary IN FISCAL YEAR ${FISCAL_YEAR}:`, 'avg-salary', true);
+    Form.NewField.shortText(`Expected fringe rate (as a percentage)`, 'fringe', true);
     Form.SubmitButton.add();
     // Initialize form submission to table data
     Modal.Submit.init(handleSubmitNewJob);
@@ -124,17 +126,21 @@ export function setUpForm() {
 function handleSubmitNewJob(event){        
     // get answers from form, hide form, show answers in table
     const responses = Form.fetchAllResponses(event);
+    // edit inputs from modal
+    responses['avg-salary'] = unformatCurrency(responses['avg-salary']);
+    responses['fringe'] = parseFloat(responses['fringe']) / 100;
+    responses['account-string'] = AccountString.build(responses['approp-name'], responses['cc-name'])
+    responses['approp'] = AccountString.getNumber(responses['approp-name']);
+    responses['cc'] = AccountString.getNumber(responses['cc-name']);
     // make sure it's not an empty response
     if (Object.values(responses)[0] != ''){
         // change page view
         Modal.hide();
-
         // add data to table
         Table.Rows.add(responses);
-        Table.show();
-        Table.Buttons.AddRow.show();
-        // TODO: save table data
-        // TODO: edit cost to show currency correctly
-        }
+        Table.save();
+        initializePersonnelTable();
+
+    }
 
 }

@@ -1,5 +1,5 @@
 #main-table {
-    font-size: calc(0.6vw + 0.5em);
+    font-size: calc(0.5vw + 0.5em);
     margin: auto;
     /* width: 100%; */
 }
@@ -8,6 +8,9 @@
     text-align: left;
     background-color: var(--darkGray);
     color: white;
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 0;
 }
 
 th {

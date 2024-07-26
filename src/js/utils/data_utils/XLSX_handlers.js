@@ -149,7 +149,7 @@ export function downloadXLSX() {
     // Create a link and trigger the download
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = "baseline_data.xlsx";
+    link.download = "Filled_Detail_Sheet.xlsx";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

@@ -42,6 +42,7 @@ export function saveTableData() {
         var save_as = CurrentPage.load();
     }
     localStorage.setItem(save_as, convertToJSON(table, ['Edit']));
+    console.log('saved');
     Sidebar.updateTotals();
 }
 
@@ -62,9 +63,9 @@ export async function deleteAllTables(){
 
 export function loadTableData(name){
     const data = localStorage.getItem(name);
-    if ( data == '' ) {
-        return '';
-    }
+    if ( data == '' || data == '[]' ) {
+        return 0;
+    };
     return JSON.parse(data);
 }
 

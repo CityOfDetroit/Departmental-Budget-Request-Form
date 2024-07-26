@@ -17,6 +17,7 @@ export const formatCurrency = (amount, return_zero = false) => {
 
 // function to convert formatted number to a float
 export const unformatCurrency = (formattedAmount) => {
+    if (!formattedAmount) { return 0 };
     // Remove any currency symbols and commas
     let numericalPart = formattedAmount.replace(/[^0-9.-]+/g, "");
     if (numericalPart == '-'){

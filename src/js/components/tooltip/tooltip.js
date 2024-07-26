@@ -2,6 +2,7 @@ import { FISCAL_YEAR } from '../../init';
 import Cell from '../table/subcomponents/cells';
 import { formatCurrency } from '../../utils/common_utils';
 import './tooltip.css'
+import { CurrentFund, CurrentPage } from '../../utils/data_utils/local_storage_handlers';
 
 function hideTooltip() {
     document.getElementById('tooltip').style.visibility = 'hidden';
@@ -21,8 +22,11 @@ function showAccountString(row){
     const approp = Cell.getText(row, 'approp-name');
     const cc =  Cell.getText(row, 'cc-name');
     const obj =  Cell.getText(row, 'object-name');
-    var message = `<strong>Appropriation</strong>: ${approp}<br>
-                    <strong>Cost Center</strong>: ${cc}`;
+    const fund = Cell.getText(row, 'fund-name');
+    var message = 
+        `<strong>Fund</strong>: ${fund}<br>
+        <strong>Appropriation</strong>: ${approp}<br>
+        <strong>Cost Center</strong>: ${cc}`;
     if (obj) { message += `<br><strong>Object</strong>: ${obj}`}
     editTooltipText(message);
 }
@@ -34,16 +38,15 @@ function showSalaryProjection(row){
     const proj_salary = Cell.getValue(row, 'avg-salary');
     if (current_salary){
         var message = `The average salary/wage for this position was 
-            ${formatCurrency(current_salary)} as of September 20${FISCAL_YEAR-2}. With two general 
-            increases of ${general_increase*100}% and a merit increase of ${merit_increase*100}%, the 
-            Budget Office projects that the average annual 
-            salary/wage for this position will be ${formatCurrency(proj_salary)} in FY${FISCAL_YEAR}.`;
+            ${formatCurrency(current_salary)} as of September 20${FISCAL_YEAR-2}. 
+            Given a ${general_increase*100}% general increase rate and a ${merit_increase*100}% 
+            merit increase, the FY${FISCAL_YEAR} projection for this position's average 
+            annual salary/wage is ${formatCurrency(proj_salary)}.`;
     } else {
         var message = `The average salary/wage for this position was 
             unknown as of September 20${FISCAL_YEAR-2}, or the position
-            did not exist. The Budget Office projects that 
-            the average annual salary/wage for this position 
-            will be ${formatCurrency(proj_salary)} in FY2026.`
+            did not exist. The FY${FISCAL_YEAR} projection for this position's 
+            average annual salary/wage is ${formatCurrency(proj_salary)}.`
     }
 
     editTooltipText(message);
@@ -64,7 +67,7 @@ function showFinalPersonnelCost(row){
 function showFICA(row){
     const fica = parseFloat(Cell.getText(row, 'fica'));
     const ficaPercentage = (fica * 100).toFixed(2);
-    const message = `This total is overtime wages plus overtime salary plus FICA, 
+    const message = `This total is overtime wages plus overtime salary plus FICA (payroll tax), 
                      which is ${ficaPercentage}% for this cost center.`
     editTooltipText(message);
 }
@@ -88,98 +91,106 @@ function showCPA(row){
     editTooltipText(message);
 }
 
+function link(element, displayFn) {
+
+    // add class to show cell with an underline, etc
+    element.classList.add('tooltip-cell');
+
+    // Create and append (detail)
+    const detail = document.createElement('span');
+    detail.classList.add('detail');
+    detail.textContent = '(detail)';
+    element.appendChild(detail);
+
+    // add event listener to show tooltip on mouseover
+    element.addEventListener('click', function (event) {
+        const row = event.target.closest('tr');
+        displayFn(row);
+        showTooltip();
+    });
+    // and hide when mouse moves off
+    element.addEventListener('mouseout', function () {
+        hideTooltip();
+    });
+    // Update tooltip position on mouse move
+    element.addEventListener('mousemove', function (event) {
+        const tooltip = document.getElementById('tooltip');
+        tooltip.style.top = (event.clientY + 10) + 'px';
+        tooltip.style.left = (event.clientX + 10) + 'px';
+    });
+}
+
+function linkAccountStringCol() {
+    // get all relevant cells
+    document.querySelectorAll('td.account-string').forEach( (cell) => {
+        link(cell, showAccountString);
+    })
+}
+
+function linkSalaryCol() {
+    // get all relevant cells
+    document.querySelectorAll('td.avg-salary').forEach( (cell) => {
+        link(cell, showSalaryProjection);
+    })
+}
+
+function linkTotalPersonnelCostCol() {
+    // get all relevant cells
+    document.querySelectorAll('td.total-baseline').forEach( (cell) => {
+        link(cell, showFinalPersonnelCost);
+    })
+}
+
+function linkTotalOTCol() {
+    // get all relevant cells
+    document.querySelectorAll('td.total').forEach( (cell) => {
+        link(cell, showFICA);
+    })
+}
+
+function linkCPACol() {
+    // get all relevant cells
+    document.querySelectorAll('td.cpa').forEach( (cell) => {
+        link(cell, showCPA);
+    })
+}
+
 export const Tooltip = {
 
     hide : hideTooltip,
     show : showTooltip,
 
-    link : function(element, displayFn) {
+    linkAll : () => {
+        switch(CurrentPage.load()){
+            case 'personnel' :
+                linkAccountStringCol();
+                linkSalaryCol();
+                linkTotalPersonnelCostCol();
+                break;
+            case 'overtime':
+                linkTotalOTCol();
+                break;
+            case 'nonpersonnel':
+                linkAccountStringCol();
+                linkCPACol();  
+                break;
+            case 'revenue':
+                linkAccountStringCol();
+                break;
+            case 'new-inits':
+                linkAccountStringCol();
+                break;
+            default:
+                break;
 
-        // add class to show cell with an underline, etc
-        element.classList.add('tooltip-cell');
-
-        // Create and append the Font Awesome info icon
-        // const infoIcon = document.createElement('i');
-        // infoIcon.classList.add('fas', 'fa-info-circle', 'info-icon');
-        // element.appendChild(infoIcon);
-
-        // Create and append (detail)
-        const detail = document.createElement('span');
-        detail.classList.add('detail');
-        detail.textContent = '(detail)';
-        element.appendChild(detail);
-
-        // add event listener to show tooltip on mouseover
-        element.addEventListener('click', function (event) {
-            const row = event.target.closest('tr');
-            displayFn(row);
-            showTooltip();
-        });
-        // and hide when mouse moves off
-        element.addEventListener('mouseout', function () {
-            hideTooltip();
-        });
-        // Update tooltip position on mouse move
-        element.addEventListener('mousemove', function (event) {
-            const tooltip = document.getElementById('tooltip');
-            tooltip.style.top = (event.clientY + 10) + 'px';
-            tooltip.style.left = (event.clientX + 10) + 'px';
-        });
+        }
     },
-    
-    linkAccountStringCol : function() {
-        // get all relevant cells
-        document.querySelectorAll('.account-string').forEach( (cell) => {
-            this.link(cell, showAccountString);
+
+    unlink : function() {
+        let details = document.querySelectorAll('.detail');
+        details.forEach( (span) => {
+            span.remove();
         })
-    },
-
-    linkSalaryCol : function() {
-        // get all relevant cells
-        document.querySelectorAll('.avg-salary').forEach( (cell) => {
-            this.link(cell, showSalaryProjection);
-        })
-    },
-
-    linkTotalPersonnelCostCol : function() {
-        // get all relevant cells
-        document.querySelectorAll('.total-baseline').forEach( (cell) => {
-            this.link(cell, showFinalPersonnelCost);
-        })
-    },
-
-    linkTotalOTCol : function() {
-        // get all relevant cells
-        document.querySelectorAll('.total').forEach( (cell) => {
-            this.link(cell, showFICA);
-        })
-    },
-
-    linkCPACol : function() {
-        // get all relevant cells
-        document.querySelectorAll('.cpa').forEach( (cell) => {
-            this.link(cell, showCPA);
-        })
-    },
-
-    linkAllPersonnel : function() {
-        this.linkAccountStringCol();
-        this.linkSalaryCol();
-        this.linkTotalPersonnelCostCol();
-    },
-
-    linkAllOvertime : function() {
-        // this.linkAccountStringCol();
-        this.linkTotalOTCol();
-    },
-
-    linkAllNP : function() {
-        this.linkAccountStringCol();
-        this.linkCPACol();
-    },
-
-    linkAllRevenue : function() {
-        this.linkAccountStringCol();
     }
 }
 

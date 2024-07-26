@@ -23,7 +23,7 @@ export function preparePageView(){
     // TODO: update to make dynamic
     Prompt.Text.update(`We will now ask you a series of questions about your BASELINE budget request.
         At the end, we will ask you about any new initiatives (ie. supplemental requests).
-        Select one of your funds to begin.`);
+        Select one of your funds then click continue.`);
 }
 
 function allowRowSelection(){
