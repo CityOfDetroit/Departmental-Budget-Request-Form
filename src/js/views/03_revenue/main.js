@@ -34,7 +34,7 @@ class RevenueTable extends ViewTable {
         this.noDataMessage = 'No revenues for this fund.'
     }
 
-    // placeholder for action on row edit click
+    // action on row edit click: make cells editable
     actionOnEdit() { 
         Table.Cell.createTextbox('request', true);
         Table.Cell.createTextbox('notes');

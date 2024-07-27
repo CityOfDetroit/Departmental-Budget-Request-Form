@@ -8,6 +8,7 @@ import Form from "../components/form/form.js";
 import Modal from "../components/modal/modal.js";
 
 import { CurrentPage } from "../utils/data_utils/local_storage_handlers.js";
+import { AccountString } from "../utils/data_utils/budget_data_handlers.js";
 
 export class View {
 
@@ -59,6 +60,9 @@ export class View {
 export class ViewTable {
 
     constructor(){
+        // Ensure methods retain the correct `this` context
+        this.submitNewRow = this.submitNewRow.bind(this);
+
         this.columns = [
             { title: 'Account String', className: 'account-string' },
             { title: 'Appropriation Name', className: 'approp-name', hide: true },
@@ -125,6 +129,10 @@ export class ViewTable {
     addCustomQuestions() { return };
 
     setUpForm() {
+        // show add button
+        Table.Buttons.AddRow.show();
+        Table.Buttons.AddRow.updateText(this.addButtonText);
+
         // set up modal for form when add button is pressed
         Modal.clear();
         Modal.Link.add('add-btn');
@@ -132,21 +140,44 @@ export class ViewTable {
 
         // create form
         Form.new('modal-body');
-        Form.SubmitButton.add();
 
         // add custom questions
         this.addCustomQuestions();
+        // add submit button
+        Form.SubmitButton.add();
 
         // Initialize form submission to table data
         Modal.Submit.init(this.submitNewRow);
     }
 
+    editColumns(responses) { 
+        // get numbers from account string names
+        if(responses['fund-name']){
+            responses['fund'] = AccountString.getNumber(responses['fund-name']);
+        };
+        if(responses['approp-name']){
+            responses['approp'] = AccountString.getNumber(responses['approp-name']);
+        };
+        if(responses['cc-name']){
+            responses['cc'] = AccountString.getNumber(responses['cc-name']);
+        };
+        if(responses['object-name']){
+            responses['object'] = AccountString.getNumber(responses['object-name']);
+        };
+        responses['account-string'] = 
+            AccountString.build(responses['approp-name'], 
+                                responses['cc-name'], 
+                                responses['object-name'], 
+                                responses['fund-name']);
+        return responses;
+    }
+
     submitNewRow(event) {
         // get answers from form, hide form, show answers in table
-        const responses = Form.fetchAllResponses(event);
+        var responses = Form.fetchAllResponses(event);
         
         // edit inputs from modal
-        responses = editColumns(responses);
+        responses = this.editColumns(responses);
         
         // make sure it's not an empty response
         if (Object.values(responses)[0] != ''){
