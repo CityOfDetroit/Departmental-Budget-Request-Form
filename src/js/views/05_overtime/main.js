@@ -55,7 +55,7 @@ class OvertimeTable extends ViewTable {
         Table.Cell.createDropdown('recurring', ['One-Time', 'Recurring']);
     }
 
-    updateSidebar(){
+    updateTable(){
 
         function calculateTotalCost(salary, wages, fica_rate){
             fica_rate = parseFloat(fica_rate);

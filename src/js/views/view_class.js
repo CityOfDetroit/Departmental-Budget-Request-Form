@@ -101,14 +101,14 @@ export class ViewTable {
             if (this.addEdit) { 
                 Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, 'Edit'); 
                 // activate edit buttons
-                Table.Buttons.Edit.init(this.actionOnEdit, this.updateSidebar);
+                Table.Buttons.Edit.init(this.actionOnEdit, this.updateTable);
             }
             
             // assign the correct classes based on the table columns
             Table.Columns.assignClasses(this.columns);
 
             // Apply any update function to make sure sidebar is up to date
-            this.updateSidebar();
+            this.updateTable();
 
         } else {
 
@@ -123,7 +123,7 @@ export class ViewTable {
     actionOnEdit() { return }
 
     // update function for the sidebar; default to just saving the table
-    updateSidebar() { Table.save() }
+    updateTable() { Table.save() }
 
     // extra questions of the form to add a new row
     addCustomQuestions() { return };

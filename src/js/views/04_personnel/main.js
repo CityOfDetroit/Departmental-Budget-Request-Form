@@ -60,7 +60,7 @@ class PersonnelTable extends ViewTable {
         Table.Cell.createServiceDropdown(Services.list());
     }
 
-    updateSidebar(){
+    updateTable(){
         // calculate for each row
         let rows = document.getElementsByTagName('tr');
         for (let i = 1; i < rows.length; i++){

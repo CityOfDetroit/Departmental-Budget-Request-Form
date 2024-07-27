@@ -25,7 +25,7 @@ const nonPersonnelColumns = [
     { title: 'Cost Center Name', className: 'cc-name',  hide: true },
     { title: 'Appropriation', className: 'approp', hide: true },
     { title: 'Cost Center', className: 'cc',  hide: true },
-    { title: 'Contract End Date', className: 'contract-end', hide:true},
+    { title: 'Contract End Date', className: 'contract-end', hide: true},
     { title: 'Amount Remaining on Contract', className: 'remaining', isCost: true , hide: true},
     { title: 'Object Name', className: 'object-name', hide: true},
     { title: 'Object', className: 'object', hide: true},
