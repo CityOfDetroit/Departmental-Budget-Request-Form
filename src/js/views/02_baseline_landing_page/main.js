@@ -44,15 +44,15 @@ class FundTable extends ViewTable {
         this.addEdit = false;
     }
 
-    async build(){
-        await super.build();
-
-        // Table.Data.loadFunds();
-        // Table.show();
-        NavButtons.Next.disable();
-        // Table.Columns.assignClasses(this.columns);
-
+    build(){
+        // load in fund data
+        Table.Data.loadFunds();
+        Table.show();
+        Table.Columns.assignClasses(this.columns);
         Table.adjustWidth('30%');
+
+        // disable next button until a fund is selected
+        NavButtons.Next.disable();
         allowRowSelection();
     }
 }

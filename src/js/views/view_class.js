@@ -168,7 +168,7 @@ export class ViewTable {
             AccountString.build(responses['approp-name'], 
                                 responses['cc-name'], 
                                 responses['object-name'], 
-                                responses['fund-name']);
+                                responses['fund']);
         return responses;
     }
 
@@ -186,7 +186,7 @@ export class ViewTable {
             Modal.hide();
             
             // add data to table
-            Table.Rows.add(responses);
+            Table.Rows.add(responses, this.columns);
             Table.save();
             
             // rebuild table
