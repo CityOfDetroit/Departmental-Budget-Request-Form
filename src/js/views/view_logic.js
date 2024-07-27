@@ -1,39 +1,37 @@
-import { initializeWelcomePage } from './00_welcome/main.js';
-import { cleanUpInitiativesPage, loadNewInitiatives } from './07_new_initiatives/main.js'
-import { loadRevenuePage, cleanupRevenuePage } from './03_revenue/main.js'
-import { loadPersonnelPage } from './04_personnel/main.js';
-import { loadOTPage } from './05_overtime/main.js';
-import { loadNonpersonnelPage } from './06_nonpersonnel/main.js';
-import { loadBaselineLandingPage } from './02_baseline_landing_page/main.js';
-import { cleanUpSummaryPage, loadSummaryPage } from './08_summary/main.js';
-import { loadUploadPage } from './01_upload/main.js';
+import WelcomeView from './00_welcome.js';
+import UploadView from './01_upload.js';
+import FundView from './02_baseline_landing.js';
+import RevenueView from './03_revenue.js';
+import PersonnelView from './04_personnel.js';
+import OvertimeView from './05_overtime.js';
+import NonPersonnelView from './06_nonpersonnel.js';
+import InitiativesView from './07_new_initiatives.js';
+import SummaryView from './08_summary.js';
+
 import { CurrentPage, CurrentFund } from '../utils/data_utils/local_storage_handlers.js';
 import { FundLookupTable } from '../utils/data_utils/budget_data_handlers.js';
 
 export let PAGES = {
-    'welcome' : initializeWelcomePage,
-    'upload' : loadUploadPage,
-    'baseline-landing' : loadBaselineLandingPage,
-    'revenue' : loadRevenuePage,
-    'personnel' : loadPersonnelPage,
-    'overtime' : loadOTPage,
-    'nonpersonnel' : loadNonpersonnelPage,
-    'new-inits' : loadNewInitiatives,
-    'summary' : loadSummaryPage 
-}
-
-export let CLEANUP = {
-    'new-inits' : cleanUpInitiativesPage,
-    'summary' : cleanUpSummaryPage
+    'welcome' : new WelcomeView(),
+    'upload' : new UploadView(),
+    'baseline-landing' : new FundView(),
+    'revenue' : new RevenueView(),
+    'personnel' : new PersonnelView(),
+    'overtime' : new OvertimeView(),
+    'nonpersonnel' : new NonPersonnelView(),
+    'new-inits' : new InitiativesView(),
+    'summary' : new SummaryView() 
 }
 
 export function visitPage(new_page_key){
     // clean up from current page
     var page_state = CurrentPage.load();
-    if (CLEANUP[page_state]) { CLEANUP[page_state]() };
+    PAGES[page_state].cleanup();
+    
     // Use the page_state to access and call the corresponding function from PAGES
     if (PAGES[new_page_key]) {
-        PAGES[new_page_key](); // Invokes the function if it exists in the PAGES map
+        // Invokes the function if it exists in the PAGES map
+        PAGES[new_page_key].visit(); 
     } else {
         console.error(`No page initializer found for state: ${new_page_key}`);
     }}
@@ -45,9 +43,6 @@ export function nextPage(){
   
     // Find the index of the current key
     const currentIndex = keys.indexOf(page_state);
-
-    // clean up current page
-    if (CLEANUP[page_state]) { CLEANUP[page_state]() };
 
     // unless on personnel (which will go to overtime), return to summary if all funds are viewed
     const returnPages = ['revenue', 'nonpersonnel', 'new-inits', 'overtime'];

@@ -1,14 +1,9 @@
-import { View } from '../view_class.js'
+import { View } from './view_class.js'
 
-import FileUpload from "../../components/file_upload/file_upload.js";
-import NavButtons from "../../components/nav_buttons/nav_buttons.js";
+import FileUpload from "../components/file_upload/file_upload.js";
+import NavButtons from "../components/nav_buttons/nav_buttons.js";
 
-export function loadUploadPage(){
-    var page = new UploadView();
-    page.visit();
-}
-
-class UploadView extends View {
+export class UploadView extends View {
 
     constructor() {
         super();
@@ -27,3 +22,5 @@ class UploadView extends View {
         NavButtons.Next.enable();
     }
 }
+
+export default UploadView;

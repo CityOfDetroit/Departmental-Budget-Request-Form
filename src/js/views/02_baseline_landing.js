@@ -1,16 +1,9 @@
-import NavButtons from "../../components/nav_buttons/nav_buttons.js";
-import Table from "../../components/table/table.js";
-import { View, ViewTable } from '../view_class.js'
-import { CurrentFund } from "../../utils/data_utils/local_storage_handlers.js";
+import NavButtons from "../components/nav_buttons/nav_buttons.js";
+import Table from "../components/table/table.js";
+import { View, ViewTable } from './view_class.js'
+import { CurrentFund } from "../utils/data_utils/local_storage_handlers.js";
 
-export function loadBaselineLandingPage(){
-
-    var page = new FundView();
-    page.visit();
-
-}
-
-class FundView extends View {
+export class FundView extends View {
 
     constructor() {
         super();
@@ -94,3 +87,5 @@ function selectFund(tableRows, selected_row){
     // enable next step
     NavButtons.Next.enable();
 }
+
+export default FundView;

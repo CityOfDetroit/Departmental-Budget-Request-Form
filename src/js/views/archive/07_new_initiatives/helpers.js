@@ -1,14 +1,14 @@
 
-import Prompt from '../../components/prompt/prompt.js'
-import Modal from '../../components/modal/modal.js'
-import Form from '../../components/form/form.js'
-import Table from '../../components/table/table.js'
-import Body from '../../components/body/body.js'
-import NavButtons from '../../components/nav_buttons/nav_buttons.js'
-import { nextPage } from '../view_logic.js'
-import Subtitle from '../../components/header/header.js'
-import Sidebar from '../../components/sidebar/sidebar.js'
-import { FundLookupTable, AccountString } from '../../utils/data_utils/budget_data_handlers.js'
+import Prompt from '../../../components/prompt/prompt.js'
+import Modal from '../../../components/modal/modal.js'
+import Form from '../../../components/form/form.js'
+import Table from '../../../components/table/table.js'
+import Body from '../../../components/body/body.js'
+import NavButtons from '../../../components/nav_buttons/nav_buttons.js'
+import { nextPage } from '../../view_logic.js'
+import Subtitle from '../../../components/header/header.js'
+import Sidebar from '../../../components/sidebar/sidebar.js'
+import { FundLookupTable, AccountString } from '../../../utils/data_utils/budget_data_handlers.js'
 
 const explanation = `New initiative submissions will count as supplemental line items and will be the starting 
         point for a conversation with both OB and ODFS, who will help with the details.`

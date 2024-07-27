@@ -1,18 +1,11 @@
-import { View, ViewTable } from '../view_class.js'
-import Form from '../../components/form/form.js';
-import Table from '../../components/table/table.js';
-import { FundLookupTable } from '../../utils/data_utils/budget_data_handlers.js';
-import { ObjectCategories, Services } from '../../utils/data_utils/budget_data_handlers.js';
-import { unformatCurrency } from '../../utils/common_utils.js';
+import { View, ViewTable } from './view_class.js'
+import Form from '../components/form/form.js';
+import Table from '../components/table/table.js';
+import { FundLookupTable } from '../utils/data_utils/budget_data_handlers.js';
+import { ObjectCategories, Services } from '../utils/data_utils/budget_data_handlers.js';
+import { unformatCurrency } from '../utils/common_utils.js';
 
-export function loadNonpersonnelPage(){
-
-    var page = new NonPersonnelView();
-    page.visit();
-
-}
-
-class NonPersonnelView extends View {
+export class NonPersonnelView extends View {
 
     constructor() {
         super();
@@ -22,7 +15,6 @@ class NonPersonnelView extends View {
         this.table = new NonPersonnelTable();
     }
 }
-
 
 class NonPersonnelTable extends ViewTable {
 
@@ -76,3 +68,5 @@ class NonPersonnelTable extends ViewTable {
         return responses;
     }
 }
+
+export default NonPersonnelView;

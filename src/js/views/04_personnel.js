@@ -1,21 +1,14 @@
-import { View, ViewTable } from '../view_class.js'
+import { View, ViewTable } from './view_class.js'
 
-import Table from "../../components/table/table.js";
-import Form from "../../components/form/form.js";
+import Table from "../components/table/table.js";
+import Form from "../components/form/form.js";
 
-import { Services, FundLookupTable } from "../../utils/data_utils/budget_data_handlers.js";
-import { FISCAL_YEAR } from "../../init.js";
+import { Services, FundLookupTable } from "../utils/data_utils/budget_data_handlers.js";
+import { FISCAL_YEAR } from "../init.js";
 
-import { unformatCurrency } from "../../utils/common_utils.js";
+import { unformatCurrency } from "../utils/common_utils.js";
 
-export function loadPersonnelPage(){
-
-    var page = new Personnel();
-    page.visit();
-
-}
-
-class Personnel extends View {
+export class PersonnelView extends View {
 
     constructor() {
         super();
@@ -95,8 +88,9 @@ class PersonnelTable extends ViewTable {
         responses = super.editColumns(responses);
         // edit inputs from modal
         responses['avg-salary'] = unformatCurrency(responses['avg-salary']);
-        responses = super.editColumns(responses);
         responses['fringe'] = parseFloat(responses['fringe']) / 100;
         return responses;
     }
 }
+
+export default PersonnelView;

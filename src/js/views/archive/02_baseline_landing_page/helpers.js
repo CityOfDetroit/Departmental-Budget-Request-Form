@@ -1,10 +1,10 @@
 
-import Subtitle from '../../components/header/header.js'
-import Prompt from '../../components/prompt/prompt.js'
-import NavButtons from '../../components/nav_buttons/nav_buttons.js'
-import Table from "../../components/table/table.js";
-import Body from "../../components/body/body.js";
-import { CurrentFund } from '../../utils/data_utils/local_storage_handlers.js';
+import Subtitle from '../../../components/header/header.js'
+import Prompt from '../../../components/prompt/prompt.js'
+import NavButtons from '../../../components/nav_buttons/nav_buttons.js'
+import Table from "../../../components/table/table.js";
+import Body from "../../../components/body/body.js";
+import { CurrentFund } from '../../../utils/data_utils/local_storage_handlers.js';
 
 const fundCols = [
     { title: 'Fund', className: 'fund-name' },

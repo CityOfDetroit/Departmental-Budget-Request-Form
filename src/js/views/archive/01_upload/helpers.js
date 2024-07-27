@@ -1,8 +1,8 @@
-import Subtitle from '../../components/header/header.js'
-import Prompt from '../../components/prompt/prompt.js'
-import NavButtons from '../../components/nav_buttons/nav_buttons.js'
-import Body from "../../components/body/body.js";
-import { FileUpload } from '../../components/file_upload/file_upload.js';
+import Subtitle from '../../../components/header/header.js'
+import Prompt from '../../../components/prompt/prompt.js'
+import NavButtons from '../../../components/nav_buttons/nav_buttons.js'
+import Body from "../../../components/body/body.js";
+import { FileUpload } from '../../../components/file_upload/file_upload.js';
 
 export function initializePageView() {
 

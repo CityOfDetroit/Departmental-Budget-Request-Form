@@ -1,13 +1,8 @@
-import { View, ViewTable } from '../view_class.js'
+import { View, ViewTable } from './view_class.js'
 
-import Table from '../../components/table/table.js';
+import Table from '../components/table/table.js';
 
-export function loadRevenuePage() {
-    var page = new Revenue();
-    page.visit();
-}
-
-class Revenue extends View {
+export class RevenueView extends View {
 
     constructor() {
         super();
@@ -42,3 +37,4 @@ class RevenueTable extends ViewTable {
     }
 }
 
+export default RevenueView;

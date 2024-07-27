@@ -1,6 +1,6 @@
-import Subtitle from '../../components/header/header.js'
-import Welcome from '../../components/welcome/welcome.js'
-import Body from '../../components/body/body.js'
+import Subtitle from '../../../components/header/header.js'
+import Welcome from '../../../components/welcome/welcome.js'
+import Body from '../../../components/body/body.js'
 
 import { loadNewInitiatives } from '../07_new_initiatives/main.js'
 import { loadSummaryPage } from '../08_summary/main.js'

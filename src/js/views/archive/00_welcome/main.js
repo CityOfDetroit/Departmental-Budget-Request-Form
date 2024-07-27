@@ -1,12 +1,12 @@
 
-import Welcome from '../../components/welcome/welcome.js';
+import Welcome from '../../../components/welcome/welcome.js';
 
 import { loadUploadPage } from '../01_upload/main.js';
 import { loadNewInitiatives } from '../07_new_initiatives/main.js';
 import { loadBaselineLandingPage } from '../02_baseline_landing_page/main.js';
-import { loadSummaryPage } from '../08_summary/main.js';
+import { loadSummaryPage } from '../../08_summary.js';
 
-import { View } from '../view_class.js';
+import { View } from '../../view_class.js';
 
 export function initializeWelcomePage(){
 

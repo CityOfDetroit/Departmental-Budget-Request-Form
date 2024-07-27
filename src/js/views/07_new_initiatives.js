@@ -1,25 +1,15 @@
 
-import { View, ViewTable } from '../view_class.js'
-import Table from "../../components/table/table.js";
-import Form from "../../components/form/form.js";
-import { FundLookupTable } from "../../utils/data_utils/budget_data_handlers.js";
-import { FISCAL_YEAR } from "../../init.js";
+import { View, ViewTable } from './view_class.js'
+import Table from "../components/table/table.js";
+import Form from "../components/form/form.js";
+import { FundLookupTable } from "../utils/data_utils/budget_data_handlers.js";
+import { FISCAL_YEAR } from "../init.js";
 
 
 const dropdownOptions = ['N/A', 'One-Time', 'Recurring']
 
 // set up page and initialize all buttons
-export function loadNewInitiatives() {
-    var page = new InitiativesView();
-    page.visit();
-}
-
-export function cleanUpInitiativesPage() {
-    var page = new InitiativesView();
-    page.cleanup();
-}
-
-class InitiativesView extends View {
+export class InitiativesView extends View {
 
     constructor() {
         super();
@@ -98,3 +88,5 @@ class InitiativesTable extends ViewTable {
     }
 
 }
+
+export default InitiativesView;

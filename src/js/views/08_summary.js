@@ -1,23 +1,13 @@
-import { CurrentFund, Baseline } from "../../utils/data_utils/local_storage_handlers.js";
-import { TARGET } from '../../init.js';
-import { Accordion } from "../../components/accordion/accordion.js";
-import { visitPage } from "../view_logic.js";
-import { formatCurrency } from '../../utils/common_utils.js';
-import { View } from "../view_class.js";
-import Prompt from "../../components/prompt/prompt.js";
-import { downloadXLSX } from "../../utils/data_utils/XLSX_handlers.js";
+import { CurrentFund, Baseline } from "../utils/data_utils/local_storage_handlers.js";
+import { TARGET } from '../init.js';
+import { Accordion } from "../components/accordion/accordion.js";
+import { visitPage } from "./view_logic.js";
+import { formatCurrency } from '../utils/common_utils.js';
+import { View } from "./view_class.js";
+import Prompt from "../components/prompt/prompt.js";
+import { downloadXLSX } from "../utils/data_utils/XLSX_handlers.js";
 
-export function loadSummaryPage(){
-    var page = new SummaryView();
-    page.visit();
-}
-
-export function cleanUpSummaryPage(){
-    var page = new SummaryView();
-    page.cleanup();
-}
-
-function compareToTarget(){
+export function compareToTarget(){
     const baseline = new Baseline;
     if (baseline.total() <= TARGET){
         Prompt.Text.update(`Congrats! Your budget is below your target! 
@@ -33,7 +23,7 @@ function compareToTarget(){
 
 const returnToWelcome = () => {visitPage('welcome')};
 
-class SummaryView extends View {
+export class SummaryView extends View {
 
     constructor() {
         super();
@@ -70,3 +60,5 @@ class SummaryView extends View {
         Prompt.Buttons.Right.enable();
     }
 }
+
+export default SummaryView;

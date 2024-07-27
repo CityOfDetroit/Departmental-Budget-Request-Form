@@ -1,20 +1,13 @@
 
 
-import { View, ViewTable } from '../view_class.js'
-import Table from '../../components/table/table.js';
-import Form from '../../components/form/form.js';
+import { View, ViewTable } from './view_class.js'
+import Table from '../components/table/table.js';
+import Form from '../components/form/form.js';
 
-import { FundLookupTable, Services } from '../../utils/data_utils/budget_data_handlers.js';
-import { unformatCurrency } from '../../utils/common_utils.js';
+import { FundLookupTable, Services } from '../utils/data_utils/budget_data_handlers.js';
+import { unformatCurrency } from '../utils/common_utils.js';
 
-export function loadOTPage(){
-
-    var page = new OvertimeView();
-    page.visit();
-    
-}
-
-class OvertimeView extends View {
+export class OvertimeView extends View {
 
     constructor() {
         super();
@@ -98,3 +91,5 @@ class OvertimeTable extends ViewTable {
         return responses;
     }
 }
+
+export default OvertimeTable;

@@ -1,10 +1,10 @@
-import Prompt from '../../components/prompt/prompt.js'
-import Body from '../../components/body/body.js'
-import NavButtons from '../../components/nav_buttons/nav_buttons.js'
-import Subtitle from '../../components/header/header.js'
-import Sidebar from '../../components/sidebar/sidebar.js'
-import Table from '../../components/table/table.js'
-import Tooltip from '../../components/tooltip/tooltip.js'
+import Prompt from '../../../components/prompt/prompt.js'
+import Body from '../../../components/body/body.js'
+import NavButtons from '../../../components/nav_buttons/nav_buttons.js'
+import Subtitle from '../../../components/header/header.js'
+import Sidebar from '../../../components/sidebar/sidebar.js'
+import Table from '../../../components/table/table.js'
+import Tooltip from '../../../components/tooltip/tooltip.js'
 
 const revenueColumns = [
     { title: 'Edit', className : 'edit' },
