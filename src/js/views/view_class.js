@@ -53,7 +53,9 @@ export class View {
         if (this.subtitle) { Subtitle.update(this.subtitle) };
     }
 
-    cleanup() { return }
+    cleanup() { 
+        if (this.table) { Table.clear() }
+    }
 
 }
 
@@ -92,6 +94,11 @@ export class ViewTable {
             this.setUpForm();
         }
 
+        // delete any residual data
+        // TODO: delete
+        Table.clear();
+
+        // fill with new data from local storage
         if(await Table.Data.load()) {
 
             //after table is loaded, show it
