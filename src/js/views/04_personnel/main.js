@@ -36,7 +36,7 @@ class PersonnelTable extends ViewTable {
     constructor() {
         super();
 
-        // add additional revenue columns to the table
+        // add additional personnel columns to the table
         this.columns = this.columns.concat([
             { title: 'Job Title', className: 'job-name' },
             { title: 'Service', className: 'service' },
@@ -92,6 +92,7 @@ class PersonnelTable extends ViewTable {
     }
 
     editColumns(responses){
+        responses = super.editColumns(responses);
         // edit inputs from modal
         responses['avg-salary'] = unformatCurrency(responses['avg-salary']);
         responses = super.editColumns(responses);
