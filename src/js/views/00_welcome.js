@@ -20,10 +20,10 @@ export class WelcomeView extends View {
         Welcome.show();
 
         // initialize links in buttons
-        document.getElementById('step-upload').addEventListener('click', visitPage('upload'));
-        document.getElementById('step-initiatives').addEventListener('click', visitPage('new-inits'))
-        document.getElementById('step-revenue').addEventListener('click', visitPage('revenue'))
-        document.getElementById('step-finish').addEventListener('click', visitPage('summary'))
+        document.getElementById('step-upload').addEventListener('click', () => visitPage('upload'));
+        document.getElementById('step-initiatives').addEventListener('click', () => visitPage('new-inits'));
+        document.getElementById('step-revenue').addEventListener('click', () => visitPage('revenue'));
+        document.getElementById('step-finish').addEventListener('click', () => visitPage('summary'));
 
     }
 

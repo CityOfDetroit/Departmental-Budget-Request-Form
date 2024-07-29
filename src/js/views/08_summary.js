@@ -7,6 +7,7 @@ import { formatCurrency } from '../utils/common_utils.js';
 import { View } from "./view_class.js";
 import Prompt from "../components/prompt/prompt.js";
 import { downloadXLSX } from "../utils/XLSX_handlers.js";
+import WelcomeView from './00_welcome.js';
 
 export function compareToTarget(){
     const baseline = new Baseline;
@@ -22,7 +23,10 @@ export function compareToTarget(){
     Prompt.show();
 }
 
-const returnToWelcome = () => {visitPage('welcome')};
+function returnToWelcome() {
+    const welcome = new WelcomeView();
+    welcome.visit();
+};
 
 export class SummaryView extends View {
 
