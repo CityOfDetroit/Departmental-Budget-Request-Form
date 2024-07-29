@@ -2,8 +2,8 @@ import './sidebar.css'
 
 import { formatCurrency } from "../../utils/common_utils.js";
 import { TARGET } from "../../init.js";
-import Baseline from '../../models/baseline.js'
-import Supplemental from '../../models/supplemental.js'
+import {Baseline, Supplemental} from '../../models/';
+
 
 // Assuming you have a CSS variable --main-color defined on the :root
 const root = document.documentElement;

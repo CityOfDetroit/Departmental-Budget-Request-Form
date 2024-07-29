@@ -1,10 +1,9 @@
 import { View, ViewTable } from './view_class.js'
 import Form from '../components/form/form.js';
 import Table from '../components/table/table.js';
-import FundLookupTable from '../models/fund_lookup_table.js';
+import { FundLookupTable, Services } from '../models/';
 import { unformatCurrency } from '../utils/common_utils.js';
 import { ObjectCategories } from '../init.js';
-import Services from '../models/services.js';
 
 export class NonPersonnelView extends View {
 

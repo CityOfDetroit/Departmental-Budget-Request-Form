@@ -4,7 +4,6 @@ import './modal.css';
 function clearModal(){
     updateModalTitle('');
     document.getElementById('modal-body').innerHTML = '';
-    //removeAllModalLinks()
 }
 
 function hideModal(modal_id) {

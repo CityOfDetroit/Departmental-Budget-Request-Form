@@ -7,8 +7,7 @@ import Table from "../components/table/table.js";
 import Form from "../components/form/form.js";
 import Modal from "../components/modal/modal.js";
 
-import CurrentPage from "../models/current_page.js";
-import AccountString from '../models/account_string.js'
+import { CurrentPage, AccountString } from '../models/'
 
 
 export class View {

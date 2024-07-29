@@ -1,12 +1,9 @@
 import './accordion.css'
 
-import Baseline from '../../models/baseline.js';
-import CurrentFund from '../../models/current_fund.js';
-import Fund from '../../models/fund.js';
-import Supplemental from '../../models/supplemental.js';
+
+import {Baseline, CurrentFund, Fund, Supplemental, FundLookupTable} from '../../models'
 import { formatCurrency, cleanString } from "../../utils/common_utils.js";
 import Table from "../table/table.js";
-import FundLookupTable from '../../models/fund_lookup_table.js';
 import { visitPage } from '../../views/view_logic.js';
 import { TARGET } from '../../init.js';
 
