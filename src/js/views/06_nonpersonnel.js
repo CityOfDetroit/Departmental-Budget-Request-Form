@@ -7,23 +7,23 @@ import { unformatCurrency } from '../utils/common_utils.js';
 
 export class NonPersonnelView extends View {
 
-    constructor() {
+    constructor(fiscal_year) {
         super();
         this.page_state = 'nonpersonnel';
         this.prompt = 'Review and edit non-personnel line items.';
         this.subtitle = 'Non-Personnel';
-        this.table = new NonPersonnelTable();
+        this.table = new NonPersonnelTable(fiscal_year);
     }
 }
 
 class NonPersonnelTable extends ViewTable {
 
-    constructor() {
+    constructor(fiscal_year) {
         super();
 
         // add additional personnel columns to the table
         this.columns = this.columns.concat([
-            { title: 'FY26 Request', className: 'request', isCost: true },
+            { title: `FY${fiscal_year} Request`, className: 'request', isCost: true },
             { title: 'Service', className : 'service' },
             { title: 'Recurring or One-Time', className: 'recurring'},
             { title : 'CPA #', className : 'cpa'},

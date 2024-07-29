@@ -92,4 +92,4 @@ class OvertimeTable extends ViewTable {
     }
 }
 
-export default OvertimeTable;
+export default OvertimeView;

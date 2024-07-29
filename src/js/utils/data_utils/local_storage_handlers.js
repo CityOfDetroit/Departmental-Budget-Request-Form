@@ -1,6 +1,6 @@
 import { FISCAL_YEAR } from "../../init.js";
 import Sidebar from "../../components/sidebar/sidebar.js";
-import { PAGES, visitPage } from "../../views/view_logic.js";
+import { initializePages, visitPage } from "../../views/view_logic.js";
 import { fetchJSON } from "./JSON_data_handlers.js";
 import { FundLookupTable } from "./budget_data_handlers.js";
 import { convertToJSON } from "./JSON_data_handlers.js";
@@ -53,7 +53,7 @@ function deleteTable(name){
 export async function deleteAllTables(){
     var funds = await fetchJSON(DATA_ROOT + 'funds.json');
     funds = funds.map((item) => { return item.Name });
-    for (const page in PAGES){
+    for (const page in initializePages()){
         for(const i in funds){
             deleteTable(`${page}_${funds[i]}`);
         }

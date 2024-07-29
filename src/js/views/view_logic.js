@@ -10,20 +10,27 @@ import SummaryView from './08_summary.js';
 
 import { CurrentPage, CurrentFund } from '../utils/data_utils/local_storage_handlers.js';
 import { FundLookupTable } from '../utils/data_utils/budget_data_handlers.js';
+import { FISCAL_YEAR } from '../init.js';
 
-export let PAGES = {
-    'welcome' : new WelcomeView(),
-    'upload' : new UploadView(),
-    'baseline-landing' : new FundView(),
-    'revenue' : new RevenueView(),
-    'personnel' : new PersonnelView(),
-    'overtime' : new OvertimeView(),
-    'nonpersonnel' : new NonPersonnelView(),
-    'new-inits' : new InitiativesView(),
-    'summary' : new SummaryView() 
+export function initializePages() {
+    const PAGES = {
+        'welcome': new WelcomeView(),
+        'upload': new UploadView(),
+        'baseline-landing': new FundView(),
+        'revenue': new RevenueView(),
+        'personnel': new PersonnelView(FISCAL_YEAR),
+        'overtime': new OvertimeView(),
+        'nonpersonnel': new NonPersonnelView(FISCAL_YEAR),
+        'new-inits': new InitiativesView(),
+        'summary': new SummaryView(),
+    };
+    return PAGES;
 }
 
 export function visitPage(new_page_key){
+
+    const PAGES = initializePages();
+
     // clean up from current page
     var page_state = CurrentPage.load();
     PAGES[page_state].cleanup();
@@ -37,6 +44,8 @@ export function visitPage(new_page_key){
     }}
 
 export function nextPage(){
+
+    const PAGES = initializePages();
 
     var page_state = CurrentPage.load();
     const keys = Object.keys(PAGES);
@@ -72,14 +81,13 @@ export function nextPage(){
 
 export function lastPage(){
 
+    const PAGES = initializePages();
+
     var page_state = CurrentPage.load();
     const keys = Object.keys(PAGES);
   
     // Find the index of the current key
     const currentIndex = keys.indexOf(page_state);
-
-    // clean up current page
-    if (CLEANUP[page_state]) { CLEANUP[page_state]() };
 
     // if on new-inits, circle back to fund selection
     if (CurrentPage.load() == 'new-inits'){

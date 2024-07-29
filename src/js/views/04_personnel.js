@@ -4,13 +4,11 @@ import Table from "../components/table/table.js";
 import Form from "../components/form/form.js";
 
 import { Services, FundLookupTable } from "../utils/data_utils/budget_data_handlers.js";
-import { FISCAL_YEAR } from "../init.js";
-
 import { unformatCurrency } from "../utils/common_utils.js";
 
 export class PersonnelView extends View {
 
-    constructor() {
+    constructor(fiscal_year) {
         super();
         this.page_state = 'personnel';
         this.prompt = `
@@ -19,28 +17,28 @@ export class PersonnelView extends View {
             "Edit" button on the row you would like to edit. The "Total Cost" column and the 
             summary sidebar will also update to reflect any edits.`;
         this.subtitle = 'Personnel';
-        this.table = new PersonnelTable();
+        this.table = new PersonnelTable(fiscal_year);
     }
 }
 
 
 class PersonnelTable extends ViewTable {
 
-    constructor() {
+    constructor(fiscal_year) {
         super();
-
+        this.fiscal_year = fiscal_year;
         // add additional personnel columns to the table
         this.columns = this.columns.concat([
             { title: 'Job Title', className: 'job-name' },
             { title: 'Service', className: 'service' },
-            { title: `FY${FISCAL_YEAR} Requested FTE`, className: 'baseline-ftes' },
-            { title: `FY${FISCAL_YEAR} Average Projected Salary/Wage`, className: 'avg-salary', isCost: true },
+            { title: `FY${this.fiscal_year} Requested FTE`, className: 'baseline-ftes' },
+            { title: `FY${this.fiscal_year} Average Projected Salary/Wage`, className: 'avg-salary', isCost: true },
             { title: 'Total Cost', className: 'total-baseline', isCost: true },
             // hidden columns
             { title: 'Fringe Benefits Rate', className: 'fringe', hide: true },
             { title: 'General Increase Rate', className: 'general-increase-rate', hide: true},
             { title: 'Step/Merit Increase Rate', className: 'merit-increase-rate', hide: true},
-            { title: `Average Salary/Wage as of 9/1/20${FISCAL_YEAR-2}`, className: 'current-salary', isCost: true, hide: true}
+            { title: `Average Salary/Wage as of 9/1/20${this.fiscal_year-2}`, className: 'current-salary', isCost: true, hide: true}
         ]);
 
         this.noDataMessage = 'No personnel expenditures for this fund.'
@@ -80,7 +78,7 @@ class PersonnelTable extends ViewTable {
         Form.NewField.dropdown('Cost Center:', 'cc-name', FundLookupTable.getCostCenters(), true);
         Form.NewField.dropdown('Service', 'service', Services.list(), true);
         Form.NewField.shortText('Number of FTEs requested:', 'baseline-ftes', true);
-        Form.NewField.shortText(`Projected average salary IN FISCAL YEAR ${FISCAL_YEAR}:`, 'avg-salary', true);
+        Form.NewField.shortText(`Projected average salary IN FISCAL YEAR ${this.fiscal_year}:`, 'avg-salary', true);
         Form.NewField.shortText(`Expected fringe rate (as a percentage)`, 'fringe', true);
     }
 
