@@ -1,10 +1,11 @@
 
 import Initiative from "./initiative.js";
+import { colSum } from "../utils/common_utils.js";
 
 // data structure to hold supplemental requests
 export class Supplemental {
     constructor() {
-        this.table = loadTableData('new-inits');
+        this.table = JSON.parse(localStorage.getItem(this.name));
         this.initiatives = [];
         if(this.table){
             this.table.forEach((row) => { 

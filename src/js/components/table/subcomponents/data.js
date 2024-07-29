@@ -1,4 +1,4 @@
-import { FundLookupTable } from "../../../utils/data_utils/budget_data_handlers.js";
+import FundLookupTable from '../../../models/fund_lookup_table.js';
 import CurrentFund from '../../../models/current_fund.js'
 import CurrentPage from '../../../models/current_page.js'
 
@@ -45,9 +45,8 @@ async function loadFromStorage(){
     }
     // load from local storage
     const data = localStorage.getItem(key);
-
     // if nothing in storage, return a zero
-    if ( data == '' || data == '[]' ) {
+    if ( !data ) {
         return 0;
     };
     // otherwise, fill table in HTML and return success (1)

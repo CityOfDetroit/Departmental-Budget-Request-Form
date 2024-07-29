@@ -1,7 +1,8 @@
 
 
 import { SHEETS } from '../../init.js';
-import { FundLookupTable, Services } from './budget_data_handlers.js';
+import FundLookupTable from '../../models/fund_lookup_table.js';
+import { Services } from './budget_data_handlers.js';
 import { removeNewLines } from '../common_utils.js';
 import { Baseline } from './local_storage_handlers.js';
 

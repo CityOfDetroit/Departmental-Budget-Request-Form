@@ -1,4 +1,5 @@
-import { CurrentFund, Baseline } from "../utils/data_utils/local_storage_handlers.js";
+import CurrentFund from '../models/current_fund.js';
+import Baseline from '../models/baseline.js';
 import { TARGET } from '../init.js';
 import { Accordion } from "../components/accordion/accordion.js";
 import { visitPage } from "./view_logic.js";

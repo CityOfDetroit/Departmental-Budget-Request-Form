@@ -1,12 +1,13 @@
 
 import { colSum } from "../utils/common_utils";
+import { FISCAL_YEAR } from "../init";
 
 // Class to hold information on a specific fund and table
 class StoredTable {
     constructor(page, fund){
         this.name = `${page}_${fund}`;
         this.page = page;
-        this.table = loadTableData(this.name);
+        this.table = JSON.parse(localStorage.getItem(this.name));
     }
 
     totalCol() {

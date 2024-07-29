@@ -4,7 +4,9 @@ import { View, ViewTable } from './view_class.js'
 import Table from '../components/table/table.js';
 import Form from '../components/form/form.js';
 
-import { FundLookupTable, Services } from '../utils/data_utils/budget_data_handlers.js';
+import FundLookupTable from '../models/fund_lookup_table.js';
+
+import { Services } from '../utils/data_utils/budget_data_handlers.js';
 import { unformatCurrency } from '../utils/common_utils.js';
 
 export class OvertimeView extends View {

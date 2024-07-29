@@ -1,7 +1,7 @@
 import NavButtons from "../components/nav_buttons/nav_buttons.js";
 import Table from "../components/table/table.js";
 import { View, ViewTable } from './view_class.js'
-import { CurrentFund } from "../utils/data_utils/local_storage_handlers.js";
+import CurrentFund from "../models/current_fund.js";
 
 export class FundView extends View {
 
