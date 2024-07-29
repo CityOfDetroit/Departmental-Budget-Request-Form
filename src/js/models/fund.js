@@ -1,6 +1,6 @@
 
 import { colSum } from "../utils/common_utils";
-import { FISCAL_YEAR } from "../init";
+import { FISCAL_YEAR } from '../constants/';
 
 // Class to hold information on a specific fund and table
 class StoredTable {

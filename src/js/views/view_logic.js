@@ -9,7 +9,7 @@ import InitiativesView from './07_new_initiatives.js';
 import SummaryView from './08_summary.js';
 
 import { FundLookupTable, CurrentFund, CurrentPage } from '../models/';
-import { FISCAL_YEAR } from '../init.js';
+import { FISCAL_YEAR } from '../constants/';
 
 export function initializePages() {
     const PAGES = {

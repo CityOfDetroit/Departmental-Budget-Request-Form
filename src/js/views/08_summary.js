@@ -1,6 +1,5 @@
 import CurrentFund from '../models/current_fund.js';
 import Baseline from '../models/baseline.js';
-import { TARGET } from '../init.js';
 import { Accordion } from "../components/accordion/accordion.js";
 import { visitPage } from "./view_logic.js";
 import { formatCurrency } from '../utils/common_utils.js';
@@ -8,6 +7,7 @@ import { View } from "./view_class.js";
 import Prompt from "../components/prompt/prompt.js";
 import { downloadXLSX } from "../utils/XLSX_handlers.js";
 import WelcomeView from './00_welcome.js';
+import { TARGET } from '../constants/app_constants.js';
 
 export function compareToTarget(){
     const baseline = new Baseline;

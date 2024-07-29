@@ -3,7 +3,7 @@ import Form from '../components/form/form.js';
 import Table from '../components/table/table.js';
 import { FundLookupTable, Services } from '../models/';
 import { unformatCurrency } from '../utils/common_utils.js';
-import { ObjectCategories } from '../init.js';
+import { OBJ_CATEGORIES } from '../constants/';
 
 export class NonPersonnelView extends View {
 
@@ -52,7 +52,7 @@ class NonPersonnelTable extends ViewTable {
         // form questions to add a new row
         Form.NewField.dropdown('Appropriation:', 'approp-name', FundLookupTable.getApprops(), true);
         Form.NewField.dropdown('Cost Center:', 'cc-name', FundLookupTable.getCostCenters(), true);
-        Form.NewField.dropdown('Object Category:', 'object-category', ObjectCategories.list, true);
+        Form.NewField.dropdown('Object Category:', 'object-category', OBJ_CATEGORIES.list, true);
         // TODO: maybe give dropdown based on selected obj category
         Form.NewField.shortText('Object Number (if known):', 'object', false);
         Form.NewField.dropdown('Service', 'service', Services.list(), true);

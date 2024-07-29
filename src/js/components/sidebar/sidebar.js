@@ -1,7 +1,7 @@
 import './sidebar.css'
 
 import { formatCurrency } from "../../utils/common_utils.js";
-import { TARGET } from "../../init.js";
+import { TARGET } from '../../constants/';
 import {Baseline, Supplemental} from '../../models/';
 
 

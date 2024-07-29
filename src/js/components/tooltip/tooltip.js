@@ -1,4 +1,4 @@
-import { FISCAL_YEAR } from '../../init';
+import { FISCAL_YEAR } from '../../constants/';
 import Cell from '../table/subcomponents/cells';
 import { formatCurrency } from '../../utils/common_utils';
 import CurrentPage from '../../models/current_page';

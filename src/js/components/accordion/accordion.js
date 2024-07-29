@@ -5,7 +5,7 @@ import {Baseline, CurrentFund, Fund, Supplemental, FundLookupTable} from '../../
 import { formatCurrency, cleanString } from "../../utils/common_utils.js";
 import Table from "../table/table.js";
 import { visitPage } from '../../views/view_logic.js';
-import { TARGET } from '../../init.js';
+import { TARGET } from '../../constants/';
 
 function redirectForEdit(){
     const row = document.querySelector(`.active-editing`);
