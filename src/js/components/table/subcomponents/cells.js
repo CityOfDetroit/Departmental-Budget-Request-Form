@@ -1,5 +1,5 @@
 import { formatCurrency, displayWithCommas } from "../../../utils/common_utils.js";
-import { Services } from "../../../utils/data_utils/budget_data_handlers.js";
+import Services from "../../../models/services.js";
 import Dropdown from "../../form/subcomponents/dropdown.js";
 
 // return cell value attribute or 0 if it does not exist

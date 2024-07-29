@@ -7,7 +7,7 @@ import Header from './subcomponents/headers.js'
 import Rows from './subcomponents/rows.js'
 import Data from './subcomponents/data.js'
 import Tooltip from '../tooltip/tooltip.js';
-import { convertToJSON } from "../../utils/data_utils/JSON_data_handlers.js";
+import { convertToJSON } from "../../utils/JSON_data_handlers.js";
 import Sidebar from '../sidebar/sidebar.js';
 import CurrentFund from '../../models/current_fund.js';
 import CurrentPage from '../../models/current_page.js';

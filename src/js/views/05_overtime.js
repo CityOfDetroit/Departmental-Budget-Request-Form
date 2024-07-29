@@ -6,7 +6,7 @@ import Form from '../components/form/form.js';
 
 import FundLookupTable from '../models/fund_lookup_table.js';
 
-import { Services } from '../utils/data_utils/budget_data_handlers.js';
+import Services from '../models/services.js';
 import { unformatCurrency } from '../utils/common_utils.js';
 
 export class OvertimeView extends View {

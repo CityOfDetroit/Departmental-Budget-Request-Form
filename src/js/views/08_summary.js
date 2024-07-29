@@ -6,7 +6,7 @@ import { visitPage } from "./view_logic.js";
 import { formatCurrency } from '../utils/common_utils.js';
 import { View } from "./view_class.js";
 import Prompt from "../components/prompt/prompt.js";
-import { downloadXLSX } from "../utils/data_utils/XLSX_handlers.js";
+import { downloadXLSX } from "../utils/XLSX_handlers.js";
 
 export function compareToTarget(){
     const baseline = new Baseline;

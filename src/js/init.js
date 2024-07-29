@@ -17,6 +17,21 @@ export const SHEETS = {
     'Revenue' : 'revenue'
 }
 
+export const ObjectCategories = {
+    list : [
+        // 'Salaries & Wages',
+        // 'Employee Benefits',
+        'Professional & Contractual Services',
+        'Operating Supplies',
+        'Operating Services',
+        'Equipment Acquisition',
+        'Capital Outlays',
+        'Fixed Charges',
+        'Other Expenses'
+    ]
+}
+
+
 document.addEventListener('DOMContentLoaded', function () {
     CurrentPage.visit();
 });

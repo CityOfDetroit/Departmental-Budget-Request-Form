@@ -1,29 +1,5 @@
 
 
-// data structure to save the possible service options for the department
-export const Services = {
-    save : function(services){
-        localStorage.setItem('services-list', JSON.stringify(services));
-    },
-    list : function(){
-        return JSON.parse(localStorage.getItem('services-list')) || {};
-    }
-}
-
-export const ObjectCategories = {
-    list : [
-        // 'Salaries & Wages',
-        // 'Employee Benefits',
-        'Professional & Contractual Services',
-        'Operating Supplies',
-        'Operating Services',
-        'Equipment Acquisition',
-        'Capital Outlays',
-        'Fixed Charges',
-        'Other Expenses'
-    ]
-}
-
 export const AccountString = {
     getNumber: function(input) {
         // isolate the numerical part of a appropriation/cost center/object
@@ -63,3 +39,5 @@ export const AccountString = {
         return this.getAccountStringSection(account_string, 3) 
     },
 }
+
+export default AccountString;
