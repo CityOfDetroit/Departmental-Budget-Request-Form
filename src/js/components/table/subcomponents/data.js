@@ -1,5 +1,6 @@
-import { FundLookupTable } from "../../../utils/data_utils/budget_data_handlers.js";
-import { CurrentFund, CurrentPage, loadTableData, saveTableData } from "../../../utils/data_utils/local_storage_handlers.js";
+import FundLookupTable from '../../../models/fund_lookup_table.js';
+import CurrentFund from '../../../models/current_fund.js'
+import CurrentPage from '../../../models/current_page.js'
 
 function fillTable(data) {
     try {
@@ -33,24 +34,24 @@ function fillTable(data) {
     } catch(error) {
         console.error('No table saved in localStorage:', error);
     }
-    saveTableData();
 }
 
 async function loadFromStorage(){
-    // look up table in storage and pass to table load function\
+    // look up table name in storage
     if (CurrentFund.number()){
         var key = `${CurrentPage.load()}_${CurrentFund.number()}`;
     } else {
         var key = CurrentPage.load();
     }
-    const data = await loadTableData(key);
-    if (!data){
-        // if no table in storage, return 0
+    // load from local storage
+    const data = localStorage.getItem(key);
+    // if nothing in storage, return a zero
+    if ( !data ) {
         return 0;
-    } else {
-        fillTable(data);
-        return 1;
-    }
+    };
+    // otherwise, fill table in HTML and return success (1)
+    fillTable(await JSON.parse(data));
+    return 1;
 }
 
 

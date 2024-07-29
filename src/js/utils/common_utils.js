@@ -45,3 +45,29 @@ export function removeNewLines(str){
     str = str.replace(/^\s+|\s+$/g, '');
     return str;
 }
+
+export function colSum(table, colName) {
+    // fill with zero until there is something saved in storage
+    if(!table || table == ''){ 
+        return 0; 
+    }
+    const headers = Object.keys(table[0]);
+    if (headers.includes(colName)) {
+        let sum = 0;
+        for (let i = 0; i < table.length; i++){
+            var value = Math.round(parseFloat(table[i][colName]));
+            // treat NaN (non-numerics) as zeroes
+            if (value) { sum += value; }
+        }
+        return sum;
+    } else {
+        // console.error(`Could not find expected total column in saved data for ${name}. Returning 0. See StoredTable.totalCol() switch.`);
+        return 0;
+    }
+
+}
+
+export function getUniqueValues(data, key) {
+    const values = data.map(obj => obj[key]);
+    return Array.from(new Set(values));
+}

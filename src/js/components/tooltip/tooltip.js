@@ -1,8 +1,9 @@
-import { FISCAL_YEAR } from '../../init';
+import { FISCAL_YEAR } from '../../constants/';
 import Cell from '../table/subcomponents/cells';
 import { formatCurrency } from '../../utils/common_utils';
+import CurrentPage from '../../models/current_page';
+
 import './tooltip.css'
-import { CurrentFund, CurrentPage } from '../../utils/data_utils/local_storage_handlers';
 
 function hideTooltip() {
     document.getElementById('tooltip').style.visibility = 'hidden';

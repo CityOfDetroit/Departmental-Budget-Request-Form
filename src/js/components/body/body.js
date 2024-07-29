@@ -22,8 +22,9 @@ function resetPage() {
     Accordion.hide();
     FileUpload.hide();
     Tooltip.hide();
-    // disable next button
-    NavButtons.Next.disable();
+
+    Table.adjustWidth('100%');
+
     Prompt.Buttons.reset();
     // disable submit button
     Modal.Submit.deinit();

@@ -1,6 +1,6 @@
 import './file_upload.css';
 
-import { processWorkbook } from "../../utils/data_utils/XLSX_handlers.js";
+import { processWorkbook } from "../../utils/XLSX_handlers.js";
 import Sidebar from '../sidebar/sidebar.js';
 
 export const FileUpload = {

@@ -1,9 +1,10 @@
 
 
-import { SHEETS } from '../../init.js';
-import { FundLookupTable, Services } from './budget_data_handlers.js';
-import { removeNewLines } from '../common_utils.js';
-import { Baseline } from './local_storage_handlers.js';
+import { SHEETS } from '../constants/';
+import FundLookupTable from '../models/fund_lookup_table.js';
+import { removeNewLines } from './common_utils.js';
+import Baseline from '../models/baseline.js';
+import Services from '../models/services.js';
 
 function deleteTopRowsUntilFullData(data) {
     // function to try to find the top of the usable data

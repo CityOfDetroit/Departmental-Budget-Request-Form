@@ -6,8 +6,11 @@ import Columns from './subcomponents/columns.js'
 import Header from './subcomponents/headers.js'
 import Rows from './subcomponents/rows.js'
 import Data from './subcomponents/data.js'
-import { saveTableData } from '../../utils/data_utils/local_storage_handlers.js'
 import Tooltip from '../tooltip/tooltip.js';
+import { convertToJSON } from "../../utils/JSON_data_handlers.js";
+import Sidebar from '../sidebar/sidebar.js';
+import CurrentFund from '../../models/current_fund.js';
+import CurrentPage from '../../models/current_page.js';
 
 function adjustTableWidth(width_pct){
     const table = document.getElementById('main-table');
@@ -31,6 +34,24 @@ function hideTable(){
     Buttons.AddRow.hide();
 }
 
+function saveTableData() {
+    // remove the detail text
+    Tooltip.unlink();
+    // get table
+    var table = document.getElementById('main-table');
+    // determine save_as name
+    if (CurrentFund.number()) {
+        var save_as = `${CurrentPage.load()}_${CurrentFund.number()}`;
+    } else {
+        var save_as = CurrentPage.load();
+    }
+    localStorage.setItem(save_as, convertToJSON(table, ['Edit']));
+    // update sidebar with new data
+    Sidebar.updateTotals();
+    // relink, depending on page
+    Tooltip.linkAll();
+}
+
 const Table = {
     Buttons : Buttons,
     Cell : Cell,
@@ -45,13 +66,7 @@ const Table = {
     clear : clearTable,
     hide : hideTable,
     show : showTable,
-    save : async function() {
-        // remove the detail text
-        Tooltip.unlink();
-        saveTableData();
-        // relink, depending on page
-        Tooltip.linkAll();
-    }
+    save : saveTableData
 }
 
 export default Table;

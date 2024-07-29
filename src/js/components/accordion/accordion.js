@@ -1,11 +1,11 @@
 import './accordion.css'
 
-import { Baseline, CurrentFund, Fund, Supplemental } from "../../utils/data_utils/local_storage_handlers.js";
+
+import {Baseline, CurrentFund, Fund, Supplemental, FundLookupTable} from '../../models'
 import { formatCurrency, cleanString } from "../../utils/common_utils.js";
 import Table from "../table/table.js";
-import { FundLookupTable } from "../../utils/data_utils/budget_data_handlers.js";
 import { visitPage } from '../../views/view_logic.js';
-import { TARGET } from '../../init.js';
+import { TARGET } from '../../constants/';
 
 function redirectForEdit(){
     const row = document.querySelector(`.active-editing`);
