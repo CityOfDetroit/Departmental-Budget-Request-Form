@@ -7,7 +7,7 @@ import Table from "../components/table/table.js";
 import Form from "../components/form/form.js";
 import Modal from "../components/modal/modal.js";
 
-import { CurrentPage } from "../utils/data_utils/local_storage_handlers.js";
+import CurrentPage from "../models/current_page.js";
 import { AccountString } from "../utils/data_utils/budget_data_handlers.js";
 
 export class View {

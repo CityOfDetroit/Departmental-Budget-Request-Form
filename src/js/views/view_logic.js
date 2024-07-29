@@ -8,8 +8,9 @@ import NonPersonnelView from './06_nonpersonnel.js';
 import InitiativesView from './07_new_initiatives.js';
 import SummaryView from './08_summary.js';
 
-import { CurrentPage, CurrentFund } from '../utils/data_utils/local_storage_handlers.js';
 import { FundLookupTable } from '../utils/data_utils/budget_data_handlers.js';
+import CurrentFund from '../models/current_fund.js';
+import CurrentPage from '../models/current_page.js';
 import { FISCAL_YEAR } from '../init.js';
 
 export function initializePages() {

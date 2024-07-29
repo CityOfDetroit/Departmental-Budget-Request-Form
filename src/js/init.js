@@ -7,7 +7,7 @@ export let TARGET = 10000000;
 export var FISCAL_YEAR = '26';
 
 // import functions
-import { CurrentPage } from './utils/data_utils/local_storage_handlers.js';
+import CurrentPage from './models/current_page.js';
 
 // sheets to expect on detail sheet
 export const SHEETS = {

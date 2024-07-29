@@ -1,5 +1,5 @@
 
-import { FundLookupTable } from "../utils/data_utils/budget_data_handlers";
+import FundLookupTable from "./fund_lookup_table";
 
 export const CurrentFund = {
     update : function(fund){

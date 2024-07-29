@@ -1,6 +1,6 @@
 import './header.css';
 
-import { CurrentFund } from "../../utils/data_utils/local_storage_handlers.js";
+import CurrentFund from '../../models/current_fund';
 
 export const Subtitle = {
     update : function(subtitle){

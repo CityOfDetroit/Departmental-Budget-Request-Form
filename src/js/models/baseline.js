@@ -1,4 +1,6 @@
 import Fund from "./fund.js";
+import FundLookupTable from "./fund_lookup_table.js";
+
 
 export class Baseline {
     // baseline will just contain a list of funds, each with
