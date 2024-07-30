@@ -16,7 +16,7 @@ export function initializePages() {
         'welcome': new WelcomeView(),
         'upload': new UploadView(),
         'baseline-landing': new FundView(),
-        'revenue': new RevenueView(),
+        'revenue': new RevenueView(FISCAL_YEAR),
         'personnel': new PersonnelView(FISCAL_YEAR),
         'overtime': new OvertimeView(),
         'nonpersonnel': new NonPersonnelView(FISCAL_YEAR),
