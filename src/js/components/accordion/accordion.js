@@ -160,7 +160,7 @@ export const Accordion = {
         const suppAmount = document.querySelector('#supp-title .top-line-amount')
         suppAmount.textContent = formatCurrency(supp.total());
         // color-code baseline
-        if (baseline.total() <= Baseline.target){
+        if (baseline.total() <= Baseline.target()){
             baselineAmount.style.color = 'green';
         } else {
             baselineAmount.style.color = 'red';

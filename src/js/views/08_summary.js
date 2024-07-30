@@ -9,11 +9,11 @@ import WelcomeView from './00_welcome.js';
 
 export function compareToTarget(){
     const baseline = new Baseline;
-    if (baseline.total() <= baseline.target){
+    if (baseline.total() <= Baseline.target()){
         Prompt.Text.update(`Congrats! Your budget is below your target! 
             Edit any line items below or download your completed Excel.`);
     } else {
-        Prompt.Text.update(`Your budget is above your target of ${formatCurrency(baseline.target())}. 
+        Prompt.Text.update(`Your budget is above your target of ${formatCurrency(Baseline.target())}. 
             Please expand the summary table below and edit line items until you meet your target. 
             When you meet the target, you will be able to download the Excel sheet.`);
         Prompt.Buttons.Right.disable();
