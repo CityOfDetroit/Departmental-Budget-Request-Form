@@ -13,7 +13,7 @@ export class Baseline {
         });
     } 
 
-    target() { return localStorage.getItem('target') };
+    static target() { return localStorage.getItem('target') };
 
     personnel() {
         let total = 0;

@@ -27,7 +27,7 @@ function showSidebar() {
     header.style.width = `${contentWidth - parseInt(sideBarWidth, 10)}px`; 
 
     // add target to sidebar
-    addTarget(Baseline.target);
+    addTarget(Baseline.target());
 
     // add event listener to resize content if window is adjusted
     window.addEventListener('resize', showSidebar);
