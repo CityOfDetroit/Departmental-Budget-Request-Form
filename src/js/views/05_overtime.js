@@ -5,13 +5,7 @@ import Table from '../components/table/table.js';
 import Form from '../components/form/form.js';
 import { FundLookupTable, Services } from '../models/';
 import { unformatCurrency } from '../utils/common_utils.js';
-
-const OT_objects = [
-    '601300 - Salar-Overtime-Gen City', 
-    '601305 - Salaries-Overtime-Police Unif',
-    '601310 - Salaries-Overtime-Fire Unif',
-    '602300 - Wages-Overtime-Gen City'
-]
+import { OT_OBJECTS } from '../constants/';
 
 export class OvertimeView extends View {
 
@@ -51,7 +45,7 @@ class OvertimeTable extends ViewTable {
         Table.Cell.createTextbox('OT-pay', true);
         Table.Cell.createServiceDropdown(Services.list());
         Table.Cell.createDropdown('recurring', ['One-Time', 'Recurring']);
-        Table.Cell.createDropdown('object-name', OT_objects);
+        Table.Cell.createDropdown('object-name', OT_OBJECTS);
     }
 
     updateTable(){
@@ -78,7 +72,7 @@ class OvertimeTable extends ViewTable {
         // form questions to add a new job
         Form.NewField.dropdown('Appropriation:', 'approp-name', FundLookupTable.getApprops(), true);
         Form.NewField.dropdown('Cost Center:', 'cc-name', FundLookupTable.getCostCenters(), true);
-        Form.NewField.dropdown('Object (salary or wage):', 'object-name', OT_objects, true); 
+        Form.NewField.dropdown('Object (salary or wage):', 'object-name', OT_OBJECTS, true); 
         Form.NewField.dropdown('Service', 'service', Services.list(), true);
         Form.NewField.dropdown('Recurring or One-Time', 'recurring', ['Recurring', 'One-Time'], true);
         Form.NewField.shortText('Overtime amount requested:', 'OT-pay', true);
