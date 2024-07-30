@@ -25,7 +25,7 @@ class RevenueTable extends ViewTable {
             { title: 'Recurring or One-Time', className: 'recurring'},
             { title: 'Object Category', className: 'object-category'},
             { title: `FY${fiscal_year} Departmental Estimate`, className: 'request', isCost: true},
-            { title: 'Departmental Request Notes', className: 'notes'},
+            { title: 'Departmental Estimate Notes', className: 'notes'},
         ]);
 
         this.noDataMessage = 'No revenues for this fund.'

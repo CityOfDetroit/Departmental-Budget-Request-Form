@@ -5,7 +5,6 @@ import {Baseline, CurrentFund, Fund, Supplemental, FundLookupTable} from '../../
 import { formatCurrency, cleanString } from "../../utils/common_utils.js";
 import Table from "../table/table.js";
 import { visitPage } from '../../views/view_logic.js';
-import { TARGET } from '../../constants/';
 
 function redirectForEdit(){
     const row = document.querySelector(`.active-editing`);
@@ -161,7 +160,7 @@ export const Accordion = {
         const suppAmount = document.querySelector('#supp-title .top-line-amount')
         suppAmount.textContent = formatCurrency(supp.total());
         // color-code baseline
-        if (baseline.total() <= TARGET){
+        if (baseline.total() <= Baseline.target){
             baselineAmount.style.color = 'green';
         } else {
             baselineAmount.style.color = 'red';

@@ -6,6 +6,7 @@ export const SHEETS = {
     'Revenue' : 'revenue'
 }
 
+// object categories (from obj part of account string)
 export const OBJ_CATEGORIES = {
     list : [
         // 'Salaries & Wages',
@@ -19,3 +20,6 @@ export const OBJ_CATEGORIES = {
         'Other Expenses'
     ]
 }
+
+// where to find the general fund target
+export const TARGET_CELL_ADDRESS = 'C14'

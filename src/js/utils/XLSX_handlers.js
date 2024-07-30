@@ -1,6 +1,6 @@
 
 
-import { SHEETS } from '../constants/';
+import { SHEETS, TARGET_CELL_ADDRESS } from '../constants/';
 import FundLookupTable from '../models/fund_lookup_table.js';
 import { removeNewLines } from './common_utils.js';
 import Baseline from '../models/baseline.js';
@@ -98,6 +98,17 @@ export function processWorkbook(arrayBuffer) {
                 const cleanedServicesColumn = servicesColumn.filter(value => value != null);
                 // save the data
                 Services.save(cleanedServicesColumn);
+            }
+        }
+
+        else if(sheetName == 'Dept Summary'){
+            const sheet = workbook.Sheets[sheetName];
+            // get and save TARGET for general fund
+            if(sheet[TARGET_CELL_ADDRESS]) {
+                const cellValue = sheet[TARGET_CELL_ADDRESS].v; // Access the cell value
+                localStorage.setItem('target', cellValue);
+            } else {
+                console.error(`Cell ${TARGET_CELL_ADDRESS} not found in sheet ${sheetName}`);
             }
         }
     });
