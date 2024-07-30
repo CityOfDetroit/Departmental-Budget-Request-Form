@@ -81,7 +81,7 @@ export function processWorkbook(arrayBuffer) {
         }
 
         // But also save the possible services
-        else if (sheetName == 'Drop-Downs'){
+        else if (sheetName == 'Drop-Down Menus'){
             const sheet = workbook.Sheets[sheetName];
             // Convert the sheet to JSON to easily manipulate data
             const sheetData = XLSX.utils.sheet_to_json(sheet, { header: 1 });

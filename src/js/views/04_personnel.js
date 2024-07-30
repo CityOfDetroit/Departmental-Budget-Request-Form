@@ -32,8 +32,8 @@ class PersonnelTable extends ViewTable {
             { title: 'Job Title', className: 'job-name' },
             { title: 'Service', className: 'service' },
             { title: `FY${this.fiscal_year} Requested FTE`, className: 'baseline-ftes' },
-            { title: `FY${this.fiscal_year} Average Projected Salary/Wage`, className: 'avg-salary', isCost: true },
-            { title: 'Total Cost', className: 'total-baseline', isCost: true },
+            { title: `FY${this.fiscal_year} Projected Average Salary/Wage`, className: 'avg-salary', isCost: true },
+            { title: 'Total Sal/Wag & Ben Request', className: 'total-baseline', isCost: true },
             // hidden columns
             { title: 'Fringe Benefits Rate', className: 'fringe', hide: true },
             { title: 'General Increase Rate', className: 'general-increase-rate', hide: true},

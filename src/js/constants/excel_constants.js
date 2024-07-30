@@ -1,3 +1,5 @@
+import { FISCAL_YEAR } from "./app_constants";
+
 // sheets to expect on detail sheet
 export const SHEETS = {
     'FTE, Salary-Wage, & Benefits' : 'personnel' ,
@@ -23,3 +25,10 @@ export const OBJ_CATEGORIES = {
 
 // where to find the general fund target
 export const TARGET_CELL_ADDRESS = 'C14'
+
+export const TOTAL_COLUMNS = {
+    'personnel': 'Total Sal/Wag & Ben Request',
+    'overtime':'Total Cost (including benefits)',
+    'nonpersonnel': `FY${FISCAL_YEAR} Request`,
+    'revenue': `FY${FISCAL_YEAR} Departmental Estimate`
+};

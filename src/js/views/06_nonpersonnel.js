@@ -37,7 +37,7 @@ class NonPersonnelTable extends ViewTable {
             { title: 'BPA/CPA Description', className: 'cpa-description', hide: true} 
         ]);
 
-        this.noDataMessage = 'No personnel expenditures for this fund.'
+        this.noDataMessage = 'No non-personnel expenditures for this fund.'
         this.addButtonText = 'Add new job' ;
     }
 
