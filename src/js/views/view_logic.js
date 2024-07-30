@@ -18,7 +18,7 @@ export function initializePages() {
         'baseline-landing': new FundView(),
         'revenue': new RevenueView(FISCAL_YEAR),
         'personnel': new PersonnelView(FISCAL_YEAR),
-        'overtime': new OvertimeView(),
+        'overtime': new OvertimeView(FISCAL_YEAR),
         'nonpersonnel': new NonPersonnelView(FISCAL_YEAR),
         'new-inits': new InitiativesView(),
         'summary': new SummaryView(),

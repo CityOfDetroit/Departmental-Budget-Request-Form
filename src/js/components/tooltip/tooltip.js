@@ -69,7 +69,7 @@ function showFinalPersonnelCost(row){
 function showFICA(row){
     const fica = parseFloat(Cell.getText(row, 'fica'));
     const ficaPercentage = (fica * 100).toFixed(2);
-    const message = `This total is overtime wages plus overtime salary plus FICA (payroll tax), 
+    const message = `This total is overtime / holiday / shift premium pay, plus FICA (payroll tax), 
                      which is ${ficaPercentage}% for this cost center.`
     editTooltipText(message);
 }
@@ -165,25 +165,27 @@ export const Tooltip = {
     show : showTooltip,
 
     linkAll : () => {
+        linkAccountStringCol();
         switch(CurrentPage.load()){
             case 'personnel' :
-                linkAccountStringCol();
+                // linkAccountStringCol();
                 linkSalaryCol();
                 linkTotalPersonnelCostCol();
                 break;
             case 'overtime':
                 linkTotalOTCol();
+                // linkAccountStringCol();
                 break;
             case 'nonpersonnel':
-                linkAccountStringCol();
+                // linkAccountStringCol();
                 linkCPACol();  
                 break;
-            case 'revenue':
-                linkAccountStringCol();
-                break;
-            case 'new-inits':
-                linkAccountStringCol();
-                break;
+            // case 'revenue':
+            //     linkAccountStringCol();
+            //     break;
+            // case 'new-inits':
+            //     linkAccountStringCol();
+            //     break;
             default:
                 break;
 
