@@ -5,6 +5,7 @@ import Form from "../components/form/form.js";
 
 import { Services, FundLookupTable } from '../models/';
 import { unformatCurrency } from "../utils/common_utils.js";
+import { EMPLOYEE_TYPES } from '../constants/budget_constants.js';
 
 export class PersonnelView extends View {
 
@@ -30,6 +31,7 @@ class PersonnelTable extends ViewTable {
         // add additional personnel columns to the table
         this.columns = this.columns.concat([
             { title: 'Job Title', className: 'job-name' },
+            { title: 'Employee Type', className: 'employee-type'},
             { title: 'Service', className: 'service' },
             { title: `FY${this.fiscal_year} Requested FTE`, className: 'baseline-ftes' },
             { title: `FY${this.fiscal_year} Projected Average Salary/Wage`, className: 'avg-salary', isCost: true },
@@ -74,6 +76,7 @@ class PersonnelTable extends ViewTable {
     addCustomQuestions(){
         // form questions to add a new job
         Form.NewField.shortText('Job Title:', 'job-name', true); 
+        Form.NewField.dropdown('Employee Type:', 'employee-type', EMPLOYEE_TYPES, true),
         Form.NewField.dropdown('Appropriation:', 'approp-name', FundLookupTable.getApprops(), true);
         Form.NewField.dropdown('Cost Center:', 'cc-name', FundLookupTable.getCostCenters(), true);
         Form.NewField.dropdown('Service', 'service', Services.list(), true);
