@@ -23,13 +23,13 @@ class NonPersonnelTable extends ViewTable {
 
         // add additional personnel columns to the table
         this.columns = this.columns.concat([
-            { title: `FY${fiscal_year} Request`, className: 'request', isCost: true },
+            { title: `FY${fiscal_year} Departmental Request Total`, className: 'request', isCost: true },
             { title: 'Service', className : 'service' },
             { title: 'Recurring or One-Time', className: 'recurring'},
             { title : 'CPA #', className : 'cpa'},
             // hidden columns
-            { title: 'Contract End Date', className: 'contract-end', hide: true},
-            { title: 'Amount Remaining on Contract', className: 'remaining', isCost: true , hide: true},
+            { title: 'End Date', className: 'contract-end', hide: true},
+            { title: 'BPA/CPA Amount Remaining', className: 'remaining', isCost: true , hide: true},
             { title: 'Object Name', className: 'object-name', hide: true},
             { title: 'Object', className: 'object', hide: true},
             { title: 'Vendor Name', className: 'vendor', hide: true},

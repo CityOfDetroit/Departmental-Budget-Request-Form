@@ -166,3 +166,21 @@ export function downloadXLSX() {
     link.click();
     document.body.removeChild(link);
 }
+
+export function excelSerialDateToJSDate(serial) {
+
+    if (!serial) { return null };
+    // Excel considers 1900-01-01 as day 1, but JavaScript's Date considers
+    // 1970-01-01 as day 0. Therefore, we calculate the number of milliseconds
+    // between 1900-01-01 and 1970-01-01.
+    const excelEpoch = new Date(Date.UTC(1899, 11, 30)); // JavaScript Consider December month as '11'
+    
+    // Calculate the JS date by adding serial days to the epoch date
+    const date = new Date(excelEpoch.getTime() + (serial * 24 * 60 * 60 * 1000));
+    
+    // Set the time part to zero (midnight)
+    date.setUTCHours(0, 0, 0, 0);
+    
+    // Return the date part of the ISO string
+    return date.toISOString().split('T')[0];
+}

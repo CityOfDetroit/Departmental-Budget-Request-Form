@@ -2,6 +2,7 @@ import { FISCAL_YEAR } from '../../constants/';
 import Cell from '../table/subcomponents/cells';
 import { formatCurrency } from '../../utils/common_utils';
 import CurrentPage from '../../models/current_page';
+import { excelSerialDateToJSDate } from '../../utils/XLSX_handlers';
 
 import './tooltip.css'
 
@@ -77,7 +78,9 @@ function showCPA(row){
     const cpa = parseFloat(Cell.getText(row, 'cpa'));
     const description = Cell.getText(row, 'cpa-description');
     const vendor = Cell.getText(row, 'vendor');
-    const contract_end = Cell.getText(row, 'contract-end');
+    var contract_end = Cell.getText(row, 'contract-end');
+    // convert to normal date format from excel 
+    contract_end = excelSerialDateToJSDate(contract_end);
     const remaining = Cell.getValue(row, 'remaining');
     if (cpa) {
         var message = `<strong>CPA #${cpa}</strong>`;

@@ -42,6 +42,7 @@ export function removeNewLines(str){
     str = str.replaceAll(/[\r\n]+/g, " ");
     // remove any extra spaces or trailing/leading whitespace
     str = str.replaceAll('  ', ' ');
+    str = str.replaceAll('  ', ' ');
     str = str.replace(/^\s+|\s+$/g, '');
     return str;
 }
