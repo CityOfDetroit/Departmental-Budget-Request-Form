@@ -7,7 +7,9 @@ export class RevenueView extends View {
     constructor(fiscal_year) {
         super();
         this.page_state = 'revenue';
-        this.prompt = 'Review and edit revenue line items.';
+        this.prompt = `Review and edit revenue line items. If you change the estimate or 
+            notice an error in an account string, please note it in the notes column. Click edit 
+            to change values in a row.`;
         this.subtitle = 'Revenues';
         this.table = new RevenueTable(fiscal_year);
     }
