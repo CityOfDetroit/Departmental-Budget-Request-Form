@@ -1,6 +1,6 @@
 
 
-import { SHEETS } from '../constants/';
+import { SHEETS, TARGET_CELL_ADDRESS } from '../constants/';
 import FundLookupTable from '../models/fund_lookup_table.js';
 import { removeNewLines } from './common_utils.js';
 import Baseline from '../models/baseline.js';
@@ -81,7 +81,7 @@ export function processWorkbook(arrayBuffer) {
         }
 
         // But also save the possible services
-        else if (sheetName == 'Drop-Downs'){
+        else if (sheetName == 'Drop-Down Menus'){
             const sheet = workbook.Sheets[sheetName];
             // Convert the sheet to JSON to easily manipulate data
             const sheetData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
@@ -98,6 +98,17 @@ export function processWorkbook(arrayBuffer) {
                 const cleanedServicesColumn = servicesColumn.filter(value => value != null);
                 // save the data
                 Services.save(cleanedServicesColumn);
+            }
+        }
+
+        else if(sheetName == 'Dept Summary'){
+            const sheet = workbook.Sheets[sheetName];
+            // get and save TARGET for general fund
+            if(sheet[TARGET_CELL_ADDRESS]) {
+                const cellValue = sheet[TARGET_CELL_ADDRESS].v; // Access the cell value
+                localStorage.setItem('target', cellValue);
+            } else {
+                console.error(`Cell ${TARGET_CELL_ADDRESS} not found in sheet ${sheetName}`);
             }
         }
     });
@@ -154,4 +165,22 @@ export function downloadXLSX() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+}
+
+export function excelSerialDateToJSDate(serial) {
+
+    if (!serial) { return null };
+    // Excel considers 1900-01-01 as day 1, but JavaScript's Date considers
+    // 1970-01-01 as day 0. Therefore, we calculate the number of milliseconds
+    // between 1900-01-01 and 1970-01-01.
+    const excelEpoch = new Date(Date.UTC(1899, 11, 30)); // JavaScript Consider December month as '11'
+    
+    // Calculate the JS date by adding serial days to the epoch date
+    const date = new Date(excelEpoch.getTime() + (serial * 24 * 60 * 60 * 1000));
+    
+    // Set the time part to zero (midnight)
+    date.setUTCHours(0, 0, 0, 0);
+    
+    // Return the date part of the ISO string
+    return date.toISOString().split('T')[0];
 }

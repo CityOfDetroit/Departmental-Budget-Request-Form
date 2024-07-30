@@ -1,6 +1,6 @@
 
 import { colSum } from "../utils/common_utils";
-import { FISCAL_YEAR } from '../constants/';
+import { TOTAL_COLUMNS } from '../constants/';
 
 // Class to hold information on a specific fund and table
 class StoredTable {
@@ -11,18 +11,7 @@ class StoredTable {
     }
 
     totalCol() {
-        switch(this.page){
-            case 'personnel':
-                return 'Total Cost';
-            case 'overtime':
-                return 'Total Cost (including benefits)';
-            case 'nonpersonnel':
-                return `FY${FISCAL_YEAR} Request`;
-            case 'revenue':
-                return `Departmental Request Total`;
-            default:
-                break;
-        }
+        return TOTAL_COLUMNS[this.page];
     }
     getSum() {
         // fill with zero until there is something saved in storage

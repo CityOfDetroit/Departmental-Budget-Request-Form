@@ -3,6 +3,9 @@ function createDropdown(dataArray) {
   // Creating a select element
   const selectElement = document.createElement('select');
 
+  // add a default blank option to the dataArray
+  dataArray = [''].concat(dataArray);
+
   // Looping through the array and creating an option for each element
   dataArray.forEach(item => {
     const optionElement = document.createElement('option');

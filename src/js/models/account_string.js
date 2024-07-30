@@ -1,4 +1,4 @@
-
+import CurrentFund from "./current_fund";
 
 export const AccountString = {
     getNumber: function(input) {

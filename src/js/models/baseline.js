@@ -13,6 +13,8 @@ export class Baseline {
         });
     } 
 
+    static target() { return localStorage.getItem('target') };
+
     personnel() {
         let total = 0;
         this.funds.forEach(fund => {

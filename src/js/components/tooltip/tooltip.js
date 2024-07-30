@@ -2,6 +2,7 @@ import { FISCAL_YEAR } from '../../constants/';
 import Cell from '../table/subcomponents/cells';
 import { formatCurrency } from '../../utils/common_utils';
 import CurrentPage from '../../models/current_page';
+import { excelSerialDateToJSDate } from '../../utils/XLSX_handlers';
 
 import './tooltip.css'
 
@@ -68,7 +69,7 @@ function showFinalPersonnelCost(row){
 function showFICA(row){
     const fica = parseFloat(Cell.getText(row, 'fica'));
     const ficaPercentage = (fica * 100).toFixed(2);
-    const message = `This total is overtime wages plus overtime salary plus FICA (payroll tax), 
+    const message = `This total is overtime / holiday / shift premium pay, plus FICA (payroll tax), 
                      which is ${ficaPercentage}% for this cost center.`
     editTooltipText(message);
 }
@@ -77,7 +78,9 @@ function showCPA(row){
     const cpa = parseFloat(Cell.getText(row, 'cpa'));
     const description = Cell.getText(row, 'cpa-description');
     const vendor = Cell.getText(row, 'vendor');
-    const contract_end = Cell.getText(row, 'contract-end');
+    var contract_end = Cell.getText(row, 'contract-end');
+    // convert to normal date format from excel 
+    contract_end = excelSerialDateToJSDate(contract_end);
     const remaining = Cell.getValue(row, 'remaining');
     if (cpa) {
         var message = `<strong>CPA #${cpa}</strong>`;
@@ -162,25 +165,27 @@ export const Tooltip = {
     show : showTooltip,
 
     linkAll : () => {
+        linkAccountStringCol();
         switch(CurrentPage.load()){
             case 'personnel' :
-                linkAccountStringCol();
+                // linkAccountStringCol();
                 linkSalaryCol();
                 linkTotalPersonnelCostCol();
                 break;
             case 'overtime':
                 linkTotalOTCol();
+                // linkAccountStringCol();
                 break;
             case 'nonpersonnel':
-                linkAccountStringCol();
+                // linkAccountStringCol();
                 linkCPACol();  
                 break;
-            case 'revenue':
-                linkAccountStringCol();
-                break;
-            case 'new-inits':
-                linkAccountStringCol();
-                break;
+            // case 'revenue':
+            //     linkAccountStringCol();
+            //     break;
+            // case 'new-inits':
+            //     linkAccountStringCol();
+            //     break;
             default:
                 break;
 

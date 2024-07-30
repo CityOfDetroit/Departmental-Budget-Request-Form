@@ -1,7 +1,6 @@
 import './sidebar.css'
 
 import { formatCurrency } from "../../utils/common_utils.js";
-import { TARGET } from '../../constants/';
 import {Baseline, Supplemental} from '../../models/';
 
 
@@ -28,7 +27,7 @@ function showSidebar() {
     header.style.width = `${contentWidth - parseInt(sideBarWidth, 10)}px`; 
 
     // add target to sidebar
-    addTarget(TARGET);
+    addTarget(Baseline.target());
 
     // add event listener to resize content if window is adjusted
     window.addEventListener('resize', showSidebar);
