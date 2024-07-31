@@ -1,8 +1,7 @@
 import './sidebar.css'
+import { BaselineSection } from './subcomponents/baseline_section';
 
-import { formatCurrency } from "../../utils/common_utils.js";
-import {Baseline, Supplemental} from '../../models/';
-
+import SuppSection from './subcomponents/supp_section'
 
 // Assuming you have a CSS variable --main-color defined on the :root
 const root = document.documentElement;
@@ -26,9 +25,6 @@ function showSidebar() {
     mainPanel.style.width = `${contentWidth - parseInt(sideBarWidth, 10)}px`; 
     header.style.width = `${contentWidth - parseInt(sideBarWidth, 10)}px`; 
 
-    // add target to sidebar
-    addTarget(Baseline.target());
-
     // add event listener to resize content if window is adjusted
     window.addEventListener('resize', showSidebar);
 }
@@ -37,51 +33,15 @@ function updateSidebarTitle(new_title){
     document.getElementById('sidebar-title').textContent = new_title;
 }
 
-function replaceSidebarStat(stat_id, new_figure){
-    const span = document.querySelector(`#${stat_id} .stat`);
-    span.setAttribute('value', new_figure);
-    span.textContent = formatCurrency(new_figure);
-}
 
-function fetchStat(stat_id){
-    const stat = document.querySelector(`#${stat_id} .stat`);
-    return parseFloat(stat.getAttribute('value')) || 0;
-}
-
-
-function addTarget(target){
-    replaceSidebarStat('target', target);
-}
-
-// update all stats based on saved data
-async function updateBaseline(){
-    // gather info and update sidebar accordingly
-    var baseline = new Baseline();
-    replaceSidebarStat('baseline-revenue', baseline.revenue());
-    replaceSidebarStat('baseline-personnel', baseline.personnel());
-    replaceSidebarStat('baseline-nonpersonnel', baseline.nonpersonnel());
-    replaceSidebarStat('baseline-total', baseline.total());
-
-    // color code based on target
-    var target = fetchStat('target');
-    if(baseline.total() <= target){
-        document.querySelector('#baseline-total .stat').style.color = "green";
-    }
-    if(baseline.total() > target){
-        document.querySelector('#baseline-total .stat').style.color = "red";
-    }
-}
-
-function updateSupp(){
-    var supp = new Supplemental;
-    replaceSidebarStat('supp-revenue', supp.revenue());
-    replaceSidebarStat('supp-expenses', supp.expenses());
-    replaceSidebarStat('supp-total', supp.total());
-}
+// function fetchStat(stat_id){
+//     const stat = document.querySelector(`#${stat_id} .stat`);
+//     return parseFloat(stat.getAttribute('value')) || 0;
+// }
 
 function updateTotals(){
-    updateBaseline();
-    updateSupp();
+    SuppSection.update();
+    BaselineSection.update();
 }
 
 function resetAll(){
@@ -91,10 +51,11 @@ function resetAll(){
 }
 
 const Sidebar = {
+    SuppSection : SuppSection,
+    BaselineSection : BaselineSection,
     hide: hideSidebar,
     show: showSidebar,
     updateTitle: updateSidebarTitle,
-    addTarget: addTarget,
     updateTotals: updateTotals,
     reset: resetAll
 };

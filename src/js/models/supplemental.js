@@ -1,6 +1,6 @@
 
 import Initiative from "./initiative.js";
-import { colSum } from "../utils/common_utils.js";
+import { colSum, formatCurrency } from "../utils/common_utils.js";
 
 // data structure to hold supplemental requests
 export class Supplemental {
