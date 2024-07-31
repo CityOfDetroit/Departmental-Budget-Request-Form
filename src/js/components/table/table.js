@@ -29,8 +29,15 @@ function showTable(){
 }
 
 function hideTable(){
-    const table = document.getElementById('main-table');
-    table.style.display = 'none';
+    const table = $('#main-table'); // Use jQuery to reference the table
+
+    // Check if DataTable is already initialized and destroy if so
+    if ($.fn.DataTable.isDataTable('#main-table')) {
+        table.DataTable().destroy();
+        table = $('#main-table').empty(); // Clear the contents before reinitializing
+    }
+
+    table.hide(); // jQuery's hide method
     Buttons.AddRow.hide();
 }
 

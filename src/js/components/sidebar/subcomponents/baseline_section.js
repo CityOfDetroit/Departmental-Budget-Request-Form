@@ -96,7 +96,7 @@ export const BaselineSection = {
 
         if(this.genFund.getTotal() <= Baseline.target()){
             document.querySelector('#GF-total .stat').style.color = "green";
-            document.querySelector('#fund_100 sidebar-stat-line.fund-total .stat').style.color = "green";
+            document.querySelector('#fund_1000 .sidebar-stat-line:last-of-type .stat').style.color = "green";
         } else {
             document.querySelector('#GF-total .stat').style.color = "red";
             document.querySelector('#fund_1000 .sidebar-stat-line:last-of-type .stat').style.color = "red";

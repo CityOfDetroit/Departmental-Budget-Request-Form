@@ -84,6 +84,9 @@ export class ViewTable {
    
         // text to show for new row button
         this.addButtonText = null ;
+
+        // whether to show as a datatable
+        this.dataTable = true;
     }
 
     async build() {
@@ -104,6 +107,16 @@ export class ViewTable {
             //after table is loaded, show it
             Table.show();
 
+            if(this.dataTable){this.initDataTable()}
+
+            // Initialize Datatables
+            if ( !$.fn.dataTable.isDataTable('#main-table') ) {
+                $('#main-table').DataTable({
+                    paging: false, // Disable pagination
+                    info: false, // Disable table information display
+                });
+            }
+
             // add an edit column if needed
             if (this.addEdit) { 
                 Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, 'Edit'); 
@@ -123,6 +136,17 @@ export class ViewTable {
             if (this.noDataMessage) {
                 Prompt.Text.update(this.noDataMessage);
             }
+        }
+
+    }
+
+    initDataTable() {
+        // Initialize Datatables
+        if ( !$.fn.dataTable.isDataTable('#main-table') ) {
+            $('#main-table').DataTable({
+                paging: false, // Disable pagination
+                info: false, // Disable table information display
+            });
         }
     }
 

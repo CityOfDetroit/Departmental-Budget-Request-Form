@@ -1,5 +1,6 @@
 #main-table {
-    font-size: calc(0.5vw + 0.5em);
+    font-size: 12px;
+    /* calc(0.5vw + 0.5em); */
     margin: auto;
     /* width: 100%; */
 }
@@ -104,4 +105,9 @@ div.table-container {
 /* Fund table */
 .fund-name > .viewed-fund {
     color: gray;
+}
+
+/* made edit column narrower */
+th.edit, td.edit {
+    width: 20px;
 }
