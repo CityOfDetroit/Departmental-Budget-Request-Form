@@ -42,3 +42,12 @@
   font-weight: bold;
   border-bottom: 1px solid var(--citygreen);
 }
+
+hr {
+  margin-top: -5px;
+  margin-bottom: 8px;
+}
+
+h6 {
+  font-weight: 600;
+}
