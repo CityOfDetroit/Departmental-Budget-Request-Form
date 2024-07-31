@@ -51,3 +51,7 @@ hr {
 h6 {
   font-weight: 600;
 }
+
+.section-header {
+  background-color: var(--mediumGray);
+}
