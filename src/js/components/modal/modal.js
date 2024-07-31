@@ -6,12 +6,12 @@ function clearModal(){
     document.getElementById('modal-body').innerHTML = '';
 }
 
-function hideModal(modal_id) {
-    $('#' + modal_id).modal('hide');
+function hideModal() {
+    $('#main-modal').modal('hide');
 }
 
-function showModal(modal_id) {
-    $('#' + modal_id).modal('show');
+function showModal() {
+    $('#main-modal').modal('show');
 }
 
 function showModalHandler() {
@@ -30,6 +30,10 @@ const Submit = {
         };
         // Adding the handler reference as the event listener
         modal.addEventListener('submit', this.handler);
+
+        // add event listener to enable close x
+        const x = modal.querySelector('#modal-close-x');
+        x.addEventListener('click', hideModal);
     },
 
     deinit: function() {
@@ -39,6 +43,9 @@ const Submit = {
             modal.removeEventListener('submit', this.handler);
             this.handler = null;
         }
+        // remove event listener to enable close x
+        const x = modal.querySelector('#modal-close-x');
+        x.removeEventListener('click', hideModal);
     }
 };
 
@@ -60,8 +67,8 @@ const Title = {
 }
 
 export const Modal = {
-    hide : function() { hideModal('main-modal') },
-    show : function() { showModal('main-modal') },
+    hide : hideModal,
+    show : showModal,
     clear : clearModal,
     Title : Title,
     Link : Link,
