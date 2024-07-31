@@ -3,7 +3,7 @@ import { BaselineSection } from './subcomponents/baseline_section';
 
 import SuppSection from './subcomponents/supp_section'
 
-// Assuming you have a CSS variable --main-color defined on the :root
+// fetch CSS variables saved in :root
 const root = document.documentElement;
 const sideBarWidth = getComputedStyle(root).getPropertyValue('--sidebar-width').trim();
 
@@ -32,12 +32,6 @@ function showSidebar() {
 function updateSidebarTitle(new_title){
     document.getElementById('sidebar-title').textContent = new_title;
 }
-
-
-// function fetchStat(stat_id){
-//     const stat = document.querySelector(`#${stat_id} .stat`);
-//     return parseFloat(stat.getAttribute('value')) || 0;
-// }
 
 function updateTotals(){
     SuppSection.update();

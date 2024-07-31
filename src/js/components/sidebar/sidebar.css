@@ -55,3 +55,34 @@ h6 {
 .section-header {
   background-color: var(--mediumGray);
 }
+
+.sidebar-stat-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Distribute space between children */
+  padding: 2px;
+  border-bottom: 1px solid #ddd;
+}
+
+.edit-icon {
+  color: var(--spiritgreen);
+  cursor: pointer;
+  font-size: 16px; /* Adjust the size as needed */
+  margin-left: 10px;
+}
+
+.edit-icon:hover {
+  color: var(--citygreen);
+}
+
+.stat-label {
+  margin-right: auto; /* Push next elements to the right */
+}
+
+.stat {
+  margin-left: 5px; /* Optional: Add some space between currency and edit icon */
+}
+
+.sidebar-stat-line.fund-total .stat {
+  margin-right: 05px; /* 25px lines up with lines above (with edit symbol) */
+}
