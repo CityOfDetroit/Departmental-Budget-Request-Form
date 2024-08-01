@@ -97,15 +97,12 @@ export class ViewTable {
             this.setUpForm();
         }
 
-        // delete any residual data
-        // TODO: delete
-        Table.clear();
-
+        // create table element and show it
+        Table.show();
+        Table.adjustWidth('100%');
+        
         // fill with new data from local storage
-        if(await Table.Data.load()) {
-
-            //after table is loaded, show it
-            Table.show();
+        if(await Table.Data.load()) {            
 
             if(this.dataTable){this.initDataTable()}
 

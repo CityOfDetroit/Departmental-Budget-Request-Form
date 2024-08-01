@@ -23,9 +23,6 @@ function resetPage() {
     FileUpload.hide();
     Tooltip.hide();
 
-    // reset table
-    Table.adjustWidth('100%');
-    
     Prompt.Buttons.reset();
     // disable submit button
     Modal.Submit.deinit();
