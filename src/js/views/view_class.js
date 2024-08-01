@@ -53,9 +53,7 @@ export class View {
         if (this.subtitle) { Subtitle.update(this.subtitle) };
     }
 
-    cleanup() { 
-        if (this.table) { Table.clear() }
-    }
+    cleanup() { return; }
 
 }
 
@@ -97,22 +95,11 @@ export class ViewTable {
             this.setUpForm();
         }
 
-        // create table element and show it
-        Table.show();
-        Table.adjustWidth('100%');
-        
-        // fill with new data from local storage
-        if(await Table.Data.load()) {            
+        // fill table with new data from local storage
+        if(await Table.Data.load()) {      
 
+            // create a datatable object
             if(this.dataTable){this.initDataTable()}
-
-            // Initialize Datatables
-            if ( !$.fn.dataTable.isDataTable('#main-table') ) {
-                $('#main-table').DataTable({
-                    paging: false, // Disable pagination
-                    info: false, // Disable table information display
-                });
-            }
 
             // add an edit column if needed
             if (this.addEdit) { 
@@ -138,13 +125,17 @@ export class ViewTable {
     }
 
     initDataTable() {
+        Table.adjustWidth('100%');
         // Initialize Datatables
         if ( !$.fn.dataTable.isDataTable('#main-table') ) {
             $('#main-table').DataTable({
                 paging: false, // Disable pagination
                 info: false, // Disable table information display
             });
-        }
+        };
+        console.trace();
+        // Move the search bar outside the table container
+        $('#main-table_filter').appendTo('#search-bar-container');
     }
 
     // placeholder for action on row edit click

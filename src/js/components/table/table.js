@@ -17,12 +17,6 @@ function adjustTableWidth(width_pct){
     table.style.width = width_pct;
 }
 
-// function clearTable(){
-//     const table = document.getElementById('main-table');
-//     table.querySelector('thead').innerHTML = '';
-//     table.querySelector('tbody').innerHTML = '';
-// }
-
 function showTable(){
     const tableContainer = document.querySelector('.table-container');
     tableContainer.innerHTML = Table.html;
@@ -35,29 +29,9 @@ function hideTable(){
     // delete table object from table container
     const tableContainer = document.querySelector('.table-container');
     tableContainer.innerHTML = '';
-
-    //  TODO: change to explicitly delete and re-create table
-    // $(document).ready(function() {
-    //     console.log("Checking if DataTable is initialized...");
-    //     if ($.fn.DataTable.isDataTable('#main-table')) {
-    //         console.log("DataTable is initialized. Destroying...");
-    //         var table = $('#main-table').DataTable();
-    //         table.destroy();  // destroy the DataTable instance
-    //         $('#main-table').empty(); // Clear the table contents before reinitializing
-    //     } else {
-    //         console.log("DataTable is not initialized.");
-    //     }
-    
-    //     // Reinitialize the DataTable
-    //     console.log("Reinitializing DataTable...");
-    //     $('#main-table').DataTable({
-    //         // add your DataTable configuration here
-    //     });
-    //     console.log("DataTable reinitialized.");
-    // });
-
-    //table.hide(); // jQuery's hide method
     Buttons.AddRow.hide();
+    // delete search bar
+    document.querySelector('#search-bar-container').innerHTML = '';
 }
 
 function saveTableData() {
