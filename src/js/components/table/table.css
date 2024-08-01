@@ -79,6 +79,7 @@ div.table-container {
 
 .btn-edit {
     background-color: var(--spiritgreen);
+    line-height: 1.1;
 }
 
 .active-editing, .selected {

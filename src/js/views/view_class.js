@@ -133,7 +133,6 @@ export class ViewTable {
                 info: false, // Disable table information display
             });
         };
-        console.trace();
         // Move the search bar outside the table container
         $('#main-table_filter').appendTo('#search-bar-container');
     }
