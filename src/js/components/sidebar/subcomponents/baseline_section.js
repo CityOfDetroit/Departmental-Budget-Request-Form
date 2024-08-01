@@ -75,7 +75,7 @@ export const BaselineSection = {
             let fund = btn.closest('.fund-div').id.replace('fund_', '');
             let page = btn.closest('.sidebar-stat-line').classList[1];
     
-            btn.addEventListener('click', function(event) {
+            btn.addEventListener('click', function() {
                 CurrentFund.update(fund);
                 visitPage(page);
             });
