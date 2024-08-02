@@ -25,7 +25,7 @@ function readXL(event) {
 
     if (file) {
         // delete any stored data before re-populating with Excel data
-        Sidebar.reset()
+        // Sidebar.reset()
         // read in new data
         const reader = new FileReader();
         reader.onload = function(e) {
