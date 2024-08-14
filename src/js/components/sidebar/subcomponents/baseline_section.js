@@ -58,7 +58,7 @@ export const BaselineSection = {
                 <i class="fas fa-edit edit-icon" title="Edit"></i>
             </div>
             <div class='sidebar-stat-line fund-total'>
-                <span class="stat-label">Fund total:</span> 
+                <span class="stat-label">Total expenditures:</span> 
                 <span class="stat">${formatCurrency(fund.getTotal())}</span>
             </div>
             <br>`;

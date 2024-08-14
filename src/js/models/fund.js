@@ -43,7 +43,7 @@ export class Fund {
     }
 
     getTotal() { 
-        return this.getNonPersonnelCost() + this.getPersonnelCost() - this.getRevenue() 
+        return this.getNonPersonnelCost() + this.getPersonnelCost() //- this.getRevenue() 
     }
 }
 
