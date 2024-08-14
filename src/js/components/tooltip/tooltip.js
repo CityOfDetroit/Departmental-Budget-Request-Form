@@ -30,6 +30,8 @@ function showAccountString(row){
         <strong>Appropriation</strong>: ${approp}<br>
         <strong>Cost Center</strong>: ${cc}`;
     if (obj) { message += `<br><strong>Object</strong>: ${obj}`}
+    message += `<br> If you believe this account string is incorrect, please leave a comment 
+        in the comment column.`
     editTooltipText(message);
 }
 
@@ -43,7 +45,8 @@ function showSalaryProjection(row){
             ${formatCurrency(current_salary)} as of September 20${FISCAL_YEAR-2}. 
             Given a ${general_increase*100}% general increase rate and a ${merit_increase*100}% 
             merit increase, the FY${FISCAL_YEAR} projection for this position's average 
-            annual salary/wage is ${formatCurrency(proj_salary)}.`;
+            annual salary/wage is ${formatCurrency(proj_salary)}. This projection takes into 
+            account the number of vacant vs. full positions.`;
     } else {
         var message = `The average salary/wage for this position was 
             unknown as of September 20${FISCAL_YEAR-2}, or the position
