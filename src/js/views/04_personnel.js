@@ -36,6 +36,7 @@ class PersonnelTable extends ViewTable {
             { title: `FY${this.fiscal_year} Requested FTE`, className: 'baseline-ftes' },
             { title: `FY${this.fiscal_year} Projected Average Salary/Wage`, className: 'avg-salary', isCost: true },
             { title: 'Total Sal/Wag & Ben Request', className: 'total-baseline', isCost: true },
+            { title: 'Departmental Request Notes', className: 'notes'},
             // hidden columns
             { title: 'Fringe Benefits Rate', className: 'fringe', hide: true },
             { title: 'General Increase Rate', className: 'general-increase-rate', hide: true},
@@ -51,6 +52,7 @@ class PersonnelTable extends ViewTable {
     actionOnEdit() { 
         Table.Cell.createTextbox('baseline-ftes');
         Table.Cell.createServiceDropdown(Services.list());
+        Table.Cell.createTextbox('notes', false, 'textarea');
     }
 
     updateTable(){
