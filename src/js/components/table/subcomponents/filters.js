@@ -1,3 +1,26 @@
+// Helper function
+function filterData(filterClass, selectedOption){
+    // Get all rows in the table
+    const rows = document.querySelectorAll('#main-table tbody tr');
+
+    console.log('here');
+
+
+    // Iterate through each row
+    rows.forEach(row => {
+        // Find the cell with the specified class
+        const cell = row.querySelector(`.${filterClass}`);
+        
+        if (cell) {
+            // Check if the cell's text content matches the selected option
+            if (selectedOption === "" || cell.textContent.trim() === selectedOption) {
+                row.classList.remove('hidden'); // Show the row
+            } else {
+                row.classList.add('hidden'); // Hide the row
+            }
+        }
+    });
+};
 
 const Filter = {
     html(filterLabel, filterClass) {
@@ -25,6 +48,13 @@ const Filter = {
         filterContainer.appendChild(filterDiv);
         // add all relevant options from that column in the table
         this.addAllOptions(filterClass);
+        // Bind change event to the select element
+        document.querySelector(`#filter-${filterClass}`).addEventListener('change', function() {
+            const selectedOption = this.value;
+            if(this.value != 'All'){
+                filterData(filterClass, selectedOption);
+            }
+        });
     },
 
     addAllOptions(filterClass) {
@@ -43,10 +73,6 @@ const Filter = {
         uniqueValues.forEach(option => {
             this.addOption(filterClass, option);
         });
-    },
-
-    filterData(filterClass, selectedOption){
-        
     },
 
     deleteAll(){
