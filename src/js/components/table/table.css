@@ -12,6 +12,8 @@
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     top: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 th {
@@ -119,18 +121,20 @@ th.edit, td.edit {
 }
 
 /* Filter styling for the dropdown options */
-
-/* Container styling for alignment and spacing */
 #filter-container {
     display: flex;
-    flex-direction: column;
-    gap: 0px; /* Adjust the gap as needed */
+    flex-wrap: wrap;
+    gap: 2px; /* Adjust the gap as needed */
     font-size: 11px;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 5px;
 }
 
 #filter-container div {
     display: flex;
     align-items: center;
+    width: calc(50% - 10px); /* Adjust width to fit two items per row with gap */
 }
 
 #filter-container label {
@@ -142,7 +146,7 @@ th.edit, td.edit {
 /* Ensure all select boxes are wide enough to show text */
 .filter-dropdown {
     flex: 1;
-    min-width: 300px; /* Adjust the min-width as needed */
+    min-width: 200px; /* Adjust the min-width as needed */
 }
 
 /* Optional styling to make the select dropdown look better */
@@ -150,4 +154,18 @@ th.edit, td.edit {
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+/* Responsive adjustment: On smaller screens, stack elements vertically */
+@media (max-width: 800px) {
+    #filter-container div {
+        width: 100%;
+    }
+
+    #filter-container label {
+        text-align: left;
+        width: auto;
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
 }
