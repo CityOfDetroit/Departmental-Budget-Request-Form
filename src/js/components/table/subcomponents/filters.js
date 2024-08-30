@@ -1,5 +1,6 @@
-// Helper functions
+// Helper functions & constants
 
+// object to hold all current filter statuses
 const filterSettings = {
     'approp-name': '',
     'cc-name': '',
@@ -7,6 +8,7 @@ const filterSettings = {
     'object-category': ''
 };
 
+// helper function to filter data based on all filters
 function filterData() {
     // Get all rows in the table
     const rows = document.querySelectorAll('#main-table tbody tr');
@@ -14,20 +16,16 @@ function filterData() {
     // Iterate through each row and determine if it should be hidden or shown
     rows.forEach(row => {
         let isVisible = true;
-
-        console.log(filterSettings);
         
         // Check each filter setting against the row's cells
         for (const [filterId, filterValue] of Object.entries(filterSettings)) {
             const cell = row.querySelector(`.${filterId}`);
 
-            console.log(filterValue);
-            console.log(cell.textContent.trim());
-            
+            // only show row if values pass through all filters 
             if (filterValue && cell && (cell.textContent.trim() !== filterValue)) {
                 isVisible = false;
                 break;
-            }
+            } 
         }
 
         // Show or hide the row based on visibility
