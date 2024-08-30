@@ -23,6 +23,9 @@ function resetPage() {
     FileUpload.hide();
     Tooltip.hide();
 
+    // reset filter dropdowns
+    Table.Filter.deleteAll();
+
     Prompt.Buttons.reset();
     // disable submit button
     Modal.Submit.deinit();
