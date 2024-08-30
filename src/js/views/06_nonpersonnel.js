@@ -34,7 +34,8 @@ class NonPersonnelTable extends ViewTable {
             { title: 'Object', className: 'object', hide: true},
             { title: 'Vendor Name', className: 'vendor', hide: true},
             { title: 'Object Category', className: 'object-category', hide: true},
-            { title: 'BPA/CPA Description', className: 'cpa-description', hide: true} 
+            { title: 'BPA/CPA Description', className: 'cpa-description', hide: true},
+            { title: 'Departmental Request Notes', className: 'notes'}, 
         ]);
 
         this.noDataMessage = 'No non-personnel expenditures for this fund.'
@@ -46,6 +47,7 @@ class NonPersonnelTable extends ViewTable {
         Table.Cell.createTextbox('request', true);
         Table.Cell.createServiceDropdown();
         Table.Cell.createDropdown('recurring', ['One-Time', 'Recurring']);
+        Table.Cell.createTextbox('notes');
     }
 
     addCustomQuestions(){

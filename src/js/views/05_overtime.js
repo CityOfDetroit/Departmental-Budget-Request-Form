@@ -32,6 +32,7 @@ class OvertimeTable extends ViewTable {
             { title: 'Departmental Request OT/SP/Hol', className: 'OT-pay', isCost: true },
             { title: `FY${fiscal_year} Total OT/SP/Hol + FICA Request`, className : 'total', isCost: true},
             { title: 'Object Name', className: 'object-name'},
+            { title: 'Departmental Request Notes', className: 'notes'},
             // hidden columns
             { title: 'FICA Rate', className: 'fica', hide: true},
         ]);
@@ -46,6 +47,7 @@ class OvertimeTable extends ViewTable {
         Table.Cell.createServiceDropdown(Services.list());
         Table.Cell.createDropdown('recurring', ['One-Time', 'Recurring']);
         Table.Cell.createDropdown('object-name', OT_OBJECTS);
+        Table.Cell.createTextbox('notes');
     }
 
     updateTable(){
