@@ -114,6 +114,9 @@ export class ViewTable {
             // Apply any update function to make sure sidebar is up to date
             this.updateTable();
 
+            // add filter dropdowns
+            Table.Filter.add('Appropriation', 'approp');
+
         } else {
 
             // show a message if there's no saved table data for the selected fund
@@ -131,10 +134,9 @@ export class ViewTable {
             $('#main-table').DataTable({
                 paging: false, // Disable pagination
                 info: false, // Disable table information display
+                searching: false // Disable the search bar
             });
         };
-        // Move the search bar outside the table container
-        $('#main-table_filter').appendTo('#search-bar-container');
     }
 
     // placeholder for action on row edit click
