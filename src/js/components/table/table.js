@@ -32,8 +32,6 @@ function hideTable(){
     const tableContainer = document.querySelector('.table-container');
     tableContainer.innerHTML = '';
     Buttons.AddRow.hide();
-    // delete search bar
-    document.querySelector('#search-bar-container').innerHTML = '';
 }
 
 function saveTableData() {

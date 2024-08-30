@@ -1,54 +1,54 @@
+// nav_buttons.js
 import './nav_buttons.css';
+import { nextPage, lastPage } from '../../views/view_logic.js';
 
-import { nextPage, lastPage } from '../../views/view_logic.js'
-
-function initializeNavButtons(){
+function initializeNavButtons() {
     // initialize last button
     const last_btn = document.getElementById('btn-last');
     last_btn.addEventListener('click', lastPage); 
     // initialize next button
     const next_btn = document.getElementById('btn-next');
-    next_btn.addEventListener('click', nextPage); 
-}
-
-function hideNavButtons() {
-    document.getElementById('nav-btns').style.display = 'none';
-}
-
-function showNavButtons() {
-    document.getElementById('nav-btns').style.display = 'block';
-    initializeNavButtons();
+    next_btn.addEventListener('click', nextPage);
 }
 
 function disable(button_id) {
-    document.getElementById(button_id).classList.add('disabled');
+    const button = document.getElementById(button_id);
+    button.classList.add('disabled');
+    button.disabled = true; // Also disable it at the DOM level
 }
 
 function enable(button_id) {
-    document.getElementById(button_id).classList.remove('disabled');
+    const button = document.getElementById(button_id);
+    button.classList.remove('disabled');
+    button.disabled = false; // Enable it at the DOM level
 }
 
 const Next = {
-    disable : function() { disable('btn-next') },
-    enable : function() { enable('btn-next') },
-    addAction : function(fn) {
+    disable: function() { disable('btn-next'); },
+    enable: function() { enable('btn-next'); },
+    addAction: function(fn) {
         document.querySelector(`#btn-next`).addEventListener('click', fn);
     },
-    removeAction : function(fn) {
+    removeAction: function(fn) {
         document.querySelector(`#btn-next`).removeEventListener('click', fn);
     },
-}
+};
 
 const Last = {
-    disable : function() { disable('btn-last') },
-    enable : function() { enable('btn-last') }
-}
+    disable: function() { disable('btn-last'); },
+    enable: function() { enable('btn-last'); },
+};
 
 export const NavButtons = {
-    hide : hideNavButtons,
-    show : showNavButtons,
-    Next : Next,
-    Last : Last
-}
+    hide: function() {
+        document.getElementById('nav-btns').style.display = 'none';
+    },
+    show: function() {
+        document.getElementById('nav-btns').style.display = 'block';
+        initializeNavButtons();
+    },
+    Next: Next,
+    Last: Last,
+};
 
 export default NavButtons;

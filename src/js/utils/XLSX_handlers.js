@@ -72,7 +72,8 @@ export function processWorkbook(arrayBuffer) {
             });
 
             // save fund number and name as we go along
-            FundLookupTable.update(fundData);            
+            FundLookupTable.update(fundData);   
+            console.log('updating fund lookup table');       
 
             Object.keys(fundData).forEach(fund => {
                 const key = `${SHEETS[sheetName]}_${fund}`;
