@@ -43,6 +43,14 @@ const Filter = {
         uniqueValues.forEach(option => {
             this.addOption(filterClass, option);
         });
+    },
+
+    filterData(filterClass, selectedOption){
+        pass;
+    },
+
+    deleteAll(){
+        document.querySelector('#filter-container').innerHTML = '';
     }
 }
 

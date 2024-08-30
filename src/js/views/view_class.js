@@ -114,8 +114,16 @@ export class ViewTable {
             // Apply any update function to make sure sidebar is up to date
             this.updateTable();
 
-            // add filter dropdowns
-            Table.Filter.add('Appropriation', 'approp');
+            // reset filter dropdowns
+            Table.Filter.deleteAll();
+            Table.Filter.add('Appropriation', 'approp-name');
+            Table.Filter.add('Cost Center', 'cc-name');
+            if (this.columns.some(column => column.className === 'object-name')){
+                Table.Filter.add('Object', 'object-name');
+            };
+            if (this.columns.some(column => column.className === 'object-category')){
+                Table.Filter.add('Object Category', 'object-category');
+            }
 
         } else {
 
