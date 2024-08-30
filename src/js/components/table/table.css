@@ -169,8 +169,3 @@ th.edit, td.edit {
         margin-bottom: 5px;
     }
 }
-
-/* Notes textbox should be bigger */
-.notes input {
-    height: 50px;
-}
