@@ -10,7 +10,9 @@ export class NonPersonnelView extends View {
     constructor(fiscal_year) {
         super();
         this.page_state = 'nonpersonnel';
-        this.prompt = 'Review and edit non-personnel line items.';
+        this.prompt = `Review and edit non-personnel line items. The CPA numbers are the 
+            Contract and Procurement Account numbers. Click on the 'detail' link for a CPA 
+            to see the contract details. Some line items won't have a CPA number.`;
         this.subtitle = 'Non-Personnel';
         this.table = new NonPersonnelTable(fiscal_year);
     }
