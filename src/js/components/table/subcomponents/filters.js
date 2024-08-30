@@ -1,26 +1,39 @@
-// Helper function
-function filterData(filterClass, selectedOption){
+// Helper functions
+
+const filterSettings = {
+    'approp-name': '',
+    'cc-name': '',
+    'object-name': '',
+    'object-category': ''
+};
+
+function filterData() {
     // Get all rows in the table
     const rows = document.querySelectorAll('#main-table tbody tr');
-
-    console.log('here');
-
-
-    // Iterate through each row
+    
+    // Iterate through each row and determine if it should be hidden or shown
     rows.forEach(row => {
-        // Find the cell with the specified class
-        const cell = row.querySelector(`.${filterClass}`);
+        let isVisible = true;
+
+        console.log(filterSettings);
         
-        if (cell) {
-            // Check if the cell's text content matches the selected option
-            if (selectedOption === "" || cell.textContent.trim() === selectedOption) {
-                row.classList.remove('hidden'); // Show the row
-            } else {
-                row.classList.add('hidden'); // Hide the row
+        // Check each filter setting against the row's cells
+        for (const [filterId, filterValue] of Object.entries(filterSettings)) {
+            const cell = row.querySelector(`.${filterId}`);
+
+            console.log(filterValue);
+            console.log(cell.textContent.trim());
+            
+            if (filterValue && cell && (cell.textContent.trim() !== filterValue)) {
+                isVisible = false;
+                break;
             }
         }
+
+        // Show or hide the row based on visibility
+        row.classList.toggle('hidden', !isVisible);
     });
-};
+}
 
 const Filter = {
     html(filterLabel, filterClass) {
@@ -49,11 +62,11 @@ const Filter = {
         // add all relevant options from that column in the table
         this.addAllOptions(filterClass);
         // Bind change event to the select element
-        document.querySelector(`#filter-${filterClass}`).addEventListener('change', function() {
-            const selectedOption = this.value;
-            if(this.value != 'All'){
-                filterData(filterClass, selectedOption);
-            }
+        filterDiv.querySelector('.filter-dropdown').addEventListener('change', event => {
+            // Update filter settings
+            filterSettings[filterClass] = event.target.value;
+            // Apply all filters
+            filterData();
         });
     },
 

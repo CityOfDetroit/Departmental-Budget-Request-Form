@@ -113,6 +113,41 @@ th.edit, td.edit {
     width: 20px;
 }
 
+/* Class for hidden rows on filter */
 .hidden {
     display: none;
+}
+
+/* Filter styling for the dropdown options */
+
+/* Container styling for alignment and spacing */
+#filter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0px; /* Adjust the gap as needed */
+    font-size: 11px;
+}
+
+#filter-container div {
+    display: flex;
+    align-items: center;
+}
+
+#filter-container label {
+    width: 200px; /* Adjust the width as needed */
+    text-align: right;
+    margin-right: 10px; /* Spacing between label and select */
+}
+
+/* Ensure all select boxes are wide enough to show text */
+.filter-dropdown {
+    flex: 1;
+    min-width: 300px; /* Adjust the min-width as needed */
+}
+
+/* Optional styling to make the select dropdown look better */
+.filter-dropdown {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
