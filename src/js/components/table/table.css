@@ -1,7 +1,8 @@
 #main-table {
-    font-size: calc(0.5vw + 0.5em);
+    font-size: 12px;
+    /* calc(0.5vw + 0.5em); */
     margin: auto;
-    /* width: 100%; */
+    width: 100%;
 }
 
 #main-table thead > tr > th {
@@ -11,6 +12,8 @@
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     top: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 th {
@@ -78,6 +81,7 @@ div.table-container {
 
 .btn-edit {
     background-color: var(--spiritgreen);
+    line-height: 1.1;
 }
 
 .active-editing, .selected {
@@ -104,4 +108,64 @@ div.table-container {
 /* Fund table */
 .fund-name > .viewed-fund {
     color: gray;
+}
+
+/* made edit column narrower */
+th.edit, td.edit {
+    width: 20px;
+}
+
+/* Class for hidden rows on filter */
+.hidden {
+    display: none;
+}
+
+/* Filter styling for the dropdown options */
+#filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px; /* Adjust the gap as needed */
+    font-size: 11px;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 5px;
+}
+
+#filter-container div {
+    display: flex;
+    align-items: center;
+    width: calc(50% - 10px); /* Adjust width to fit two items per row with gap */
+}
+
+#filter-container label {
+    width: 200px; /* Adjust the width as needed */
+    text-align: right;
+    margin-right: 10px; /* Spacing between label and select */
+}
+
+/* Ensure all select boxes are wide enough to show text */
+.filter-dropdown {
+    flex: 1;
+    min-width: 200px; /* Adjust the min-width as needed */
+}
+
+/* Optional styling to make the select dropdown look better */
+.filter-dropdown {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Responsive adjustment: On smaller screens, stack elements vertically */
+@media (max-width: 800px) {
+    #filter-container div {
+        width: 100%;
+    }
+
+    #filter-container label {
+        text-align: left;
+        width: auto;
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
 }

@@ -6,6 +6,8 @@ import Columns from './subcomponents/columns.js'
 import Header from './subcomponents/headers.js'
 import Rows from './subcomponents/rows.js'
 import Data from './subcomponents/data.js'
+import Filter from './subcomponents/filters.js';
+
 import Tooltip from '../tooltip/tooltip.js';
 import { convertToJSON } from "../../utils/JSON_data_handlers.js";
 import Sidebar from '../sidebar/sidebar.js';
@@ -17,21 +19,21 @@ function adjustTableWidth(width_pct){
     table.style.width = width_pct;
 }
 
-function clearTable(){
-    const table = document.getElementById('main-table');
-    table.querySelector('thead').innerHTML = '';
-    table.querySelector('tbody').innerHTML = '';
-}
-
 function showTable(){
+    const tableContainer = document.querySelector('.table-container');
+    tableContainer.innerHTML = Table.html;
     const table = document.getElementById('main-table');
     table.style.display = 'table';
 }
 
 function hideTable(){
-    const table = document.getElementById('main-table');
-    table.style.display = 'none';
+
+    // delete table object from table container
+    const tableContainer = document.querySelector('.table-container');
+    tableContainer.innerHTML = '';
     Buttons.AddRow.hide();
+    // delete search bar
+    document.querySelector('#search-bar-container').innerHTML = '';
 }
 
 function saveTableData() {
@@ -53,17 +55,23 @@ function saveTableData() {
 }
 
 const Table = {
+    html : `
+        <table class="table table-bordered mt-3 display" id="main-table">
+            <thead class="thead-dark"></thead>
+            <tbody></tbody>
+        </table>`,
     Buttons : Buttons,
     Cell : Cell,
     Columns : Columns,
     Header : Header,
     Rows : Rows,
     Data : Data,
+    Filter : Filter,
     // functions
     adjustWidth : function(width_pct){
         adjustTableWidth(width_pct)
     },
-    clear : clearTable,
+    clear : hideTable,
     hide : hideTable,
     show : showTable,
     save : saveTableData

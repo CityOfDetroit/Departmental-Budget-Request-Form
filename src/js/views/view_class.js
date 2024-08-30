@@ -53,9 +53,7 @@ export class View {
         if (this.subtitle) { Subtitle.update(this.subtitle) };
     }
 
-    cleanup() { 
-        if (this.table) { Table.clear() }
-    }
+    cleanup() { return; }
 
 }
 
@@ -84,6 +82,9 @@ export class ViewTable {
    
         // text to show for new row button
         this.addButtonText = null ;
+
+        // whether to show as a datatable
+        this.dataTable = true;
     }
 
     async build() {
@@ -94,15 +95,11 @@ export class ViewTable {
             this.setUpForm();
         }
 
-        // delete any residual data
-        // TODO: delete
-        Table.clear();
+        // fill table with new data from local storage
+        if(await Table.Data.load()) {      
 
-        // fill with new data from local storage
-        if(await Table.Data.load()) {
-
-            //after table is loaded, show it
-            Table.show();
+            // create a datatable object
+            if(this.dataTable){this.initDataTable()}
 
             // add an edit column if needed
             if (this.addEdit) { 
@@ -117,6 +114,17 @@ export class ViewTable {
             // Apply any update function to make sure sidebar is up to date
             this.updateTable();
 
+            // reset filter dropdowns
+            Table.Filter.deleteAll();
+            Table.Filter.add('Appropriation', 'approp-name');
+            Table.Filter.add('Cost Center', 'cc-name');
+            if (this.columns.some(column => column.className === 'object-name')){
+                Table.Filter.add('Object', 'object-name');
+            };
+            if (this.columns.some(column => column.className === 'object-category')){
+                Table.Filter.add('Object Category', 'object-category');
+            }
+
         } else {
 
             // show a message if there's no saved table data for the selected fund
@@ -124,6 +132,19 @@ export class ViewTable {
                 Prompt.Text.update(this.noDataMessage);
             }
         }
+
+    }
+
+    initDataTable() {
+        Table.adjustWidth('100%');
+        // Initialize Datatables
+        if ( !$.fn.dataTable.isDataTable('#main-table') ) {
+            $('#main-table').DataTable({
+                paging: false, // Disable pagination
+                info: false, // Disable table information display
+                searching: false // Disable the search bar
+            });
+        };
     }
 
     // placeholder for action on row edit click
