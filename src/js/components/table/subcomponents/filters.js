@@ -46,7 +46,7 @@ const Filter = {
     },
 
     filterData(filterClass, selectedOption){
-        pass;
+        
     },
 
     deleteAll(){

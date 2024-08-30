@@ -71,7 +71,6 @@ const Table = {
     adjustWidth : function(width_pct){
         adjustTableWidth(width_pct)
     },
-    // TODO: delete
     clear : hideTable,
     hide : hideTable,
     show : showTable,

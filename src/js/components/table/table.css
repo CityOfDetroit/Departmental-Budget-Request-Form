@@ -113,23 +113,6 @@ th.edit, td.edit {
     width: 20px;
 }
 
-#search-bar-container {
-    display: flex;
-    justify-content: flex-end;  /* Align the search bar to the right */
-    align-items: center;  /* Vertically center content */
-    margin-left: max(65px, 7vh);
-    margin-right: max(80px, 7vh);
-    margin-bottom: -10px;
-}
-
-#search-bar-container label {
-    display: flex;
-    align-items: center;  /* Vertically center the label and input */
-}
-
-#search-bar-container input[type="search"] {
-    width: auto;  /* Adjust the width of the search bar as needed */
-    margin-left: 5px;  /* Space between the label and input */
-    height: 100%;  /* Ensure the input height is consistent */
-    margin-top: 15px;
+.hidden {
+    display: none;
 }
