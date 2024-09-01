@@ -24,7 +24,7 @@ export class Initiative {
         }
     }
 
-    net() { return this.expenses() - this.revenue() }
+    net() { return this.expenses() }
 
 }
 

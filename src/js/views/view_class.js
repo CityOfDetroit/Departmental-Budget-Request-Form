@@ -2,7 +2,7 @@ import Prompt from "../components/prompt/prompt.js";
 import Sidebar from "../components/sidebar/sidebar.js";
 import NavButtons from "../components/nav_buttons/nav_buttons.js";
 import Body from "../components/body/body.js";
-import Subtitle from "../components/header/header.js";
+import { Subtitle, Title } from "../components/header/header.js";
 import Table from "../components/table/table.js";
 import Form from "../components/form/form.js";
 import Modal from "../components/modal/modal.js";
@@ -36,6 +36,9 @@ export class View {
 
         // start with a blank page
         Body.reset();
+
+        // add default title
+        Title.default();
         
         // default to showing navbuttons
         if (this.navButtons) { NavButtons.show(); };

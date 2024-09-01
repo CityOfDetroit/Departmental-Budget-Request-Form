@@ -27,7 +27,8 @@ class RevenueTable extends ViewTable {
             { title: `FY${fiscal_year} Departmental Estimate`, className: 'request', isCost: true},
             { title: 'Departmental Estimate Notes', className: 'notes'},
             // hidden
-            { title: 'Object Name', className: 'object-name', hide: true}
+            { title: 'Object Name', className: 'object-name', hide: true},
+            { title: 'Object', className: 'object', hide: true},
         ]);
 
         this.noDataMessage = 'No revenues for this fund.'
