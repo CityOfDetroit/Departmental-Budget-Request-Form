@@ -92,47 +92,47 @@ function getColumnIndexByClass(tbody, className) {
   return -1; // Return -1 if class name not found
 }
 
-function sort(primaryClass, secondaryClass) {
-  const table = document.getElementById('main-table');
-  const tbody = table.tBodies[0];
-  const rows = Array.from(tbody.rows);
+// function sort(primaryClass, secondaryClass) {
+//   const table = document.getElementById('main-table');
+//   const tbody = table.tBodies[0];
+//   const rows = Array.from(tbody.rows);
 
-  // Get the column indices by class name
-  const primaryColIndex = getColumnIndexByClass(tbody, primaryClass);
-  const secondaryColIndex = getColumnIndexByClass(tbody, secondaryClass);
+//   // Get the column indices by class name
+//   const primaryColIndex = getColumnIndexByClass(tbody, primaryClass);
+//   const secondaryColIndex = getColumnIndexByClass(tbody, secondaryClass);
 
-  // exit if classes don't exist
-  if (primaryColIndex === -1 ) {
-      console.error(`Column class ${classA} not found in table`);
-      return; 
-  } else if (secondaryColIndex === -1) {
-      console.error(`Column class ${classB} not found in table`);
-      return; 
-  }
+//   // exit if classes don't exist
+//   if (primaryColIndex === -1 ) {
+//       console.error(`Column class ${classA} not found in table`);
+//       return; 
+//   } else if (secondaryColIndex === -1) {
+//       console.error(`Column class ${classB} not found in table`);
+//       return; 
+//   }
 
-  // Sort the rows based on the text content of the cells
-  rows.sort((rowA, rowB) => {
-      // Primary column comparison
-      const primaryA = unformatCurrency(rowA.cells[primaryColIndex].textContent);
-      const primaryB = unformatCurrency(rowB.cells[primaryColIndex].textContent);
+//   // Sort the rows based on the text content of the cells
+//   rows.sort((rowA, rowB) => {
+//       // Primary column comparison
+//       const primaryA = unformatCurrency(rowA.cells[primaryColIndex].textContent);
+//       const primaryB = unformatCurrency(rowB.cells[primaryColIndex].textContent);
 
-      if (primaryA < primaryB) return -1;
-      if (primaryA > primaryB) return 1;
+//       if (primaryA < primaryB) return -1;
+//       if (primaryA > primaryB) return 1;
 
-      // Secondary column comparison (if primary is equal)
-      const secondaryA = unformatCurrency(rowA.cells[secondaryColIndex].textContent);
-      const secondaryB = unformatCurrency(rowB.cells[secondaryColIndex].textContent);
+//       // Secondary column comparison (if primary is equal)
+//       const secondaryA = unformatCurrency(rowA.cells[secondaryColIndex].textContent);
+//       const secondaryB = unformatCurrency(rowB.cells[secondaryColIndex].textContent);
 
-      if (secondaryA < secondaryB) return -1;
-      if (secondaryA > secondaryB) return 1;
+//       if (secondaryA < secondaryB) return -1;
+//       if (secondaryA > secondaryB) return 1;
 
-      // If both columns are equal
-      return 0;
-  });
+//       // If both columns are equal
+//       return 0;
+//   });
 
-  // Reattach sorted rows to the table body
-  rows.forEach((row) => tbody.appendChild(row));
-}
+//   // Reattach sorted rows to the table body
+//   rows.forEach((row) => tbody.appendChild(row));
+// }
 
 
 export const Data = {

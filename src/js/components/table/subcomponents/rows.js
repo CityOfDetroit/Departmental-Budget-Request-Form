@@ -53,11 +53,15 @@ function saveRowEdits(row){
                 // if cost, remove commas first
                 enteredValue = enteredValue.replaceAll(',', '');
                 cell.textContent = formatCurrency(enteredValue);
+                // set value attribute to the new user input
+                cell.setAttribute('value', enteredValue);
             } else {
                 cell.textContent = enteredValue;
             }
-            // set value attribute to the new user input
-            cell.setAttribute('value', enteredValue);
+        } else if (cell.querySelector('textarea')){
+            // save new entered value in textbox
+            var enteredValue = cell.querySelector('textarea').value;
+            cell.textContent = enteredValue;
         }
     })
 }

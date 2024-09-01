@@ -6,6 +6,8 @@ import Columns from './subcomponents/columns.js'
 import Header from './subcomponents/headers.js'
 import Rows from './subcomponents/rows.js'
 import Data from './subcomponents/data.js'
+import Filter from './subcomponents/filters.js';
+
 import Tooltip from '../tooltip/tooltip.js';
 import { convertToJSON } from "../../utils/JSON_data_handlers.js";
 import Sidebar from '../sidebar/sidebar.js';
@@ -30,8 +32,6 @@ function hideTable(){
     const tableContainer = document.querySelector('.table-container');
     tableContainer.innerHTML = '';
     Buttons.AddRow.hide();
-    // delete search bar
-    document.querySelector('#search-bar-container').innerHTML = '';
 }
 
 function saveTableData() {
@@ -64,11 +64,11 @@ const Table = {
     Header : Header,
     Rows : Rows,
     Data : Data,
+    Filter : Filter,
     // functions
     adjustWidth : function(width_pct){
         adjustTableWidth(width_pct)
     },
-    // TODO: delete
     clear : hideTable,
     hide : hideTable,
     show : showTable,

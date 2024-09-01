@@ -12,6 +12,8 @@
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     top: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 th {
@@ -113,23 +115,57 @@ th.edit, td.edit {
     width: 20px;
 }
 
-#search-bar-container {
-    display: flex;
-    justify-content: flex-end;  /* Align the search bar to the right */
-    align-items: center;  /* Vertically center content */
-    margin-left: max(65px, 7vh);
-    margin-right: max(80px, 7vh);
-    margin-bottom: -10px;
+/* Class for hidden rows on filter */
+.hidden {
+    display: none;
 }
 
-#search-bar-container label {
+/* Filter styling for the dropdown options */
+#filter-container {
     display: flex;
-    align-items: center;  /* Vertically center the label and input */
+    flex-wrap: wrap;
+    gap: 2px; /* Adjust the gap as needed */
+    font-size: 11px;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 5px;
 }
 
-#search-bar-container input[type="search"] {
-    width: auto;  /* Adjust the width of the search bar as needed */
-    margin-left: 5px;  /* Space between the label and input */
-    height: 100%;  /* Ensure the input height is consistent */
-    margin-top: 15px;
+#filter-container div {
+    display: flex;
+    align-items: center;
+    width: calc(50% - 10px); /* Adjust width to fit two items per row with gap */
+}
+
+#filter-container label {
+    width: 200px; /* Adjust the width as needed */
+    text-align: right;
+    margin-right: 10px; /* Spacing between label and select */
+}
+
+/* Ensure all select boxes are wide enough to show text */
+.filter-dropdown {
+    flex: 1;
+    min-width: 200px; /* Adjust the min-width as needed */
+}
+
+/* Optional styling to make the select dropdown look better */
+.filter-dropdown {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Responsive adjustment: On smaller screens, stack elements vertically */
+@media (max-width: 800px) {
+    #filter-container div {
+        width: 100%;
+    }
+
+    #filter-container label {
+        text-align: left;
+        width: auto;
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
 }

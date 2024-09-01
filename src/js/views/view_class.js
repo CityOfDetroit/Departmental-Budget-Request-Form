@@ -117,6 +117,16 @@ export class ViewTable {
             // Apply any update function to make sure sidebar is up to date
             this.updateTable();
 
+            // Add all relevant filters to table
+            Table.Filter.add('Appropriation', 'approp-name');
+            Table.Filter.add('Cost Center', 'cc-name');
+            if (this.columns.some(column => column.className === 'object-name')){
+                Table.Filter.add('Object', 'object-name');
+            };
+            if (this.columns.some(column => column.className === 'object-category')){
+                Table.Filter.add('Object Category', 'object-category');
+            }
+
         } else {
 
             // show a message if there's no saved table data for the selected fund
@@ -134,10 +144,9 @@ export class ViewTable {
             $('#main-table').DataTable({
                 paging: false, // Disable pagination
                 info: false, // Disable table information display
+                searching: false // Disable the search bar
             });
         };
-        // Move the search bar outside the table container
-        $('#main-table_filter').appendTo('#search-bar-container');
     }
 
     // placeholder for action on row edit click

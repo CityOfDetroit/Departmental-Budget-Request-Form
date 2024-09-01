@@ -10,8 +10,11 @@ export const FundLookupTable = {
     },
 
     update : function(fundData){
+        // reset
+        this.reset();
+        console.log(this.retrieve());
+        // fill in with data stored in fundDate
         const table = this.retrieve();
-
         for (let fund of Object.keys(fundData)){
 
             // add to lookup table if not in there already
