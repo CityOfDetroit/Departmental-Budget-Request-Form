@@ -72,6 +72,8 @@ const ExpenseTable = {
     fillFromFund(fund) {
         this.init(fund);
         const fundObject = new Fund(fund);
+        // testing appropriation class
+        console.log(fundObject.getAppropriations());
         this.addRow(fund, 'Personnel Expenditures', fundObject.getPersonnelCost());
         this.addRow(fund, 'Overtime Expenditures', fundObject.getOvertimeCost());
         this.addRow(fund, 'Non-Personnel Expenditures', fundObject.getNonPersonnelCost());

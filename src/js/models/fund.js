@@ -42,8 +42,13 @@ class StoredTable {
         // fill with zero until there is something saved in storage
         return colSum(this.table, this.totalCol(), this.name);
     }
+
     // key is the column to filter on (ie. Cost Center)
     filter(key, value) {
+        // if no data in table, return no data when filtered
+        if (!this.table){
+            return this.table;
+        }
         return this.table.filter(row => row[key] && row[key] === value);
     }
 
@@ -55,6 +60,27 @@ export class CostCenter{
         this.nonpersonnel = AppropObj.personnel.filter('Cost Center', cc);
         this.overtime = AppropObj.overtime.filter('Cost Center', cc);
         this.revenue = AppropObj.revenue.filter('Cost Center', cc);
+    }
+
+    getPersonnelCost() {
+        return this.personnel.getSum(); 
+    }
+
+    getOvertimeCost() {
+        return this.overtime.getSum();
+    }
+
+    getNonPersonnelCost() {
+        return this.nonpersonnel.getSum();
+    }
+
+    getRevenue() {
+        return this.revenue.getSum();
+    }
+
+    getTotal() { 
+        // only sum expenditures, not net of revenue
+        return this.getNonPersonnelCost() + this.getOvertimeCost() + this.getPersonnelCost(); 
     }
 }
 
@@ -106,10 +132,11 @@ export class Fund {
             ...this.revenue.approps]);
 
         // initialize a list placeholder for the appropriations objects
-        appropsList = [];
+        const appropsList = [];
         // build out list
         approps.forEach(approp => {
-            appropsList.append(new Appropriation(this, approp));
+            appropsList.push({id : approp,
+                              object : new Appropriation(this, approp)});
         });
         return appropsList;
     }
