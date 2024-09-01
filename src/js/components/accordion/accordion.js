@@ -29,6 +29,9 @@ function redirectForEdit(){
             case 'Revenues':
                 visitPage('revenue');
                 break;
+            case 'Overtime Expenditures':
+                visitPage('overtime');
+                break;
             default:
                 console.error('Name of line item in table does not match a page destination.')
         }
@@ -70,6 +73,7 @@ const ExpenseTable = {
         this.init(fund);
         const fundObject = new Fund(fund);
         this.addRow(fund, 'Personnel Expenditures', fundObject.getPersonnelCost());
+        this.addRow(fund, 'Overtime Expenditures', fundObject.getOvertimeCost());
         this.addRow(fund, 'Non-Personnel Expenditures', fundObject.getNonPersonnelCost());
         this.addRow(fund, 'Revenues', fundObject.getRevenue());
         this.addRow(fund, 'Net Expenditures (Revenues)', fundObject.getTotal());

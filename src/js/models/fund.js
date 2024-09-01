@@ -31,7 +31,11 @@ export class Fund {
     }
 
     getPersonnelCost() {
-        return this.personnel.getSum() + this.overtime.getSum();
+        return this.personnel.getSum(); // + this.overtime.getSum();
+    }
+
+    getOvertimeCost() {
+        return this.overtime.getSum();
     }
 
     getNonPersonnelCost() {
@@ -43,7 +47,8 @@ export class Fund {
     }
 
     getTotal() { 
-        return this.getNonPersonnelCost() + this.getPersonnelCost() - this.getRevenue() 
+        // only sum expenditures, not net of revenue
+        return this.getNonPersonnelCost() + this.getOvertimeCost() + this.getPersonnelCost(); 
     }
 }
 

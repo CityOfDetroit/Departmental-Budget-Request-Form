@@ -6,6 +6,7 @@
 .accordion-title {
     margin-left: 20%;
     font-weight: bold;
+    /* font-size: 20px; */
     padding-bottom: 10px;
     padding-left: 15px;
     padding-top: 30px;
@@ -14,6 +15,7 @@
 .accordion-button:active, .accordion-button:not(.collapsed) {
     background-color: var(--palegreen);
     color: var(--citygreen);
+    /* font-size: 20px; */
 }
 
 .accordion-table { 
@@ -49,7 +51,7 @@ span.amount {
 }
 
 .accordion-header button {
-    font-size: 0.6em;
+    font-size: 0.8em;
 }
 
 .btn-add-init {
