@@ -5,6 +5,7 @@ import {Baseline, CurrentFund, Fund, Supplemental, FundLookupTable} from '../../
 import { formatCurrency, cleanString } from "../../utils/common_utils.js";
 import Table from "../table/table.js";
 import { visitPage } from '../../views/view_logic.js';
+import { Appropriation } from '../../models/fund.js';
 
 function redirectForEdit(){
     const row = document.querySelector(`.active-editing`);
@@ -38,14 +39,18 @@ function redirectForEdit(){
     }
 }
 
+const AppropriationTable = {
+    
+}
+
 const ExpenseTable = {
-    table_id : (fund) => { return `table-${cleanString(fund)}` },
-    init(fund) {
+    table_id : (id, segment) => { return `table-${segment}-${cleanString(id)}` },
+    init(id, segment) {
         // create empty table and put it in the accordion
         var table = document.createElement('table');
-        table.id = this.table_id(fund);
+        table.id = this.table_id(id, segment);
         table.classList.add('accordion-table');
-        var parent = document.querySelector(`#fund_${cleanString(fund)}_content .accordion-body`);
+        var parent = document.querySelector(`#${segment}_${cleanString(id)}_content .accordion-body`);
         parent.appendChild(table);
     },
     createNewCell(content, row, className) {
@@ -54,8 +59,8 @@ const ExpenseTable = {
         newCell.classList.add(className);
         row.appendChild(newCell);
     },
-    addRow(fund_name, row_name, number){
-        var table = document.getElementById(this.table_id(fund_name));
+    addRow(id, segment, row_name, number){
+        var table = document.getElementById(this.table_id(id, segment));
         var new_row = document.createElement('tr');
         table.appendChild(new_row);
         // Create a cell for the line item label
@@ -70,7 +75,7 @@ const ExpenseTable = {
         this.createNewCell(button, new_row);
     },
     fillFromFund(fund) {
-        this.init(fund);
+        this.init(fund, 'fund');
         const fundObject = new Fund(fund);
 
         // Add a row for each appropriation in the fund
@@ -81,13 +86,16 @@ const ExpenseTable = {
             Item.updateHeader(appropObj.name(), appropObj.approp, appropObj.total(), 'approp');
             // Item.fillFromApprop();
         })
-        
-        // move this to a fill from cost center function
-        // this.addRow(fund, 'Personnel Expenditures', fundObject.getPersonnelCost());
-        // this.addRow(fund, 'Overtime Expenditures', fundObject.getOvertimeCost());
-        // this.addRow(fund, 'Non-Personnel Expenditures', fundObject.getNonPersonnelCost());
-        // this.addRow(fund, 'Revenues', fundObject.getRevenue());
-        // this.addRow(fund, 'Net Expenditures (Revenues)', fundObject.getTotal());
+    },
+    fillFromApprop(fund, approp){
+
+    },
+    fillFromCC(fund, cc){
+        this.addRow(fund, 'Personnel Expenditures', fundObject.getPersonnelCost());
+        this.addRow(fund, 'Overtime Expenditures', fundObject.getOvertimeCost());
+        this.addRow(fund, 'Non-Personnel Expenditures', fundObject.getNonPersonnelCost());
+        this.addRow(fund, 'Revenues', fundObject.getRevenue());
+        this.addRow(fund, 'Net Expenditures (Revenues)', fundObject.getTotal());
     },
     fillFromInit(program) {
         this.init(program.name);
