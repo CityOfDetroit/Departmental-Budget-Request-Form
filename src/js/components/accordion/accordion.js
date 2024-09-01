@@ -94,6 +94,7 @@ const ExpenseTable = {
     fillFromApprop(appropObj){
         // initialize the table object
         this.init(appropObj.accountString());
+        // add a collapsible row for each cost center
         appropObj.getCostCenters().forEach( ccObj => {
             if (ccObj.getTotal() != 0 ){
                 Item.add(ccObj.accountString(), `#string_${appropObj.accountString()}_content .accordion-body`);
@@ -104,6 +105,7 @@ const ExpenseTable = {
         
     },
     fillFromCC(ccObj){
+        // initialize a table and summarize the line items
         this.init(ccObj.accountString());
         this.addRow(ccObj.accountString(), 'Personnel Expenditures', ccObj.getPersonnelCost());
         this.addRow(ccObj.accountString(), 'Overtime Expenditures', ccObj.getOvertimeCost());
