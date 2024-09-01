@@ -73,12 +73,16 @@ const ExpenseTable = {
         this.init(fund);
         const fundObject = new Fund(fund);
         // testing appropriation class
-        console.log(fundObject.getAppropriations());
-        this.addRow(fund, 'Personnel Expenditures', fundObject.getPersonnelCost());
-        this.addRow(fund, 'Overtime Expenditures', fundObject.getOvertimeCost());
-        this.addRow(fund, 'Non-Personnel Expenditures', fundObject.getNonPersonnelCost());
-        this.addRow(fund, 'Revenues', fundObject.getRevenue());
-        this.addRow(fund, 'Net Expenditures (Revenues)', fundObject.getTotal());
+        fundObject.getAppropriations().forEach( appropObj => {
+            console.log(appropObj.object.total());
+            this.addRow(fund, appropObj.id, appropObj.object.total());
+        })
+
+        // this.addRow(fund, 'Personnel Expenditures', fundObject.getPersonnelCost());
+        // this.addRow(fund, 'Overtime Expenditures', fundObject.getOvertimeCost());
+        // this.addRow(fund, 'Non-Personnel Expenditures', fundObject.getNonPersonnelCost());
+        // this.addRow(fund, 'Revenues', fundObject.getRevenue());
+        // this.addRow(fund, 'Net Expenditures (Revenues)', fundObject.getTotal());
     },
     fillFromInit(program) {
         this.init(program.name);

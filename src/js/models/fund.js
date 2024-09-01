@@ -45,11 +45,18 @@ class StoredTable {
 
     // key is the column to filter on (ie. Cost Center)
     filter(key, value) {
-        // if no data in table, return no data when filtered
-        if (!this.table){
-            return this.table;
+        value = value.toString();
+        if (this.table){
+            // reassign underlying data in object if there's data to filter
+            this.table = this.table.filter(row => {   
+                return (row[key]) && (row[key] == value);
+            });
+            // console.log(this.getSum());
+            console.log(this);
         }
-        return this.table.filter(row => row[key] && row[key] === value);
+        
+        console.log(this);
+        return this;
     }
 
 }
@@ -57,7 +64,7 @@ class StoredTable {
 export class CostCenter{
     constructor(AppropObj, cc){
         this.personnel = AppropObj.personnel.filter('Cost Center', cc);
-        this.nonpersonnel = AppropObj.personnel.filter('Cost Center', cc);
+        this.nonpersonnel = AppropObj.nonpersonnel.filter('Cost Center', cc);
         this.overtime = AppropObj.overtime.filter('Cost Center', cc);
         this.revenue = AppropObj.revenue.filter('Cost Center', cc);
     }
@@ -85,9 +92,10 @@ export class CostCenter{
 }
 
 export class Appropriation {
-    constructor(fundObj, approp){
+    constructor(fund, approp){
+        const fundObj = new Fund(fund);
         this.personnel = fundObj.personnel.filter('Appropriation', approp);
-        this.nonpersonnel = fundObj.personnel.filter('Appropriation', approp);
+        this.nonpersonnel = fundObj.nonpersonnel.filter('Appropriation', approp);
         this.overtime = fundObj.overtime.filter('Appropriation', approp);
         this.revenue = fundObj.revenue.filter('Appropriation', approp);
     }
@@ -109,7 +117,7 @@ export class Appropriation {
     }
 
     total(){
-        this.personnel.getSum() + this.overtime.getSum() + this.nonpersonnel.getSum();
+        return this.personnel.getSum() + this.overtime.getSum() + this.nonpersonnel.getSum();
     }
 
 }
@@ -136,7 +144,7 @@ export class Fund {
         // build out list
         approps.forEach(approp => {
             appropsList.push({id : approp,
-                              object : new Appropriation(this, approp)});
+                              object : new Appropriation(this.fund, approp)});
         });
         return appropsList;
     }
