@@ -72,13 +72,17 @@ const ExpenseTable = {
     fillFromFund(fund) {
         this.init(fund);
         const fundObject = new Fund(fund);
-        // testing appropriation class
-        fundObject.getAppropriations().forEach( appropObj => {
-            this.addRow(fund, appropObj.name(), appropObj.total());
-        })
-        // add a total row
-        this.addRow(fund, 'Total Fund Expenditures', fundObject.getTotal());
 
+        // Add a row for each appropriation in the fund
+        const id = cleanString(fund);
+
+        fundObject.getAppropriations().forEach( appropObj => {
+            Item.add(appropObj.approp, `#baseline-accordion .summary-accordion #fund_${id}_content .accordion-body`, 'approp');
+            Item.updateHeader(appropObj.name(), appropObj.approp, appropObj.total(), 'approp');
+            // Item.fillFromApprop();
+        })
+        
+        // move this to a fill from cost center function
         // this.addRow(fund, 'Personnel Expenditures', fundObject.getPersonnelCost());
         // this.addRow(fund, 'Overtime Expenditures', fundObject.getOvertimeCost());
         // this.addRow(fund, 'Non-Personnel Expenditures', fundObject.getNonPersonnelCost());
@@ -94,30 +98,30 @@ const ExpenseTable = {
 }
 
 const Item = {
-    html : function(fund) {
+    html : function(fund, segment = "fund") {
         var id = cleanString(fund);
-        return `<h2 class="accordion-header" id="fund_${id}_header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#fund_${id}_content" aria-expanded="false" aria-controls="fund_${id}_content">
+        return `<h2 class="accordion-header" id="${segment}_${id}_header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#${segment}_${id}_content" aria-expanded="false" aria-controls="fund_${id}_content">
                         <span class="name"></span>
                         <span class="amount"></span>
                     </button>
                 </h2>
-                <div id="fund_${id}_content" class="accordion-collapse collapse" aria-labelledby="fund_${id}_header" data-bs-parent=".summary-accordion">
+                <div id="${segment}_${id}_content" class="accordion-collapse collapse" aria-labelledby="${segment}_${id}_header">
                     <div class="accordion-body"></div>
                 </div>`
     },
-    add : function(fund, accordion_id) {
+    add : function(id, accordion_query, segment) {
         // get accordion and add a new item to it
-        const parent = document.querySelector(`#${accordion_id} .summary-accordion`);
+        const parent = document.querySelector(accordion_query);
         const item_element = document.createElement('div');
         item_element.classList.add('accordion-item');
-        item_element.innerHTML = this.html(fund);
+        item_element.innerHTML = this.html(id, segment);
         parent.appendChild(item_element);
     },
     ExpenseTable : ExpenseTable,
-    updateHeader : function(title, id, new_amount) {
+    updateHeader : function(title, id, new_amount, segment) {
         var id = cleanString(id);
-        const header_btn = document.querySelector(`#fund_${id}_header button`);
+        const header_btn = document.querySelector(`#${segment}_${id}_header button`);
         header_btn.querySelector('span.name').textContent = title;
         header_btn.querySelector('span.amount').textContent = formatCurrency(new_amount);
     }
@@ -147,18 +151,18 @@ export const Accordion = {
     async createBaseline(){
         var funds = FundLookupTable.listFunds();
         funds.forEach(fund => {
-            Item.add(fund, 'baseline-accordion');
+            Item.add(fund, '#baseline-accordion .summary-accordion', 'fund');
             Item.ExpenseTable.fillFromFund(fund);
             const fundObject = new Fund(fund);
-            Item.updateHeader(FundLookupTable.getName(fund), fund, fundObject.getTotal());
+            Item.updateHeader(FundLookupTable.getName(fund), fund, fundObject.getTotal(), 'fund');
         });
     },
     createSupp() {
         const supp = new Supplemental;
         supp.initiatives.forEach(program => {
-            Item.add(program.name, 'supp-accordion');
+            Item.add(program.name, '#supp-accordion .summary-accordion');
             Item.ExpenseTable.fillFromInit(program);
-            Item.updateHeader(program.name, program.name, program.net());
+            Item.updateHeader(program.name, program.name, program.net(), 'fund');
         });
     },
     updateTopLines() {
