@@ -83,16 +83,20 @@ const ExpenseTable = {
         const id = cleanString(fund);
 
         fundObject.getAppropriations().forEach( appropObj => {
-            Item.add(appropObj.accountString(), `#baseline-accordion .summary-accordion #string_${id}_content .accordion-body`);
-            Item.updateHeader(appropObj.name(), appropObj.accountString(), appropObj.total());
-            this.fillFromApprop(appropObj);
+            if ( appropObj.total() != 0 ){
+                Item.add(appropObj.accountString(), `#baseline-accordion .summary-accordion #string_${id}_content .accordion-body`);
+                Item.updateHeader(appropObj.name(), appropObj.accountString(), appropObj.total());
+                this.fillFromApprop(appropObj);
+            }
         })
     },
     fillFromApprop(appropObj){
         // initialize the table object
         this.init(appropObj.accountString());
         appropObj.getCostCenters().forEach( cc => {
-            this.addRow(appropObj.accountString(), cc.getName(), cc.getTotal());
+            if (cc.getTotal() != 0 ){
+                this.addRow(appropObj.accountString(), cc.getName(), cc.getTotal());
+            }
 
             //Item.add(appropObj.approp, `#baseline-accordion .summary-accordion #string_${id}_content .accordion-body`, 'approp');
             //Item.updateHeader(appropObj.name(), appropObj.approp, appropObj.total(), 'approp');

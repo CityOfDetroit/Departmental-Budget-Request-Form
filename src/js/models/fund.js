@@ -45,7 +45,6 @@ class StoredTable {
 
     // key is the column to filter on (ie. Cost Center)
     filter(key, value) {
-        value = value.toString();
         if (this.table){
             // reassign underlying data in object if there's data to filter
             this.table = this.table.filter(row => {   
@@ -58,7 +57,8 @@ class StoredTable {
 }
 
 export class CostCenter{
-    constructor(AppropObj, cc){
+    constructor(fund, approp, cc){
+        const AppropObj = new Appropriation(fund, approp);
         this.personnel = AppropObj.personnel.filter('Cost Center', cc);
         this.nonpersonnel = AppropObj.nonpersonnel.filter('Cost Center', cc);
         this.overtime = AppropObj.overtime.filter('Cost Center', cc);
@@ -121,7 +121,7 @@ export class Appropriation {
         const ccList = [];
         // build out list
         cc.forEach(num => {
-            ccList.push(new CostCenter(this, num));
+            ccList.push(new CostCenter(this.fund, this.approp, num));
         });
         return ccList;
     }
