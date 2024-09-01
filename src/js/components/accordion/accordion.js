@@ -83,8 +83,9 @@ const ExpenseTable = {
         const id = cleanString(fund);
 
         fundObject.getAppropriations().forEach( appropObj => {
+            // if the total for the appropriation is > $0, add an accordion for all the CCs
             if ( appropObj.total() != 0 ){
-                Item.add(appropObj.accountString(), `#baseline-accordion .summary-accordion #string_${id}_content .accordion-body`);
+                Item.add(appropObj.accountString(), `#string_${id}_content .accordion-body`);
                 Item.updateHeader(appropObj.name(), appropObj.accountString(), appropObj.total());
                 this.fillFromApprop(appropObj);
             }
@@ -93,23 +94,22 @@ const ExpenseTable = {
     fillFromApprop(appropObj){
         // initialize the table object
         this.init(appropObj.accountString());
-        appropObj.getCostCenters().forEach( cc => {
-            if (cc.getTotal() != 0 ){
-                this.addRow(appropObj.accountString(), cc.getName(), cc.getTotal());
+        appropObj.getCostCenters().forEach( ccObj => {
+            if (ccObj.getTotal() != 0 ){
+                Item.add(ccObj.accountString(), `#string_${appropObj.accountString()}_content .accordion-body`);
+                Item.updateHeader(ccObj.getName(), ccObj.accountString(), ccObj.getTotal());
+                this.fillFromCC(ccObj);
             }
-
-            //Item.add(appropObj.approp, `#baseline-accordion .summary-accordion #string_${id}_content .accordion-body`, 'approp');
-            //Item.updateHeader(appropObj.name(), appropObj.approp, appropObj.total(), 'approp');
-            //this.fillFromApprop(appropObj);
         })
         
     },
-    fillFromCC(fund, cc){
-        this.addRow(fund, 'Personnel Expenditures', fundObject.getPersonnelCost());
-        this.addRow(fund, 'Overtime Expenditures', fundObject.getOvertimeCost());
-        this.addRow(fund, 'Non-Personnel Expenditures', fundObject.getNonPersonnelCost());
-        this.addRow(fund, 'Revenues', fundObject.getRevenue());
-        this.addRow(fund, 'Net Expenditures (Revenues)', fundObject.getTotal());
+    fillFromCC(ccObj){
+        this.init(ccObj.accountString());
+        this.addRow(ccObj.accountString(), 'Personnel Expenditures', ccObj.getPersonnelCost());
+        this.addRow(ccObj.accountString(), 'Overtime Expenditures', ccObj.getOvertimeCost());
+        this.addRow(ccObj.accountString(), 'Non-Personnel Expenditures', ccObj.getNonPersonnelCost());
+        this.addRow(ccObj.accountString(), 'Revenues', ccObj.getRevenue());
+        this.addRow(ccObj.accountString(), 'Net Expenditures (Revenues)', ccObj.getTotal());
     },
     fillFromInit(program) {
         this.init(program.name);
