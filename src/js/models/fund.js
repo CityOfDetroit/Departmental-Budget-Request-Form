@@ -63,6 +63,8 @@ export class CostCenter{
         this.nonpersonnel = AppropObj.nonpersonnel.filter('Cost Center', cc);
         this.overtime = AppropObj.overtime.filter('Cost Center', cc);
         this.revenue = AppropObj.revenue.filter('Cost Center', cc);
+        this.cc = cc;
+        this.account_string = `${AppropObj.accountString()}-${cc}`;
     }
 
     getPersonnelCost() {
@@ -85,6 +87,14 @@ export class CostCenter{
         // only sum expenditures, not net of revenue
         return this.getNonPersonnelCost() + this.getOvertimeCost() + this.getPersonnelCost(); 
     }
+
+    getName() {
+        return `${this.cc}`
+    }
+
+    accountString() {
+        return this.account_string;
+    }
 }
 
 export class Appropriation {
@@ -96,6 +106,8 @@ export class Appropriation {
         this.revenue = fundObj.revenue.filter('Appropriation', approp);
         // own data
         this.approp = approp;
+        this.fund = fundObj.fund;
+
     }
 
     getCostCenters(){
@@ -106,10 +118,10 @@ export class Appropriation {
             ...this.revenue.cc]);
 
         // initialize a list placeholder for the appropriations objects
-        ccList = [];
+        const ccList = [];
         // build out list
         cc.forEach(num => {
-            ccList.append(new CostCenter(this, num));
+            ccList.push(new CostCenter(this, num));
         });
         return ccList;
     }
@@ -120,6 +132,10 @@ export class Appropriation {
 
     name(){
         return `${this.approp} - name`;
+    }
+
+    accountString(){
+        return `${this.fund}-${this.approp}`;
     }
 
 }

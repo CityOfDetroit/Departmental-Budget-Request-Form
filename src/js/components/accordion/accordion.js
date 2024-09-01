@@ -75,7 +75,7 @@ const ExpenseTable = {
         this.createNewCell(button, new_row);
     },
     fillFromFund(fund) {
-        // use just fund as account string
+        // use just fund as account string to initialize table inside accordion
         this.init(fund);
         const fundObject = new Fund(fund);
 
@@ -83,13 +83,21 @@ const ExpenseTable = {
         const id = cleanString(fund);
 
         fundObject.getAppropriations().forEach( appropObj => {
-            Item.add(appropObj.approp, `#baseline-accordion .summary-accordion #string_${id}_content .accordion-body`, 'approp');
-            Item.updateHeader(appropObj.name(), appropObj.approp, appropObj.total(), 'approp');
-            // Item.fillFromApprop();
+            Item.add(appropObj.accountString(), `#baseline-accordion .summary-accordion #string_${id}_content .accordion-body`);
+            Item.updateHeader(appropObj.name(), appropObj.accountString(), appropObj.total());
+            this.fillFromApprop(appropObj);
         })
     },
-    fillFromApprop(approp_id){
-        this.init(approp, 'approp');
+    fillFromApprop(appropObj){
+        // initialize the table object
+        this.init(appropObj.accountString());
+        appropObj.getCostCenters().forEach( cc => {
+            this.addRow(appropObj.accountString(), cc.getName(), cc.getTotal());
+
+            //Item.add(appropObj.approp, `#baseline-accordion .summary-accordion #string_${id}_content .accordion-body`, 'approp');
+            //Item.updateHeader(appropObj.name(), appropObj.approp, appropObj.total(), 'approp');
+            //this.fillFromApprop(appropObj);
+        })
         
     },
     fillFromCC(fund, cc){
