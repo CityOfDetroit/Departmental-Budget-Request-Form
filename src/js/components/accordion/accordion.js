@@ -74,9 +74,10 @@ const ExpenseTable = {
         const fundObject = new Fund(fund);
         // testing appropriation class
         fundObject.getAppropriations().forEach( appropObj => {
-            console.log(appropObj.object.total());
-            this.addRow(fund, appropObj.id, appropObj.object.total());
+            this.addRow(fund, appropObj.name(), appropObj.total());
         })
+        // add a total row
+        this.addRow(fund, 'Total Fund Expenditures', fundObject.getTotal());
 
         // this.addRow(fund, 'Personnel Expenditures', fundObject.getPersonnelCost());
         // this.addRow(fund, 'Overtime Expenditures', fundObject.getOvertimeCost());

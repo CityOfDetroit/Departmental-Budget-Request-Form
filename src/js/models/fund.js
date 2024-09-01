@@ -51,11 +51,7 @@ class StoredTable {
             this.table = this.table.filter(row => {   
                 return (row[key]) && (row[key] == value);
             });
-            // console.log(this.getSum());
-            console.log(this);
         }
-        
-        console.log(this);
         return this;
     }
 
@@ -98,6 +94,8 @@ export class Appropriation {
         this.nonpersonnel = fundObj.nonpersonnel.filter('Appropriation', approp);
         this.overtime = fundObj.overtime.filter('Appropriation', approp);
         this.revenue = fundObj.revenue.filter('Appropriation', approp);
+        // own data
+        this.approp = approp;
     }
 
     getCostCenters(){
@@ -118,6 +116,10 @@ export class Appropriation {
 
     total(){
         return this.personnel.getSum() + this.overtime.getSum() + this.nonpersonnel.getSum();
+    }
+
+    name(){
+        return `${this.approp} - name`;
     }
 
 }
@@ -143,8 +145,7 @@ export class Fund {
         const appropsList = [];
         // build out list
         approps.forEach(approp => {
-            appropsList.push({id : approp,
-                              object : new Appropriation(this.fund, approp)});
+            appropsList.push( new Appropriation(this.fund, approp) );
         });
         return appropsList;
     }
