@@ -37,7 +37,7 @@ class RevenueTable extends ViewTable {
     // action on row edit click: make cells editable
     actionOnEdit() { 
         // only allow edits in the notes box
-        Table.Cell.createTextbox('notes');
+        Table.Cell.createTextbox('notes', false, 'textarea');
     }
 }
 
