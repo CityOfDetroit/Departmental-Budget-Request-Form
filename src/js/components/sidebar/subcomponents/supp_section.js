@@ -15,10 +15,6 @@ export const SuppSection = {
                 <span class="stat-label">Esimated expenditures:</span> 
                 <span class="stat">${formatCurrency(supp.expenses())}</span>
                 <i class="fas fa-edit edit-supp" title="Edit"></i>
-            </div>
-            <div class='sidebar-stat-line' id="supp-total">
-                <span class="stat-label">Total supplemental:</span> 
-                <span class="stat">${formatCurrency(supp.total())}</span>
             </div>`
     },
 

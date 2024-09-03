@@ -27,16 +27,12 @@ export const BaselineSection = {
 
     target_html() {
         return `
-            <div class='sidebar-stat-line' id="baseline-total">
-                <span class="stat-label">Baseline total:</span> 
-                <span class="stat">${formatCurrency(this.data.total())}</span>
-            </div>
             <div class='sidebar-stat-line' id="target">
-                <span class="stat-label">FY${FISCAL_YEAR} GF target:</span> 
+                <span class="stat-label">FY${FISCAL_YEAR} General Fund baseline target:</span> 
                 <span class="stat">${formatCurrency(Baseline.target())}</span>
             </div>
             <div class='sidebar-stat-line' id="GF-total">
-                <span class="stat-label">Current GF total:</span> 
+                <span class="stat-label">Current GF baseline:</span> 
                 <span class="stat">${formatCurrency(this.genFund.getTotal())}</span>
             </div>
             <br>`;
@@ -62,7 +58,7 @@ export const BaselineSection = {
                 <i class="fas fa-edit edit-icon" title="Edit"></i>
             </div>
             <div class='sidebar-stat-line fund-total'>
-                <span class="stat-label">Fund total:</span> 
+                <span class="stat-label">Total expenditures:</span> 
                 <span class="stat">${formatCurrency(fund.getTotal())}</span>
             </div>
             <br>`;
@@ -96,10 +92,10 @@ export const BaselineSection = {
 
         if(this.genFund.getTotal() <= Baseline.target()){
             document.querySelector('#GF-total .stat').style.color = "green";
-            document.querySelector('#fund_1000 .sidebar-stat-line:last-of-type .stat').style.color = "green";
+            // document.querySelector('#fund_1000 .sidebar-stat-line:last-of-type .stat').style.color = "green";
         } else {
             document.querySelector('#GF-total .stat').style.color = "red";
-            document.querySelector('#fund_1000 .sidebar-stat-line:last-of-type .stat').style.color = "red";
+            // document.querySelector('#fund_1000 .sidebar-stat-line:last-of-type .stat').style.color = "red";
         }
         this.linkEditBtns();
     }
