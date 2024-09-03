@@ -23,6 +23,14 @@ export class Baseline {
         return total;
     }
 
+    overtime() {
+        let total = 0;
+        this.funds.forEach(fund => {
+            total += fund.getOvertineCost();
+        });
+        return total;
+    }
+
     nonpersonnel() {
         let total = 0;
         this.funds.forEach(fund => {
@@ -40,7 +48,7 @@ export class Baseline {
     }
 
     total() {
-        return this.nonpersonnel() + this.personnel() - this.revenue();
+        return this.nonpersonnel() + this.personnel(); // + this.overtime();
     }
 }
 
