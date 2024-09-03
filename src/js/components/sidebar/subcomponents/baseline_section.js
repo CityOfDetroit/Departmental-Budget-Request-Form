@@ -52,6 +52,11 @@ export const BaselineSection = {
                 <span class="stat">${formatCurrency(fund.getPersonnelCost())}</span>
                 <i class="fas fa-edit edit-icon" title="Edit"></i>
             </div>
+            <div class='sidebar-stat-line overtime'>
+                <span class="stat-label">Overtime cost:</span> 
+                <span class="stat">${formatCurrency(fund.getOvertimeCost())}</span>
+                <i class="fas fa-edit edit-icon" title="Edit"></i>
+            </div>
             <div class='sidebar-stat-line nonpersonnel'>
                 <span class="stat-label">Non-personnel cost:</span> 
                 <span class="stat">${formatCurrency(fund.getNonPersonnelCost())}</span>
