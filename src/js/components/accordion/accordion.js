@@ -5,7 +5,6 @@ import {Baseline, CurrentFund, Fund, Supplemental, FundLookupTable} from '../../
 import { formatCurrency, cleanString } from "../../utils/common_utils.js";
 import Table from "../table/table.js";
 import { visitPage } from '../../views/view_logic.js';
-import { Appropriation } from '../../models/fund.js';
 
 function redirectForEdit(){
     const row = document.querySelector(`.active-editing`);
@@ -197,15 +196,16 @@ export const Accordion = {
     },
     updateTopLines() {
         // adjuse baseline
-        const baseline = new Baseline;
+        // const baseline = new Baseline;
+        const baseline = new Fund(1000);
         const baselineAmount = document.querySelector('#baseline-title .top-line-amount')
-        baselineAmount.textContent = formatCurrency(baseline.total());
+        baselineAmount.textContent = formatCurrency(baseline.getTotal());
         // adjust supplementals
         const supp = new Supplemental;
         const suppAmount = document.querySelector('#supp-title .top-line-amount')
         suppAmount.textContent = formatCurrency(supp.total());
         // color-code baseline
-        if (baseline.total() <= Baseline.target()){
+        if (baseline.getTotal() <= Baseline.target()){
             baselineAmount.style.color = 'green';
         } else {
             baselineAmount.style.color = 'red';
