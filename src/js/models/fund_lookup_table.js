@@ -71,7 +71,6 @@ export const FundLookupTable = {
     },
     getName : function(number){
         if(!number || !this.retrieve()) { return '' };
-        console.log(number);
         return this.retrieve()[number]['name'];
     },
     listFunds : function(){
