@@ -86,3 +86,14 @@ h6 {
 .sidebar-stat-line.fund-total .stat {
   margin-right: 05px; /* 25px lines up with lines above (with edit symbol) */
 }
+
+#sidebar-download-btn {
+  /* background-color: var(--darkGray); */
+  margin-left: 60px;
+  margin-bottom: 10px;
+}
+
+#summary-title {
+  /* TODO: fix */
+  margin-bottom: -100px;
+}
