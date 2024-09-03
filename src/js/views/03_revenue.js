@@ -36,9 +36,8 @@ class RevenueTable extends ViewTable {
 
     // action on row edit click: make cells editable
     actionOnEdit() { 
-        Table.Cell.createTextbox('request', true);
+        // only allow edits in the notes box
         Table.Cell.createTextbox('notes');
-        Table.Cell.createDropdown('recurring', ['One-Time', 'Recurring']);
     }
 }
 
