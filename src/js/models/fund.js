@@ -90,8 +90,8 @@ export class CostCenter{
 
     getName() {
         // just grab the value in the cost center name column for the first row
-        if (!this.personnel.table[0]) { return '' };
-        return 'Cost Center ' + this.personnel.table[0]['Cost Center Name'];
+        if (!this.nonpersonnel.table[0]) { return '' };
+        return 'Cost Center ' + this.nonpersonnel.table[0]['Cost Center Name'];
     }
 
     accountString() {
@@ -134,8 +134,8 @@ export class Appropriation {
 
     name(){
         // just grab the value in the approp name column for the first row
-        if (!this.personnel.table[0]) { return '' };
-        return 'Appropriation ' + this.personnel.table[0]['Appropriation Name'];    }
+        if (!this.nonpersonnel.table[0]) { return '' };
+        return 'Appropriation ' + this.nonpersonnel.table[0]['Appropriation Name'];    }
 
     accountString(){
         return `${this.fund}-${this.approp}`;

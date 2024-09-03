@@ -1,3 +1,5 @@
+import CurrentFund from "./current_fund";
+
 export const FundLookupTable = {
     retrieve : function() {
         return JSON.parse(localStorage.getItem('fund-lookup-table')) || {};
@@ -9,7 +11,6 @@ export const FundLookupTable = {
     update : function(fundData){
         // reset
         this.reset();
-        console.log(this.retrieve());
         // fill in with data stored in fundDate
         const table = this.retrieve();
         for (let fund of Object.keys(fundData)){
@@ -23,8 +24,8 @@ export const FundLookupTable = {
                 table[fund]['name'] = fundName;
                 table[fund]['viewed'] = false;
                 // build lists of unique cost centers and appropriations
-                // table[fund]['approp'] = getUniqueValues(fundData[fund], 'Appropriation Name');
-                // table[fund]['cc'] = getUniqueValues(fundData[fund], 'Cost Center Name');
+                table[fund]['approp'] = getUniqueValues(fundData[fund], 'Appropriation Name');
+                table[fund]['cc'] = getUniqueValues(fundData[fund], 'Cost Center Name');
             }
         }
         // save any updates
@@ -45,31 +46,32 @@ export const FundLookupTable = {
         return ret;
     },
 
-    // getCostCenters : function() {
-    //     // get current fund
-    //     const fund = CurrentFund.number()
-    //     if (this.retrieve()[fund]){
-    //         return this.retrieve()[fund]['cc'];
-    //     }
-    //     // if no fund (ie. we're on the new initiative page), return all options
-    //     return this.getAll('cc');
-    // },
+    getCostCenters : function() {
+        // get current fund
+        const fund = CurrentFund.number()
+        if (this.retrieve()[fund]){
+            return this.retrieve()[fund]['cc'];
+        }
+        // if no fund (ie. we're on the new initiative page), return all options
+        return this.getAll('cc');
+    },
 
-    // getApprops : function() {
-    //     // get current fund
-    //     const fund = CurrentFund.number()
-    //     if (this.retrieve()[fund]){
-    //         return this.retrieve()[fund]['approp'];
-    //     }
-    //     // if no fund (ie. we're on the new initiative page), return all options
-    //     return this.getAll('approp');
-    // },
+    getApprops : function() {
+        // get current fund
+        const fund = CurrentFund.number()
+        if (this.retrieve()[fund]){
+            return this.retrieve()[fund]['approp'];
+        }
+        // if no fund (ie. we're on the new initiative page), return all options
+        return this.getAll('approp');
+    },
 
     reset : function() {
         this.save({});
     },
     getName : function(number){
         if(!number || !this.retrieve()) { return '' };
+        console.log(number);
         return this.retrieve()[number]['name'];
     },
     listFunds : function(){

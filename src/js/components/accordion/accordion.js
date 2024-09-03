@@ -16,7 +16,9 @@ function redirectForEdit(){
         visitPage('new-inits');
     }
     else {
-        const fund = table.id.replace('table-','');
+        // Split the string into parts using '-' as the delimiter; retain fund as 1st numeric segment
+        const fund = table.id.split('-')[1]
+        
         CurrentFund.update(fund);
         const lineItem = row.querySelector('.line-item').textContent;
         // visit the correct page for editing
@@ -179,10 +181,10 @@ export const Accordion = {
     async createBaseline(){
         var funds = FundLookupTable.listFunds();
         funds.forEach(fund => {
-            Item.add(fund, '#baseline-accordion .summary-accordion', 'fund');
+            Item.add(fund, '#baseline-accordion .summary-accordion');
             Item.ExpenseTable.fillFromFund(fund);
             const fundObject = new Fund(fund);
-            Item.updateHeader(FundLookupTable.getName(fund), fund, fundObject.getTotal(), 'fund');
+            Item.updateHeader(`Fund ${FundLookupTable.getName(fund)}`, fund, fundObject.getTotal());
         });
     },
     createSupp() {
@@ -190,7 +192,7 @@ export const Accordion = {
         supp.initiatives.forEach(program => {
             Item.add(program.name, '#supp-accordion .summary-accordion');
             Item.ExpenseTable.fillFromInit(program);
-            Item.updateHeader(program.name, program.name, program.net(), 'fund');
+            Item.updateHeader(program.name, program.name, program.net());
         });
     },
     updateTopLines() {
