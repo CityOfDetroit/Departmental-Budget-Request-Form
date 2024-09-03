@@ -52,8 +52,8 @@ export function nextPage(){
     // Find the index of the current key
     const currentIndex = keys.indexOf(page_state);
 
-    // unless on personnel (which will go to overtime), return to summary if all funds are viewed
-    const returnPages = ['revenue', 'nonpersonnel', 'new-inits', 'overtime'];
+    // Return to summary if all funds are viewed
+    const returnPages = ['revenue', 'nonpersonnel', 'new-inits', 'overtime', 'personnel'];
     if (!FundLookupTable.fundsLeft() && returnPages.includes(CurrentPage.load())) {
         visitPage('summary');
         return;

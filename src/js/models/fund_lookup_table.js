@@ -1,5 +1,4 @@
-import CurrentFund from "./current_fund.js";
-import { getUniqueValues } from "../utils/common_utils.js";
+import CurrentFund from "./current_fund";
 
 export const FundLookupTable = {
     retrieve : function() {
@@ -12,7 +11,6 @@ export const FundLookupTable = {
     update : function(fundData){
         // reset
         this.reset();
-        console.log(this.retrieve());
         // fill in with data stored in fundDate
         const table = this.retrieve();
         for (let fund of Object.keys(fundData)){

@@ -5,6 +5,7 @@ import {Baseline, CurrentFund, Fund, Supplemental, FundLookupTable} from '../../
 import { formatCurrency, cleanString } from "../../utils/common_utils.js";
 import Table from "../table/table.js";
 import { visitPage } from '../../views/view_logic.js';
+import { Appropriation } from '../../models/fund.js';
 
 function redirectForEdit(){
     const row = document.querySelector(`.active-editing`);
@@ -15,7 +16,9 @@ function redirectForEdit(){
         visitPage('new-inits');
     }
     else {
-        const fund = table.id.replace('table-','');
+        // Split the string into parts using '-' as the delimiter; retain fund as 1st numeric segment
+        const fund = table.id.split('-')[1]
+        
         CurrentFund.update(fund);
         const lineItem = row.querySelector('.line-item').textContent;
         // visit the correct page for editing
@@ -29,20 +32,27 @@ function redirectForEdit(){
             case 'Revenues':
                 visitPage('revenue');
                 break;
+            case 'Overtime Expenditures':
+                visitPage('overtime');
+                break;
             default:
                 console.error('Name of line item in table does not match a page destination.')
         }
     }
 }
 
+const AppropriationTable = {
+    
+}
+
 const ExpenseTable = {
-    table_id : (fund) => { return `table-${cleanString(fund)}` },
-    init(fund) {
+    table_id : (account_string) => { return `table-${account_string}` },
+    init(account_string) {
         // create empty table and put it in the accordion
         var table = document.createElement('table');
-        table.id = this.table_id(fund);
+        table.id = this.table_id(account_string);
         table.classList.add('accordion-table');
-        var parent = document.querySelector(`#fund_${cleanString(fund)}_content .accordion-body`);
+        var parent = document.querySelector(`#string_${account_string}_content .accordion-body`);
         parent.appendChild(table);
     },
     createNewCell(content, row, className) {
@@ -51,8 +61,8 @@ const ExpenseTable = {
         newCell.classList.add(className);
         row.appendChild(newCell);
     },
-    addRow(fund_name, row_name, number){
-        var table = document.getElementById(this.table_id(fund_name));
+    addRow(account_string, row_name, number){
+        var table = document.getElementById(this.table_id(account_string));
         var new_row = document.createElement('tr');
         table.appendChild(new_row);
         // Create a cell for the line item label
@@ -67,12 +77,43 @@ const ExpenseTable = {
         this.createNewCell(button, new_row);
     },
     fillFromFund(fund) {
+        // use just fund as account string to initialize table inside accordion
         this.init(fund);
         const fundObject = new Fund(fund);
-        this.addRow(fund, 'Personnel Expenditures', fundObject.getPersonnelCost());
-        this.addRow(fund, 'Non-Personnel Expenditures', fundObject.getNonPersonnelCost());
-        this.addRow(fund, 'Revenues', fundObject.getRevenue());
-        this.addRow(fund, 'Net Expenditures (Revenues)', fundObject.getTotal());
+
+        // Add a row for each appropriation in the fund
+        const id = cleanString(fund);
+
+        fundObject.getAppropriations().forEach( appropObj => {
+            // if the total for the appropriation is > $0, add an accordion for all the CCs
+            if ( appropObj.total() != 0 ){
+                Item.add(appropObj.accountString(), `#string_${id}_content .accordion-body`);
+                Item.updateHeader(appropObj.name(), appropObj.accountString(), appropObj.total());
+                this.fillFromApprop(appropObj);
+            }
+        })
+    },
+    fillFromApprop(appropObj){
+        // initialize the table object
+        this.init(appropObj.accountString());
+        // add a collapsible row for each cost center
+        appropObj.getCostCenters().forEach( ccObj => {
+            if (ccObj.getTotal() != 0 ){
+                Item.add(ccObj.accountString(), `#string_${appropObj.accountString()}_content .accordion-body`);
+                Item.updateHeader(ccObj.getName(), ccObj.accountString(), ccObj.getTotal());
+                this.fillFromCC(ccObj);
+            }
+        })
+        
+    },
+    fillFromCC(ccObj){
+        // initialize a table and summarize the line items
+        this.init(ccObj.accountString());
+        this.addRow(ccObj.accountString(), 'Personnel Expenditures', ccObj.getPersonnelCost());
+        this.addRow(ccObj.accountString(), 'Overtime Expenditures', ccObj.getOvertimeCost());
+        this.addRow(ccObj.accountString(), 'Non-Personnel Expenditures', ccObj.getNonPersonnelCost());
+        this.addRow(ccObj.accountString(), 'Revenues', ccObj.getRevenue());
+        this.addRow(ccObj.accountString(), 'Net Expenditures (Revenues)', ccObj.getTotal());
     },
     fillFromInit(program) {
         this.init(program.name);
@@ -83,30 +124,34 @@ const ExpenseTable = {
 }
 
 const Item = {
-    html : function(fund) {
-        var id = cleanString(fund);
-        return `<h2 class="accordion-header" id="fund_${id}_header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#fund_${id}_content" aria-expanded="false" aria-controls="fund_${id}_content">
+    accountString(fund, approp = '', cc = '') {
+        var account_string = cleanString(fund);
+        if (approp) { account_string += approp };
+        if (cc) { account_string += cc };
+        return account_string;
+    },
+    html(account_string){
+        return `<h2 class="accordion-header" id="string_${account_string}_header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#string_${account_string}_content" aria-expanded="false" aria-controls="string_${account_string}">
                         <span class="name"></span>
                         <span class="amount"></span>
                     </button>
                 </h2>
-                <div id="fund_${id}_content" class="accordion-collapse collapse" aria-labelledby="fund_${id}_header" data-bs-parent=".summary-accordion">
+                <div id="string_${account_string}_content" class="accordion-collapse collapse" aria-labelledby="string_${account_string}_header">
                     <div class="accordion-body"></div>
                 </div>`
     },
-    add : function(fund, accordion_id) {
+    add : function(account_string, accordion_query) {
         // get accordion and add a new item to it
-        const parent = document.querySelector(`#${accordion_id} .summary-accordion`);
+        const parent = document.querySelector(accordion_query);
         const item_element = document.createElement('div');
         item_element.classList.add('accordion-item');
-        item_element.innerHTML = this.html(fund);
+        item_element.innerHTML = this.html(account_string);
         parent.appendChild(item_element);
     },
     ExpenseTable : ExpenseTable,
-    updateHeader : function(title, id, new_amount) {
-        var id = cleanString(id);
-        const header_btn = document.querySelector(`#fund_${id}_header button`);
+    updateHeader : function(title, account_string, new_amount) {
+        const header_btn = document.querySelector(`#string_${account_string}_header button`);
         header_btn.querySelector('span.name').textContent = title;
         header_btn.querySelector('span.amount').textContent = formatCurrency(new_amount);
     }
@@ -136,16 +181,16 @@ export const Accordion = {
     async createBaseline(){
         var funds = FundLookupTable.listFunds();
         funds.forEach(fund => {
-            Item.add(fund, 'baseline-accordion');
+            Item.add(fund, '#baseline-accordion .summary-accordion');
             Item.ExpenseTable.fillFromFund(fund);
             const fundObject = new Fund(fund);
-            Item.updateHeader(FundLookupTable.getName(fund), fund, fundObject.getTotal());
+            Item.updateHeader(`Fund ${FundLookupTable.getName(fund)}`, fund, fundObject.getTotal());
         });
     },
     createSupp() {
         const supp = new Supplemental;
         supp.initiatives.forEach(program => {
-            Item.add(program.name, 'supp-accordion');
+            Item.add(program.name, '#supp-accordion .summary-accordion');
             Item.ExpenseTable.fillFromInit(program);
             Item.updateHeader(program.name, program.name, program.net());
         });
