@@ -2,6 +2,7 @@ import './sidebar.css'
 import { BaselineSection } from './subcomponents/baseline_section';
 
 import SuppSection from './subcomponents/supp_section'
+import { downloadXLSX } from '../../utils/XLSX_handlers';
 
 // fetch CSS variables saved in :root
 const root = document.documentElement;
@@ -29,6 +30,9 @@ function showSidebar() {
 
     // add event listener to resize content if window is adjusted
     window.addEventListener('resize', showSidebar);
+
+    // initialize download excel button
+    document.querySelector('#sidebar-download-btn').addEventListener('click', downloadXLSX);
 }
 
 function updateSidebarTitle(new_title){

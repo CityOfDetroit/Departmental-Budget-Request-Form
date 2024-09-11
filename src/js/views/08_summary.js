@@ -14,17 +14,15 @@ export function compareToTarget(){
             Edit any line items below or download your completed Excel.`);
     } else {
         Prompt.Text.update(`Your budget is above your target of ${formatCurrency(Baseline.target())}. 
-            Please expand the summary table below and edit line items until you meet your target. 
-            When you meet the target, you will be able to download the Excel sheet.`);
-        Prompt.Buttons.Right.disable();
+            Please expand the summary table below and edit line items to meet your departmental budget target.`);
+        // Excel download block toggled off
+        // Prompt.Buttons.Right.disable();
     }
     Prompt.show();
 }
 
 function returnToWelcome() {
     const welcome = new WelcomeView();
-    const left = document.getElementById('option1');
-    console.log(left.l)
     welcome.visit();
 };
 
