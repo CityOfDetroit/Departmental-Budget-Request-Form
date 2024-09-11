@@ -31,6 +31,7 @@ class PersonnelTable extends ViewTable {
         // add additional personnel columns to the table
         this.columns = this.columns.concat([
             { title: 'Job Title', className: 'job-name' },
+            { title: 'Job Code', className: 'job-code' },
             { title: 'Employee Type', className: 'employee-type'},
             { title: 'Service', className: 'service' },
             { title: `FY${this.fiscal_year} Requested FTE`, className: 'baseline-ftes' },
