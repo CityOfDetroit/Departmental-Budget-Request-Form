@@ -80,6 +80,7 @@ class PersonnelTable extends ViewTable {
     addCustomQuestions(){
         // form questions to add a new job
         Form.NewField.shortText('Job Code:', 'job-code', true); 
+        Form.NewField.shortText('Job Title:', 'job-name', true); 
         Form.NewField.dropdown('Employee Type:', 'employee-type', EMPLOYEE_TYPES, true),
         Form.NewField.dropdown('Appropriation:', 'approp-name', FundLookupTable.getApprops(), true);
         Form.NewField.dropdown('Cost Center:', 'cc-name', FundLookupTable.getCostCenters(), true);
@@ -98,12 +99,25 @@ class PersonnelTable extends ViewTable {
             if (!validationText){
                 validationText = document.createElement('p');
                 validationText.id = 'job-code-validation';
+                validationText.style.color = 'red';
                 jobCodeInput.parentElement.appendChild(validationText);
             }
             // get entered job code
             const jobCode = jobCodeInput.value;
-            validationText.textContent = GoldBook.codeExists(jobCode);
+            // if the job code doesn't exist, show an error message
+            if (!GoldBook.codeExists(jobCode)){
+                validationText.textContent = 'This job code does not exist in the current Gold Book. Please enter another code.';
+            } else {
+                // if it does exist, change the job title accordingly
+                document.getElementById('job-name').value = GoldBook.getTitle(jobCode);
+            }
         });
+        
+        // lock the job description 
+        const jobDescription = document.getElementById('job-name')
+        jobDescription.readOnly = true;
+        // give a message if attempt to edit
+        jobDescription.addEventListener('onclick')
     }
 
     editColumns(responses){
