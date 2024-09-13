@@ -78,7 +78,6 @@ class PersonnelTable extends ViewTable {
     }
 
     addCustomQuestions(){
-        console.log(GoldBook.getTitle('111003'));
         // form questions to add a new job
         Form.NewField.shortText('Job Code:', 'job-code', true); 
         Form.NewField.dropdown('Employee Type:', 'employee-type', EMPLOYEE_TYPES, true),
@@ -103,7 +102,6 @@ class PersonnelTable extends ViewTable {
             }
             // get entered job code
             const jobCode = jobCodeInput.value;
-            console.log(GoldBook.codeExists(jobCode));
             validationText.textContent = GoldBook.codeExists(jobCode);
         });
     }
@@ -113,7 +111,6 @@ class PersonnelTable extends ViewTable {
         // edit inputs from modal
         responses['avg-salary'] = unformatCurrency(responses['avg-salary']);
         // use gold book to look up info based on job code
-        console.log(GoldBook.getTitle(responses['job-code']));
         responses['job-name'] = GoldBook.getTitle(responses['job-code']);
         responses['fringe'] = GoldBook.getFringeRate(responses['job-code']);
         return responses;

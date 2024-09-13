@@ -61,7 +61,7 @@ const GoldBook = {
     },
 
     codeExists(job_code){
-        return !this.lookupByJobCode(job_code);
+        return this.fetchByCode(job_code).length > 0;
     }
 };
 
