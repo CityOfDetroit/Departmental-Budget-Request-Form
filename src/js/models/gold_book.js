@@ -58,6 +58,10 @@ const GoldBook = {
 
     getFringeRate(job_code) {
         return parseFloat(this.lookupByJobCode(job_code, 'Fringe Rate'));
+    },
+
+    codeExists(job_code){
+        return !this.lookupByJobCode(job_code);
     }
 };
 

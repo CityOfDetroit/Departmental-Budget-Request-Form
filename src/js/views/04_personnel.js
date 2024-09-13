@@ -90,6 +90,10 @@ class PersonnelTable extends ViewTable {
         //Form.NewField.shortText(`Expected fringe rate (as a percentage)`, 'fringe', true);
     }
 
+    addModalValidation(){
+        return;
+    }
+
     editColumns(responses){
         responses = super.editColumns(responses);
         // edit inputs from modal
