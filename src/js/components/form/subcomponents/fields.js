@@ -20,6 +20,7 @@ function appendFormElement(label, inputEl, inputId, required) {
 
     // If an ID is provided, set it on the element
     if (inputId) {
+        //inputEl.id = `input-${inputId}`;
         inputEl.id = inputId;
     }
   
@@ -33,7 +34,7 @@ export const NewField = {
     shortText : function(label, inputId, required = false) {
         const inputEl = document.createElement('input');
         inputEl.type = 'text';
-        appendFormElement(label, inputEl, inputId,required);
+        appendFormElement(label, inputEl, inputId, required);
     },
     longText : function(label, inputId, required = false) {
         const inputEl = document.createElement('textarea');

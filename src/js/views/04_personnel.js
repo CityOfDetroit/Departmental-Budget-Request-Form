@@ -91,7 +91,21 @@ class PersonnelTable extends ViewTable {
     }
 
     addModalValidation(){
-        return;
+        // confirm that entered job code is in the gold book
+        const jobCodeInput = document.getElementById('job-code');
+        jobCodeInput.addEventListener('blur', function () {
+            // add validation text if it doesn't exist
+            let validationText = document.getElementById('job-code-validation');
+            if (!validationText){
+                validationText = document.createElement('p');
+                validationText.id = 'job-code-validation';
+                jobCodeInput.parentElement.appendChild(validationText);
+            }
+            // get entered job code
+            const jobCode = jobCodeInput.value;
+            console.log(GoldBook.codeExists(jobCode));
+            validationText.textContent = GoldBook.codeExists(jobCode);
+        });
     }
 
     editColumns(responses){
