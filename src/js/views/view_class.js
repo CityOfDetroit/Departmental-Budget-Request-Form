@@ -158,6 +158,9 @@ export class ViewTable {
     // extra questions of the form to add a new row
     addCustomQuestions() { return };
 
+    // extra questions of the form to add a new row
+    addModalValidation() { return };
+
     setUpForm() {
         // show add button
         Table.Buttons.AddRow.show();
@@ -173,6 +176,8 @@ export class ViewTable {
 
         // add custom questions
         this.addCustomQuestions();
+        // any validation or special functions
+        this.addModalValidation();
         // add submit button
         Form.SubmitButton.add();
 
