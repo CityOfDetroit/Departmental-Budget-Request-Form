@@ -127,8 +127,14 @@ export class ViewTable {
             this.setUpForm();
         }
 
-        await this.refreshData();
+        if(await Table.Data.load()) { 
+            this.addFilters();
+        }
 
+        await this.refreshData();
+    }
+
+    addFilters() {
         // Add all relevant filters to table
         Table.Filter.add('Appropriation', 'approp-name');
         Table.Filter.add('Cost Center', 'cc-name');
@@ -138,7 +144,6 @@ export class ViewTable {
         if (this.columns.some(column => column.className === 'object-category')){
             Table.Filter.add('Object Category', 'object-category');
         }
-
     }
 
     initDataTable() {
