@@ -175,10 +175,7 @@ export class ViewTable {
     updateTable() { Table.save() }
 
     // extra questions of the form to add a new row
-    addCustomQuestions() { 
-        Form.NewField.dropdown('Appropriation:', 'approp-name', FundLookupTable.getApprops('Add new'), true);
-        Form.NewField.dropdown('Cost Center:', 'cc-name', FundLookupTable.getCostCenters('Add new'), true);
-    };
+    addCustomQuestions() { return };
 
     // extra questions of the form to add a new row
     addModalValidation() { 

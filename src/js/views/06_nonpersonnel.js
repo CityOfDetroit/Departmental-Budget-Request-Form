@@ -54,8 +54,8 @@ class NonPersonnelTable extends ViewTable {
 
     addCustomQuestions(){
         // form questions to add a new row
-        Form.NewField.dropdown('Appropriation:', 'approp-name', FundLookupTable.getApprops(), true);
-        Form.NewField.dropdown('Cost Center:', 'cc-name', FundLookupTable.getCostCenters(), true);
+        Form.NewField.dropdown('Appropriation:', 'approp-name', FundLookupTable.getApprops('Add new'), true);
+        Form.NewField.dropdown('Cost Center:', 'cc-name', FundLookupTable.getCostCenters('Add new'), true);
         Form.NewField.dropdown('Object Category:', 'object-category', OBJ_CATEGORIES.list, true);
         // TODO: maybe give dropdown based on selected obj category
         Form.NewField.shortText('Object Number (if known):', 'object', false);
