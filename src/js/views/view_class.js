@@ -190,6 +190,10 @@ export class ViewTable {
         if (responses['approp']){
             responses['approp-name'] = `${responses['approp']} - New`;
         };
+        // same for cost center
+        if (responses['cc']){
+            responses['cc-name'] = `${responses['cc']} - New`;
+        };
 
         // get numbers from account string names
         if(responses['fund-name']){

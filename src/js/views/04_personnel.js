@@ -125,7 +125,7 @@ class PersonnelTable extends ViewTable {
             }
         });
         
-        // Add option to type in new appropriation or cost centers
+        // Add option to type in new appropriation
         const appropriationInput = document.getElementById('approp-name');
         appropriationInput.addEventListener('change', function() {
             if (appropriationInput.value == 'Add new'){
@@ -151,6 +151,36 @@ class PersonnelTable extends ViewTable {
                 let newAppropInput = document.getElementById('approp');
                 if (newAppropInput){
                     newAppropInput.parentElement.innerHTML = '';
+                }
+            }
+        });
+
+        // Add option to type in new cost center
+        const cCInput = document.getElementById('cc-name');
+        cCInput.addEventListener('change', function() {
+            if (cCInput.value == 'Add new'){
+                // Add a new field after appropriation
+                Form.NewField.shortText('Type new cost center code:', 'cc', true);
+                let newCCInput = document.getElementById('cc');
+                cCInput.parentElement.insertAdjacentElement('afterend', newCCInput.parentElement);
+
+                // add an event listener for validation on appropriation code
+                newCCInput.addEventListener('blur', function() {
+                    // grab error text id
+                    let validationText = document.getElementById('cc-validation');
+                    // clear error and then add any newly relevant ones
+                    validationText.textContent = '';
+                    if (newCCInput.value.length != 6){
+                        validationText.textContent = 'Cost center codes must be exactly 6 numbers.';
+                    } else if (isNaN(Number(newCCInput.value))){
+                        validationText.textContent = 'Cost center codes must be numeric.';
+                    }
+                })
+            } else {
+                // if 'add new' is not selected, delete the new prompt
+                let newCCInput = document.getElementById('cc');
+                if (newCCInput){
+                    newCCInput.parentElement.innerHTML = '';
                 }
             }
         })
