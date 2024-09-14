@@ -82,8 +82,8 @@ class PersonnelTable extends ViewTable {
         Form.NewField.shortText('Job Code:', 'job-code', true); 
         Form.NewField.shortText('Job Title:', 'job-name', true); 
         Form.NewField.dropdown('Employee Type:', 'employee-type', EMPLOYEE_TYPES, true),
-        Form.NewField.dropdown('Appropriation:', 'approp-name', FundLookupTable.getApprops(), true);
-        Form.NewField.dropdown('Cost Center:', 'cc-name', FundLookupTable.getCostCenters(), true);
+        Form.NewField.dropdown('Appropriation:', 'approp-name', FundLookupTable.getApprops('Add new'), true);
+        Form.NewField.dropdown('Cost Center:', 'cc-name', FundLookupTable.getCostCenters('Add new'), true);
         Form.NewField.dropdown('Service', 'service', Services.list(), true);
         Form.NewField.shortText('Number of FTEs requested:', 'baseline-ftes', true);
         Form.NewField.shortText(`Projected average salary IN FISCAL YEAR ${this.fiscal_year}:`, 'avg-salary', true);
@@ -126,7 +126,12 @@ class PersonnelTable extends ViewTable {
         });
         
         // Add option to type in new appropriation or cost centers
-        
+        const appropriationInput = document.getElementById('approp');
+        appropriationInput.addEventListener('change', function() {
+            if (appropriationInput.value == 'Add new'){
+                console.log('other');
+            }
+        })
         
     }
 

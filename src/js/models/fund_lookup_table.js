@@ -57,14 +57,21 @@ export const FundLookupTable = {
         return this.getAll('cc');
     },
 
-    getApprops : function() {
+    getApprops : function( extraOption ) {
         // get current fund
         const fund = CurrentFund.number()
+        let ret = [];
         if (this.retrieve()[fund]){
-            return this.retrieve()[fund]['approp'];
+            ret = this.retrieve()[fund]['approp'];
+        } else {
+            // if no fund (ie. we're on the new initiative page), return all options
+            ret = this.getAll('approp');
+        };
+        // add extra option if given
+        if (extraOption) {
+            ret.push(extraOption);
         }
-        // if no fund (ie. we're on the new initiative page), return all options
-        return this.getAll('approp');
+        return ret;
     },
 
     reset : function() {
