@@ -90,14 +90,7 @@ export class ViewTable {
         this.dataTable = true;
     }
 
-    async build() {
-    // build table from local storage and initialize edit buttons
-
-        // add the add new row button if needed
-        if (this.addButtonText) { 
-            this.setUpForm();
-        }
-
+    async refreshData() {
         // fill table with new data from local storage
         if(await Table.Data.load()) {      
 
@@ -116,23 +109,34 @@ export class ViewTable {
 
             // Apply any update function to make sure sidebar is up to date
             this.updateTable();
-
-            // Add all relevant filters to table
-            Table.Filter.add('Appropriation', 'approp-name');
-            Table.Filter.add('Cost Center', 'cc-name');
-            if (this.columns.some(column => column.className === 'object-name')){
-                Table.Filter.add('Object', 'object-name');
-            };
-            if (this.columns.some(column => column.className === 'object-category')){
-                Table.Filter.add('Object Category', 'object-category');
-            }
-
         } else {
 
             // show a message if there's no saved table data for the selected fund
             if (this.noDataMessage) {
                 Prompt.Text.update(this.noDataMessage);
             }
+        }
+
+    }
+
+    async build() {
+        // build table from local storage and initialize edit buttons
+
+        // add the add new row button if needed
+        if (this.addButtonText) { 
+            this.setUpForm();
+        }
+
+        await this.refreshData();
+
+        // Add all relevant filters to table
+        Table.Filter.add('Appropriation', 'approp-name');
+        Table.Filter.add('Cost Center', 'cc-name');
+        if (this.columns.some(column => column.className === 'object-name')){
+            Table.Filter.add('Object', 'object-name');
+        };
+        if (this.columns.some(column => column.className === 'object-category')){
+            Table.Filter.add('Object Category', 'object-category');
         }
 
     }
@@ -234,7 +238,7 @@ export class ViewTable {
             Table.save();
             
             // rebuild table
-            this.build();
+            this.refreshData();
         }
     }
 

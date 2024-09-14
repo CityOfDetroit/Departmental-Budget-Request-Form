@@ -1,7 +1,6 @@
-
 import './modal.css';
 
-function clearModal(){
+function clearModal() {
     updateModalTitle('');
     document.getElementById('modal-body').innerHTML = '';
 }
@@ -19,16 +18,20 @@ function showModalHandler() {
 }
 
 const Submit = {
-    handler: null, 
+    handler: null,
 
     init: function(onSubmit) {
         const modal = document.getElementById('main-modal');
-        // add onSubmit function as handler
+
+        // Deinitialize first to avoid multiple bindings
+        this.deinit();
+
         this.handler = function(event) {
             event.preventDefault();
             onSubmit(event);
         };
-        // Adding the handler reference as the event listener
+
+        // Adding the handler as the event listener
         modal.addEventListener('submit', this.handler);
 
         // add event listener to enable close x
@@ -43,6 +46,7 @@ const Submit = {
             modal.removeEventListener('submit', this.handler);
             this.handler = null;
         }
+
         // remove event listener to enable close x
         const x = modal.querySelector('#modal-close-x');
         x.removeEventListener('click', hideModal);
@@ -51,28 +55,30 @@ const Submit = {
 
 const Link = {
     add : function(button_id){
-        document.getElementById(button_id).addEventListener('click', showModalHandler)
+        document.getElementById(button_id).addEventListener('click', showModalHandler);
     },
     remove : function(button_id){
-        document.getElementById(button_id).removeEventListener('click', showModalHandler)
+        document.getElementById(button_id).removeEventListener('click', showModalHandler);
     }
-}
+};
 
 function updateModalTitle(title) {
     document.getElementById('modal-title').textContent = title;
 }
 
 const Title = {
-    update : function(title) { updateModalTitle(title) }
-}
+    update : function(title) {
+        updateModalTitle(title);
+    }
+};
 
 export const Modal = {
-    hide : hideModal,
-    show : showModal,
-    clear : clearModal,
-    Title : Title,
-    Link : Link,
+    hide: hideModal,
+    show: showModal,
+    clear: clearModal,
+    Title: Title,
+    Link: Link,
     Submit: Submit
-}
+};
 
 export default Modal;
