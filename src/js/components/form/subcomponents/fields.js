@@ -23,10 +23,17 @@ function appendFormElement(label, inputEl, inputId, required) {
         //inputEl.id = `input-${inputId}`;
         inputEl.id = inputId;
     }
+
+    // create validation text/ a place to display errors
+    const validationText = document.createElement('p');
+    validationText.id = `${inputId}-validation`;
+    validationText.classList.add('error-message');
+    validationText.style.color = 'red';
   
     // add elements
     wrapper.appendChild(labelEl);
     wrapper.appendChild(inputEl);
+    wrapper.appendChild(validationText);
     form.appendChild(wrapper);
 } 
 
