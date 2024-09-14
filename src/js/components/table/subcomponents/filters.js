@@ -88,6 +88,16 @@ const Filter = {
 
     deleteAll(){
         document.querySelector('#filter-container').innerHTML = '';
+    },
+
+    updateOptions(filterClass) {
+        const filterObj = document.querySelector(`#filter-${filterClass}`);
+        if (filterObj) {
+            // Clear all existing options except for the default 'All' option
+            filterObj.options.length = 1;
+            // Add new options
+            this.addAllOptions(filterClass);
+        }
     }
 }
 

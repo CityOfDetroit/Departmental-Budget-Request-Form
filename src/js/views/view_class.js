@@ -91,31 +91,23 @@ export class ViewTable {
     }
 
     async refreshData() {
-        // fill table with new data from local storage
-        if(await Table.Data.load()) {      
+        // create a datatable object
+        if(this.dataTable){this.initDataTable()}
 
-            // create a datatable object
-            if(this.dataTable){this.initDataTable()}
-
-            // add an edit column if needed
-            if (this.addEdit) { 
-                Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, 'Edit'); 
-                // activate edit buttons
-                Table.Buttons.Edit.init(this.actionOnEdit, this.updateTable);
-            }
-            
-            // assign the correct classes based on the table columns
-            Table.Columns.assignClasses(this.columns);
-
-            // Apply any update function to make sure sidebar is up to date
-            this.updateTable();
-        } else {
-
-            // show a message if there's no saved table data for the selected fund
-            if (this.noDataMessage) {
-                Prompt.Text.update(this.noDataMessage);
-            }
+        // add an edit column if needed
+        if (this.addEdit) { 
+            Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, 'Edit'); 
+            // activate edit buttons
+            Table.Buttons.Edit.init(this.actionOnEdit, this.updateTable);
         }
+        
+        // assign the correct classes based on the table columns
+        Table.Columns.assignClasses(this.columns);
+
+        // Apply any update function to make sure sidebar is up to date
+        this.updateTable();
+        // add any newly created cc or approp to the filters
+        this.updateFilters();
 
     }
 
@@ -127,11 +119,17 @@ export class ViewTable {
             this.setUpForm();
         }
 
-        if(await Table.Data.load()) { 
+        // check for data
+        if(await Table.Data.load()) {  
+            // if there's data, update the table and add filters    
+            await this.refreshData();
             this.addFilters();
+        } else {
+            // show a message if there's no saved table data for the selected fund
+            if (this.noDataMessage) {
+                Prompt.Text.update(this.noDataMessage);
+            }
         }
-
-        await this.refreshData();
     }
 
     addFilters() {
@@ -143,6 +141,18 @@ export class ViewTable {
         };
         if (this.columns.some(column => column.className === 'object-category')){
             Table.Filter.add('Object Category', 'object-category');
+        }
+    }
+
+    updateFilters() {
+        // update filters with any new values
+        Table.Filter.updateOptions('approp-name');
+        Table.Filter.updateOptions('cc-name');
+        if (this.columns.some(column => column.className === 'object-name')){
+            Table.Filter.updateOptions('object-name');
+        };
+        if (this.columns.some(column => column.className === 'object-category')){
+            Table.Filter.updateOptions('object-category');
         }
     }
 
