@@ -82,8 +82,7 @@ class PersonnelTable extends ViewTable {
         Form.NewField.shortText('Job Code:', 'job-code', true); 
         Form.NewField.shortText('Job Title:', 'job-name', true); 
         Form.NewField.dropdown('Employee Type:', 'employee-type', EMPLOYEE_TYPES, true),
-        Form.NewField.dropdown('Appropriation:', 'approp-name', FundLookupTable.getApprops('Add new'), true);
-        Form.NewField.dropdown('Cost Center:', 'cc-name', FundLookupTable.getCostCenters('Add new'), true);
+        super.addCustomQuestions();
         Form.NewField.dropdown('Service', 'service', Services.list(), true);
         Form.NewField.shortText('Number of FTEs requested:', 'baseline-ftes', true);
         Form.NewField.shortText(`Projected average salary IN FISCAL YEAR ${this.fiscal_year}:`, 'avg-salary', true);
@@ -91,6 +90,8 @@ class PersonnelTable extends ViewTable {
     }
 
     addModalValidation(){
+
+        super.addModalValidation();
 
         // lock the job description 
         const jobDescription = document.getElementById('job-name');
@@ -124,66 +125,6 @@ class PersonnelTable extends ViewTable {
                 validationText.textContent = '';
             }
         });
-        
-        // Add option to type in new appropriation
-        const appropriationInput = document.getElementById('approp-name');
-        appropriationInput.addEventListener('change', function() {
-            if (appropriationInput.value == 'Add new'){
-                // Add a new field after appropriation
-                Form.NewField.shortText('Type new appropriation code:', 'approp', true);
-                let newAppropInput = document.getElementById('approp');
-                appropriationInput.parentElement.insertAdjacentElement('afterend', newAppropInput.parentElement);
-
-                // add an event listener for validation on appropriation code
-                newAppropInput.addEventListener('blur', function() {
-                    // grab error text id
-                    let validationText = document.getElementById('approp-validation');
-                    // clear error and then add any newly relevant ones
-                    validationText.textContent = '';
-                    if (newAppropInput.value.length != 5){
-                        validationText.textContent = 'Appropriation codes must be exactly 5 numbers.';
-                    } else if (isNaN(Number(newAppropInput.value))){
-                        validationText.textContent = 'Appropriation codes must be numeric.';
-                    }
-                })
-            } else {
-                // if 'add new' is not selected, delete the new prompt
-                let newAppropInput = document.getElementById('approp');
-                if (newAppropInput){
-                    newAppropInput.parentElement.innerHTML = '';
-                }
-            }
-        });
-
-        // Add option to type in new cost center
-        const cCInput = document.getElementById('cc-name');
-        cCInput.addEventListener('change', function() {
-            if (cCInput.value == 'Add new'){
-                // Add a new field after appropriation
-                Form.NewField.shortText('Type new cost center code:', 'cc', true);
-                let newCCInput = document.getElementById('cc');
-                cCInput.parentElement.insertAdjacentElement('afterend', newCCInput.parentElement);
-
-                // add an event listener for validation on appropriation code
-                newCCInput.addEventListener('blur', function() {
-                    // grab error text id
-                    let validationText = document.getElementById('cc-validation');
-                    // clear error and then add any newly relevant ones
-                    validationText.textContent = '';
-                    if (newCCInput.value.length != 6){
-                        validationText.textContent = 'Cost center codes must be exactly 6 numbers.';
-                    } else if (isNaN(Number(newCCInput.value))){
-                        validationText.textContent = 'Cost center codes must be numeric.';
-                    }
-                })
-            } else {
-                // if 'add new' is not selected, delete the new prompt
-                let newCCInput = document.getElementById('cc');
-                if (newCCInput){
-                    newCCInput.parentElement.innerHTML = '';
-                }
-            }
-        })
         
     }
 
