@@ -177,67 +177,40 @@ export class ViewTable {
     // extra questions of the form to add a new row
     addCustomQuestions() { return };
 
-    // extra questions of the form to add a new row
-    addModalValidation() { 
-        // Add option to type in new appropriation
-        const appropriationInput = document.getElementById('approp-name');
-        appropriationInput.addEventListener('change', function() {
-            if (appropriationInput.value == 'Add new'){
-                // Add a new field after appropriation
-                Form.NewField.shortText('Type new appropriation code:', 'approp', true);
-                let newAppropInput = document.getElementById('approp');
-                appropriationInput.parentElement.insertAdjacentElement('afterend', newAppropInput.parentElement);
-
-                // add an event listener for validation on appropriation code
-                newAppropInput.addEventListener('blur', function() {
-                    // grab error text id
-                    let validationText = document.getElementById('approp-validation');
-                    // clear error and then add any newly relevant ones
+    addValidationListener(inputId, fieldLabel, validationId, length) {
+        const inputElement = document.getElementById(inputId);
+        inputElement.addEventListener('change', function () {
+            if (inputElement.value === 'Add new') {
+                console.log('here');
+                // Add a new field after the selected element
+                Form.NewField.shortText(`Type new ${fieldLabel}:`, inputId.slice(0, -5), true);
+                let newInputElement = document.getElementById(inputId.slice(0, -5));  // Remove '-name' suffix
+                inputElement.parentElement.insertAdjacentElement('afterend', newInputElement.parentElement);
+    
+                // Add an event listener for validation on the new input field
+                newInputElement.addEventListener('blur', function () {
+                    let validationText = document.getElementById(validationId);
                     validationText.textContent = '';
-                    if (newAppropInput.value.length != 5){
-                        validationText.textContent = 'Appropriation codes must be exactly 5 numbers.';
-                    } else if (isNaN(Number(newAppropInput.value))){
-                        validationText.textContent = 'Appropriation codes must be numeric.';
+                    if (newInputElement.value.length !== length) {
+                        validationText.textContent = `${fieldLabel} codes must be exactly ${length} numbers.`;
+                    } else if (isNaN(Number(newInputElement.value))) {
+                        validationText.textContent = `${fieldLabel} codes must be numeric.`;
                     }
-                })
+                });
             } else {
-                // if 'add new' is not selected, delete the new prompt
-                let newAppropInput = document.getElementById('approp');
-                if (newAppropInput){
-                    newAppropInput.parentElement.innerHTML = '';
+                // Remove the new input field if 'Add new' is not selected
+                let newInputElement = document.getElementById(inputId.slice(0, -5));
+                if (newInputElement) {
+                    newInputElement.parentElement.innerHTML = '';
                 }
             }
         });
-
-        // Add option to type in new cost center
-        const cCInput = document.getElementById('cc-name');
-        cCInput.addEventListener('change', function() {
-            if (cCInput.value == 'Add new'){
-                // Add a new field after appropriation
-                Form.NewField.shortText('Type new cost center code:', 'cc', true);
-                let newCCInput = document.getElementById('cc');
-                cCInput.parentElement.insertAdjacentElement('afterend', newCCInput.parentElement);
-
-                // add an event listener for validation on appropriation code
-                newCCInput.addEventListener('blur', function() {
-                    // grab error text id
-                    let validationText = document.getElementById('cc-validation');
-                    // clear error and then add any newly relevant ones
-                    validationText.textContent = '';
-                    if (newCCInput.value.length != 6){
-                        validationText.textContent = 'Cost center codes must be exactly 6 numbers.';
-                    } else if (isNaN(Number(newCCInput.value))){
-                        validationText.textContent = 'Cost center codes must be numeric.';
-                    }
-                })
-            } else {
-                // if 'add new' is not selected, delete the new prompt
-                let newCCInput = document.getElementById('cc');
-                if (newCCInput){
-                    newCCInput.parentElement.innerHTML = '';
-                }
-            }
-        })
+    }
+    
+    // Modified addModalValidation method
+    addModalValidation() {
+        this.addValidationListener('approp-name', 'Appropriation', 'approp-validation', 5);
+        this.addValidationListener('cc-name', 'Cost Center', 'cc-validation', 6);
     }
 
     setUpForm() {
