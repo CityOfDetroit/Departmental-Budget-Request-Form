@@ -186,6 +186,11 @@ export class ViewTable {
     }
 
     editColumns(responses) { 
+        // if a new appropriation was entered, fix it
+        if (responses['approp']){
+            responses['approp-name'] = `${responses['approp']} - New`;
+        };
+
         // get numbers from account string names
         if(responses['fund-name']){
             responses['fund'] = AccountString.getNumber(responses['fund-name']);
