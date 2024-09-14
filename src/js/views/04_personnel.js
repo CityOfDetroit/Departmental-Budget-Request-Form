@@ -117,7 +117,9 @@ class PersonnelTable extends ViewTable {
         const jobDescription = document.getElementById('job-name')
         jobDescription.readOnly = true;
         // give a message if attempt to edit
-        jobDescription.addEventListener('onclick')
+        jobDescription.addEventListener('click', function() {
+            
+        });
     }
 
     editColumns(responses){

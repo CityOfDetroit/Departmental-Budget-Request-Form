@@ -20,3 +20,9 @@ textarea, input {
     min-width: 300px;
     margin-bottom: 1.25em;
 }
+
+/* Thicker red border when focused */
+input[readonly]:focus {
+    border: 2px solid red;
+    outline: none; /* Remove the default outline */
+  }
