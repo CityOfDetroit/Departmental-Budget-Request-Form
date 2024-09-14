@@ -91,35 +91,43 @@ class PersonnelTable extends ViewTable {
     }
 
     addModalValidation(){
+
+        // lock the job description 
+        const jobDescription = document.getElementById('job-name');
+        jobDescription.readOnly = true;
+        // give a message if attempt to edit
+        const nameValidationText = document.getElementById('job-name-validation');
+        jobDescription.addEventListener('click', function() {
+            nameValidationText.textContent = 'This field is not editable and will auto-fill from the job code above.';
+        });
+        // hide message on blur
+        jobDescription.addEventListener('blur', function() {
+            nameValidationText.textContent = '';
+        });
+
         // confirm that entered job code is in the gold book
         const jobCodeInput = document.getElementById('job-code');
         jobCodeInput.addEventListener('blur', function () {
-            // add validation text if it doesn't exist
-            let validationText = document.getElementById('job-code-validation');
-            if (!validationText){
-                validationText = document.createElement('p');
-                validationText.id = 'job-code-validation';
-                validationText.style.color = 'red';
-                jobCodeInput.parentElement.appendChild(validationText);
-            }
             // get entered job code
             const jobCode = jobCodeInput.value;
-            // if the job code doesn't exist, show an error message
+            // get validation text element
+            const validationText = document.getElementById('job-code-validation');
             if (!GoldBook.codeExists(jobCode)){
+                // if the job code doesn't exist, show an error message
                 validationText.textContent = 'This job code does not exist in the current Gold Book. Please enter another code.';
+                // and clear any previous entry in the job title 
+                jobDescription.value = '';
             } else {
                 // if it does exist, change the job title accordingly
-                document.getElementById('job-name').value = GoldBook.getTitle(jobCode);
+                jobDescription.value = GoldBook.getTitle(jobCode);
+                // and clear any error messages
+                validationText.textContent = '';
             }
         });
         
-        // lock the job description 
-        const jobDescription = document.getElementById('job-name')
-        jobDescription.readOnly = true;
-        // give a message if attempt to edit
-        jobDescription.addEventListener('click', function() {
-            
-        });
+        // Add option to type in new appropriation or cost centers
+        
+        
     }
 
     editColumns(responses){
