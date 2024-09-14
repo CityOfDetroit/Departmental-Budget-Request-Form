@@ -126,10 +126,32 @@ class PersonnelTable extends ViewTable {
         });
         
         // Add option to type in new appropriation or cost centers
-        const appropriationInput = document.getElementById('approp');
+        const appropriationInput = document.getElementById('approp-name');
         appropriationInput.addEventListener('change', function() {
             if (appropriationInput.value == 'Add new'){
-                console.log('other');
+                // Add a new field after appropriation
+                Form.NewField.shortText('Type new appropriation code:', 'approp', true);
+                let newAppropInput = document.getElementById('approp');
+                appropriationInput.parentElement.insertAdjacentElement('afterend', newAppropInput.parentElement);
+
+                // add an event listener for validation on appropriation code
+                newAppropInput.addEventListener('blur', function() {
+                    // grab error text id
+                    let validationText = document.getElementById('approp-validation');
+                    // clear error and then add any newly relevant ones
+                    validationText.textContent = '';
+                    if (newAppropInput.value.length != 5){
+                        validationText.textContent = 'Appropriation codes must be exactly 5 numbers.';
+                    } else if (isNaN(Number(newAppropInput.value))){
+                        validationText.textContent = 'Appropriation codes must be numeric.';
+                    }
+                })
+            } else {
+                // if 'add new' is not selected, delete the new prompt
+                let newAppropInput = document.getElementById('approp');
+                if (newAppropInput){
+                    newAppropInput.parentElement.innerHTML = '';
+                }
             }
         })
         
