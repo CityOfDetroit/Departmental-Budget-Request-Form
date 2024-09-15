@@ -137,17 +137,19 @@ export function downloadXLSX() {
     const workbook = XLSX.utils.book_new(); // Create a new workbook
 
     const dataMap = {
-        Personnel: 'personnel',
-        Overtime: 'overtime',
-        NonPersonnel: 'nonpersonnel',
-        Revenue: 'revenue'
+        'Personnel': 'personnel',
+        'Overtime': 'overtime',
+        'NonPersonnel': 'nonpersonnel',
+        'Revenue': 'revenue'
+
     };
 
     const sheetData = {
-        Personnel: [],
-        Overtime: [],
-        NonPersonnel: [],
-        Revenue: []
+        'Personnel': [],
+        'Overtime': [],
+        'NonPersonnel': [],
+        'Revenue': []
+
     };
 
     baseline.funds.forEach(fund => {
