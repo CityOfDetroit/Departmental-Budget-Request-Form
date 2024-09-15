@@ -88,11 +88,19 @@ export class CostCenter{
         return this.getNonPersonnelCost() + this.getOvertimeCost() + this.getPersonnelCost(); 
     }
 
-    getName() {
-        // just grab the value in the cost center name column for the first row
-        if (!this.nonpersonnel.table[0]) { return '' };
-        return 'Cost Center ' + this.nonpersonnel.table[0]['Cost Center Name'];
-    }
+    getName(){
+        // just grab the value in the approp name column for the first row of the first non-empty table
+        const tables = [this.nonpersonnel.table, this.personnel.table, this.overtime.table, this.revenue.table];
+
+        for (let table of tables) {
+          if (table.length > 0 && table[0]['Cost Center Name']) {
+            return 'Cost Center ' + table[0]['Cost Center Name'];
+          }
+        }
+    
+        // If all tables are empty, return ''
+        return '';
+    }  
 
     accountString() {
         return this.account_string;
@@ -133,9 +141,18 @@ export class Appropriation {
     }
 
     name(){
-        // just grab the value in the approp name column for the first row
-        if (!this.nonpersonnel.table[0]) { return '' };
-        return 'Appropriation ' + this.nonpersonnel.table[0]['Appropriation Name'];    }
+        // just grab the value in the approp name column for the first row of the first non-empty table
+        const tables = [this.nonpersonnel.table, this.personnel.table, this.overtime.table, this.revenue.table];
+
+        for (let table of tables) {
+          if (table.length > 0 && table[0]['Appropriation Name']) {
+            return 'Appropriation ' + table[0]['Appropriation Name'];
+          }
+        }
+    
+        // If all tables are empty, return ''
+        return '';
+    }  
 
     accountString(){
         return `${this.fund}-${this.approp}`;
