@@ -40,10 +40,6 @@ function redirectForEdit(){
     }
 }
 
-const AppropriationTable = {
-    
-}
-
 const ExpenseTable = {
     table_id : (account_string) => { return `table-${account_string}` },
     init(account_string) {

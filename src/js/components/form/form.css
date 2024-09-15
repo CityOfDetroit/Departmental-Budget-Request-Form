@@ -1,7 +1,7 @@
 textarea {height: 100px; width: 100%;}
 
-textarea, input {
-    margin-bottom: 20px;
+textarea, input, select {
+    margin-bottom: 5px;
 }
 
 .btn-submit {
@@ -18,5 +18,14 @@ textarea, input {
 
 #new-form select {
     min-width: 300px;
-    margin-bottom: 1.25em;
+}
+
+/* Thicker red border when focused */
+input[readonly]:focus {
+    border: 2px solid red;
+    outline: none; /* Remove the default outline */
+}
+
+.error-message {
+    color: red;
 }

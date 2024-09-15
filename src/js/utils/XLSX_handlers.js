@@ -1,10 +1,11 @@
 
 
-import { SHEETS, TARGET_CELL_ADDRESS } from '../constants/';
+import { SHEETS, TARGET_CELL_ADDRESS, FISCAL_YEAR } from '../constants/';
 import FundLookupTable from '../models/fund_lookup_table.js';
 import { removeNewLines } from './common_utils.js';
 import Baseline from '../models/baseline.js';
 import Services from '../models/services.js';
+import GoldBook from '../models/gold_book.js';
 
 function deleteTopRowsUntilFullData(data) {
     // function to try to find the top of the usable data
@@ -112,6 +113,11 @@ export function processWorkbook(arrayBuffer) {
                 console.error(`Cell ${TARGET_CELL_ADDRESS} not found in sheet ${sheetName}`);
             }
         }
+
+        else if(sheetName == `FY${FISCAL_YEAR} Gold Book`){
+            const sheet = workbook.Sheets[sheetName];
+            GoldBook.init(sheet);
+        }
     });
 
     console.log('all excel data saved');
@@ -126,6 +132,7 @@ function appendSheetToWorkbook(workbook, data, sheetName) {
 }
 
 export function downloadXLSX() {
+    // TODO: update to include new inititiatives
     const baseline = new Baseline();
     const workbook = XLSX.utils.book_new(); // Create a new workbook
 

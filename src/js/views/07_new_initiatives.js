@@ -62,10 +62,10 @@ class InitiativesTable extends ViewTable {
             What is the Department’s plan for implementing the Initiative?`, 'q2', true);
         Form.NewField.longText(`Why can’t the Initiative be funded with the Department’s baseline budget?`, 'q3', true);
 
-        // TODO: Edit to drop down
+        // Account string info
         Form.NewField.dropdown('Fund:', 'fund-name', FundLookupTable.listFundNames(), true);
-        Form.NewField.dropdown('Appropriation (if known):', 'approp-name', FundLookupTable.getApprops(), true);
-        Form.NewField.dropdown('Cost Center (if known):', 'cc-name', FundLookupTable.getCostCenters(), true);
+        Form.NewField.dropdown('Appropriation (if known):', 'approp-name', FundLookupTable.getApprops('Add new'), true);
+        Form.NewField.dropdown('Cost Center (if known):', 'cc-name', FundLookupTable.getCostCenters('Add new'), true);
 
         // Numbers
         Form.NewField.numericInput('What is your ballpark estimate of TOTAL ADDITONAL expenses associated with this initiative?', 

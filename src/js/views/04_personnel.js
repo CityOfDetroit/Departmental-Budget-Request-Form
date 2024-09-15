@@ -6,6 +6,7 @@ import Form from "../components/form/form.js";
 import { Services, FundLookupTable } from '../models/';
 import { unformatCurrency } from "../utils/common_utils.js";
 import { EMPLOYEE_TYPES } from '../constants/budget_constants.js';
+import GoldBook from '../models/gold_book.js';
 
 export class PersonnelView extends View {
 
@@ -31,6 +32,7 @@ class PersonnelTable extends ViewTable {
         // add additional personnel columns to the table
         this.columns = this.columns.concat([
             { title: 'Job Title', className: 'job-name' },
+            { title: 'Job Code', className: 'job-code' },
             { title: 'Employee Type', className: 'employee-type'},
             { title: 'Service', className: 'service' },
             { title: `FY${this.fiscal_year} Requested FTE`, className: 'baseline-ftes' },
@@ -77,21 +79,63 @@ class PersonnelTable extends ViewTable {
 
     addCustomQuestions(){
         // form questions to add a new job
+        Form.NewField.shortText('Job Code:', 'job-code', true); 
         Form.NewField.shortText('Job Title:', 'job-name', true); 
         Form.NewField.dropdown('Employee Type:', 'employee-type', EMPLOYEE_TYPES, true),
-        Form.NewField.dropdown('Appropriation:', 'approp-name', FundLookupTable.getApprops(), true);
-        Form.NewField.dropdown('Cost Center:', 'cc-name', FundLookupTable.getCostCenters(), true);
+        Form.NewField.dropdown('Appropriation:', 'approp-name', FundLookupTable.getApprops('Add new'), true);
+        Form.NewField.dropdown('Cost Center:', 'cc-name', FundLookupTable.getCostCenters('Add new'), true);
         Form.NewField.dropdown('Service', 'service', Services.list(), true);
         Form.NewField.shortText('Number of FTEs requested:', 'baseline-ftes', true);
         Form.NewField.shortText(`Projected average salary IN FISCAL YEAR ${this.fiscal_year}:`, 'avg-salary', true);
-        Form.NewField.shortText(`Expected fringe rate (as a percentage)`, 'fringe', true);
+        //Form.NewField.shortText(`Expected fringe rate (as a percentage)`, 'fringe', true);
+    }
+
+    addModalValidation(){
+
+        super.addModalValidation();
+
+        // lock the job description 
+        const jobDescription = document.getElementById('job-name');
+        jobDescription.readOnly = true;
+        // give a message if attempt to edit
+        const nameValidationText = document.getElementById('job-name-validation');
+        jobDescription.addEventListener('click', function() {
+            nameValidationText.textContent = 'This field is not editable and will auto-fill from the job code above.';
+        });
+        // hide message on blur
+        jobDescription.addEventListener('blur', function() {
+            nameValidationText.textContent = '';
+        });
+
+        // confirm that entered job code is in the gold book
+        const jobCodeInput = document.getElementById('job-code');
+        jobCodeInput.addEventListener('blur', function () {
+            // get entered job code
+            const jobCode = jobCodeInput.value;
+            // get validation text element
+            const validationText = document.getElementById('job-code-validation');
+            if (!GoldBook.codeExists(jobCode)){
+                // if the job code doesn't exist, show an error message
+                validationText.textContent = 'This job code does not exist in the current Gold Book. Please enter another code.';
+                // and clear any previous entry in the job title 
+                jobDescription.value = '';
+            } else {
+                // if it does exist, change the job title accordingly
+                jobDescription.value = GoldBook.getTitle(jobCode);
+                // and clear any error messages
+                validationText.textContent = '';
+            }
+        });
+        
     }
 
     editColumns(responses){
         responses = super.editColumns(responses);
         // edit inputs from modal
         responses['avg-salary'] = unformatCurrency(responses['avg-salary']);
-        responses['fringe'] = parseFloat(responses['fringe']) / 100;
+        // use gold book to look up info based on job code
+        responses['job-name'] = GoldBook.getTitle(responses['job-code']);
+        responses['fringe'] = GoldBook.getFringeRate(responses['job-code']);
         return responses;
     }
 }

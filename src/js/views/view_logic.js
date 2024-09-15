@@ -11,94 +11,71 @@ import SummaryView from './08_summary.js';
 import { FundLookupTable, CurrentFund, CurrentPage } from '../models/';
 import { FISCAL_YEAR } from '../constants/';
 
-export function initializePages() {
-    const PAGES = {
-        'welcome': new WelcomeView(),
-        'upload': new UploadView(),
-        'baseline-landing': new FundView(),
-        'revenue': new RevenueView(FISCAL_YEAR),
-        'personnel': new PersonnelView(FISCAL_YEAR),
-        'overtime': new OvertimeView(FISCAL_YEAR),
-        'nonpersonnel': new NonPersonnelView(FISCAL_YEAR),
-        'new-inits': new InitiativesView(),
-        'summary': new SummaryView(),
-    };
-    return PAGES;
-}
+// Initialize pages globally once
+const PAGES = {
+    'welcome': new WelcomeView(),
+    'upload': new UploadView(),
+    'baseline-landing': new FundView(),
+    'revenue': new RevenueView(FISCAL_YEAR),
+    'personnel': new PersonnelView(FISCAL_YEAR),
+    'overtime': new OvertimeView(FISCAL_YEAR),
+    'nonpersonnel': new NonPersonnelView(FISCAL_YEAR),
+    'new-inits': new InitiativesView(),
+    'summary': new SummaryView()
+};
 
-export function visitPage(new_page_key){
-
-    const PAGES = initializePages();
-
-    // clean up from current page
+export function visitPage(new_page_key) {
     var page_state = CurrentPage.load();
-    PAGES[page_state].cleanup();
-    
-    // Use the page_state to access and call the corresponding function from PAGES
+
+    // Perform cleanup from the current page
+    if (PAGES[page_state]) {
+        PAGES[page_state].cleanup();
+    }
+
     if (PAGES[new_page_key]) {
-        // Invokes the function if it exists in the PAGES map
-        PAGES[new_page_key].visit(); 
+        PAGES[new_page_key].visit();
     } else {
         console.error(`No page initializer found for state: ${new_page_key}`);
-    }}
+    }
+}
 
-export function nextPage(){
-
-    const PAGES = initializePages();
-
+export function nextPage() {
     var page_state = CurrentPage.load();
     const keys = Object.keys(PAGES);
-  
-    // Find the index of the current key
     const currentIndex = keys.indexOf(page_state);
 
-    // Return to summary if all funds are viewed
     const returnPages = ['revenue', 'nonpersonnel', 'new-inits', 'overtime', 'personnel'];
     if (!FundLookupTable.fundsLeft() && returnPages.includes(CurrentPage.load())) {
         visitPage('summary');
         return;
     }
 
-    // if on non-personnel, circle back to fund selection unless all funds are edited
-    if (CurrentPage.load() == 'nonpersonnel'){
-        // mark fund as viewed/edited
+    if (CurrentPage.load() == 'nonpersonnel') {
         FundLookupTable.editFund(CurrentFund.number());
-        // if any funds left to edit, go back to that page
-        if ( FundLookupTable.fundsLeft() ){
+        if (FundLookupTable.fundsLeft()) {
             visitPage('baseline-landing');
             return;
         }
     }
 
     if (currentIndex >= 0 && currentIndex < keys.length - 1) {
-        // Check if there is a next key, and get it
         const nextKey = keys[currentIndex + 1];
-        // go to that page
         visitPage(nextKey);
-    } 
+    }
 }
 
-export function lastPage(){
-
-    const PAGES = initializePages();
-
+export function lastPage() {
     var page_state = CurrentPage.load();
     const keys = Object.keys(PAGES);
-  
-    // Find the index of the current key
     const currentIndex = keys.indexOf(page_state);
 
-    // if on new-inits, circle back to fund selection
-    if (CurrentPage.load() == 'new-inits'){
+    if (CurrentPage.load() == 'new-inits') {
         visitPage('baseline-landing');
         return;
     }
     
-    // Check if there is a next key
     if (currentIndex >= 1) {
-        // Get the next key
         const lastKey = keys[currentIndex - 1];
-        // go to that page
         visitPage(lastKey);
-    } 
+    }
 }

@@ -20,12 +20,20 @@ function appendFormElement(label, inputEl, inputId, required) {
 
     // If an ID is provided, set it on the element
     if (inputId) {
+        //inputEl.id = `input-${inputId}`;
         inputEl.id = inputId;
     }
+
+    // create validation text/ a place to display errors
+    const validationText = document.createElement('p');
+    validationText.id = `${inputId}-validation`;
+    validationText.classList.add('error-message');
+    validationText.style.color = 'red';
   
     // add elements
     wrapper.appendChild(labelEl);
     wrapper.appendChild(inputEl);
+    wrapper.appendChild(validationText);
     form.appendChild(wrapper);
 } 
 
@@ -33,7 +41,7 @@ export const NewField = {
     shortText : function(label, inputId, required = false) {
         const inputEl = document.createElement('input');
         inputEl.type = 'text';
-        appendFormElement(label, inputEl, inputId,required);
+        appendFormElement(label, inputEl, inputId, required);
     },
     longText : function(label, inputId, required = false) {
         const inputEl = document.createElement('textarea');

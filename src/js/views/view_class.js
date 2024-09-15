@@ -90,51 +90,70 @@ export class ViewTable {
         this.dataTable = true;
     }
 
+    async refreshData() {
+        // create a datatable object
+        if(this.dataTable){this.initDataTable()}
+
+        // add an edit column if needed
+        if (this.addEdit) { 
+            Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, 'Edit'); 
+            // activate edit buttons
+            Table.Buttons.Edit.init(this.actionOnEdit, this.updateTable);
+        }
+        
+        // assign the correct classes based on the table columns
+        Table.Columns.assignClasses(this.columns);
+
+        // Apply any update function to make sure sidebar is up to date
+        this.updateTable();
+        // add any newly created cc or approp to the filters
+        this.updateFilters();
+
+    }
+
     async build() {
-    // build table from local storage and initialize edit buttons
+        // build table from local storage and initialize edit buttons
 
         // add the add new row button if needed
         if (this.addButtonText) { 
             this.setUpForm();
         }
 
-        // fill table with new data from local storage
-        if(await Table.Data.load()) {      
-
-            // create a datatable object
-            if(this.dataTable){this.initDataTable()}
-
-            // add an edit column if needed
-            if (this.addEdit) { 
-                Table.Columns.addAtEnd(Table.Buttons.edit_confirm_btns, 'Edit'); 
-                // activate edit buttons
-                Table.Buttons.Edit.init(this.actionOnEdit, this.updateTable);
-            }
-            
-            // assign the correct classes based on the table columns
-            Table.Columns.assignClasses(this.columns);
-
-            // Apply any update function to make sure sidebar is up to date
-            this.updateTable();
-
-            // Add all relevant filters to table
-            Table.Filter.add('Appropriation', 'approp-name');
-            Table.Filter.add('Cost Center', 'cc-name');
-            if (this.columns.some(column => column.className === 'object-name')){
-                Table.Filter.add('Object', 'object-name');
-            };
-            if (this.columns.some(column => column.className === 'object-category')){
-                Table.Filter.add('Object Category', 'object-category');
-            }
-
+        // check for data
+        if(await Table.Data.load()) {  
+            // if there's data, update the table and add filters    
+            await this.refreshData();
+            this.addFilters();
         } else {
-
             // show a message if there's no saved table data for the selected fund
             if (this.noDataMessage) {
                 Prompt.Text.update(this.noDataMessage);
             }
         }
+    }
 
+    addFilters() {
+        // Add all relevant filters to table
+        Table.Filter.add('Appropriation', 'approp-name');
+        Table.Filter.add('Cost Center', 'cc-name');
+        if (this.columns.some(column => column.className === 'object-name')){
+            Table.Filter.add('Object', 'object-name');
+        };
+        if (this.columns.some(column => column.className === 'object-category')){
+            Table.Filter.add('Object Category', 'object-category');
+        }
+    }
+
+    updateFilters() {
+        // update filters with any new values
+        Table.Filter.updateOptions('approp-name');
+        Table.Filter.updateOptions('cc-name');
+        if (this.columns.some(column => column.className === 'object-name')){
+            Table.Filter.updateOptions('object-name');
+        };
+        if (this.columns.some(column => column.className === 'object-category')){
+            Table.Filter.updateOptions('object-category');
+        }
     }
 
     initDataTable() {
@@ -158,6 +177,42 @@ export class ViewTable {
     // extra questions of the form to add a new row
     addCustomQuestions() { return };
 
+    addValidationListener(inputId, fieldLabel, validationId, length) {
+        const inputElement = document.getElementById(inputId);
+        inputElement.addEventListener('change', function () {
+            if (inputElement.value === 'Add new') {
+                console.log('here');
+                // Add a new field after the selected element
+                Form.NewField.shortText(`Type new ${fieldLabel}:`, inputId.slice(0, -5), true);
+                let newInputElement = document.getElementById(inputId.slice(0, -5));  // Remove '-name' suffix
+                inputElement.parentElement.insertAdjacentElement('afterend', newInputElement.parentElement);
+    
+                // Add an event listener for validation on the new input field
+                newInputElement.addEventListener('blur', function () {
+                    let validationText = document.getElementById(validationId);
+                    validationText.textContent = '';
+                    if (newInputElement.value.length !== length) {
+                        validationText.textContent = `${fieldLabel} codes must be exactly ${length} numbers.`;
+                    } else if (isNaN(Number(newInputElement.value))) {
+                        validationText.textContent = `${fieldLabel} codes must be numeric.`;
+                    }
+                });
+            } else {
+                // Remove the new input field if 'Add new' is not selected
+                let newInputElement = document.getElementById(inputId.slice(0, -5));
+                if (newInputElement) {
+                    newInputElement.parentElement.innerHTML = '';
+                }
+            }
+        });
+    }
+    
+    // Modified addModalValidation method
+    addModalValidation() {
+        this.addValidationListener('approp-name', 'Appropriation', 'approp-validation', 5);
+        this.addValidationListener('cc-name', 'Cost Center', 'cc-validation', 6);
+    }
+
     setUpForm() {
         // show add button
         Table.Buttons.AddRow.show();
@@ -173,6 +228,8 @@ export class ViewTable {
 
         // add custom questions
         this.addCustomQuestions();
+        // any validation or special functions
+        this.addModalValidation();
         // add submit button
         Form.SubmitButton.add();
 
@@ -181,6 +238,15 @@ export class ViewTable {
     }
 
     editColumns(responses) { 
+        // if a new appropriation was entered, fix it
+        if (responses['approp']){
+            responses['approp-name'] = `${responses['approp']} - New`;
+        };
+        // same for cost center
+        if (responses['cc']){
+            responses['cc-name'] = `${responses['cc']} - New`;
+        };
+
         // get numbers from account string names
         if(responses['fund-name']){
             responses['fund'] = AccountString.getNumber(responses['fund-name']);
@@ -220,7 +286,7 @@ export class ViewTable {
             Table.save();
             
             // rebuild table
-            this.build();
+            this.refreshData();
         }
     }
 

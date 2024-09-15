@@ -72,8 +72,8 @@ class OvertimeTable extends ViewTable {
 
     addCustomQuestions(){
         // form questions to add a new job
-        Form.NewField.dropdown('Appropriation:', 'approp-name', FundLookupTable.getApprops(), true);
-        Form.NewField.dropdown('Cost Center:', 'cc-name', FundLookupTable.getCostCenters(), true);
+        Form.NewField.dropdown('Appropriation:', 'approp-name', FundLookupTable.getApprops('Add new'), true);
+        Form.NewField.dropdown('Cost Center:', 'cc-name', FundLookupTable.getCostCenters('Add new'), true);
         Form.NewField.dropdown('Object (salary or wage):', 'object-name', OT_OBJECTS, true); 
         Form.NewField.dropdown('Service', 'service', Services.list(), true);
         Form.NewField.dropdown('Recurring or One-Time', 'recurring', ['Recurring', 'One-Time'], true);
