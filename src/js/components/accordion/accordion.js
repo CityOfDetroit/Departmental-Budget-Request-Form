@@ -181,6 +181,17 @@ export const Accordion = {
             const fundObject = new Fund(fund);
             Item.updateHeader(`Fund ${FundLookupTable.getName(fund)}`, fund, fundObject.getTotal());
         });
+
+        // color-code GF baseline
+        const GF = new Fund(1000);
+        // text to color code
+        let topline = document.querySelector('#string_1000_header .amount');
+        if (GF.getTotal() <= Baseline.target()){
+            topline.style.color = 'green';
+            topline.style.weight = 4;
+        } else {
+           topline.style.color = 'red';
+        }
     },
     createSupp() {
         const supp = new Supplemental;
@@ -193,19 +204,14 @@ export const Accordion = {
     updateTopLines() {
         // adjuse baseline
         // const baseline = new Baseline;
-        const baseline = new Fund(1000);
+        const baseline = new Baseline;
         const baselineAmount = document.querySelector('#baseline-title .top-line-amount')
-        baselineAmount.textContent = formatCurrency(baseline.getTotal());
+        baselineAmount.textContent = formatCurrency(baseline.total());
         // adjust supplementals
         const supp = new Supplemental;
         const suppAmount = document.querySelector('#supp-title .top-line-amount')
         suppAmount.textContent = formatCurrency(supp.total());
-        // color-code baseline
-        if (baseline.getTotal() <= Baseline.target()){
-            baselineAmount.style.color = 'green';
-        } else {
-            baselineAmount.style.color = 'red';
-        }
+
     },
     build() {
         this.createBaseline();
