@@ -91,8 +91,12 @@ export class ViewTable {
     }
 
     async refreshData() {
+
         // create a datatable object
         if(this.dataTable){this.initDataTable()}
+        
+        // check for data
+        await Table.Data.load();
 
         // add an edit column if needed
         if (this.addEdit) { 
@@ -121,9 +125,9 @@ export class ViewTable {
 
         // check for data
         if(await Table.Data.load()) {  
-            // if there's data, update the table and add filters    
+            // if there's data, update the table and add filters  
+            this.addFilters();  
             await this.refreshData();
-            this.addFilters();
         } else {
             // show a message if there's no saved table data for the selected fund
             if (this.noDataMessage) {
@@ -189,7 +193,6 @@ export class ViewTable {
         const inputElement = document.getElementById(inputId);
         inputElement.addEventListener('change', function () {
             if (inputElement.value === 'Add new') {
-                console.log('here');
                 // Add a new field after the selected element
                 Form.NewField.shortText(`Type new ${fieldLabel}:`, inputId.slice(0, -5), true);
                 let newInputElement = document.getElementById(inputId.slice(0, -5));  // Remove '-name' suffix
@@ -279,12 +282,9 @@ export class ViewTable {
     submitNewRow(event) {
         // get answers from form, hide form, show answers in table
         var responses = Form.fetchAllResponses(event);
-        console.log(responses);
         
         // edit inputs from modal
         responses = this.editColumns(responses);
-
-        console.log(responses);
         
         // make sure it's not an empty response
         if (Object.values(responses)[0] != ''){
