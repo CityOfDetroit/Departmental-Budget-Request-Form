@@ -91,12 +91,12 @@ export class ViewTable {
     }
 
     async refreshData() {
-
-        // create a datatable object
-        if(this.dataTable){this.initDataTable()}
         
         // check for data
         await Table.Data.load();
+
+        // create a datatable object
+        if(this.dataTable){this.initDataTable()}
 
         // add an edit column if needed
         if (this.addEdit) { 
