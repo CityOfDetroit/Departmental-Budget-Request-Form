@@ -19,9 +19,25 @@ export class Initiative {
         return hash >>> 0;  // Ensure positive unsigned 32-bit integer
     }
 
-    expenses() { 
-        if (this.data[NEW_INIT_COLS['total']]) {
-            return this.data[NEW_INIT_COLS['total']];
+    personnel() { 
+        if (this.data[NEW_INIT_COLS['personnel']]) {
+            return this.data[NEW_INIT_COLS['personnel']];
+        } else {
+            return 0;
+        }
+    }
+
+    operating() { 
+        if (this.data[NEW_INIT_COLS['operating']]) {
+            return this.data[NEW_INIT_COLS['operating']];
+        } else {
+            return 0;
+        }
+    }
+
+    capital() { 
+        if (this.data[NEW_INIT_COLS['capital']]) {
+            return this.data[NEW_INIT_COLS['capital']];
         } else {
             return 0;
         }
@@ -35,7 +51,13 @@ export class Initiative {
         }
     }
 
-    net() { return this.expenses() }
+    total() { 
+        if (this.data[NEW_INIT_COLS['total']]) {
+            return this.data[NEW_INIT_COLS['total']];
+        } else {
+            return 0;
+        }
+    }
 
 }
 

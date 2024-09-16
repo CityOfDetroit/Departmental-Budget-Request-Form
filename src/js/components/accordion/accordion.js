@@ -48,7 +48,6 @@ const ExpenseTable = {
         table.id = this.table_id(account_string);
         table.classList.add('accordion-table');
         var parent = document.querySelector(`#string_${account_string}_content .accordion-body`);
-        console.log(parent);
         parent.appendChild(table);
     },
     createNewCell(content, row, className) {
@@ -113,11 +112,12 @@ const ExpenseTable = {
     },
     fillFromInit(program) {
         // Fill out info for each supplemental init
-        console.log(program);
-        this.init(program.name);
-        //this.addRow(program.name, 'Expenditures', program.expenses());
-        //this.addRow(program.name, 'Revenues', program.revenue());
-        //this.addRow(program.name, 'Net Expenditures (Revenues)', program.net());
+        this.init(program.id());
+        this.addRow(program.id(), 'Estimated Revenue', program.revenue());
+        this.addRow(program.id(), 'Personnel Expenditures', program.personnel());
+        this.addRow(program.id(), 'Non-Personnel Operating', program.operating());
+        this.addRow(program.id(), 'Non-Personnel Capital', program.capital());
+        this.addRow(program.id(), 'Total Expenditures', program.total());
     }
 }
 
@@ -200,8 +200,8 @@ export const Accordion = {
         const supp = new Supplemental;
         supp.initiatives.forEach(program => {
             Item.add(program.id(), '#supp-accordion .summary-accordion');
-            //Item.ExpenseTable.fillFromInit(program);
-            //Item.updateHeader(program.name, program.name, program.net());
+            Item.ExpenseTable.fillFromInit(program);
+            Item.updateHeader(program.name, program.id(), program.total());
         });
     },
     updateTopLines() {
