@@ -19,3 +19,12 @@ export const TOTAL_COLUMNS = {
     'revenue': `FY${FISCAL_YEAR} Departmental Estimate`,
     'new-inits': `Total Initiative Request`
 };
+
+export const NEW_INIT_COLS = {
+    'personnel' : 'Personnel Salary & Benefits',
+    'operating' : 'Non-Personnel Operating',
+    'capital' : 'Non-Personnel Capital',
+    'revenue' : 'Revenue',
+    'name' : 'Supplemental Initiative',
+    'total' : TOTAL_COLUMNS['new-inits']
+}
