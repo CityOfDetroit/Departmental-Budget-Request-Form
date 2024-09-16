@@ -24,7 +24,6 @@ export function compareToTarget(){
 function returnToWelcome() {
     const welcome = new WelcomeView();
     const left = document.getElementById('option1');
-    console.log(left.l)
     welcome.visit();
 };
 
