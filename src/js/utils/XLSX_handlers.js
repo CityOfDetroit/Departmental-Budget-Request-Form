@@ -228,6 +228,9 @@ export function downloadXLSX() {
         appendSheetToWorkbook(workbook, sheetData[sheetName], sheetName);
     });
 
+    // Add a tab for the GoldBook
+    XLSX.utils.book_append_sheet(workbook, GoldBook.xlsx(), `FY${FISCAL_YEAR} Gold Book`);
+
     // Generate a downloadable file
     const wbout = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     const blob = new Blob([wbout], { type: 'application/octet-stream' });

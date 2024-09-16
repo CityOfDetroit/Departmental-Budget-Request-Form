@@ -1,4 +1,4 @@
-function getLocalStorageSize() {
+export function getLocalStorageSize() {
     let total = 0;
 
     for (let key in localStorage) {
