@@ -134,8 +134,12 @@ export class ViewTable {
 
     addFilters() {
         // Add all relevant filters to table
-        Table.Filter.add('Appropriation', 'approp-name');
-        Table.Filter.add('Cost Center', 'cc-name');
+        if (this.columns.some(column => column.className === 'approp-name')){
+            Table.Filter.add('Appropriation', 'approp-name');
+        }
+        if (this.columns.some(column => column.className === 'cc-name')){
+            Table.Filter.add('Cost Center', 'cc-name');
+        }
         if (this.columns.some(column => column.className === 'object-name')){
             Table.Filter.add('Object', 'object-name');
         };
@@ -146,8 +150,12 @@ export class ViewTable {
 
     updateFilters() {
         // update filters with any new values
-        Table.Filter.updateOptions('approp-name');
-        Table.Filter.updateOptions('cc-name');
+        if (this.columns.some(column => column.className === 'approp-name')){
+            Table.Filter.updateOptions('Appropriation', 'approp-name');
+        }
+        if (this.columns.some(column => column.className === 'cc-name')){
+            Table.Filter.updateOptions('Cost Center', 'cc-name');
+        }
         if (this.columns.some(column => column.className === 'object-name')){
             Table.Filter.updateOptions('object-name');
         };
@@ -271,9 +279,12 @@ export class ViewTable {
     submitNewRow(event) {
         // get answers from form, hide form, show answers in table
         var responses = Form.fetchAllResponses(event);
+        console.log(responses);
         
         // edit inputs from modal
         responses = this.editColumns(responses);
+
+        console.log(responses);
         
         // make sure it's not an empty response
         if (Object.values(responses)[0] != ''){
