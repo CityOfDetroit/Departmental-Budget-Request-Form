@@ -201,34 +201,29 @@ function appendSheetToWorkbook(workbook, data, sheetName) {
 }
 
 export function downloadXLSX() {
-    // TODO: update to include new inititiatives
+    // grab data from baseline object
     const baseline = new Baseline();
     const workbook = XLSX.utils.book_new(); // Create a new workbook
 
-    const dataMap = {
-        'Personnel': 'personnel',
-        'Overtime': 'overtime',
-        'NonPersonnel': 'nonpersonnel',
-        'Revenue': 'revenue',
-        'New Initiatives': 'new-inits'
-    };
+    // Initialize sheet data based on the names of each tab in the Excel doc
+    const sheetData = Object.keys(SHEETS).reduce((acc, key) => {
+        acc[key] = [];
+        return acc;
+    }, {});
 
-    const sheetData = {
-        'Personnel': [],
-        'Overtime': [],
-        'NonPersonnel': [],
-        'Revenue': [],
-        'New Initiatives': []
-    };
-
+    // Aggregate all rows across funds and combine for each tab
     baseline.funds.forEach(fund => {
-        Object.keys(dataMap).forEach(sheetName => {
-            if (fund[dataMap[sheetName]] && fund[dataMap[sheetName]].table) {
-                sheetData[sheetName].push(...fund[dataMap[sheetName]].table);
+        Object.keys(SHEETS).forEach(sheetName => {
+            if (fund[SHEETS[sheetName]] && fund[SHEETS[sheetName]].table) {
+                sheetData[sheetName].push(...fund[SHEETS[sheetName]].table);
             }
         });
     });
 
+    // Add initiatives data (which isn't stored by fund)
+    sheetData[Object.keys(SHEETS)[4]] = JSON.parse(localStorage.getItem('new-inits'));
+
+    // Create a tab for each table
     Object.keys(sheetData).forEach(sheetName => {
         appendSheetToWorkbook(workbook, sheetData[sheetName], sheetName);
     });
