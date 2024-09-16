@@ -4,6 +4,7 @@ import Table from "../components/table/table.js";
 import Form from "../components/form/form.js";
 import FundLookupTable from '../models/fund_lookup_table.js';
 import { FISCAL_YEAR } from '../constants/';
+import AccountString from '../models/account_string.js';
 
 
 const dropdownOptions = ['N/A', 'One-Time', 'Recurring']
@@ -36,19 +37,20 @@ class InitiativesTable extends ViewTable {
         super();
 
         // add additional columns to the table
-        this.columns = this.columns.concat([
-            { title: 'Initiative Name', className: 'init-name' },
-            { title: 'Ballpark Total Expenses', className: 'total', isCost: true },
-            { title: 'Personnel Cost', className: 'personnel', isCost: true },
-            { title: 'Non-personnel Cost', className: 'nonpersonnel', isCost: true },
-            { title: 'Revenue', className: 'revenue', isCost: true },
-            { title: 'Revenue Type', className: 'rev-type' },
-
-            // hide the explanation columns
-            { title: 'Q1', className: 'q1', hide: true },
-            { title: 'Q2', className: 'q2', hide: true },
-            { title: 'Q3', className: 'q3', hide: true }
-        ]);
+        this.columns = [
+            { title: 'Fund', className: 'fund'},
+            { title: 'Supplemental Initiative', className: 'init-name' },
+            { title: 'Total Initiative Request', className: 'total', isCost: true },
+            // { title: 'Personnel FTE', className: 'ftes'},
+            { title: 'Personnel Salary & Benefits', className: 'personnel', isCost: true },
+            { title: 'Non-Personnel Operating', className: 'nonpersonnel', isCost: true },
+            { title: 'Non-Personnel Capital', className: 'nonpersonnel-capital', isCost: true },
+            // { title: 'Revenue', className: 'revenue', isCost: true },
+            // { title: 'Revenue Type', className: 'rev-type' },
+            { title: 'Description & Justification', className: 'notes' },
+            { title: 'Recurring or One-Time', className: 'rev-type'},
+            { title: 'Edit', className: 'edit' }
+        ];
 
         this.addButtonText = 'Add new initiative' ;
     }
@@ -62,29 +64,38 @@ class InitiativesTable extends ViewTable {
             What is the Department’s plan for implementing the Initiative?`, 'q2', true);
         Form.NewField.longText(`Why can’t the Initiative be funded with the Department’s baseline budget?`, 'q3', true);
 
+        Form.NewField.dropdown(`Is this initiative one-time or recurring?`, 
+            'rev-type', dropdownOptions);
+
         // Account string info
         Form.NewField.dropdown('Fund:', 'fund-name', FundLookupTable.listFundNames(), true);
-        Form.NewField.dropdown('Appropriation (if known):', 'approp-name', FundLookupTable.getApprops('Add new'), true);
-        Form.NewField.dropdown('Cost Center (if known):', 'cc-name', FundLookupTable.getCostCenters('Add new'), true);
 
         // Numbers
         Form.NewField.numericInput('What is your ballpark estimate of TOTAL ADDITONAL expenses associated with this initiative?', 
             'total', false);
         Form.NewField.numericInput('Estimate of ADDITONAL personnel cost?', 'personnel', false);
-        Form.NewField.numericInput('Estimate of ADDITONAL nonpersonnel cost?', 'nonpersonnel', false);
+        Form.NewField.numericInput('Estimate of ADDITONAL nonpersonnel operating cost?', 'nonpersonnel', false);
+        Form.NewField.numericInput('Estimate of ADDITONAL nonpersonnel capital costs?', 'nonpersonnel-capital', false);
         Form.NewField.numericInput('Estimate of ADDITONAL revenue (if applicable)?', 'revenue', false);
-        Form.NewField.dropdown(`If there will be revenue, is it one-time or recurring?`, 
-            'rev-type', dropdownOptions);
     }
+
+    editColumns(responses) {
+        responses['fund'] = AccountString.getNumber(responses['fund-name']);
+        responses['notes'] = `${responses['q1']} ${responses['q2']} ${responses['q3']}`;
+        return responses;
+    }
+
+    addModalValidation() { return }
 
     // action on row edit click: make cells editable
     actionOnEdit() { 
         Table.Cell.createTextbox('total', true);
-        Table.Cell.createTextbox('revenue', true);
+        // Table.Cell.createTextbox('revenue', true);
         Table.Cell.createTextbox('personnel', true);
         Table.Cell.createTextbox('nonpersonnel', true);
         Table.Cell.createTextbox('init-name');
         Table.Cell.createDropdown('rev-type', dropdownOptions);
+        Table.Cell.createTextbox('notes');
     }
 
 }

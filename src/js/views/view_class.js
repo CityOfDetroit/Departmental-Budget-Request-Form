@@ -91,6 +91,10 @@ export class ViewTable {
     }
 
     async refreshData() {
+        
+        // check for data
+        await Table.Data.load();
+
         // create a datatable object
         if(this.dataTable){this.initDataTable()}
 
@@ -121,9 +125,9 @@ export class ViewTable {
 
         // check for data
         if(await Table.Data.load()) {  
-            // if there's data, update the table and add filters    
+            // if there's data, update the table and add filters  
+            this.addFilters();  
             await this.refreshData();
-            this.addFilters();
         } else {
             // show a message if there's no saved table data for the selected fund
             if (this.noDataMessage) {
@@ -134,8 +138,12 @@ export class ViewTable {
 
     addFilters() {
         // Add all relevant filters to table
-        Table.Filter.add('Appropriation', 'approp-name');
-        Table.Filter.add('Cost Center', 'cc-name');
+        if (this.columns.some(column => column.className === 'approp-name')){
+            Table.Filter.add('Appropriation', 'approp-name');
+        }
+        if (this.columns.some(column => column.className === 'cc-name')){
+            Table.Filter.add('Cost Center', 'cc-name');
+        }
         if (this.columns.some(column => column.className === 'object-name')){
             Table.Filter.add('Object', 'object-name');
         };
@@ -146,8 +154,12 @@ export class ViewTable {
 
     updateFilters() {
         // update filters with any new values
-        Table.Filter.updateOptions('approp-name');
-        Table.Filter.updateOptions('cc-name');
+        if (this.columns.some(column => column.className === 'approp-name')){
+            Table.Filter.updateOptions('Appropriation', 'approp-name');
+        }
+        if (this.columns.some(column => column.className === 'cc-name')){
+            Table.Filter.updateOptions('Cost Center', 'cc-name');
+        }
         if (this.columns.some(column => column.className === 'object-name')){
             Table.Filter.updateOptions('object-name');
         };
@@ -181,7 +193,6 @@ export class ViewTable {
         const inputElement = document.getElementById(inputId);
         inputElement.addEventListener('change', function () {
             if (inputElement.value === 'Add new') {
-                console.log('here');
                 // Add a new field after the selected element
                 Form.NewField.shortText(`Type new ${fieldLabel}:`, inputId.slice(0, -5), true);
                 let newInputElement = document.getElementById(inputId.slice(0, -5));  // Remove '-name' suffix

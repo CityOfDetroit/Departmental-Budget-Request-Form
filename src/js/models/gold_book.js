@@ -62,6 +62,17 @@ const GoldBook = {
 
     codeExists(job_code){
         return this.fetchByCode(job_code).length > 0;
+    },
+
+    // method to add GoldBook data as a new sheet to the workbook
+    xlsx() {
+        const { headers, data } = this.fetch();
+
+        // Combine headers and data into one array
+        const combinedData = [headers].concat(data);
+
+        // Create a worksheet
+        return XLSX.utils.aoa_to_sheet(combinedData);
     }
 };
 

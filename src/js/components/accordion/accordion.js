@@ -111,10 +111,13 @@ const ExpenseTable = {
         this.addRow(ccObj.accountString(), 'Net Expenditures (Revenues)', ccObj.getTotal());
     },
     fillFromInit(program) {
-        this.init(program.name);
-        this.addRow(program.name, 'Expenditures', program.expenses());
-        this.addRow(program.name, 'Revenues', program.revenue());
-        this.addRow(program.name, 'Net Expenditures (Revenues)', program.net());
+        // Fill out info for each supplemental init
+        this.init(program.id());
+        this.addRow(program.id(), 'Estimated Revenue', program.revenue());
+        this.addRow(program.id(), 'Personnel Expenditures', program.personnel());
+        this.addRow(program.id(), 'Non-Personnel Operating', program.operating());
+        this.addRow(program.id(), 'Non-Personnel Capital', program.capital());
+        this.addRow(program.id(), 'Total Expenditures', program.total());
     }
 }
 
@@ -181,31 +184,37 @@ export const Accordion = {
             const fundObject = new Fund(fund);
             Item.updateHeader(`Fund ${FundLookupTable.getName(fund)}`, fund, fundObject.getTotal());
         });
+
+        // color-code GF baseline
+        const GF = new Fund(1000);
+        // text to color code
+        let topline = document.querySelector('#string_1000_header .amount');
+        if (GF.getTotal() <= Baseline.target()){
+            topline.style.color = 'green';
+            topline.style.weight = 4;
+        } else {
+           topline.style.color = 'red';
+        }
     },
     createSupp() {
         const supp = new Supplemental;
         supp.initiatives.forEach(program => {
-            Item.add(program.name, '#supp-accordion .summary-accordion');
+            Item.add(program.id(), '#supp-accordion .summary-accordion');
             Item.ExpenseTable.fillFromInit(program);
-            Item.updateHeader(program.name, program.name, program.net());
+            Item.updateHeader(program.name, program.id(), program.total());
         });
     },
     updateTopLines() {
         // adjuse baseline
         // const baseline = new Baseline;
-        const baseline = new Fund(1000);
+        const baseline = new Baseline;
         const baselineAmount = document.querySelector('#baseline-title .top-line-amount')
-        baselineAmount.textContent = formatCurrency(baseline.getTotal());
+        baselineAmount.textContent = formatCurrency(baseline.total());
         // adjust supplementals
         const supp = new Supplemental;
         const suppAmount = document.querySelector('#supp-title .top-line-amount')
         suppAmount.textContent = formatCurrency(supp.total());
-        // color-code baseline
-        if (baseline.getTotal() <= Baseline.target()){
-            baselineAmount.style.color = 'green';
-        } else {
-            baselineAmount.style.color = 'red';
-        }
+
     },
     build() {
         this.createBaseline();
