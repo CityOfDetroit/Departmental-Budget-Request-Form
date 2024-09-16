@@ -105,6 +105,9 @@ function processDropDownMenusSheet(sheet) {
     const headerRow = sheetData[0];
     const servicesIndex = headerRow.indexOf('Services');
 
+    // save drop down menu for later excel downloads
+    localStorage.setItem('dropdowns', JSON.stringify(sheetData));
+
     if (servicesIndex === -1) {
         console.error('Header "Services" not found');
     } else {
@@ -125,6 +128,12 @@ function processDeptSummarySheet(sheet) {
     } else {
         console.error(`Cell ${TARGET_CELL_ADDRESS} not found`);
     }
+
+    // save the sheet to add to future excel downloads
+    const sheetData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+    // TODO: remove excess empty rows
+    const newSheetData = sheetData.map(row => row.slice(0, 3));
+    localStorage.setItem('dept-summary', JSON.stringify(newSheetData));
 }
 
 /**
@@ -231,6 +240,10 @@ export function downloadXLSX() {
     // Add a tab for the GoldBook
     XLSX.utils.book_append_sheet(workbook, GoldBook.xlsx(), `FY${FISCAL_YEAR} Gold Book`);
 
+    // add a tab for the drop downs and dept summary (just targets)
+    writeJSONtoNewTab('dropdowns', 'Drop-Down Menus', workbook); 
+    writeJSONtoNewTab('dept-summary', 'Dept Summary', workbook);
+
     // Generate a downloadable file
     const wbout = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     const blob = new Blob([wbout], { type: 'application/octet-stream' });
@@ -242,6 +255,13 @@ export function downloadXLSX() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+}
+
+function writeJSONtoNewTab(storage_key, tab_name, workbook){
+    const data = JSON.parse(localStorage.getItem(storage_key));
+    console.log(data);
+    const worksheet = XLSX.utils.aoa_to_sheet(data);
+    XLSX.utils.book_append_sheet(workbook, worksheet, tab_name); 
 }
 
 export function excelSerialDateToJSDate(serial) {
