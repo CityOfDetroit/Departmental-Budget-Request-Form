@@ -53,7 +53,6 @@ class InitiativesTable extends ViewTable {
         ];
 
         this.addButtonText = 'Add new initiative' ;
-        //console.log(localStorage.getItem('new-inits'));
     }
 
     addCustomQuestions(){
@@ -70,8 +69,6 @@ class InitiativesTable extends ViewTable {
 
         // Account string info
         Form.NewField.dropdown('Fund:', 'fund-name', FundLookupTable.listFundNames(), true);
-        //Form.NewField.dropdown('Appropriation (if known):', 'approp-name', FundLookupTable.getApprops('Add new'), true);
-        //Form.NewField.dropdown('Cost Center (if known):', 'cc-name', FundLookupTable.getCostCenters('Add new'), true);
 
         // Numbers
         Form.NewField.numericInput('What is your ballpark estimate of TOTAL ADDITONAL expenses associated with this initiative?', 
