@@ -8,7 +8,7 @@ function hidePrompt(){
 
 
 function updatePrompt(prompt){
-    document.getElementById('prompt').textContent = prompt;
+    document.getElementById('prompt').innerHTML = prompt;
     showPrompt();
 }
 
