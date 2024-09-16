@@ -84,7 +84,7 @@ class InitiativesTable extends ViewTable {
 
     editColumns(responses) {
         responses['fund'] = AccountString.getNumber(responses['fund-name']);
-        responses['explanation'] = responses['q1'] + responses['q2'] + responses['q3'];
+        responses['notes'] = `${responses['q1']} ${responses['q2']} ${responses['q3']}`;
         return responses;
     }
 
