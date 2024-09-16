@@ -7,13 +7,28 @@ export const SuppSection = {
         var supp = new Supplemental;
         return `
             <div class='sidebar-stat-line' id="supp-revenue">
-                <span class="stat-label">Estimated revenues:</span> 
+                <span class="stat-label">Estimated Revenues:</span> 
                 <span class="stat">${formatCurrency(supp.revenue())}</span>
                 <i class="fas fa-edit edit-supp" title="Edit"></i>
             </div>
             <div class='sidebar-stat-line' id="supp-expenses">
-                <span class="stat-label">Esimated expenditures:</span> 
-                <span class="stat">${formatCurrency(supp.expenses())}</span>
+                <span class="stat-label">Personnel cost:</span> 
+                <span class="stat">${formatCurrency(supp.personnel())}</span>
+                <i class="fas fa-edit edit-supp" title="Edit"></i>
+            </div>
+            <div class='sidebar-stat-line' id="supp-expenses">
+                <span class="stat-label">Non-Personnel Operating:</span> 
+                <span class="stat">${formatCurrency(supp.operating())}</span>
+                <i class="fas fa-edit edit-supp" title="Edit"></i>
+            </div>
+            <div class='sidebar-stat-line' id="supp-expenses">
+                <span class="stat-label">Non-Personnel Capital:</span> 
+                <span class="stat">${formatCurrency(supp.capital())}</span>
+                <i class="fas fa-edit edit-supp" title="Edit"></i>
+            </div>
+            <div class='sidebar-stat-line' id="supp-expenses">
+                <span class="stat-label">Total expenditures:</span> 
+                <span class="stat">${formatCurrency(supp.total())}</span>
                 <i class="fas fa-edit edit-supp" title="Edit"></i>
             </div>`
     },

@@ -1,11 +1,12 @@
 
 import Initiative from "./initiative.js";
-import { colSum, formatCurrency } from "../utils/common_utils.js";
+import { colSum } from "../utils/common_utils.js";
+import { TOTAL_COLUMNS } from "../constants/excel_constants.js";
 
 // data structure to hold supplemental requests
 export class Supplemental {
     constructor() {
-        this.table = JSON.parse(localStorage.getItem(this.name));
+        this.table = JSON.parse(localStorage.getItem('new-inits'));
         this.initiatives = [];
         if(this.table){
             this.table.forEach((row) => { 
@@ -15,11 +16,19 @@ export class Supplemental {
     }
 
     getInits() {
-        return this.table.map((item) => { return item['Initiative Name'] });
+        return this.table.map((item) => { return item['Supplemental Initiative'] });
     }
 
-    expenses() {
-        return colSum(this.table, 'Ballpark Total Expenses');
+    personnel() {
+        return colSum(this.table, 'Personnel Salary & Benefits');
+    }
+
+    operating() {
+        return colSum(this.table, 'Non-Personnel Operating');
+    }
+
+    capital() {
+        return colSum(this.table,'Non-Personnel Capital');
     }
 
     revenue() {
@@ -27,7 +36,7 @@ export class Supplemental {
     }
 
     total(){
-        return this.expenses() - this.revenue();
+        return colSum(this.table, TOTAL_COLUMNS['new-inits']);
     }
 
 }
