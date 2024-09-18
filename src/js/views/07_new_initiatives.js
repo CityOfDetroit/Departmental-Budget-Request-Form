@@ -93,6 +93,7 @@ class InitiativesTable extends ViewTable {
         // Table.Cell.createTextbox('revenue', true);
         Table.Cell.createTextbox('personnel', true);
         Table.Cell.createTextbox('nonpersonnel', true);
+        Table.Cell.createTextbox('nonpersonnel-capital', true);
         Table.Cell.createTextbox('init-name');
         Table.Cell.createDropdown('rev-type', dropdownOptions);
         Table.Cell.createTextbox('notes');
