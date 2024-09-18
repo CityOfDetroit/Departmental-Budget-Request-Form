@@ -25,7 +25,8 @@ export const EMPLOYEE_TYPES = [
     'Uniform Police',
     'Appointed',
     'Elected',
-    'Long Term Disability'
+    'Long Term Disability',
+    'New Position'
 ]
 
 export const OT_OBJECTS = [
