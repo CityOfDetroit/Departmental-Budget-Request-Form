@@ -98,6 +98,14 @@ const Filter = {
             // Add new options
             this.addAllOptions(filterClass);
         }
+    },
+
+    resetFilter(){
+
+    },
+
+    resetAllFilters(){
+        
     }
 }
 
