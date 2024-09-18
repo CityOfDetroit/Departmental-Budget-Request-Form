@@ -68,7 +68,7 @@ class InitiativesTable extends ViewTable {
             'rev-type', dropdownOptions);
 
         // Account string info
-        Form.NewField.dropdown('Fund:', 'fund-name', FundLookupTable.listFundNames(), true);
+        Form.NewField.dropdown('Fund:', 'fund-name', FundLookupTable.listFundNames('Add new'), true);
 
         // Numbers
         Form.NewField.numericInput('What is your ballpark estimate of TOTAL ADDITONAL expenses associated with this initiative?', 
@@ -85,7 +85,9 @@ class InitiativesTable extends ViewTable {
         return responses;
     }
 
-    addModalValidation() { return }
+    addModalValidation() { 
+        super.addValidationListener('fund-name', 'Fund', 'fund-validation', 4);
+    }
 
     // action on row edit click: make cells editable
     actionOnEdit() { 
