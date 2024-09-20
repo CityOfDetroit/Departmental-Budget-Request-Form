@@ -300,6 +300,9 @@ export class ViewTable {
             
             // rebuild table
             this.refreshData();
+
+            // mark new row
+            Table.Rows.markNewRow();
         }
     }
 

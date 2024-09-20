@@ -26,6 +26,10 @@ tr {
     background-color: white;
 }
 
+.new-row {
+    background-color: var(--palegreen);
+}
+
 tr td {
     border-bottom: 1px solid black;
 }
