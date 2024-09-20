@@ -155,10 +155,10 @@ export class ViewTable {
     updateFilters() {
         // update filters with any new values
         if (this.columns.some(column => column.className === 'approp-name')){
-            Table.Filter.updateOptions('Appropriation', 'approp-name');
+            Table.Filter.updateOptions('approp-name');
         }
         if (this.columns.some(column => column.className === 'cc-name')){
-            Table.Filter.updateOptions('Cost Center', 'cc-name');
+            Table.Filter.updateOptions('cc-name');
         }
         if (this.columns.some(column => column.className === 'object-name')){
             Table.Filter.updateOptions('object-name');
