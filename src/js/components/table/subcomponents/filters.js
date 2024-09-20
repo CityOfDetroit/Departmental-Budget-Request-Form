@@ -111,8 +111,20 @@ const Filter = {
     resetAllFilters() {
         const filters = document.querySelectorAll('.filter-dropdown');
         filters.forEach((filter) => {
-            let filterClass = filter.classList[0];
-            this.resetFilter(filterClass);
+            this.resetFilter(filter.id);
+        });
+    },
+
+    resetAfterNewRow(responses) {
+        const filters = document.querySelectorAll('.filter-dropdown');
+        filters.forEach((filter) => {
+            // Get the filter class to tell us what's in the filter
+            let filterID = filter.id.replace('filter-', '');
+            // If the value from the new poistion doesn't match the filter value, 
+            // reset it so that the new position will show up
+            if (filter.value != responses[filterID]){
+                this.resetFilter(filterID);
+            }
         });
     }
 }
