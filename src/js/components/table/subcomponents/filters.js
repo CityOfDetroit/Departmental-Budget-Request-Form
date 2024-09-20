@@ -100,12 +100,20 @@ const Filter = {
         }
     },
 
-    resetFilter(){
-
+    resetFilter(filterClass) {
+        const filterObj = document.querySelector(`#filter-${filterClass}`);
+        if (filterObj) {
+            // Set filter to 'All' option
+            filterObj.value = "All";
+        }
     },
-
-    resetAllFilters(){
-        
+    
+    resetAllFilters() {
+        const filters = document.querySelectorAll('.filter-dropdown');
+        filters.forEach((filter) => {
+            let filterClass = filter.classList[0];
+            this.resetFilter(filterClass);
+        });
     }
 }
 
