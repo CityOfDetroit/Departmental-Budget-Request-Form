@@ -130,6 +130,9 @@ class PersonnelTable extends ViewTable {
     }
 
     editColumns(responses){
+        // reset filters to ensure that new job shows up
+        Table.Filter.resetAllFilters();
+        // Edit responses to fit into table
         responses = super.editColumns(responses);
         // edit inputs from modal
         responses['avg-salary'] = unformatCurrency(responses['avg-salary']);
