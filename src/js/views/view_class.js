@@ -249,6 +249,8 @@ export class ViewTable {
     }
 
     editColumns(responses) { 
+         // reset filters if relevant to ensure that new job shows up
+         Table.Filter.resetAfterNewRow(responses);
         // if a new appropriation was entered, fix it
         if (responses['approp']){
             responses['approp-name'] = `${responses['approp']} - New`;

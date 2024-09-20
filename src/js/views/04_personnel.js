@@ -130,8 +130,6 @@ class PersonnelTable extends ViewTable {
     }
 
     editColumns(responses){
-        // reset filters if relevant to ensure that new job shows up
-        Table.Filter.resetAfterNewRow(responses);
         // Edit responses to fit into table
         responses = super.editColumns(responses);
         // edit inputs from modal
