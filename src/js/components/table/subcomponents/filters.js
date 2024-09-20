@@ -92,11 +92,15 @@ const Filter = {
 
     updateOptions(filterClass) {
         const filterObj = document.querySelector(`#filter-${filterClass}`);
+        // save selected value
+        const value = filterObj.value;
         if (filterObj) {
             // Clear all existing options except for the default 'All' option
             filterObj.options.length = 1;
             // Add new options
             this.addAllOptions(filterClass);
+            // correct selection
+            filterObj.value = value;
         }
     },
 
