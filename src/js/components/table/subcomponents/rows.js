@@ -71,11 +71,8 @@ function saveRowEdits(row){
 }
 
 function markNewRow(){
-    // Get the table element by its ID
-    const table = document.getElementById('main-table');
-    // add a new-row class to the top row
-    let tbody = table.querySelector('tbody');
-    let first_row = tbody.firstChild;
+    // Get the table element by its ID and fetch first row
+    let first_row = document.querySelector('#main-table tbody').firstChild;
     // get the right color from the root() defined in common.css
     const rootStyle = getComputedStyle(document.documentElement);
     const palegreen = rootStyle.getPropertyValue('--palegreen').trim();

@@ -113,10 +113,6 @@ export class ViewTable {
         // add any newly created cc or approp to the filters
         this.updateFilters();
 
-        // TODO: move to submit new row
-        // mark new row
-        Table.Rows.markNewRow();
-
     }
 
     async build() {
@@ -285,7 +281,7 @@ export class ViewTable {
         return responses;
     }
 
-    submitNewRow(event) {
+    async submitNewRow(event) {
         // get answers from form, hide form, show answers in table
         var responses = Form.fetchAllResponses(event);
         
@@ -303,9 +299,10 @@ export class ViewTable {
             Table.save();
             
             // rebuild table
-            this.refreshData();
+            await this.refreshData();
 
-            
+            // mark new row
+            Table.Rows.markNewRow();            
         }
     }
 
