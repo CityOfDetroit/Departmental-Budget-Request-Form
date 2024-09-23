@@ -106,6 +106,7 @@ const Filter = {
     
     resetAllFilters() {
         console.log('reseting');
+        console.trace();
         const filters = document.querySelectorAll('.filter-dropdown');
         filters.forEach((filter) => {
             filter.value = '';
