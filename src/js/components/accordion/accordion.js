@@ -7,6 +7,7 @@ import Table from "../table/table.js";
 import { visitPage } from '../../views/view_logic.js';
 
 function redirectForEdit(){
+    // action taken when user clicks on any of the edit buttons in the accordion
     const row = document.querySelector(`.active-editing`);
     const table = row.parentElement;
     const section = table.closest('.summary-container');
@@ -17,10 +18,14 @@ function redirectForEdit(){
     else {
         // Split the string into parts using '-' as the delimiter; retain fund as 1st numeric segment
         const fund = table.id.split('-')[1]
-        
+        // record the fund
         CurrentFund.update(fund);
-        const lineItem = row.querySelector('.line-item').textContent;
+        // record the appropriation and cost center
+        localStorage.setItem('filter-approp', table.id.split('-')[2]);
+        localStorage.setItem('filter-cc', table.id.split('-')[3]);
+
         // visit the correct page for editing
+        const lineItem = row.querySelector('.line-item').textContent;
         switch(lineItem){
             case 'Personnel Expenditures':
                 visitPage('personnel');
