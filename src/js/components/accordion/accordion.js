@@ -66,8 +66,8 @@ const ExpenseTable = {
         this.createNewCell(formatCurrency(number), new_row, 'cost');
         // create Edit button 
         var button = '';
-        if (row_name != 'Net Expenditures (Revenues)'){
-            button = Table.Buttons.Edit.html;
+        if (row_name != 'Total Expenditures'){
+            button = Table.Buttons.Edit.html(`Edit in table`);
         }
         this.createNewCell(button, new_row);
     },
@@ -108,7 +108,7 @@ const ExpenseTable = {
         this.addRow(ccObj.accountString(), 'Overtime Expenditures', ccObj.getOvertimeCost());
         this.addRow(ccObj.accountString(), 'Non-Personnel Expenditures', ccObj.getNonPersonnelCost());
         this.addRow(ccObj.accountString(), 'Revenues', ccObj.getRevenue());
-        this.addRow(ccObj.accountString(), 'Net Expenditures (Revenues)', ccObj.getTotal());
+        this.addRow(ccObj.accountString(), 'Total Expenditures', ccObj.getTotal());
     },
     fillFromInit(program) {
         // Fill out info for each supplemental init

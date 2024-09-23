@@ -130,6 +130,21 @@ const Filter = {
                 this.resetFilter(filterID);
             }
         });
+    },
+
+    saveFilterValues(){
+        const filters = document.querySelectorAll('.filter-dropdown');
+        filters.forEach((filter) => {
+            localStorage.setItem(filter.id, filter.value);
+        });
+    },
+
+    setFiltersFromStorage(){
+        const filters = document.querySelectorAll('.filter-dropdown');
+        filters.forEach((filter) => {
+            let storedValue = localStorage.getItem(filter.id);
+            filter.value = storedValue;
+        });
     }
 }
 
