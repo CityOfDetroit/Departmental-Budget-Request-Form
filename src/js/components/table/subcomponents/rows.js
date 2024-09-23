@@ -75,8 +75,16 @@ function markNewRow(){
     const table = document.getElementById('main-table');
     // add a new-row class to the top row
     let tbody = table.querySelector('tbody');
-    tbody.firstChild.classList.add('new-row');
-
+    let first_row = tbody.firstChild;
+    // get the right color from the root() defined in common.css
+    const rootStyle = getComputedStyle(document.documentElement);
+    const palegreen = rootStyle.getPropertyValue('--palegreen').trim();
+    // make first row (with new row) green
+    first_row.style.backgroundColor = palegreen;
+    // Fade back to default after 0.75 seconds
+    setTimeout(() => {
+        first_row.style.backgroundColor = '';
+    }, 750);
 }
 
 const Rows = {

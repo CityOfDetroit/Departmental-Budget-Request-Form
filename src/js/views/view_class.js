@@ -113,6 +113,10 @@ export class ViewTable {
         // add any newly created cc or approp to the filters
         this.updateFilters();
 
+        // TODO: move to submit new row
+        // mark new row
+        Table.Rows.markNewRow();
+
     }
 
     async build() {
@@ -301,8 +305,7 @@ export class ViewTable {
             // rebuild table
             this.refreshData();
 
-            // mark new row
-            Table.Rows.markNewRow();
+            
         }
     }
 
