@@ -65,6 +65,8 @@ const Filter = {
             filterSettings[filterClass] = event.target.value;
             // Apply all filters
             filterData();
+            // save filter value
+            this.saveFilterValues();
         });
     },
 
@@ -92,30 +94,22 @@ const Filter = {
 
     updateOptions(filterClass) {
         const filterObj = document.querySelector(`#filter-${filterClass}`);
-        // save selected value
-        const value = filterObj.value;
         if (filterObj) {
             // Clear all existing options except for the default 'All' option
             filterObj.options.length = 1;
             // Add new options
             this.addAllOptions(filterClass);
-            // correct selection
-            filterObj.value = value;
         }
-    },
-
-    resetFilter(filterClass) {
-        const filterObj = document.querySelector(`#filter-${filterClass}`);
-        if (filterObj) {
-            // Set filter to 'All' option
-            filterObj.value = "All";
-        }
+        // update selection to match saved values
+        this.setFiltersFromStorage();
     },
     
     resetAllFilters() {
+        console.log('reseting');
         const filters = document.querySelectorAll('.filter-dropdown');
         filters.forEach((filter) => {
-            this.resetFilter(filter.id);
+            filter.value = '';
+            localStorage.setItem(filter.id, '');
         });
     },
 
@@ -142,7 +136,10 @@ const Filter = {
     setFiltersFromStorage(){
         const filters = document.querySelectorAll('.filter-dropdown');
         filters.forEach((filter) => {
+            // get the stored value for the filter and apply it
             let storedValue = localStorage.getItem(filter.id);
+            // if the filter has never been used, default to "All"
+            if (!storedValue) { storedValue = '' };
             filter.value = storedValue;
         });
     }

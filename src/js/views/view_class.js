@@ -6,6 +6,7 @@ import { Subtitle, Title } from "../components/header/header.js";
 import Table from "../components/table/table.js";
 import Form from "../components/form/form.js";
 import Modal from "../components/modal/modal.js";
+import Filter from "../components/table/subcomponents/filters.js";
 
 import { CurrentPage, AccountString } from '../models/'
 
@@ -56,7 +57,9 @@ export class View {
         if (this.subtitle) { Subtitle.update(this.subtitle) };
     }
 
-    cleanup() { return; }
+    cleanup() { 
+        Filter.resetAllFilters();
+    }
 
 }
 
