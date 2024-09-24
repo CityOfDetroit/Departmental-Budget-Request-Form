@@ -91,7 +91,7 @@ export const FundLookupTable = {
     listFunds : function(){
         return Object.keys(this.retrieve());
     },
-    listFundNames : function(){
+    listFundNames : function(additionalOption){
         const funds = this.retrieve();
         // initialize array
         var ret = [];
@@ -99,6 +99,9 @@ export const FundLookupTable = {
             var fund_name = funds[fund_number]['name'];
             ret.push(fund_name);
         });
+        if (additionalOption){
+            ret.push(additionalOption);
+        }
         return ret;
     },
     editFund : function(fund){

@@ -2,7 +2,7 @@
 
 Still in development.
 
-See deployment here: https://kwheelan.github.io/Departmental-Budget-Request-Form
+See deployment here: https://cityofdetroit.github.io/Departmental-Budget-Request-Form/
 
 ## Contributing
 
