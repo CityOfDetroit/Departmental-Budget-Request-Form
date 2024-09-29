@@ -1,6 +1,6 @@
 // nav_buttons.js
 import './nav_buttons.css';
-import { nextPage, lastPage, visitPage } from '../../views/view_logic.js';
+import { nextPage, lastPage, visitPage, lastPageValue, nextPageValue } from '../../views/view_logic.js';
 
 function initializeNavButtons() {
     // initialize last button
@@ -36,7 +36,9 @@ const Next = {
         document.querySelector(`#btn-next`).style.display = 'none';
     },
     show() {
-        document.querySelector(`#btn-next`).style.display = '';
+        const btn =  document.querySelector(`#btn-next`);
+        btn.textContent = `Continue to ${nextPageValue()} >>`;
+        btn.style.display = '';
     }
 };
 
@@ -48,6 +50,7 @@ const Last = {
     },
     show() {
         const btn =  document.querySelector(`#btn-last`);
+        btn.textContent = `<< Return to ${lastPageValue()}`;
         btn.style.display = '';
     }
 };
