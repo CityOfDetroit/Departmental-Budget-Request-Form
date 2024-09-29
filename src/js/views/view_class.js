@@ -7,8 +7,7 @@ import Table from "../components/table/table.js";
 import Form from "../components/form/form.js";
 import Modal from "../components/modal/modal.js";
 import Filter from "../components/table/subcomponents/filters.js";
-
-import { CurrentPage, AccountString } from '../models/'
+import { CurrentPage, AccountString, FundLookupTable } from '../models/'
 
 
 export class View {
@@ -42,7 +41,16 @@ export class View {
         Title.default();
         
         // default to showing navbuttons
-        if (this.navButtons) { NavButtons.show(); };
+        if (this.navButtons) { 
+            // if all the funds are filled out, assume you came from the summary page 
+            // and then only show return button and not nav buttons
+            const returnPages = ['revenue', 'nonpersonnel', 'overtime', 'personnel'];
+            if (!FundLookupTable.fundsLeft() && returnPages.includes(CurrentPage.load())) {
+                NavButtons.ReturnToSummary.show();
+            } else{
+                NavButtons.show(); 
+            }
+        };
         
         // default to showing sidebar
         if (this.sidebar) { Sidebar.show() };

@@ -44,12 +44,6 @@ export function nextPage() {
     const keys = Object.keys(PAGES);
     const currentIndex = keys.indexOf(page_state);
 
-    const returnPages = ['revenue', 'nonpersonnel', 'new-inits', 'overtime', 'personnel'];
-    if (!FundLookupTable.fundsLeft() && returnPages.includes(CurrentPage.load())) {
-        visitPage('summary');
-        return;
-    }
-
     if (CurrentPage.load() == 'nonpersonnel') {
         FundLookupTable.editFund(CurrentFund.number());
         if (FundLookupTable.fundsLeft()) {

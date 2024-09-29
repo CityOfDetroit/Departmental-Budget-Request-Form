@@ -49,7 +49,7 @@ const ReturnToSummary = {
     },
     hide: function() {
         const btn = document.getElementById('return-to-summary')
-        btn.style.display = 'block';
+        btn.style.display = 'none';
         btn.removeEventListener('click', visitSummaryPage);
     }
 };
