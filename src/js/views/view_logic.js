@@ -39,7 +39,7 @@ export function visitPage(new_page_key) {
     }
 }
 
-export function nextPage() {
+export function nextPageValue() {
     var page_state = CurrentPage.load();
     const keys = Object.keys(PAGES);
     const currentIndex = keys.indexOf(page_state);
@@ -47,29 +47,30 @@ export function nextPage() {
     if (CurrentPage.load() == 'nonpersonnel') {
         FundLookupTable.editFund(CurrentFund.number());
         if (FundLookupTable.fundsLeft()) {
-            visitPage('baseline-landing');
-            return;
+            return 'baseline-landing';
         }
     }
 
     if (currentIndex >= 0 && currentIndex < keys.length - 1) {
         const nextKey = keys[currentIndex + 1];
-        visitPage(nextKey);
+        return nextKey;
+    }
+}
+
+export function nextPage() {
+    visitPage(nextPageValue());
+}
+
+export function lastPageValue() {
+    var page_state = CurrentPage.load();
+    const keys = Object.keys(PAGES);
+    const currentIndex = keys.indexOf(page_state);
+    
+    if (currentIndex >= 1) {
+        return keys[currentIndex - 1];
     }
 }
 
 export function lastPage() {
-    var page_state = CurrentPage.load();
-    const keys = Object.keys(PAGES);
-    const currentIndex = keys.indexOf(page_state);
-
-    if (CurrentPage.load() == 'new-inits') {
-        visitPage('baseline-landing');
-        return;
-    }
-    
-    if (currentIndex >= 1) {
-        const lastKey = keys[currentIndex - 1];
-        visitPage(lastKey);
-    }
+    visitPage(lastPageValue());
 }

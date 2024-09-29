@@ -47,7 +47,8 @@ const Last = {
         document.querySelector(`#btn-last`).style.display = 'none';
     },
     show() {
-        document.querySelector(`#btn-last`).style.display = '';
+        const btn =  document.querySelector(`#btn-last`);
+        btn.style.display = '';
     }
 };
 
