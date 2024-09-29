@@ -31,6 +31,12 @@ const Next = {
     },
     removeAction: function(fn) {
         document.querySelector(`#btn-next`).removeEventListener('click', fn);
+    },
+    hide() {
+        document.querySelector(`#btn-next`).style.display = 'none';
+    },
+    show() {
+        document.querySelector(`#btn-next`).style.display = '';
     }
 };
 
@@ -39,6 +45,9 @@ const Last = {
     enable: function() { enable('btn-last'); },
     hide() {
         document.querySelector(`#btn-last`).style.display = 'none';
+    },
+    show() {
+        document.querySelector(`#btn-last`).style.display = '';
     }
 };
 
@@ -47,7 +56,7 @@ function visitSummaryPage() { visitPage('summary') }
 const ReturnToSummary = {
     show: function() { 
         const btn = document.getElementById('return-to-summary')
-        btn.style.display = 'block';
+        btn.style.display = '';
         btn.addEventListener('click', visitSummaryPage);
     },
     hide: function() {
@@ -59,10 +68,12 @@ const ReturnToSummary = {
 
 export const NavButtons = {
     hide: function() {
-        document.getElementById('nav-btns').style.display = 'none';
+        Next.hide();
+        Last.hide();
     },
     show: function() {
-        document.getElementById('nav-btns').style.display = 'block';
+        Next.show();
+        Last.show();;
         initializeNavButtons();
     },
     Next: Next,
