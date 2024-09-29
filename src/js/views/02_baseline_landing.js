@@ -15,15 +15,15 @@ export class FundView extends View {
         this.table = new FundTable();
         this.sidebar = false;
         this.dataTable = false;
-
-        // disable last button
-        NavButtons.Last.hide();
     }
 
     visit() {
         // remove fund selection
         localStorage.setItem("fund", '');
         super.visit();
+
+        // hide back button to avoid confusion
+        NavButtons.Last.hide();
     }
     
 }

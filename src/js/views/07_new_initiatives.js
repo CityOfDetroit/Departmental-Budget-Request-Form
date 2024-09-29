@@ -28,6 +28,9 @@ export class InitiativesView extends View {
         // remove fund selection
         localStorage.setItem("fund", '');
         super.visit();
+
+        // hide back button to avoid confusion
+        NavButtons.Last.hide();
     }
 
 }
@@ -54,7 +57,7 @@ class InitiativesTable extends ViewTable {
         ];
 
         this.addButtonText = 'Add new initiative' ;
-        NavButtons.Last.hide();
+        
     }
 
     addCustomQuestions(){
