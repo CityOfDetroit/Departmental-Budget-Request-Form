@@ -31,12 +31,15 @@ const Next = {
     },
     removeAction: function(fn) {
         document.querySelector(`#btn-next`).removeEventListener('click', fn);
-    },
+    }
 };
 
 const Last = {
     disable: function() { disable('btn-last'); },
     enable: function() { enable('btn-last'); },
+    hide() {
+        document.querySelector(`#btn-last`).style.display = 'none';
+    }
 };
 
 function visitSummaryPage() { visitPage('summary') }

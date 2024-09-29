@@ -5,6 +5,7 @@ import Form from "../components/form/form.js";
 import FundLookupTable from '../models/fund_lookup_table.js';
 import { FISCAL_YEAR } from '../constants/';
 import AccountString from '../models/account_string.js';
+import NavButtons from '../components/nav_buttons/nav_buttons.js';
 
 
 const dropdownOptions = ['N/A', 'One-Time', 'Recurring']
@@ -53,6 +54,7 @@ class InitiativesTable extends ViewTable {
         ];
 
         this.addButtonText = 'Add new initiative' ;
+        NavButtons.Last.hide();
     }
 
     addCustomQuestions(){
