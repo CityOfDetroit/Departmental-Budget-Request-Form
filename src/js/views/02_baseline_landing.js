@@ -15,6 +15,9 @@ export class FundView extends View {
         this.table = new FundTable();
         this.sidebar = false;
         this.dataTable = false;
+
+        // disable last button
+        NavButtons.Last.hide();
     }
 
     visit() {
@@ -22,6 +25,7 @@ export class FundView extends View {
         localStorage.setItem("fund", '');
         super.visit();
     }
+    
 }
 
 class FundTable extends ViewTable {
