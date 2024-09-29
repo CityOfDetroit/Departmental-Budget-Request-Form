@@ -5,7 +5,7 @@ import {Baseline, CurrentFund, Fund, Supplemental, FundLookupTable} from '../../
 import { formatCurrency, cleanString } from "../../utils/common_utils.js";
 import Table from "../table/table.js";
 import { visitPage } from '../../views/view_logic.js';
-import { Appropriation } from '../../models/fund.js';
+import { Appropriation, CostCenter } from '../../models/fund.js';
 
 function redirectForEdit(){
     // action taken when user clicks on any of the edit buttons in the accordion
@@ -22,10 +22,10 @@ function redirectForEdit(){
         // record the fund
         CurrentFund.update(fund);
         // record the appropriation and cost center
-        let approp = new Appropriation(table.id.split('-')[2]);
-        console.log(approp.name());
+        let approp = new Appropriation(fund, table.id.split('-')[2]);
+        let cc = new CostCenter(fund, table.id.split('-')[2], table.id.split('-')[3]);
         localStorage.setItem('filter-approp-name', approp.name());
-        localStorage.setItem('filter-cc-name', table.id.split('-')[3]);
+        localStorage.setItem('filter-cc-name', cc.getName());
 
         // visit the correct page for editing
         const lineItem = row.querySelector('.line-item').textContent;
