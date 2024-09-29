@@ -1,15 +1,8 @@
 // Helper functions & constants
 
-// object to hold all current filter statuses
-const filterSettings = {
-    'approp-name': '',
-    'cc-name': '',
-    'object-name': '',
-    'object-category': ''
-};
-
 // helper function to filter data based on all filters
 function filterData() {
+    console.log('filtering data')
     // Get all rows in the table
     const rows = document.querySelectorAll('#main-table tbody tr');
     
@@ -17,16 +10,17 @@ function filterData() {
     rows.forEach(row => {
         let isVisible = true;
         
-        // Check each filter setting against the row's cells
-        for (const [filterId, filterValue] of Object.entries(filterSettings)) {
-            const cell = row.querySelector(`.${filterId}`);
-
+        const filters = document.querySelectorAll('.filter-dropdown');
+        filters.forEach(filter => {
+            // Check each filter setting against the row's cells
+            let filterID = filter.id.replace('filter-', '');
+            const cell = row.querySelector(`.${filterID}`);
+    
             // only show row if values pass through all filters 
-            if (filterValue && cell && (cell.textContent.trim() !== filterValue)) {
+            if (filter.value && cell && (cell.textContent.trim() !== filter.value)) {
                 isVisible = false;
-                break;
-            } 
-        }
+            }
+        });
 
         // Show or hide the row based on visibility
         row.classList.toggle('hidden', !isVisible);
@@ -61,12 +55,10 @@ const Filter = {
         this.addAllOptions(filterClass);
         // Bind change event to the select element
         filterDiv.querySelector('.filter-dropdown').addEventListener('change', event => {
-            // Update filter settings
-            filterSettings[filterClass] = event.target.value;
-            // Apply all filters
-            filterData();
             // save filter value
             this.saveFilterValues();
+            // Apply all filters
+            filterData();
         });
     },
 
@@ -141,6 +133,8 @@ const Filter = {
             if (!storedValue) { storedValue = '' };
             filter.value = storedValue;
         });
+        // actually filter data based on selections
+        filterData();
     }
 }
 
