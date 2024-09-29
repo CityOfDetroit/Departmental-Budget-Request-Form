@@ -32,9 +32,13 @@ async function addNewRow(data_dictionary, columns = []){
         });
     });
 
-    // Append the new row to the table body
+    // Append the new row to the top of the table body
     let tbody = table.querySelector('tbody');
-    tbody.appendChild(new_row);
+    if (tbody.firstChild) {
+        tbody.insertBefore(new_row, tbody.firstChild);
+    } else {
+        tbody.appendChild(new_row);
+    }
 }
 
 function saveRowEdits(row){
@@ -66,13 +70,28 @@ function saveRowEdits(row){
     })
 }
 
+function markNewRow(){
+    // Get the table element by its ID and fetch first row
+    let first_row = document.querySelector('#main-table tbody').firstChild;
+    // get the right color from the root() defined in common.css
+    const rootStyle = getComputedStyle(document.documentElement);
+    const palegreen = rootStyle.getPropertyValue('--palegreen').trim();
+    // make first row (with new row) green
+    first_row.style.backgroundColor = palegreen;
+    // Fade back to default after 0.75 seconds
+    setTimeout(() => {
+        first_row.style.backgroundColor = '';
+    }, 750);
+}
+
 const Rows = {
     add : function(data_dictionary, cols){
-        addNewRow(data_dictionary, cols)
+        addNewRow(data_dictionary, cols);
     },
     saveEdits : function(row){
-        saveRowEdits(row)
-    }
+        saveRowEdits(row);
+    },
+    markNewRow : markNewRow
 }
 
 export default Rows;

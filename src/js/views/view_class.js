@@ -6,6 +6,7 @@ import { Subtitle, Title } from "../components/header/header.js";
 import Table from "../components/table/table.js";
 import Form from "../components/form/form.js";
 import Modal from "../components/modal/modal.js";
+import Filter from "../components/table/subcomponents/filters.js";
 
 import { CurrentPage, AccountString } from '../models/'
 
@@ -56,7 +57,9 @@ export class View {
         if (this.subtitle) { Subtitle.update(this.subtitle) };
     }
 
-    cleanup() { return; }
+    cleanup() { 
+        Filter.resetAllFilters();
+    }
 
 }
 
@@ -155,10 +158,10 @@ export class ViewTable {
     updateFilters() {
         // update filters with any new values
         if (this.columns.some(column => column.className === 'approp-name')){
-            Table.Filter.updateOptions('Appropriation', 'approp-name');
+            Table.Filter.updateOptions('approp-name');
         }
         if (this.columns.some(column => column.className === 'cc-name')){
-            Table.Filter.updateOptions('Cost Center', 'cc-name');
+            Table.Filter.updateOptions('cc-name');
         }
         if (this.columns.some(column => column.className === 'object-name')){
             Table.Filter.updateOptions('object-name');
@@ -249,6 +252,8 @@ export class ViewTable {
     }
 
     editColumns(responses) { 
+         // reset filters if relevant to ensure that new job shows up
+         Table.Filter.resetAfterNewRow(responses);
         // if a new appropriation was entered, fix it
         if (responses['approp']){
             responses['approp-name'] = `${responses['approp']} - New`;
@@ -279,7 +284,7 @@ export class ViewTable {
         return responses;
     }
 
-    submitNewRow(event) {
+    async submitNewRow(event) {
         // get answers from form, hide form, show answers in table
         var responses = Form.fetchAllResponses(event);
         
@@ -297,7 +302,10 @@ export class ViewTable {
             Table.save();
             
             // rebuild table
-            this.refreshData();
+            await this.refreshData();
+
+            // mark new row
+            Table.Rows.markNewRow();            
         }
     }
 

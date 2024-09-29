@@ -64,7 +64,7 @@ function initializeConfirmButton(updateCallback){
 }
 
 const Edit = {
-    html: '<button class="btn btn-edit">Edit row</button>',
+    html(text = 'Edit row'){ return `<button class="btn btn-edit">${text}</button>`},
     hide: hideButton('btn-edit'),
     show: showButton('btn-edit'),
     init : function(actionOnClick, updateCallback){
@@ -72,14 +72,8 @@ const Edit = {
     }
 };
 
-const Delete = {
-    html: '<button class="btn btn-delete">Delete</button>',
-    hide: hideButton('btn-delete'),
-    show: showButton('btn-delete')
-};
-
 const Confirm = {
-    html: '<button class="btn btn-confirm">Confirm</button>',
+    html() {return `<button class="btn btn-confirm">Confirm</button>`},
     hide: hideButton('btn-confirm'),
     show: showButton('btn-confirm')
 };
@@ -93,12 +87,10 @@ const AddRow = {
 };
 
 export const Buttons = {
-    Delete: Delete,
     Edit : Edit,
     Confirm : Confirm,
     AddRow : AddRow,
-    edit_confirm_btns : Edit.html + Confirm.html ,
-    all_btns : Delete.html + Edit.html + Confirm.html
+    edit_confirm_btns : Edit.html() + Confirm.html() ,
 }
 
 export default Buttons;

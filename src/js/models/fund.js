@@ -94,7 +94,7 @@ export class CostCenter{
 
         for (let table of tables) {
           if (table.length > 0 && table[0]['Cost Center Name']) {
-            return 'Cost Center ' + table[0]['Cost Center Name'];
+            return table[0]['Cost Center Name'];
           }
         }
     
@@ -145,8 +145,8 @@ export class Appropriation {
         const tables = [this.nonpersonnel.table, this.personnel.table, this.overtime.table, this.revenue.table];
 
         for (let table of tables) {
-          if (table.length > 0 && table[0]['Appropriation Name']) {
-            return 'Appropriation ' + table[0]['Appropriation Name'];
+          if (table && table[0]['Appropriation Name']) {
+            return table[0]['Appropriation Name'];
           }
         }
     
