@@ -2,7 +2,6 @@
 
 // helper function to filter data based on all filters
 function filterData() {
-    console.log('filtering data')
     // Get all rows in the table
     const rows = document.querySelectorAll('#main-table tbody tr');
     

@@ -44,12 +44,9 @@ const Last = {
     disable: function() { disable('btn-last'); },
     enable: function() { enable('btn-last'); },
     hide() {
-        console.log('hiding')
         document.querySelector(`#btn-last`).style.display = 'none';
     },
     show() {
-        console.log('showing')
-        console.trace()
         document.querySelector(`#btn-last`).style.display = '';
     }
 };
