@@ -1,6 +1,6 @@
 // nav_buttons.js
 import './nav_buttons.css';
-import { nextPage, lastPage } from '../../views/view_logic.js';
+import { nextPage, lastPage, visitPage } from '../../views/view_logic.js';
 
 function initializeNavButtons() {
     // initialize last button
@@ -39,6 +39,21 @@ const Last = {
     enable: function() { enable('btn-last'); },
 };
 
+function visitSummaryPage() { visitPage('summary') }
+
+const ReturnToSummary = {
+    show: function() { 
+        const btn = document.getElementById('return-to-summary')
+        btn.style.display = 'block';
+        btn.addEventListener('click', visitSummaryPage);
+    },
+    hide: function() {
+        const btn = document.getElementById('return-to-summary')
+        btn.style.display = 'block';
+        btn.removeEventListener('click', visitSummaryPage);
+    }
+};
+
 export const NavButtons = {
     hide: function() {
         document.getElementById('nav-btns').style.display = 'none';
@@ -49,6 +64,7 @@ export const NavButtons = {
     },
     Next: Next,
     Last: Last,
+    ReturnToSummary: ReturnToSummary
 };
 
 export default NavButtons;
