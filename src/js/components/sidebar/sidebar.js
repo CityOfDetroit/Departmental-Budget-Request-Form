@@ -1,3 +1,4 @@
+import { visitPage } from '../../views/view_logic';
 import './sidebar.css'
 import { BaselineSection } from './subcomponents/baseline_section';
 
@@ -11,6 +12,12 @@ function hideSidebar() {
     document.getElementById('sidebar-panel').style.display = 'none';
     document.getElementById('main-panel').style.width = '100%'; 
     document.querySelector('header').style.width = '100%'
+
+    // remove event listeners
+    const btn = document.getElementById('summary-btn-sidebar');
+    btn.removeEventListener('click', visitSummary);
+    // add event listener to resize content if window is adjusted
+    window.removeEventListener('resize', showSidebar);
 }
 
 function showSidebar() {
@@ -27,6 +34,9 @@ function showSidebar() {
     mainPanel.style.width = `${contentWidth - parseInt(sideBarWidth, 10)}px`; 
     header.style.width = `${contentWidth - parseInt(sideBarWidth, 10)}px`; 
 
+    // enable summary button
+    const btn = document.getElementById('summary-btn-sidebar');
+    btn.addEventListener('click', visitSummary);
     // add event listener to resize content if window is adjusted
     window.addEventListener('resize', showSidebar);
 }
@@ -46,6 +56,8 @@ function resetAll(){
     updateTotals();
 }
 
+function visitSummary() { visitPage('summary') }
+
 const Sidebar = {
     SuppSection : SuppSection,
     BaselineSection : BaselineSection,
@@ -53,7 +65,7 @@ const Sidebar = {
     show: showSidebar,
     updateTitle: updateSidebarTitle,
     updateTotals: updateTotals,
-    reset: resetAll
+    reset: resetAll,
 };
 
 export default Sidebar;

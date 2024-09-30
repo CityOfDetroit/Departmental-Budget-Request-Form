@@ -16,6 +16,7 @@ function resetPage() {
     Modal.clear();
     Modal.hide();
     NavButtons.hide();
+    NavButtons.ReturnToSummary.hide();
     Prompt.hide();
     Table.hide();
     Sidebar.hide();

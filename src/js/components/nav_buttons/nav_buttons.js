@@ -1,6 +1,6 @@
 // nav_buttons.js
 import './nav_buttons.css';
-import { nextPage, lastPage } from '../../views/view_logic.js';
+import { nextPage, lastPage, visitPage, lastPageLabel, nextPageLabel } from '../../views/view_logic.js';
 
 function initializeNavButtons() {
     // initialize last button
@@ -32,23 +32,57 @@ const Next = {
     removeAction: function(fn) {
         document.querySelector(`#btn-next`).removeEventListener('click', fn);
     },
+    hide() {
+        document.querySelector(`#btn-next`).style.display = 'none';
+    },
+    show() {
+        const btn =  document.querySelector(`#btn-next`);
+        btn.textContent = `Continue to ${nextPageLabel()} >>`;
+        btn.style.display = '';
+    }
 };
 
 const Last = {
     disable: function() { disable('btn-last'); },
     enable: function() { enable('btn-last'); },
+    hide() {
+        document.querySelector(`#btn-last`).style.display = 'none';
+    },
+    show() {
+        const btn =  document.querySelector(`#btn-last`);
+        btn.textContent = `<< Return to ${lastPageLabel()}`;
+        btn.style.display = '';
+    }
+};
+
+function visitSummaryPage() { visitPage('summary') }
+
+const ReturnToSummary = {
+    show: function() { 
+        const btn = document.getElementById('return-to-summary')
+        btn.style.display = '';
+        btn.addEventListener('click', visitSummaryPage);
+    },
+    hide: function() {
+        const btn = document.getElementById('return-to-summary')
+        btn.style.display = 'none';
+        btn.removeEventListener('click', visitSummaryPage);
+    }
 };
 
 export const NavButtons = {
     hide: function() {
-        document.getElementById('nav-btns').style.display = 'none';
+        Next.hide();
+        Last.hide();
     },
     show: function() {
-        document.getElementById('nav-btns').style.display = 'block';
+        Next.show();
+        Last.show();;
         initializeNavButtons();
     },
     Next: Next,
     Last: Last,
+    ReturnToSummary: ReturnToSummary
 };
 
 export default NavButtons;

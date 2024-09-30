@@ -86,3 +86,21 @@ h6 {
 .sidebar-stat-line.fund-total .stat {
   margin-right: 05px; /* 25px lines up with lines above (with edit symbol) */
 }
+
+#summary-btn-sidebar{
+  margin-bottom: 10px;
+  text-align: center;
+  margin-left: 10%;
+  width: 80%;
+  background-color: var(--mediumGray);
+  color: black;
+  /* border: 1px black; */
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: black;
+}
+
+#summary-btn-sidebar:hover{
+  background-color: var(--darkGray);
+  color: white;
+}

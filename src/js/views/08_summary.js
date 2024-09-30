@@ -34,6 +34,7 @@ export class SummaryView extends View {
         this.page_state = 'summary';
         this.subtitle = 'Summary';
         this.sidebar = false;
+        this.navButtons = false;
     }
 
     visit() {
