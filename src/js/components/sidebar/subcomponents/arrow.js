@@ -2,7 +2,7 @@ import { CurrentFund, CurrentPage } from "../../../models"
 
 export const Arrow = {
     html : `<div class='arrow' id='menu-arrow'></div>`,
-    mark() {
+    currentLine() {
         let page = CurrentPage.load();
         let line;
         if (page == 'new-inits'){
@@ -11,6 +11,10 @@ export const Arrow = {
             let fund = CurrentFund.number();
             line = document.querySelector(`#fund_${fund} .sidebar-stat-line.${page}`);
         };
+        return line;
+    },
+    mark() {
+        let line = this.currentLine();
         const arrow = document.createElement('div');
         arrow.innerHTML = this.html;
         line.appendChild(arrow);
