@@ -104,3 +104,24 @@ h6 {
   background-color: var(--darkGray);
   color: white;
 }
+
+.arrow {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--spiritgreen); /* Or any color you want */
+  left: 5px; /* Adjust for desired position */
+  margin-top: -5px;
+  transition: top 0.3s ease; /* Smooth transition */
+}
+
+/* Optional: Add arrow tip styling */
+.arrow::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -10px; /* Adjust as needed */
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent var(--spiritgreen);
+}

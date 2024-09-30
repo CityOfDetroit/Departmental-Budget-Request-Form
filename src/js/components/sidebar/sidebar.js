@@ -1,6 +1,7 @@
 import { visitPage } from '../../views/view_logic';
 import './sidebar.css'
 import { BaselineSection } from './subcomponents/baseline_section';
+import { Arrow } from './subcomponents/arrow';
 
 import SuppSection from './subcomponents/supp_section'
 
@@ -48,6 +49,7 @@ function updateSidebarTitle(new_title){
 function updateTotals(){
     SuppSection.update();
     BaselineSection.update();
+    Arrow.mark();
 }
 
 function resetAll(){
