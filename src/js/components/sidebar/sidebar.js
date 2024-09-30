@@ -76,13 +76,14 @@ function indicateChange() {
     const palegreen = rootStyle.getPropertyValue('--palegreen').trim();
     // identify changed rows = current page and total
     let changedRow = Arrow.currentLine();
+    let totalRow = Arrow.currentLine().parentElement.querySelector('.fund-total');
     // make any edited rows green
     changedRow.style.backgroundColor = palegreen;
-    //totalRow.style.backgroundColor = palegreen;
+    if(totalRow) { totalRow.style.backgroundColor = palegreen };
     // Fade back to default after 0.75 seconds
     setTimeout(() => {
         changedRow.style.backgroundColor = '';
-        //totalRow.style.backgroundColor = '';
+        if(totalRow) { totalRow.style.backgroundColor = '' };
     }, 750);
 }
 
