@@ -7,6 +7,7 @@ import OvertimeView from './05_overtime.js';
 import NonPersonnelView from './06_nonpersonnel.js';
 import InitiativesView from './07_new_initiatives.js';
 import SummaryView from './08_summary.js';
+import FinishView from './09_finish.js';
 
 import { FundLookupTable, CurrentFund, CurrentPage } from '../models/';
 import { FISCAL_YEAR, PAGE_LABELS } from '../constants/';
@@ -21,7 +22,8 @@ const PAGES = {
     'overtime': new OvertimeView(FISCAL_YEAR),
     'nonpersonnel': new NonPersonnelView(FISCAL_YEAR),
     'new-inits': new InitiativesView(),
-    'summary': new SummaryView()
+    'summary': new SummaryView(),
+    'finish': new FinishView()
 };
 
 export function visitPage(new_page_key) {

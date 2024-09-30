@@ -46,5 +46,6 @@ export const PAGE_LABELS = {
     'overtime': 'Overtime',
     'nonpersonnel': 'Non-Personnel',
     'new-inits': 'New Initiatives (Supplementals)',
-    'summary': 'Summary Page'
+    'summary': 'Summary Page',
+    'finish' : 'Download & Finish'
 };

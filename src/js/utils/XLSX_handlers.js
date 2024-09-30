@@ -260,7 +260,6 @@ export function downloadXLSX() {
 
 function writeJSONtoNewTab(storage_key, tab_name, workbook){
     const data = JSON.parse(localStorage.getItem(storage_key));
-    console.log(data);
     const worksheet = XLSX.utils.aoa_to_sheet(data);
     XLSX.utils.book_append_sheet(workbook, worksheet, tab_name); 
 }
