@@ -77,7 +77,7 @@ class InitiativesTable extends ViewTable {
 
         // Numbers
         Form.NewField.numericInput('What is your ballpark estimate of TOTAL ADDITONAL expenses associated with this initiative?', 
-            'total', false);
+            'total', true);
         Form.NewField.numericInput('Estimate of ADDITONAL personnel cost?', 'personnel', false);
         Form.NewField.numericInput('Estimate of ADDITONAL nonpersonnel operating cost?', 'nonpersonnel', false);
         Form.NewField.numericInput('Estimate of ADDITONAL nonpersonnel capital costs?', 'nonpersonnel-capital', false);
