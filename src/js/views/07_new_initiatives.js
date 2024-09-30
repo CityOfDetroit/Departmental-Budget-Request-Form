@@ -103,7 +103,7 @@ class InitiativesTable extends ViewTable {
         Table.Cell.createTextbox('nonpersonnel-capital', true);
         Table.Cell.createTextbox('init-name');
         Table.Cell.createDropdown('rev-type', dropdownOptions);
-        Table.Cell.createTextbox('notes');
+        Table.Cell.createTextbox('notes', false, 'textarea');
     }
 
 }
