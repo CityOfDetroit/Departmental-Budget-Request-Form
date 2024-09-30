@@ -19,7 +19,7 @@ function adjustTableWidth(width_pct){
     table.style.width = width_pct;
 }
 
-function showTable(){
+async function showTable(){
     const tableContainer = document.querySelector('.table-container');
     tableContainer.innerHTML = Table.html;
     const table = document.getElementById('main-table');

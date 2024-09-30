@@ -306,7 +306,7 @@ export class ViewTable {
             Modal.hide();
             
             // add data to table
-            Table.Rows.add(responses, this.columns);
+            await Table.Rows.add(responses, this.columns);
             Table.save();
             
             // rebuild table

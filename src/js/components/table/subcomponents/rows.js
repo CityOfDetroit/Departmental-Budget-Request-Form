@@ -1,10 +1,17 @@
 import Header from "./headers.js";
 import { formatCurrency } from "../../../utils/common_utils.js";
+import Table from "../table.js";
 
 async function addNewRow(data_dictionary, columns = []){
     
     // Get the table element by its ID
-    const table = document.getElementById('main-table');
+    let table = document.getElementById('main-table');
+
+    // create table if it's not there
+    if (!table){
+        await Table.show();
+        table = document.getElementById('main-table');
+    }
 
     // check if header has already been added
     let header_row = table.querySelector('thead tr');
@@ -85,7 +92,7 @@ function markNewRow(){
 }
 
 const Rows = {
-    add : function(data_dictionary, cols){
+    add : async function(data_dictionary, cols){
         addNewRow(data_dictionary, cols);
     },
     saveEdits : function(row){
