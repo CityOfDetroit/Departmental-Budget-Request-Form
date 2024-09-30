@@ -24,7 +24,7 @@ class RevenueTable extends ViewTable {
         this.columns = this.columns.concat([
             { title: 'Recurring or One-Time', className: 'recurring'},
             { title: 'Object Category', className: 'object-category'},
-            { title: `FY${fiscal_year} Departmental Estimate`, className: 'request', isCost: true},
+            { title: `FY${fiscal_year} Departmental Estimate Total`, className: 'request', isCost: true},
             { title: 'Departmental Estimate Notes', className: 'notes'},
             // hidden
             { title: 'Object Name', className: 'object-name', hide: true},
