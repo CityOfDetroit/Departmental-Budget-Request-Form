@@ -45,22 +45,22 @@ export const BaselineSection = {
             <div class='sidebar-stat-line revenue'>
                 <span class="stat-label">Projected revenues:</span> 
                 <span class="stat">${formatCurrency(fund.getRevenue())}</span>
-                <i class="fas fa-edit edit-icon" title="Edit"></i>
+                <i class="fas fa-edit edit-icon" title="Jump to page"></i>
             </div>
             <div class='sidebar-stat-line personnel'>
                 <span class="stat-label">Personnel cost:</span> 
                 <span class="stat">${formatCurrency(fund.getPersonnelCost())}</span>
-                <i class="fas fa-edit edit-icon" title="Edit"></i>
+                <i class="fas fa-edit edit-icon" title="Jump to page"></i>
             </div>
             <div class='sidebar-stat-line overtime'>
                 <span class="stat-label">Overtime cost:</span> 
                 <span class="stat">${formatCurrency(fund.getOvertimeCost())}</span>
-                <i class="fas fa-edit edit-icon" title="Edit"></i>
+                <i class="fas fa-edit edit-icon" title="Jump to page"></i>
             </div>
             <div class='sidebar-stat-line nonpersonnel'>
                 <span class="stat-label">Non-personnel cost:</span> 
                 <span class="stat">${formatCurrency(fund.getNonPersonnelCost())}</span>
-                <i class="fas fa-edit edit-icon" title="Edit"></i>
+                <i class="fas fa-edit edit-icon" title="Jump to page"></i>
             </div>
             <div class='sidebar-stat-line fund-total'>
                 <span class="stat-label">Total expenditures:</span> 

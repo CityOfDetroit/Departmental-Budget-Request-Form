@@ -94,6 +94,14 @@ const Filter = {
         // update selection to match saved values
         this.setFiltersFromStorage();
     },
+
+    resetFilter(filterClass) {
+        const filterObj = document.querySelector(`#filter-${filterClass}`);
+        if (filterObj) {
+            // Set filter to 'All' option
+            filterObj.value = "All";
+        }
+    },
     
     resetAllFilters() {
         const filters = document.querySelectorAll('.filter-dropdown');

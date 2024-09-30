@@ -48,9 +48,14 @@ function initializeConfirmButton(updateCallback){
     // get element and add listener for click
     var rowToEdit = document.querySelector('.active-editing');
     const confirm_btn = rowToEdit.querySelector(".btn-confirm");
+
+    // Remove existing click event listener to prevent multiple-event additions
+    confirm_btn.replaceWith(confirm_btn.cloneNode(true));
+    const new_confirm_btn = rowToEdit.querySelector(".btn-confirm");
+
     // show the row's confirm button
-    confirm_btn.style.display = 'block';
-    confirm_btn.addEventListener('click', function(){;
+    new_confirm_btn.style.display = 'block';
+    new_confirm_btn.addEventListener('click', function(){;
         // save row edits
         Rows.saveEdits(rowToEdit);
         // update values in sidebar
