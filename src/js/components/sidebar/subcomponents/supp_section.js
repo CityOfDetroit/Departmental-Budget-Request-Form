@@ -9,7 +9,7 @@ export const SuppSection = {
             <div class='sidebar-stat-line' id="supp-expenses">
                 <span class="stat-label">Total expenditures:</span> 
                 <span class="stat">${formatCurrency(supp.total())}</span>
-                <i class="fas fa-edit edit-supp" title="Edit"></i>
+                <i class="fas fa-edit edit-supp" title="Jump to page"></i>
             </div>`
     },
 
