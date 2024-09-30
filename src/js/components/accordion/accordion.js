@@ -212,25 +212,12 @@ export const Accordion = {
             Item.updateHeader(program.name, program.id(), program.total());
         });
     },
-    updateTopLines() {
-        // adjuse baseline
-        // const baseline = new Baseline;
-        const baseline = new Baseline;
-        // const baselineAmount = document.querySelector('#baseline-title .top-line-amount')
-        // baselineAmount.textContent = formatCurrency(baseline.total());
-        // adjust supplementals
-        const supp = new Supplemental;
-        // const suppAmount = document.querySelector('#supp-title .top-line-amount')
-        // suppAmount.textContent = formatCurrency(supp.total());
-
-    },
     build() {
         this.createBaseline();
         this.createSupp();
         // initialize edit buttons
         Table.Buttons.Edit.init(redirectForEdit);
         this.AddInitButton.init();
-        this.updateTopLines();
     }
 }
 
