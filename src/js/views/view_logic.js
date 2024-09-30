@@ -9,7 +9,7 @@ import InitiativesView from './07_new_initiatives.js';
 import SummaryView from './08_summary.js';
 
 import { FundLookupTable, CurrentFund, CurrentPage } from '../models/';
-import { FISCAL_YEAR } from '../constants/';
+import { FISCAL_YEAR, PAGE_LABELS } from '../constants/';
 
 // Initialize pages globally once
 const PAGES = {
@@ -39,7 +39,7 @@ export function visitPage(new_page_key) {
     }
 }
 
-export function nextPageValue() {
+function nextPageValue() {
     var page_state = CurrentPage.load();
     const keys = Object.keys(PAGES);
     const currentIndex = keys.indexOf(page_state);
@@ -61,7 +61,11 @@ export function nextPage() {
     visitPage(nextPageValue());
 }
 
-export function lastPageValue() {
+export function nextPageLabel() {
+    return PAGE_LABELS[nextPageValue()];
+}
+
+function lastPageValue() {
     var page_state = CurrentPage.load();
     const keys = Object.keys(PAGES);
     const currentIndex = keys.indexOf(page_state);
@@ -73,4 +77,8 @@ export function lastPageValue() {
 
 export function lastPage() {
     visitPage(lastPageValue());
+}
+
+export function lastPageLabel() {
+    return PAGE_LABELS[lastPageValue()];
 }
