@@ -47,7 +47,7 @@ class OvertimeTable extends ViewTable {
         Table.Cell.createServiceDropdown(Services.list());
         Table.Cell.createDropdown('recurring', ['One-Time', 'Recurring']);
         Table.Cell.createDropdown('object-name', OT_OBJECTS);
-        Table.Cell.createTextbox('notes');
+        Table.Cell.createTextbox('notes', false, 'textarea');
     }
 
     updateTable(){

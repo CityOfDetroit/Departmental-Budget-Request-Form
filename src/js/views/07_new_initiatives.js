@@ -76,8 +76,8 @@ class InitiativesTable extends ViewTable {
         Form.NewField.dropdown('Fund:', 'fund-name', FundLookupTable.listFundNames('Add new'), true);
 
         // Numbers
-        Form.NewField.numericInput('What is your ballpark estimate of TOTAL ADDITONAL expenses associated with this initiative?', 
-            'total', false);
+        Form.NewField.numericInput('What is your ballpark estimate of TOTAL ADDITONAL expenditures associated with this initiative?', 
+            'total', true);
         Form.NewField.numericInput('Estimate of ADDITONAL personnel cost?', 'personnel', false);
         Form.NewField.numericInput('Estimate of ADDITONAL nonpersonnel operating cost?', 'nonpersonnel', false);
         Form.NewField.numericInput('Estimate of ADDITONAL nonpersonnel capital costs?', 'nonpersonnel-capital', false);
@@ -103,7 +103,7 @@ class InitiativesTable extends ViewTable {
         Table.Cell.createTextbox('nonpersonnel-capital', true);
         Table.Cell.createTextbox('init-name');
         Table.Cell.createDropdown('rev-type', dropdownOptions);
-        Table.Cell.createTextbox('notes');
+        Table.Cell.createTextbox('notes', false, 'textarea');
     }
 
 }

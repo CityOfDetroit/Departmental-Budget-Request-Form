@@ -49,7 +49,7 @@ class NonPersonnelTable extends ViewTable {
         Table.Cell.createTextbox('request', true);
         Table.Cell.createServiceDropdown();
         Table.Cell.createDropdown('recurring', ['One-Time', 'Recurring']);
-        Table.Cell.createTextbox('notes');
+        Table.Cell.createTextbox('notes', false, 'textarea');
     }
 
     addCustomQuestions(){

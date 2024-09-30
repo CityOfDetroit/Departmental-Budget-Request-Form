@@ -10,6 +10,7 @@ export async function fetchJSON(jsonFilePath) {
 
 export function convertToJSON(table, colsToRemove = []){
     const rows = table.rows;
+    console.log('converting to JSON')
     // Extract headers from the first row
     const headerRow = rows[0].cells;
     const headers = [];
