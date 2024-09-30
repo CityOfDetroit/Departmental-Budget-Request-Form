@@ -52,9 +52,10 @@ function updateTotals(){
     if (Arrow.currentLine()) { 
         value = Arrow.currentLine().querySelector(`.stat`).textContent;
     };
-    console.log(value);
+    // update values in sidebar
     SuppSection.update();
     BaselineSection.update();
+    // mark current page with green arrow
     Arrow.mark();
     //if value changed, highlight it
     if (value != Arrow.currentLine().querySelector(`.stat`).textContent){    
