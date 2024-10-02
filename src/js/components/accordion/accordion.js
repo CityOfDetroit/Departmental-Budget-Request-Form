@@ -98,21 +98,37 @@ const ExpenseTable = {
             }
         })
     },
+
     fillFromApprop(appropObj){
         // initialize the table object
         this.init(appropObj.accountString());
-        // get uniq list of cost cenets
-        let CCList = [...new Set(appropObj.getCostCenters())];
-        // add a collapsible row for each cost center
-        CCList.forEach( ccObj => {
+    
+        // get list of cost centers
+        let CCList = appropObj.getCostCenters();
+    
+        // to keep track of unique accountStrings
+        let uniqueAccountStrings = new Set();
+    
+        // filter only unique accountString cost centers
+        let uniqueCCList = CCList.filter(ccObj => {
+            const accountString = ccObj.accountString();
+            if (!uniqueAccountStrings.has(accountString)) {
+                uniqueAccountStrings.add(accountString);
+                return true;
+            }
+            return false;
+        });
+        
+        // add a collapsible row for each unique cost center
+        uniqueCCList.forEach(ccObj => {
             if (ccObj.getTotal() != 0 && ccObj.getName()){
                 Item.add(ccObj.accountString(), `#string_${appropObj.accountString()}_content .accordion-body`);
                 Item.updateHeader(ccObj.getName(), ccObj.accountString(), ccObj.getTotal());
                 this.fillFromCC(ccObj);
             }
-        })
-        
+        });
     },
+
     fillFromCC(ccObj){
         // initialize a table and summarize the line items
         this.init(ccObj.accountString());
