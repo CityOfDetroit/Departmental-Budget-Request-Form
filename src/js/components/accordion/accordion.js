@@ -56,6 +56,8 @@ const ExpenseTable = {
         table.id = this.table_id(account_string);
         table.classList.add('accordion-table');
         var parent = document.querySelector(`#string_${account_string}_content .accordion-body`);
+        // reset parent then add table
+        parent.innerHTML = '';
         parent.appendChild(table);
     },
     createNewCell(content, row, className) {
@@ -96,19 +98,37 @@ const ExpenseTable = {
             }
         })
     },
+
     fillFromApprop(appropObj){
         // initialize the table object
         this.init(appropObj.accountString());
-        // add a collapsible row for each cost center
-        appropObj.getCostCenters().forEach( ccObj => {
-            if (ccObj.getTotal() != 0 ){
+    
+        // get list of cost centers
+        let CCList = appropObj.getCostCenters();
+    
+        // to keep track of unique accountStrings
+        let uniqueAccountStrings = new Set();
+    
+        // filter only unique accountString cost centers
+        let uniqueCCList = CCList.filter(ccObj => {
+            const accountString = ccObj.accountString();
+            if (!uniqueAccountStrings.has(accountString)) {
+                uniqueAccountStrings.add(accountString);
+                return true;
+            }
+            return false;
+        });
+        
+        // add a collapsible row for each unique cost center
+        uniqueCCList.forEach(ccObj => {
+            if (ccObj.getTotal() != 0 && ccObj.getName()){
                 Item.add(ccObj.accountString(), `#string_${appropObj.accountString()}_content .accordion-body`);
                 Item.updateHeader(ccObj.getName(), ccObj.accountString(), ccObj.getTotal());
                 this.fillFromCC(ccObj);
             }
-        })
-        
+        });
     },
+
     fillFromCC(ccObj){
         // initialize a table and summarize the line items
         this.init(ccObj.accountString());
