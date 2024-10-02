@@ -106,12 +106,14 @@ class PersonnelTable extends ViewTable {
         jobDescription.addEventListener('blur', function() {
             nameValidationText.textContent = '';
         });
+        // hide this box until job code entered
+        jobDescription.style.display = 'none';
 
         // confirm that entered job code is in the gold book
         const jobCodeInput = document.getElementById('job-code');
         jobCodeInput.addEventListener('blur', function () {
             // get entered job code
-            const jobCode = jobCodeInput.value;
+            const jobCode = jobCodeInput.value.toString();
             // get validation text element
             const validationText = document.getElementById('job-code-validation');
             if (!GoldBook.codeExists(jobCode)){
@@ -124,6 +126,8 @@ class PersonnelTable extends ViewTable {
                 jobDescription.value = GoldBook.getTitle(jobCode);
                 // and clear any error messages
                 validationText.textContent = '';
+                // and show the job title
+                jobDescription.style.display = '';
             }
         });
         

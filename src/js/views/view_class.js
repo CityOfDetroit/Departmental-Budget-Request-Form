@@ -233,6 +233,7 @@ export class ViewTable {
     addModalValidation() {
         this.addValidationListener('approp-name', 'Appropriation', 'approp-validation', 5);
         this.addValidationListener('cc-name', 'Cost Center', 'cc-validation', 6);
+        //this.addValidationListener('object-name', 'Object', 'obj-validation', 7);
     }
 
     setUpForm() {
