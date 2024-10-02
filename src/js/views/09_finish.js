@@ -19,7 +19,9 @@ export class FinishView extends View {
         this.sidebar = false;
         // todo toggle to false
         this.navButtons = true;
-        this.prompt = ``;
+        this.prompt = `Congratulations! A copy of your completed Excel file has been downloaded.
+            Download another copy below, or start over with a new Excel upload. Please email the Excel download 
+            along with the rest of you budget submission.`;
     }
 
     visit() {
@@ -29,8 +31,8 @@ export class FinishView extends View {
         CurrentFund.reset();
 
         // add prompt buttons
-        Prompt.Buttons.Right.updateText('Download Excel');
-        Prompt.Buttons.Left.updateText('Start over with new Excel upload');
+        Prompt.Buttons.Right.updateText('Download completed Excel');
+        Prompt.Buttons.Left.updateText('Start over with new Excel file');
         // add button links
         Prompt.Buttons.Left.addAction(returnToWelcome);
         Prompt.Buttons.Right.addAction(downloadXLSX);
