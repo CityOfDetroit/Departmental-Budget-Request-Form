@@ -6,6 +6,7 @@ import WelcomeView from './00_welcome.js';
 import NavButtons from '../components/nav_buttons/nav_buttons.js';
 
 function returnToWelcome() {
+    localStorage.clear();
     const welcome = new WelcomeView();
     welcome.visit();
 };

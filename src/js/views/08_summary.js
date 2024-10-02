@@ -13,6 +13,7 @@ export function compareToTarget(){
     if (baseline.genFundTotal() <= Baseline.target()){
         Prompt.Text.update(`Your General Fund budget is below your target! 
             Edit any line items below or continue to the final page.`);
+            NavButtons.Next.enable();
     } else {
         Prompt.Text.update(`Your General Fund budget is above your GF target of ${formatCurrency(Baseline.target())}. 
             Please expand the summary table below and edit line items until you meet your target. 
