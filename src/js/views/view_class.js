@@ -7,7 +7,7 @@ import Table from "../components/table/table.js";
 import Form from "../components/form/form.js";
 import Modal from "../components/modal/modal.js";
 import Filter from "../components/table/subcomponents/filters.js";
-import { CurrentPage, AccountString, FundLookupTable } from '../models/'
+import { CurrentPage, AccountString, FundLookupTable, CurrentFund } from '../models/'
 
 
 export class View {
@@ -261,8 +261,13 @@ export class ViewTable {
     }
 
     editColumns(responses) { 
-         // reset filters if relevant to ensure that new job shows up
-         Table.Filter.resetAfterNewRow(responses);
+        // reset filters if relevant to ensure that new job shows up
+        Table.Filter.resetAfterNewRow(responses);
+
+        // record the current fund
+        responses['fund'] = CurrentFund.number();
+        responses['fund-name'] = CurrentFund.name();
+
         // if a new appropriation was entered, fix it
         if (responses['approp']){
             responses['approp-name'] = `${responses['approp']} - New`;

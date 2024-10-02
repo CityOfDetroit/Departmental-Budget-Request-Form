@@ -5,6 +5,8 @@ import NavButtons from '../nav_buttons/nav_buttons.js';
 
 export const FileUpload = {
     init : function() {
+        // clear all storage
+        //localStorage.clear();
         NavButtons.Next.disable();
         const inputObject = document.getElementById('file-input');
         inputObject.addEventListener('change', function(event) { readXL(event) });
