@@ -49,8 +49,6 @@ class InitiativesTable extends ViewTable {
             { title: 'Personnel Salary & Benefits', className: 'personnel', isCost: true },
             { title: 'Non-Personnel Operating', className: 'nonpersonnel', isCost: true },
             { title: 'Non-Personnel Capital', className: 'nonpersonnel-capital', isCost: true },
-            // { title: 'Revenue', className: 'revenue', isCost: true },
-            // { title: 'Revenue Type', className: 'rev-type' },
             { title: 'Description & Justification', className: 'notes' },
             { title: 'Recurring or One-Time', className: 'rev-type'},
             { title: 'Edit', className: 'edit' }
@@ -81,7 +79,6 @@ class InitiativesTable extends ViewTable {
         Form.NewField.numericInput('Estimate of ADDITONAL personnel cost?', 'personnel', false);
         Form.NewField.numericInput('Estimate of ADDITONAL nonpersonnel operating cost?', 'nonpersonnel', false);
         Form.NewField.numericInput('Estimate of ADDITONAL nonpersonnel capital costs?', 'nonpersonnel-capital', false);
-        Form.NewField.numericInput('Estimate of ADDITONAL revenue (if applicable)?', 'revenue', false);
     }
 
     editColumns(responses) {
