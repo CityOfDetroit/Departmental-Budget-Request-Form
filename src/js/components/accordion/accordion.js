@@ -93,7 +93,7 @@ const ExpenseTable = {
             // if the total for the appropriation is > $0, add an accordion for all the CCs
             if ( appropObj.total() != 0 ){
                 Item.add(appropObj.accountString(), `#string_${id}_content .accordion-body`);
-                Item.updateHeader(appropObj.name(), appropObj.accountString(), appropObj.total());
+                Item.updateHeader(`Appropriation ${appropObj.name()}`, appropObj.accountString(), appropObj.total());
                 this.fillFromApprop(appropObj);
             }
         })
@@ -123,7 +123,7 @@ const ExpenseTable = {
         uniqueCCList.forEach(ccObj => {
             if (ccObj.getTotal() != 0 && ccObj.getName()){
                 Item.add(ccObj.accountString(), `#string_${appropObj.accountString()}_content .accordion-body`);
-                Item.updateHeader(ccObj.getName(), ccObj.accountString(), ccObj.getTotal());
+                Item.updateHeader(`Cost Center ${ccObj.getName()}`, ccObj.accountString(), ccObj.getTotal());
                 this.fillFromCC(ccObj);
             }
         });
@@ -138,6 +138,7 @@ const ExpenseTable = {
         this.addRow(ccObj.accountString(), 'Revenues', ccObj.getRevenue());
         this.addRow(ccObj.accountString(), 'Total Expenditures', ccObj.getTotal());
     },
+
     fillFromInit(program) {
         // Fill out info for each supplemental init
         this.init(program.id());

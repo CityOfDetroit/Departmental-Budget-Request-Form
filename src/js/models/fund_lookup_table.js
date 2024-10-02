@@ -9,10 +9,8 @@ export const FundLookupTable = {
         localStorage.setItem('fund-lookup-table', JSON.stringify(fundDict));
     },
 
-    update : function(fundData){
-        // reset
-        this.reset();
-        // fill in with data stored in fundDate
+    update : function(fundData){;
+        // fill in with data stored in fundData
         const table = this.retrieve();
         for (let fund of Object.keys(fundData)){
 
