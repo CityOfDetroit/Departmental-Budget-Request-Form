@@ -111,7 +111,7 @@ class PersonnelTable extends ViewTable {
         const jobCodeInput = document.getElementById('job-code');
         jobCodeInput.addEventListener('blur', function () {
             // get entered job code
-            const jobCode = jobCodeInput.value;
+            const jobCode = jobCodeInput.value.toString();
             // get validation text element
             const validationText = document.getElementById('job-code-validation');
             if (!GoldBook.codeExists(jobCode)){
