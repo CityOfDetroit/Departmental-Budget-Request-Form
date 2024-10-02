@@ -10,7 +10,7 @@ export const SHEETS = {
 }
 
 // where to find the general fund target
-export const TARGET_CELL_ADDRESS = 'C14'
+export const TARGET_CELL_ADDRESS = 'C13'
 
 export const TOTAL_COLUMNS = {
     'personnel': 'Total Sal/Wag & Ben Request',
