@@ -88,8 +88,8 @@ function processSheet(sheetName, sheet) {
 
     // Save fund number and name as we go along
     FundLookupTable.update(fundData);   
-    console.log('updating fund lookup table');       
 
+    // save data by fund
     Object.keys(fundData).forEach(fund => {
         const key = `${SHEETS[sheetName]}_${fund}`;
         localStorage.setItem(key, JSON.stringify(fundData[fund]));
@@ -183,6 +183,7 @@ export function processWorkbook(arrayBuffer) {
         if (sheetName == Object.keys(SHEETS)[4]) {
             const sheet = workbook.Sheets[sheetName];
             processNewInitsSheet(sheet);
+        // convert personnel, nonpersonnel, revenue, overtime
         } else if (Object.keys(SHEETS).includes(sheetName)) {
             const sheet = workbook.Sheets[sheetName];
             processSheet(sheetName, sheet);
@@ -259,7 +260,6 @@ export function downloadXLSX() {
 
 function writeJSONtoNewTab(storage_key, tab_name, workbook){
     const data = JSON.parse(localStorage.getItem(storage_key));
-    console.log(data);
     const worksheet = XLSX.utils.aoa_to_sheet(data);
     XLSX.utils.book_append_sheet(workbook, worksheet, tab_name); 
 }

@@ -5,8 +5,10 @@ import {Baseline, CurrentFund, Fund, Supplemental, FundLookupTable} from '../../
 import { formatCurrency, cleanString } from "../../utils/common_utils.js";
 import Table from "../table/table.js";
 import { visitPage } from '../../views/view_logic.js';
+import { Appropriation, CostCenter } from '../../models/fund.js';
 
 function redirectForEdit(){
+    // action taken when user clicks on any of the edit buttons in the accordion
     const row = document.querySelector(`.active-editing`);
     const table = row.parentElement;
     const section = table.closest('.summary-container');
@@ -17,10 +19,16 @@ function redirectForEdit(){
     else {
         // Split the string into parts using '-' as the delimiter; retain fund as 1st numeric segment
         const fund = table.id.split('-')[1]
-        
+        // record the fund
         CurrentFund.update(fund);
-        const lineItem = row.querySelector('.line-item').textContent;
+        // record the appropriation and cost center
+        let approp = new Appropriation(fund, table.id.split('-')[2]);
+        let cc = new CostCenter(fund, table.id.split('-')[2], table.id.split('-')[3]);
+        localStorage.setItem('filter-approp-name', approp.name());
+        localStorage.setItem('filter-cc-name', cc.getName());
+
         // visit the correct page for editing
+        const lineItem = row.querySelector('.line-item').textContent;
         switch(lineItem){
             case 'Personnel Expenditures':
                 visitPage('personnel');
@@ -66,8 +74,8 @@ const ExpenseTable = {
         this.createNewCell(formatCurrency(number), new_row, 'cost');
         // create Edit button 
         var button = '';
-        if (row_name != 'Net Expenditures (Revenues)'){
-            button = Table.Buttons.Edit.html;
+        if (row_name != 'Total Expenditures'){
+            button = Table.Buttons.Edit.html(`Edit in table`);
         }
         this.createNewCell(button, new_row);
     },
@@ -108,7 +116,7 @@ const ExpenseTable = {
         this.addRow(ccObj.accountString(), 'Overtime Expenditures', ccObj.getOvertimeCost());
         this.addRow(ccObj.accountString(), 'Non-Personnel Expenditures', ccObj.getNonPersonnelCost());
         this.addRow(ccObj.accountString(), 'Revenues', ccObj.getRevenue());
-        this.addRow(ccObj.accountString(), 'Net Expenditures (Revenues)', ccObj.getTotal());
+        this.addRow(ccObj.accountString(), 'Total Expenditures', ccObj.getTotal());
     },
     fillFromInit(program) {
         // Fill out info for each supplemental init
@@ -204,25 +212,12 @@ export const Accordion = {
             Item.updateHeader(program.name, program.id(), program.total());
         });
     },
-    updateTopLines() {
-        // adjuse baseline
-        // const baseline = new Baseline;
-        const baseline = new Baseline;
-        const baselineAmount = document.querySelector('#baseline-title .top-line-amount')
-        baselineAmount.textContent = formatCurrency(baseline.total());
-        // adjust supplementals
-        const supp = new Supplemental;
-        const suppAmount = document.querySelector('#supp-title .top-line-amount')
-        suppAmount.textContent = formatCurrency(supp.total());
-
-    },
     build() {
         this.createBaseline();
         this.createSupp();
         // initialize edit buttons
         Table.Buttons.Edit.init(redirectForEdit);
         this.AddInitButton.init();
-        this.updateTopLines();
     }
 }
 

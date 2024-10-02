@@ -48,9 +48,14 @@ function initializeConfirmButton(updateCallback){
     // get element and add listener for click
     var rowToEdit = document.querySelector('.active-editing');
     const confirm_btn = rowToEdit.querySelector(".btn-confirm");
+
+    // Remove existing click event listener to prevent multiple-event additions
+    confirm_btn.replaceWith(confirm_btn.cloneNode(true));
+    const new_confirm_btn = rowToEdit.querySelector(".btn-confirm");
+
     // show the row's confirm button
-    confirm_btn.style.display = 'block';
-    confirm_btn.addEventListener('click', function(){;
+    new_confirm_btn.style.display = 'block';
+    new_confirm_btn.addEventListener('click', function(){;
         // save row edits
         Rows.saveEdits(rowToEdit);
         // update values in sidebar
@@ -64,7 +69,7 @@ function initializeConfirmButton(updateCallback){
 }
 
 const Edit = {
-    html: '<button class="btn btn-edit">Edit row</button>',
+    html(text = 'Edit row'){ return `<button class="btn btn-edit">${text}</button>`},
     hide: hideButton('btn-edit'),
     show: showButton('btn-edit'),
     init : function(actionOnClick, updateCallback){
@@ -72,14 +77,8 @@ const Edit = {
     }
 };
 
-const Delete = {
-    html: '<button class="btn btn-delete">Delete</button>',
-    hide: hideButton('btn-delete'),
-    show: showButton('btn-delete')
-};
-
 const Confirm = {
-    html: '<button class="btn btn-confirm">Confirm</button>',
+    html() {return `<button class="btn btn-confirm">Confirm</button>`},
     hide: hideButton('btn-confirm'),
     show: showButton('btn-confirm')
 };
@@ -93,12 +92,10 @@ const AddRow = {
 };
 
 export const Buttons = {
-    Delete: Delete,
     Edit : Edit,
     Confirm : Confirm,
     AddRow : AddRow,
-    edit_confirm_btns : Edit.html + Confirm.html ,
-    all_btns : Delete.html + Edit.html + Confirm.html
+    edit_confirm_btns : Edit.html() + Confirm.html() ,
 }
 
 export default Buttons;

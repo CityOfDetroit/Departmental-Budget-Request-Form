@@ -5,6 +5,7 @@ import Form from "../components/form/form.js";
 import FundLookupTable from '../models/fund_lookup_table.js';
 import { FISCAL_YEAR } from '../constants/';
 import AccountString from '../models/account_string.js';
+import NavButtons from '../components/nav_buttons/nav_buttons.js';
 
 
 const dropdownOptions = ['N/A', 'One-Time', 'Recurring']
@@ -27,6 +28,9 @@ export class InitiativesView extends View {
         // remove fund selection
         localStorage.setItem("fund", '');
         super.visit();
+
+        // hide back button to avoid confusion
+        NavButtons.Last.hide();
     }
 
 }
@@ -45,14 +49,13 @@ class InitiativesTable extends ViewTable {
             { title: 'Personnel Salary & Benefits', className: 'personnel', isCost: true },
             { title: 'Non-Personnel Operating', className: 'nonpersonnel', isCost: true },
             { title: 'Non-Personnel Capital', className: 'nonpersonnel-capital', isCost: true },
-            // { title: 'Revenue', className: 'revenue', isCost: true },
-            // { title: 'Revenue Type', className: 'rev-type' },
             { title: 'Description & Justification', className: 'notes' },
             { title: 'Recurring or One-Time', className: 'rev-type'},
             { title: 'Edit', className: 'edit' }
         ];
 
         this.addButtonText = 'Add new initiative' ;
+        
     }
 
     addCustomQuestions(){
@@ -71,12 +74,11 @@ class InitiativesTable extends ViewTable {
         Form.NewField.dropdown('Fund:', 'fund-name', FundLookupTable.listFundNames('Add new'), true);
 
         // Numbers
-        Form.NewField.numericInput('What is your ballpark estimate of TOTAL ADDITONAL expenses associated with this initiative?', 
-            'total', false);
+        Form.NewField.numericInput('What is your ballpark estimate of TOTAL ADDITONAL expenditures associated with this initiative?', 
+            'total', true);
         Form.NewField.numericInput('Estimate of ADDITONAL personnel cost?', 'personnel', false);
         Form.NewField.numericInput('Estimate of ADDITONAL nonpersonnel operating cost?', 'nonpersonnel', false);
         Form.NewField.numericInput('Estimate of ADDITONAL nonpersonnel capital costs?', 'nonpersonnel-capital', false);
-        Form.NewField.numericInput('Estimate of ADDITONAL revenue (if applicable)?', 'revenue', false);
     }
 
     editColumns(responses) {
@@ -98,7 +100,7 @@ class InitiativesTable extends ViewTable {
         Table.Cell.createTextbox('nonpersonnel-capital', true);
         Table.Cell.createTextbox('init-name');
         Table.Cell.createDropdown('rev-type', dropdownOptions);
-        Table.Cell.createTextbox('notes');
+        Table.Cell.createTextbox('notes', false, 'textarea');
     }
 
 }

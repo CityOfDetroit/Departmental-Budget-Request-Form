@@ -35,3 +35,17 @@ export const OT_OBJECTS = [
     '601310 - Salaries-Overtime-Fire Unif',
     '602300 - Wages-Overtime-Gen City'
 ]
+
+// Nice names for the pages
+export const PAGE_LABELS = {
+    'welcome': 'Welcome Page',
+    'upload': 'Excel Upload',
+    'baseline-landing': 'Fund Selection',
+    'revenue': 'Revenue',
+    'personnel': 'Personnel',
+    'overtime': 'Overtime',
+    'nonpersonnel': 'Non-Personnel',
+    'new-inits': 'New Initiatives (Supplementals)',
+    'summary': 'Summary Page',
+    'finish' : 'Download & Finish'
+};

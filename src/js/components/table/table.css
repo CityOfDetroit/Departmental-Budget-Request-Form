@@ -24,7 +24,10 @@ th {
 tr {
     border-width: 2px;
     background-color: white;
+    /* Ensures fade when indicating a new row */
+    transition: background-color 0.5s ease;
 }
+
 
 tr td {
     border-bottom: 1px solid black;

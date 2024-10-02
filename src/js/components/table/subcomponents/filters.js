@@ -1,13 +1,5 @@
 // Helper functions & constants
 
-// object to hold all current filter statuses
-const filterSettings = {
-    'approp-name': '',
-    'cc-name': '',
-    'object-name': '',
-    'object-category': ''
-};
-
 // helper function to filter data based on all filters
 function filterData() {
     // Get all rows in the table
@@ -17,16 +9,17 @@ function filterData() {
     rows.forEach(row => {
         let isVisible = true;
         
-        // Check each filter setting against the row's cells
-        for (const [filterId, filterValue] of Object.entries(filterSettings)) {
-            const cell = row.querySelector(`.${filterId}`);
-
+        const filters = document.querySelectorAll('.filter-dropdown');
+        filters.forEach(filter => {
+            // Check each filter setting against the row's cells
+            let filterID = filter.id.replace('filter-', '');
+            const cell = row.querySelector(`.${filterID}`);
+    
             // only show row if values pass through all filters 
-            if (filterValue && cell && (cell.textContent.trim() !== filterValue)) {
+            if (filter.value && cell && (cell.textContent.trim() !== filter.value)) {
                 isVisible = false;
-                break;
-            } 
-        }
+            }
+        });
 
         // Show or hide the row based on visibility
         row.classList.toggle('hidden', !isVisible);
@@ -61,8 +54,8 @@ const Filter = {
         this.addAllOptions(filterClass);
         // Bind change event to the select element
         filterDiv.querySelector('.filter-dropdown').addEventListener('change', event => {
-            // Update filter settings
-            filterSettings[filterClass] = event.target.value;
+            // save filter value
+            this.saveFilterValues();
             // Apply all filters
             filterData();
         });
@@ -98,6 +91,57 @@ const Filter = {
             // Add new options
             this.addAllOptions(filterClass);
         }
+        // update selection to match saved values
+        this.setFiltersFromStorage();
+    },
+
+    resetFilter(filterClass) {
+        const filterObj = document.querySelector(`#filter-${filterClass}`);
+        if (filterObj) {
+            // Set filter to 'All' option
+            filterObj.value = "All";
+        }
+    },
+    
+    resetAllFilters() {
+        const filters = document.querySelectorAll('.filter-dropdown');
+        filters.forEach((filter) => {
+            filter.value = '';
+            localStorage.setItem(filter.id, '');
+        });
+    },
+
+    resetAfterNewRow(responses) {
+        const filters = document.querySelectorAll('.filter-dropdown');
+        filters.forEach((filter) => {
+            // Get the filter class to tell us what's in the filter
+            let filterID = filter.id.replace('filter-', '');
+            // If the value from the new poistion doesn't match the filter value, 
+            // reset it so that the new position will show up
+            if (filter.value != responses[filterID]){
+                this.resetFilter(filterID);
+            }
+        });
+    },
+
+    saveFilterValues(){
+        const filters = document.querySelectorAll('.filter-dropdown');
+        filters.forEach((filter) => {
+            localStorage.setItem(filter.id, filter.value);
+        });
+    },
+
+    setFiltersFromStorage(){
+        const filters = document.querySelectorAll('.filter-dropdown');
+        filters.forEach((filter) => {
+            // get the stored value for the filter and apply it
+            let storedValue = localStorage.getItem(filter.id);
+            // if the filter has never been used, default to "All"
+            if (!storedValue) { storedValue = '' };
+            filter.value = storedValue;
+        });
+        // actually filter data based on selections
+        filterData();
     }
 }
 

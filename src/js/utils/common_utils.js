@@ -72,3 +72,8 @@ export function getUniqueValues(data, key) {
     const values = data.map(obj => obj[key]);
     return Array.from(new Set(values));
 }
+
+// Define a function to introduce a delay
+export function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}

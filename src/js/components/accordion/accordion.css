@@ -1,10 +1,10 @@
 .summary-accordion {
-    width: 60%;
+    width: 70%;
     margin: auto;
 }
 
 .accordion-title {
-    margin-left: 20%;
+    margin-left: 15%;
     font-weight: bold;
     /* font-size: 20px; */
     padding-bottom: 10px;
@@ -79,5 +79,5 @@ span.top-line-amount {
     font-weight: bold;
     position: absolute;
     right: 0;
-    margin-right: calc(20vw + 20px);
+    margin-right: calc(15vw + 20px);
 }

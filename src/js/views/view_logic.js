@@ -7,9 +7,10 @@ import OvertimeView from './05_overtime.js';
 import NonPersonnelView from './06_nonpersonnel.js';
 import InitiativesView from './07_new_initiatives.js';
 import SummaryView from './08_summary.js';
+import FinishView from './09_finish.js';
 
 import { FundLookupTable, CurrentFund, CurrentPage } from '../models/';
-import { FISCAL_YEAR } from '../constants/';
+import { FISCAL_YEAR, PAGE_LABELS } from '../constants/';
 
 // Initialize pages globally once
 const PAGES = {
@@ -21,7 +22,8 @@ const PAGES = {
     'overtime': new OvertimeView(FISCAL_YEAR),
     'nonpersonnel': new NonPersonnelView(FISCAL_YEAR),
     'new-inits': new InitiativesView(),
-    'summary': new SummaryView()
+    'summary': new SummaryView(),
+    'finish': new FinishView()
 };
 
 export function visitPage(new_page_key) {
@@ -39,43 +41,46 @@ export function visitPage(new_page_key) {
     }
 }
 
-export function nextPage() {
+function nextPageValue() {
     var page_state = CurrentPage.load();
     const keys = Object.keys(PAGES);
     const currentIndex = keys.indexOf(page_state);
 
-    const returnPages = ['revenue', 'nonpersonnel', 'new-inits', 'overtime', 'personnel'];
-    if (!FundLookupTable.fundsLeft() && returnPages.includes(CurrentPage.load())) {
-        visitPage('summary');
-        return;
-    }
-
     if (CurrentPage.load() == 'nonpersonnel') {
         FundLookupTable.editFund(CurrentFund.number());
         if (FundLookupTable.fundsLeft()) {
-            visitPage('baseline-landing');
-            return;
+            return 'baseline-landing';
         }
     }
 
     if (currentIndex >= 0 && currentIndex < keys.length - 1) {
         const nextKey = keys[currentIndex + 1];
-        visitPage(nextKey);
+        return nextKey;
+    }
+}
+
+export function nextPage() {
+    visitPage(nextPageValue());
+}
+
+export function nextPageLabel() {
+    return PAGE_LABELS[nextPageValue()];
+}
+
+function lastPageValue() {
+    var page_state = CurrentPage.load();
+    const keys = Object.keys(PAGES);
+    const currentIndex = keys.indexOf(page_state);
+    
+    if (currentIndex >= 1) {
+        return keys[currentIndex - 1];
     }
 }
 
 export function lastPage() {
-    var page_state = CurrentPage.load();
-    const keys = Object.keys(PAGES);
-    const currentIndex = keys.indexOf(page_state);
+    visitPage(lastPageValue());
+}
 
-    if (CurrentPage.load() == 'new-inits') {
-        visitPage('baseline-landing');
-        return;
-    }
-    
-    if (currentIndex >= 1) {
-        const lastKey = keys[currentIndex - 1];
-        visitPage(lastKey);
-    }
+export function lastPageLabel() {
+    return PAGE_LABELS[lastPageValue()];
 }

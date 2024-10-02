@@ -1,6 +1,7 @@
 import { View } from './view_class.js'
 
 import FileUpload from "../components/file_upload/file_upload.js";
+import NavButtons from '../components/nav_buttons/nav_buttons.js';
 
 export class UploadView extends View {
 

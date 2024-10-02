@@ -21,7 +21,11 @@ export class FundView extends View {
         // remove fund selection
         localStorage.setItem("fund", '');
         super.visit();
+
+        // hide back button to avoid confusion
+        NavButtons.Last.hide();
     }
+    
 }
 
 class FundTable extends ViewTable {
