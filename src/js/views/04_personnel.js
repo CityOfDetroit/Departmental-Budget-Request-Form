@@ -43,7 +43,7 @@ class PersonnelTable extends ViewTable {
             { title: 'Fringe Benefits Rate', className: 'fringe', hide: true },
             { title: 'General Increase Rate', className: 'general-increase-rate', hide: true},
             { title: 'Step/Merit Increase Rate', className: 'merit-increase-rate', hide: true},
-            { title: `Average Salary/Wage as of 9/1/20${this.fiscal_year-2}`, className: 'current-salary', isCost: true, hide: true}
+            { title: `Average Salary/Wage as of 9/20/20${this.fiscal_year-2}`, className: 'current-salary', isCost: true, hide: true}
         ]);
 
         this.noDataMessage = 'No personnel expenditures for this fund.'
